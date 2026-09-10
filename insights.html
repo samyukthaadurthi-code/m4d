@@ -1,770 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insights | MRC Landmarks</title>
-<meta name="description" content="Practical buyer guides, location insights and project updates from MRC Landmarks. Make better-informed land-buying decisions in Southern Tamil Nadu.">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Insights — MRC Landmarks">
-<meta property="og:description" content="Practical buyer guides, location insights and project updates from MRC Landmarks. Make better-informed land-buying decisions in Southern Tamil Nadu.">
+<meta name="description" content="Practical buyer guides, regulations explained and location insights for plot buyers in Tamil Nadu.">
+<link rel="icon" href="MRC LOGO LOTUS25 copy.pdf.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg: #F7F5EF;
-  --bg-alt: #EEF1EC;
-  --white: #FFFFFF;
-  --teal: #176A70;
-  --teal-deep: #12474C;
-  --teal-pale: #E2EDEB;
-  --gold: #C4A97D;
-  --gold-light: #EDE4D4;
-  --text: #1A2A2D;
-  --text-body: #4A5450;
-  --text-muted: #8A8D82;
-  --text-light: #B0B3A8;
-  --border: #E4E2DA;
-  --shadow-sm: 0 2px 16px rgba(23,106,112,0.04);
-  --shadow-md: 0 4px 28px rgba(23,106,112,0.06);
-  --shadow-hover: 0 12px 36px rgba(23,106,112,0.10);
-  --r: 24px;
-  --r-sm: 14px;
-  --r-btn: 14px;
-  --font-d: 'Instrument Sans', system-ui, sans-serif;
-  --font-b: 'Inter', system-ui, sans-serif;
-}
-
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-body {
-  font-family: var(--font-b);
-  color: var(--text-body);
-  background: var(--bg);
-  line-height: 1.6;
-  overflow-x: hidden;
-}
-img { max-width: 100%; display: block; }
-a { color: inherit; text-decoration: none; }
-button { border: none; background: none; cursor: pointer; font: inherit; }
-
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  opacity: 0.025;
-  pointer-events: none;
-  z-index: 9999;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 180px;
-}
-
-/* ---- NAV ---- */
-.nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 16px 20px;
-  display: flex; align-items: center; justify-content: space-between;
-  background: rgba(247,245,239,0.92);
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(228,226,218,0.5);
-  box-shadow: 0 2px 20px rgba(0,0,0,0.04);
-}
-.nav-logo { height: 44px; }
-.nav-logo img { height: 100%; width: auto; }
-.nav-burger {
-  width: 40px; height: 40px;
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center; gap: 6px;
-  background: var(--white);
-  border-radius: var(--r-sm);
-  border: 1px solid var(--border);
-}
-.nav-burger span {
-  display: block; width: 18px; height: 1.5px;
-  background: var(--text); border-radius: 2px;
-}
-.nav-links { display: none; }
-@media (min-width: 900px) {
-  .nav { padding: 16px 48px; }
-  .nav-burger { display: none; }
-  .nav-links {
-    display: flex; align-items: center; gap: 32px;
-  }
-  .nav-links a {
-    font-size: 14px; font-weight: 500; color: var(--text-body);
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--teal); }
-  .nav-links a.active { color: var(--teal); font-weight: 600; }
-  .nav-links .nav-cta {
-    padding: 10px 22px;
-    background: var(--teal); color: var(--white);
-    border-radius: var(--r-btn); font-weight: 600;
-    transition: background 0.3s;
-  }
-  .nav-links .nav-cta:hover { background: var(--teal-deep); }
-}
-
-/* ---- MOBILE MENU ---- */
-.mobile-menu {
-  position: fixed; inset: 0; z-index: 200;
-  background: var(--bg);
-  display: flex; flex-direction: column;
-  padding: 24px;
-  transform: translateX(100%);
-  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
-}
-.mobile-menu.open { transform: translateX(0); }
-.mobile-menu-top {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: 48px;
-}
-.mobile-menu-close {
-  width: 40px; height: 40px;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--white); border-radius: 10px;
-  border: 1px solid var(--border);
-  font-size: 20px; color: var(--text);
-}
-.mobile-menu nav { display: flex; flex-direction: column; gap: 8px; }
-.mobile-menu nav a {
-  font-family: var(--font-d);
-  font-size: 24px; font-weight: 600; color: var(--text);
-  padding: 12px 0;
-  border-bottom: 1px solid var(--border);
-}
-.mobile-menu nav a.active { color: var(--teal); }
-.mobile-menu-ctas { margin-top: auto; padding-top: 32px; }
-.btn-gold {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  padding: 14px 28px;
-  background: var(--gold); color: var(--white);
-  font-family: var(--font-d);
-  font-size: 14px; font-weight: 600;
-  border-radius: var(--r-btn);
-  width: 100%; text-align: center;
-}
-
-/* ---- HERO ---- */
-.insights-hero {
-  padding: 100px 20px 32px;
-}
-.eyebrow {
-  display: flex; align-items: center; gap: 10px;
-  font-family: var(--font-d);
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--teal);
-  margin-bottom: 16px;
-}
-.eyebrow::before {
-  content: '';
-  width: 8px; height: 8px; border-radius: 50%;
-  background: var(--teal); opacity: 0.35;
-}
-.section-head {
-  font-family: var(--font-d);
-  font-size: 32px;
-  font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
-  color: var(--text);
-  margin-bottom: 14px;
-}
-.section-head .accent { color: var(--teal); }
-.section-sub {
-  font-size: 15px; line-height: 1.7;
-  color: var(--text-muted);
-  max-width: 480px;
-}
-
-/* ---- FILTER TABS ---- */
-.filter-tabs {
-  display: flex; gap: 10px;
-  padding: 24px 20px 8px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-}
-.filter-tabs::-webkit-scrollbar { display: none; }
-.filter-tab {
-  flex-shrink: 0;
-  padding: 8px 20px;
-  border-radius: 100px;
-  font-family: var(--font-d);
-  font-size: 13px; font-weight: 600;
-  white-space: nowrap;
-  transition: all 0.3s;
-  cursor: pointer;
-  border: 1.5px solid var(--border);
-  color: var(--text-muted);
-  background: transparent;
-}
-.filter-tab.active {
-  background: var(--teal);
-  color: var(--white);
-  border-color: var(--teal);
-}
-.filter-tab:not(.active):hover {
-  border-color: var(--teal);
-  color: var(--teal);
-}
-
-/* ---- CARD CAROUSEL ---- */
-.card-carousel {
-  display: flex;
-  gap: 16px;
-  padding: 24px 20px 40px;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-}
-.card-carousel::-webkit-scrollbar { display: none; }
-
-.insight-card {
-  flex: 0 0 280px;
-  scroll-snap-align: start;
-  border-radius: var(--r);
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  background: var(--white);
-  box-shadow: var(--shadow-sm);
-  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s;
-  text-decoration: none;
-  color: inherit;
-}
-.insight-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-hover);
-}
-
-.card-img-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-}
-.card-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.22,1,0.36,1);
-}
-.insight-card:hover .card-img-wrap img {
-  transform: scale(1.05);
-}
-.card-img-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to top,
-    rgba(12,47,35,0.85) 0%,
-    rgba(12,47,35,0.4) 35%,
-    transparent 65%
-  );
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 20px;
-}
-.card-pill {
-  display: inline-flex;
-  align-self: flex-start;
-  padding: 4px 14px;
-  border-radius: 100px;
-  font-family: var(--font-d);
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  background: rgba(255,255,255,0.92);
-  color: var(--teal-deep);
-  margin-bottom: 12px;
-  backdrop-filter: blur(8px);
-}
-.card-title {
-  font-family: var(--font-d);
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 1.25;
-  color: #fff;
-  margin-bottom: 8px;
-}
-.card-excerpt {
-  font-size: 12.5px;
-  line-height: 1.5;
-  color: rgba(255,255,255,0.72);
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.card-bottom {
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.card-meta {
-  font-size: 12px;
-  color: var(--text-muted);
-  font-weight: 500;
-}
-.card-read-more {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: var(--font-d);
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--teal);
-  transition: gap 0.3s;
-}
-.insight-card:hover .card-read-more { gap: 10px; }
-.card-read-more svg {
-  transition: transform 0.3s;
-}
-.insight-card:hover .card-read-more svg {
-  transform: translateX(3px);
-}
-
-/* ---- SCROLL INDICATORS ---- */
-.scroll-hint {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  padding: 0 20px 32px;
-}
-.scroll-dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--border);
-  transition: all 0.3s;
-}
-.scroll-dot.active {
-  width: 24px;
-  border-radius: 4px;
-  background: var(--teal);
-}
-
-/* ---- DIVIDER ---- */
-.section-divider {
-  margin: 0 20px;
-  border: none;
-  border-top: 1px solid var(--border);
-}
-
-/* ---- SUBSCRIBE ---- */
-.subscribe-section {
-  padding: 48px 20px 56px;
-  text-align: center;
-}
-.subscribe-section h3 {
-  font-family: var(--font-d);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--text);
-  margin-bottom: 10px;
-}
-.subscribe-section p {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 24px;
-  max-width: 400px;
-  margin-left: auto; margin-right: auto;
-  line-height: 1.6;
-}
-.subscribe-form {
-  display: flex;
-  gap: 10px;
-  max-width: 420px;
-  margin: 0 auto 12px;
-}
-.subscribe-form input {
-  flex: 1;
-  padding: 14px 18px;
-  border-radius: var(--r-sm);
-  border: 1.5px solid var(--border);
-  background: var(--white);
-  font-family: var(--font-b);
-  font-size: 14px;
-  color: var(--text);
-  outline: none;
-  transition: border-color 0.3s;
-}
-.subscribe-form input:focus {
-  border-color: var(--teal);
-}
-.subscribe-form input::placeholder {
-  color: var(--text-light);
-}
-.subscribe-btn {
-  padding: 14px 24px;
-  background: var(--gold);
-  color: var(--white);
-  font-family: var(--font-d);
-  font-size: 14px; font-weight: 600;
-  border-radius: var(--r-sm);
-  border: none;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background 0.3s;
-}
-.subscribe-btn:hover { background: #b89a6f; }
-.subscribe-note {
-  font-size: 12px;
-  color: var(--text-light);
-  margin-top: 8px;
-}
-.subscribe-error {
-  font-size: 13px;
-  color: #c44;
-  margin-top: 8px;
-  display: none;
-}
-.subscribe-success {
-  display: none;
-  text-align: center;
-}
-.subscribe-success h4 {
-  font-family: var(--font-d);
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--teal);
-  margin-bottom: 6px;
-}
-.subscribe-success p {
-  font-size: 14px;
-  color: var(--text-muted);
-  margin-bottom: 0;
-}
-
-/* ---- REVEAL ---- */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
-}
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ---- FOOTER ---- */
-.footer {
-  background: var(--teal-deep);
-  color: rgba(255,255,255,0.6);
-  padding: 56px 20px 32px;
-}
-.footer-inner { max-width: 1100px; margin: 0 auto; }
-.footer-top {
-  display: flex; flex-direction: column; gap: 40px;
-  margin-bottom: 40px;
-}
-.footer-tagline {
-  font-family: var(--font-d);
-  font-size: 14px; margin-top: 12px;
-  color: rgba(255,255,255,0.5);
-}
-.footer-cols {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 32px;
-}
-.footer-col h4 {
-  font-family: var(--font-d);
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  color: rgba(255,255,255,0.35);
-  margin-bottom: 16px;
-}
-.footer-col a {
-  display: block; font-size: 14px;
-  color: rgba(255,255,255,0.6);
-  padding: 6px 0;
-  transition: color 0.2s;
-}
-.footer-col a:hover { color: rgba(255,255,255,0.9); }
-.footer-bottom {
-  border-top: 1px solid rgba(255,255,255,0.1);
-  padding-top: 24px;
-  text-align: center;
-}
-.footer-bottom-links {
-  display: flex; justify-content: center; gap: 24px;
-  margin-bottom: 12px;
-}
-.footer-bottom-links a {
-  font-size: 12px;
-  color: rgba(255,255,255,0.4);
-  transition: color 0.2s;
-}
-.footer-bottom-links a:hover { color: rgba(255,255,255,0.7); }
-.footer-copy {
-  font-size: 12px;
-  color: rgba(255,255,255,0.3);
-}
-
-/* ---- DESKTOP ---- */
-@media (min-width: 700px) {
-  .card-carousel {
-    padding: 24px 48px 40px;
-    gap: 20px;
-  }
-  .insight-card {
-    flex: 0 0 320px;
-  }
-  .scroll-hint { display: none; }
-}
-@media (min-width: 900px) {
-  .insights-hero {
-    padding: 140px 48px 32px;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .section-head { font-size: 48px; }
-  .filter-tabs { padding: 24px 48px 8px; }
-  .card-carousel {
-    padding: 24px 48px 48px;
-    gap: 24px;
-  }
-  .insight-card {
-    flex: 0 0 340px;
-  }
-  .card-title { font-size: 20px; }
-  .subscribe-section { padding: 56px 48px 64px; }
-  .footer { padding: 56px 48px 32px; }
-  .footer-top { flex-direction: row; justify-content: space-between; }
-}
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="mrc.css">
 </head>
 <body>
+<div class="topbar">
+  <div class="wrap">
+    <div><a href="tel:+918925972469">+91 89259 72469</a><span class="sep">&middot;</span><a href="mailto:mrclandmarks@gmail.com">mrclandmarks@gmail.com</a></div>
+    <div class="right">Plotted Developments in Southern Tamil Nadu</div>
+  </div>
+</div>
 
-<header class="nav scrolled">
-  <a href="index.html" class="nav-logo"><img src="MRC LOGO LOTUS25 copy.pdf.png" alt="MRC Landmarks"></a>
-  <nav class="nav-links">
-    <a href="index.html">Home</a>
-    <a href="index.html#intro">About</a>
-    <a href="projects.html">Locations</a>
-    <a href="insights.html" class="active">Insights</a>
-    <a href="contact.html">Contact</a>
-    <a href="site-visit.html" class="nav-cta">Schedule a Visit</a>
-  </nav>
-  <button class="nav-burger" id="menuOpen" aria-label="Menu"><span></span><span></span><span></span></button>
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index-new.html">
+  <span class="mark"><img src="MRC LOGO LOTUS25 copy.pdf.png" alt=""></span>
+  <span>
+    <span class="name">MRC LANDMARKS</span><br>
+    <span class="tag">Landmarks of the South</span>
+  </span>
+</a>
+    <nav class="main">
+      <a href="about.html">About</a>
+      <a href="approach.html">Our Approach</a>
+      <a href="why-mrc.html">Why MRC</a>
+      <a href="locations.html">Locations</a>
+      <a href="trust.html">Trust</a>
+      <a href="channel-partners.html">Partners</a>
+      <a href="insights.html" aria-current="page">Insights</a>
+    </nav>
+    <a class="btn btn-gold" href="site-visit.html">Schedule a Visit</a>
+    <button class="menu-btn" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
 </header>
-
-<div class="mobile-menu" id="mobileMenu">
-  <div class="mobile-menu-top">
-    <a href="index.html" class="nav-logo"><img src="MRC LOGO LOTUS25 copy.pdf.png" alt="MRC Landmarks"></a>
-    <button class="mobile-menu-close" id="menuClose">&times;</button>
-  </div>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="index.html#intro">About</a>
-    <a href="projects.html">Locations</a>
-    <a href="insights.html" class="active">Insights</a>
-    <a href="contact.html">Contact</a>
-  </nav>
-  <div class="mobile-menu-ctas">
-    <a href="site-visit.html" class="btn-gold">Schedule a Site Visit</a>
-  </div>
-</div>
-
-<!-- HERO -->
-<section class="insights-hero">
-  <div class="eyebrow">Insights</div>
-  <h1 class="section-head">Know the Land<br><span class="accent">Before You Buy.</span></h1>
-  <p class="section-sub">Practical buyer guides, location insights and project updates for better-informed real-estate decisions.</p>
-</section>
-
-<!-- FILTER TABS -->
-<div class="filter-tabs" role="tablist">
-  <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">All</button>
-  <button class="filter-tab" data-filter="buyer-guide" role="tab" aria-selected="false">Buyer Guides</button>
-  <button class="filter-tab" data-filter="regulations" role="tab" aria-selected="false">Regulations</button>
-  <button class="filter-tab" data-filter="how-to" role="tab" aria-selected="false">How-to</button>
-</div>
-
-<!-- CARD CAROUSEL -->
-<div class="card-carousel" id="cardCarousel">
-
-  <!-- Card 1 -->
-  <a href="insight-verify-before-buying.html" class="insight-card" data-category="buyer-guide">
-    <div class="card-img-wrap">
-      <img src="2b1442b6-33c3-4be9-aa9e-cc22d6a2ebea.png" alt="Buyer reviewing a plotted-layout plan overlooking developed land in Tamil Nadu">
-      <div class="card-img-overlay">
-        <span class="card-pill">Buyer Guide</span>
-        <h3 class="card-title">What to Verify Before Buying a Plot in Tamil Nadu</h3>
-        <p class="card-excerpt">A practical guide to the documents, approvals and on-ground details every buyer should review before purchasing a plot.</p>
-      </div>
-    </div>
-    <div class="card-bottom">
-      <span class="card-meta">5 min read</span>
-      <span class="card-read-more">Read More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-    </div>
-  </a>
-
-  <!-- Card 2 -->
-  <a href="insight-dtcp-rera.html" class="insight-card" data-category="regulations">
-    <div class="card-img-wrap">
-      <img src="5db28d84-affe-4203-96e5-90852a4c59f6.png" alt="Approved-layout drawing beside an aerial plotted development in Tamil Nadu" loading="lazy">
-      <div class="card-img-overlay">
-        <span class="card-pill">Regulations</span>
-        <h3 class="card-title">DTCP and RERA: What Plot Buyers Need to Understand</h3>
-        <p class="card-excerpt">DTCP approval and RERA registration are related to a project in different ways. Here is how to understand both.</p>
-      </div>
-    </div>
-    <div class="card-bottom">
-      <span class="card-meta">4 min read</span>
-      <span class="card-read-more">Read More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-    </div>
-  </a>
-
-  <!-- Card 3 -->
-  <a href="insight-master-plan.html" class="insight-card" data-category="how-to">
-    <div class="card-img-wrap">
-      <img src="9551af30-d0e7-4eb6-9264-bcf8eb8e3831.png" alt="Plotted-development master plan transitioning into an aerial landscape" loading="lazy">
-      <div class="card-img-overlay">
-        <span class="card-pill">How-to</span>
-        <h3 class="card-title">How to Read a Plotted-Development Master Plan</h3>
-        <p class="card-excerpt">A plotted-development plan tells a story about access, movement and everyday usability. Learn what to look for.</p>
-      </div>
-    </div>
-    <div class="card-bottom">
-      <span class="card-meta">6 min read</span>
-      <span class="card-read-more">Read More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
-    </div>
-  </a>
-
-</div>
-
-<!-- SCROLL INDICATORS -->
-<div class="scroll-hint" id="scrollHint">
-  <span class="scroll-dot active" data-index="0"></span>
-  <span class="scroll-dot" data-index="1"></span>
-  <span class="scroll-dot" data-index="2"></span>
-</div>
-
-<hr class="section-divider reveal">
-
-<!-- SUBSCRIBE -->
-<section class="subscribe-section reveal">
-  <h3>More insights coming soon.</h3>
-  <p>Subscribe to stay updated with buyer guides, location insights and project news.</p>
-  <div id="subscribeForm">
-    <form class="subscribe-form" onsubmit="return handleSubscribe(event)">
-      <input type="email" placeholder="Your email address" id="subEmail" required>
-      <button type="submit" class="subscribe-btn">Subscribe</button>
-    </form>
-    <p class="subscribe-note">No spam. Unsubscribe anytime. We respect your privacy.</p>
-    <p class="subscribe-error" id="subError">Please enter a valid email address.</p>
-  </div>
-  <div class="subscribe-success" id="subSuccess">
-    <h4>You're subscribed.</h4>
-    <p>We'll send you new insights as they're published.</p>
+<main>
+<section class="pagehead">
+  <div class="wrap">
+    <p class="crumb"><a href="index-new.html">Home</a> &nbsp;/&nbsp; Insights</p>
+    <div class="rule"></div>
+    <h1 class="display">Know the Land Before You Buy.</h1>
+    <p>Practical buyer guides, regulations explained and location insights for better-informed real-estate decisions.</p>
   </div>
 </section>
+  <section>
+    <div class="wrap">
+      <div class="posts">
+        <a class="post" href="insight-verify-before-buying.html">
+          <div class="k">Buyer Guide</div>
+          <h3>What to Verify Before Buying a Plot in Tamil Nadu</h3>
+          <p>The essential checks every buyer should complete before signing.</p>
+          <span class="go">Read guide &rarr;</span>
+        </a>
+        <a class="post" href="insight-dtcp-rera.html">
+          <div class="k">Regulations</div>
+          <h3>DTCP and RERA: What Plot Buyers Need to Understand</h3>
+          <p>A clear explanation of the approvals that protect your purchase.</p>
+          <span class="go">Read guide &rarr;</span>
+        </a>
+        <a class="post" href="insight-master-plan.html">
+          <div class="k">How-to</div>
+          <h3>How to Read a Plotted-Development Master Plan</h3>
+          <p>Understanding layouts, access roads and amenity planning.</p>
+          <span class="go">Read guide &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
-<!-- FOOTER -->
-<footer class="footer reveal">
-  <div class="footer-inner">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <img src="MRC LOGO LOTUS25 copy.pdf.png" alt="MRC Landmarks" style="height:28px; opacity:0.5; filter:brightness(10);">
-        <p class="footer-tagline">Landmarks of the South.</p>
+<section class="closing">
+  <div class="wrap">
+    <p class="eyebrow" style="color:var(--gold)">Get Started</p>
+    <h2 class="display">See the Location.<br>Understand the Opportunity.</h2>
+    <p>Explore an MRC project in person and speak with our team about the location, layout, documentation and purchase process.</p>
+    <div class="hero-cta">
+      <a class="btn btn-gold" href="site-visit.html">Schedule a Site Visit</a>
+      <a class="btn btn-ghost" href="https://wa.me/918925972469">Talk to Us on WhatsApp</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a class="brand" href="index-new.html" style="margin:0">
+  <span class="mark"><img src="MRC LOGO LOTUS25 copy.pdf.png" alt=""></span>
+  <span>
+    <span class="name">MRC LANDMARKS</span><br>
+    <span class="tag">Landmarks of the South</span>
+  </span>
+</a>
+        <p class="about">Plotted developments across Southern Tamil Nadu, planned and documented so buyers can decide with clarity.</p>
+        <p class="about"><a href="tel:+918925972469">+91 89259 72469</a><br><a href="mailto:mrclandmarks@gmail.com">mrclandmarks@gmail.com</a></p>
       </div>
-      <div class="footer-cols">
-        <div class="footer-col">
-          <h4>Explore</h4>
-          <a href="index.html#intro">About</a>
-          <a href="index.html#process">Our Approach</a>
-          <a href="projects.html">Locations</a>
-        </div>
-        <div class="footer-col">
-          <h4>Connect</h4>
-          <a href="channel-partners.html">Channel Partners</a>
-          <a href="mrc-forum.html">MRC Forum</a>
-          <a href="insights.html">Insights</a>
-          <a href="contact.html">Contact</a>
-        </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="approach.html">Our Approach</a></li>
+          <li><a href="why-mrc.html">Why MRC</a></li>
+          <li><a href="locations.html">Locations</a></li>
+          <li><a href="trust.html">Trust</a></li>
+          <li><a href="projects.html">Projects</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="channel-partners.html">Channel Partners</a></li>
+          <li><a href="mrc-forum.html">MRC Forum</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="site-visit.html">Schedule a Visit</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
       </div>
     </div>
-    <div class="footer-bottom">
-      <div class="footer-bottom-links">
-        <a href="privacy-policy.html">Privacy Policy</a>
-        <a href="terms.html">Terms</a>
-      </div>
-      <p class="footer-copy">&copy; 2026 MRC Landmarks. All rights reserved.</p>
-    </div>
+
+    <p class="disclaimer">Project information, specifications, amenities, pricing and timelines are subject to the applicable project documents and may change. Buyers should review the relevant approvals and legal documents before making a purchase decision.</p>
+    <p class="copy">&copy; 2026 MRC Landmarks. All rights reserved.</p>
   </div>
 </footer>
-
-<script>
-// Menu
-document.getElementById('menuOpen').onclick = () => document.getElementById('mobileMenu').classList.add('open');
-document.getElementById('menuClose').onclick = () => document.getElementById('mobileMenu').classList.remove('open');
-
-// Filter tabs
-const tabs = document.querySelectorAll('.filter-tab');
-const cards = document.querySelectorAll('.insight-card');
-tabs.forEach(tab => {
-  tab.onclick = () => {
-    tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
-    tab.classList.add('active');
-    tab.setAttribute('aria-selected','true');
-    const f = tab.dataset.filter;
-    cards.forEach(c => {
-      if (f === 'all' || c.dataset.category === f) {
-        c.style.display = '';
-        setTimeout(() => { c.style.opacity = '1'; c.style.transform = ''; }, 20);
-      } else {
-        c.style.opacity = '0';
-        c.style.transform = 'scale(0.95)';
-        setTimeout(() => { c.style.display = 'none'; }, 300);
-      }
-    });
-  };
-});
-
-// Scroll dots
-const carousel = document.getElementById('cardCarousel');
-const dots = document.querySelectorAll('.scroll-dot');
-if (carousel && dots.length) {
-  carousel.addEventListener('scroll', () => {
-    const scrollLeft = carousel.scrollLeft;
-    const cardWidth = 296;
-    const idx = Math.round(scrollLeft / cardWidth);
-    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-  });
-}
-
-// Subscribe
-function handleSubscribe(e) {
-  e.preventDefault();
-  const email = document.getElementById('subEmail').value;
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!re.test(email)) {
-    document.getElementById('subError').style.display = 'block';
-    return false;
-  }
-  document.getElementById('subError').style.display = 'none';
-  document.getElementById('subscribeForm').style.display = 'none';
-  document.getElementById('subSuccess').style.display = 'block';
-  return false;
-}
-
-// Reveal
-const obs = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }});
-}, { threshold: 0.1 });
-document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-</script>
 
 </body>
 </html>
