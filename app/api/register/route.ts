@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { appendRow, findBy, setCell, sheetsConfigured } from "@/lib/sheets";
 import { REGISTRATION_COLUMNS, REGISTRATION_FIELDS, SHEETS } from "@/lib/schema";
 import { sendBadge, sendCpFormLink } from "@/lib/whatsapp";
+import { sendBadgeEmail, sendCpFormLinkEmail } from "@/lib/email";
 import { t, type Lang } from "@/lib/i18n";
 
 export const runtime = "nodejs";
@@ -22,24 +23,32 @@ function origin(req: Request) {
   return `${proto}://${host}`;
 }
 
-/** Badge and CP link, fired after the response is already safe to return. */
+/**
+ * Badge and CP link, fired after the response is already safe to return.
+ *
+ * Every message goes on both channels. A broker who mistyped their WhatsApp
+ * number still gets the badge by email, and vice versa — at a 400-person desk
+ * some of them will get one of the two wrong.
+ */
 async function notify(
   base: string,
   uniqueId: string,
   values: Record<string, string>,
 ) {
-  await sendBadge(
-    values.whatsapp,
-    values.full_name,
-    uniqueId,
-    `${base}/api/badge/${uniqueId}`,
-  );
+  const badgeUrl = `${base}/api/badge/${uniqueId}`;
+  const badgePage = `${base}/badge/${uniqueId}`;
+  const cpLink = `${base}/cp/${uniqueId}`;
+
+  await Promise.allSettled([
+    sendBadge(values.whatsapp, values.full_name, uniqueId, badgeUrl),
+    sendBadgeEmail(values.email, values.full_name, uniqueId, badgeUrl, badgePage),
+  ]);
+
   if (values.cp_interested === "Yes") {
-    await sendCpFormLink(
-      values.whatsapp,
-      values.full_name,
-      `${base}/cp/${uniqueId}`,
-    );
+    await Promise.allSettled([
+      sendCpFormLink(values.whatsapp, values.full_name, cpLink),
+      sendCpFormLinkEmail(values.email, values.full_name, cpLink),
+    ]);
   }
 }
 

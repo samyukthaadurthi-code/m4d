@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { appendRow, findById, setCell, sheetsConfigured } from "@/lib/sheets";
 import { SHEETS, VISIT_COLUMNS, VISIT_FIELDS } from "@/lib/schema";
 import { sendVisitConfirmation, sendLeadAlert } from "@/lib/whatsapp";
+import { sendVisitConfirmationEmail } from "@/lib/email";
 import { t, type Lang } from "@/lib/i18n";
 
 export const runtime = "nodejs";
@@ -95,6 +96,14 @@ export async function POST(req: Request) {
   Promise.all([
     sendVisitConfirmation(
       values.visitor_mobile,
+      values.visitor_name,
+      requirement,
+      values.budget,
+      `${values.visit_date} (${values.visit_time})`,
+    ),
+    // Same message by email when they gave one — optional field, so often blank.
+    sendVisitConfirmationEmail(
+      values.visitor_email,
       values.visitor_name,
       requirement,
       values.budget,

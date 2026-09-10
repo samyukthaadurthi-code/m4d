@@ -258,6 +258,14 @@ export const VISIT_FIELDS: Field[] = [
     placeholderTa: "10 இலக்க மொபைல் எண்",
   },
   {
+    key: "visitor_email",
+    label: "Email address (optional)",
+    ta: "மின்னஞ்சல் (விருப்பம்)",
+    type: "email",
+    placeholder: "We'll email your visit details",
+    placeholderTa: "பார்வை விவரங்களை அனுப்புவோம்",
+  },
+  {
     key: "visitor_location",
     label: "Where do you live?",
     ta: "நீங்கள் வசிக்கும் இடம்",
