@@ -2,6 +2,7 @@ import { ImageResponse } from "next/og";
 import { findById } from "@/lib/sheets";
 import { SHEETS } from "@/lib/schema";
 import { brand } from "@/lib/brand";
+import { logoDataUri } from "@/lib/logo";
 
 export const runtime = "nodejs";
 
@@ -47,19 +48,36 @@ export async function GET(
             padding: "44px 56px 0 56px",
           }}
         >
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ fontSize: 34, fontWeight: 700, letterSpacing: 4 }}>
-              {brand.name}
-            </div>
+          <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+            {/* Logo is dark teal on transparent, so it needs a light ground to read. */}
             <div
               style={{
-                fontSize: 17,
-                color: brand.gold,
-                letterSpacing: 2,
-                marginTop: 6,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 96,
+                height: 96,
+                borderRadius: 48,
+                backgroundColor: brand.cream,
               }}
             >
-              {brand.tagline}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={logoDataUri()} width={72} height={72} alt="" />
+            </div>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ fontSize: 34, fontWeight: 700, letterSpacing: 4 }}>
+                {brand.name}
+              </div>
+              <div
+                style={{
+                  fontSize: 17,
+                  color: brand.gold,
+                  letterSpacing: 2,
+                  marginTop: 6,
+                }}
+              >
+                {brand.tagline}
+              </div>
             </div>
           </div>
           <div

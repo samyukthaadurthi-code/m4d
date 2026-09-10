@@ -78,16 +78,31 @@ async function allRows(sheet: string): Promise<string[][]> {
  * ponytail: full-sheet scan. Fine at a few thousand rows; move to a real
  * datastore if this ever backs more than event registration.
  */
-export async function findById(
+async function findRow(
   sheet: string,
-  id: string,
+  match: (row: string[], header: string[]) => boolean,
 ): Promise<Record<string, string> | null> {
   const rows = await allRows(sheet);
   if (rows.length < 2) return null;
   const [header, ...body] = rows;
-  const row = body.find((r) => r[0]?.trim() === id.trim());
-  if (!row) return null;
-  return Object.fromEntries(header.map((h, i) => [h, row[i] ?? ""]));
+  const row = body.find((r) => match(r, header));
+  return row
+    ? Object.fromEntries(header.map((h, i) => [h, row[i] ?? ""]))
+    : null;
+}
+
+export function findBy(sheet: string, column: string, value: string) {
+  const wanted = value.trim();
+  return findRow(sheet, (row, header) => {
+    const col = header.indexOf(column);
+    return col !== -1 && (row[col] ?? "").trim() === wanted;
+  });
+}
+
+/** Column A holds the unique ID on every sheet. */
+export function findById(sheet: string, id: string) {
+  const wanted = id.trim();
+  return findRow(sheet, (row) => (row[0] ?? "").trim() === wanted);
 }
 
 /** Creates the tab if missing and writes the header row. Idempotent, never deletes. */

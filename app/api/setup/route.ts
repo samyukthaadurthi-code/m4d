@@ -1,6 +1,11 @@
 import { NextResponse } from "next/server";
 import { ensureSheet, sheetsConfigured } from "@/lib/sheets";
-import { CP_COLUMNS, REGISTRATION_COLUMNS, SHEETS } from "@/lib/schema";
+import {
+  CP_COLUMNS,
+  REGISTRATION_COLUMNS,
+  SHEETS,
+  VISIT_COLUMNS,
+} from "@/lib/schema";
 
 export const runtime = "nodejs";
 
@@ -30,12 +35,14 @@ export async function POST(req: Request) {
 
   await ensureSheet(SHEETS.registrations, REGISTRATION_COLUMNS);
   await ensureSheet(SHEETS.cp, CP_COLUMNS);
+  await ensureSheet(SHEETS.visits, VISIT_COLUMNS);
 
   return NextResponse.json({
     ok: true,
     sheets: {
       [SHEETS.registrations]: REGISTRATION_COLUMNS,
       [SHEETS.cp]: CP_COLUMNS,
+      [SHEETS.visits]: VISIT_COLUMNS,
     },
   });
 }

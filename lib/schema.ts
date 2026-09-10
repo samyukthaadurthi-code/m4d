@@ -7,10 +7,20 @@ export type Field = {
   key: string; // sheet header + form field name
   label: string;
   ta?: string; // Tamil sub-label — audience is Southern TN brokers, many first-timers
-  type: "text" | "tel" | "email" | "textarea" | "radio" | "checkbox" | "select";
+  type:
+    | "text"
+    | "tel"
+    | "email"
+    | "textarea"
+    | "radio"
+    | "checkbox"
+    | "select"
+    | "date"
+    | "consent";
   options?: Option[];
   required?: boolean;
   placeholder?: string;
+  placeholderTa?: string;
   // Conditional display, evaluated against current form values.
   showIf?: (v: Record<string, string>) => boolean;
 };
@@ -23,6 +33,7 @@ export const REGISTRATION_FIELDS: Field[] = [
     type: "text",
     required: true,
     placeholder: "As it should appear on your badge",
+    placeholderTa: "அடையாள அட்டையில் வர வேண்டிய பெயர்",
   },
   {
     key: "mobile",
@@ -31,6 +42,7 @@ export const REGISTRATION_FIELDS: Field[] = [
     type: "tel",
     required: true,
     placeholder: "10-digit mobile number",
+    placeholderTa: "10 இலக்க மொபைல் எண்",
   },
   {
     key: "whatsapp",
@@ -39,6 +51,7 @@ export const REGISTRATION_FIELDS: Field[] = [
     type: "tel",
     required: true,
     placeholder: "Tick below if same as mobile",
+    placeholderTa: "மொபைல் எண்ணே எனில் கீழே தேர்ந்தெடுக்கவும்",
   },
   {
     key: "email",
@@ -67,6 +80,7 @@ export const REGISTRATION_FIELDS: Field[] = [
     type: "text",
     required: true,
     placeholder: "Printed on your badge",
+    placeholderTa: "அடையாள அட்டையில் அச்சிடப்படும்",
     showIf: (v) => v.partner_type === "Company" || v.partner_type === "Agency",
   },
   {
@@ -76,6 +90,7 @@ export const REGISTRATION_FIELDS: Field[] = [
     type: "text",
     required: true,
     placeholder: "e.g. Madurai, Thoothukudi, Tirunelveli",
+    placeholderTa: "எ.கா. மதுரை, தூத்துக்குடி, திருநெல்வேலி",
   },
   {
     key: "address",
@@ -83,6 +98,7 @@ export const REGISTRATION_FIELDS: Field[] = [
     ta: "முகவரி",
     type: "textarea",
     placeholder: "Office or residence address",
+    placeholderTa: "அலுவலகம் அல்லது வீட்டு முகவரி",
   },
   {
     key: "experience_years",
@@ -139,6 +155,12 @@ export const REGISTRATION_FIELDS: Field[] = [
       { value: "No", label: "Not right now", ta: "இப்போது இல்லை" },
     ],
   },
+  {
+    key: "consent",
+    label: "Consent",
+    type: "consent",
+    required: true,
+  },
 ];
 
 // Columns written to the sheet, in order. Column A is always the unique ID.
@@ -149,14 +171,33 @@ export const REGISTRATION_COLUMNS = [
   ...REGISTRATION_FIELDS.map((f) => f.key),
 ];
 
-// Channel Partner programme form. Field spec is still pending from MRC —
-// these are placeholders; replace the array and re-run /api/setup.
+// Channel Partner programme form. PAN, GST and RERA are collected here rather
+// than at registration — asking for tax numbers at a busy event desk visibly
+// slows people down. Remaining field spec still pending from MRC.
 export const CP_FIELDS: Field[] = [
   {
-    key: "firm_registration",
-    label: "Firm / RERA registration number (if any)",
+    key: "pan",
+    label: "PAN number",
+    ta: "பான் எண்",
+    type: "text",
+    required: true,
+    placeholder: "ABCDE1234F",
+  },
+  {
+    key: "gst",
+    label: "GST number (if registered)",
+    ta: "ஜிஎஸ்டி எண்",
     type: "text",
     placeholder: "Leave blank if not registered",
+    placeholderTa: "பதிவு இல்லையெனில் காலியாக விடவும்",
+  },
+  {
+    key: "rera_id",
+    label: "TNRERA agent registration number (if any)",
+    ta: "TNRERA பதிவு எண்",
+    type: "text",
+    placeholder: "Leave blank if not registered",
+    placeholderTa: "பதிவு இல்லையெனில் காலியாக விடவும்",
   },
   {
     key: "team_size",
@@ -197,7 +238,126 @@ export const CP_COLUMNS = [
   ...CP_FIELDS.map((f) => f.key),
 ];
 
+// Site visit form — filled by the CUSTOMER at a separate station, not the broker.
+// Budget brackets are placeholders until MRC sets them against real plot pricing.
+export const VISIT_FIELDS: Field[] = [
+  {
+    key: "visitor_name",
+    label: "Your name",
+    ta: "உங்கள் பெயர்",
+    type: "text",
+    required: true,
+  },
+  {
+    key: "visitor_mobile",
+    label: "Mobile number",
+    ta: "மொபைல் எண்",
+    type: "tel",
+    required: true,
+    placeholder: "10-digit mobile number",
+    placeholderTa: "10 இலக்க மொபைல் எண்",
+  },
+  {
+    key: "visitor_location",
+    label: "Where do you live?",
+    ta: "நீங்கள் வசிக்கும் இடம்",
+    type: "text",
+    required: true,
+    placeholder: "City or town",
+    placeholderTa: "நகரம் அல்லது ஊர்",
+  },
+  {
+    key: "referred_by_cp",
+    label: "Did an MRC partner bring you here?",
+    ta: "MRC பார்ட்னர் மூலம் வந்தீர்களா?",
+    type: "radio",
+    required: true,
+    options: [
+      { value: "Yes", label: "Yes", ta: "ஆம்" },
+      { value: "No", label: "No, I came directly", ta: "இல்லை" },
+    ],
+  },
+  {
+    key: "cp_id",
+    label: "Partner ID",
+    ta: "பார்ட்னர் ஐடி",
+    type: "text",
+    required: true,
+    placeholder: "MRC-CP-001",
+    showIf: (v) => v.referred_by_cp === "Yes",
+  },
+  {
+    key: "plot_preference",
+    label: "What kind of plot are you looking for?",
+    ta: "எப்படிப்பட்ட மனை தேவை?",
+    type: "textarea",
+    required: true,
+    placeholder: "Plot number, facing, corner or main road — whatever you know",
+    placeholderTa: "மனை எண், திசை, மூலை அல்லது பிரதான சாலை — தெரிந்ததை எழுதவும்",
+  },
+  {
+    key: "amenities_preference",
+    label: "Anything you'd like to be near?",
+    ta: "அருகில் இருக்க வேண்டியவை",
+    type: "checkbox",
+    options: [
+      { value: "Entrance", label: "Main entrance", ta: "நுழைவாயில்" },
+      { value: "Park", label: "Park / open space", ta: "பூங்கா" },
+      { value: "Main road", label: "Main road", ta: "பிரதான சாலை" },
+      { value: "Corner plot", label: "Corner plot", ta: "மூலை மனை" },
+      { value: "East facing", label: "East facing", ta: "கிழக்கு பார்த்த" },
+    ],
+  },
+  {
+    key: "budget",
+    label: "Your budget",
+    ta: "உங்கள் பட்ஜெட்",
+    type: "select",
+    required: true,
+    options: [
+      { value: "Under 10 lakh", label: "Under ₹10 lakh" },
+      { value: "10-20 lakh", label: "₹10 – 20 lakh" },
+      { value: "20-35 lakh", label: "₹20 – 35 lakh" },
+      { value: "35-50 lakh", label: "₹35 – 50 lakh" },
+      { value: "Above 50 lakh", label: "Above ₹50 lakh" },
+    ],
+  },
+  {
+    key: "visit_date",
+    label: "Preferred site visit date",
+    ta: "விருப்பமான தேதி",
+    type: "date",
+    required: true,
+  },
+  {
+    key: "visit_time",
+    label: "Preferred time",
+    ta: "விருப்பமான நேரம்",
+    type: "radio",
+    required: true,
+    options: [
+      { value: "Morning", label: "Morning", ta: "காலை" },
+      { value: "Afternoon", label: "Afternoon", ta: "மதியம்" },
+    ],
+  },
+  {
+    key: "consent",
+    label: "Consent",
+    type: "consent",
+    required: true,
+  },
+];
+
+export const VISIT_COLUMNS = [
+  "lead_id",
+  "submitted_at",
+  "source",
+  "cp_name", // resolved from cp_id at submission, so the sheet is readable
+  ...VISIT_FIELDS.map((f) => f.key),
+];
+
 export const SHEETS = {
   registrations: "Registrations",
   cp: "CP_Programme",
+  visits: "Site_Visits",
 } as const;
