@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>document.documentElement.className="js";</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insights | MRC Landmarks</title>
@@ -8,7 +9,7 @@
 <link rel="icon" href="MRC LOGO LOTUS25 copy.pdf.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="mrc.css">
 </head>
 <body>
@@ -43,6 +44,18 @@
     </button>
   </div>
 </header>
+<div class="mobile-nav" id="mnav">
+  <div class="wrap">
+    <a href="about.html">About</a>
+    <a href="approach.html">Our Approach</a>
+    <a href="why-mrc.html">Why MRC</a>
+    <a href="locations.html">Locations</a>
+    <a href="trust.html">Trust</a>
+    <a href="channel-partners.html">Partners</a>
+    <a href="insights.html">Insights</a>
+    <a class="btn btn-gold" href="site-visit.html">Schedule a Visit</a>
+  </div>
+</div>
 <main>
 <section class="pagehead">
   <div class="wrap">
@@ -55,19 +68,19 @@
   <section>
     <div class="wrap">
       <div class="posts">
-        <a class="post" href="insight-verify-before-buying.html">
+        <a class="post reveal" href="insight-verify-before-buying.html">
           <div class="k">Buyer Guide</div>
           <h3>What to Verify Before Buying a Plot in Tamil Nadu</h3>
           <p>The essential checks every buyer should complete before signing.</p>
           <span class="go">Read guide &rarr;</span>
         </a>
-        <a class="post" href="insight-dtcp-rera.html">
+        <a class="post reveal" href="insight-dtcp-rera.html">
           <div class="k">Regulations</div>
           <h3>DTCP and RERA: What Plot Buyers Need to Understand</h3>
           <p>A clear explanation of the approvals that protect your purchase.</p>
           <span class="go">Read guide &rarr;</span>
         </a>
-        <a class="post" href="insight-master-plan.html">
+        <a class="post reveal" href="insight-master-plan.html">
           <div class="k">How-to</div>
           <h3>How to Read a Plotted-Development Master Plan</h3>
           <p>Understanding layouts, access roads and amenity planning.</p>
@@ -80,7 +93,7 @@
 <section class="closing">
   <div class="wrap">
     <p class="eyebrow" style="color:var(--gold)">Get Started</p>
-    <h2 class="display">See the Location.<br>Understand the Opportunity.</h2>
+    <h2 class="display reveal">See the Location.<br>Understand the Opportunity.</h2>
     <p>Explore an MRC project in person and speak with our team about the location, layout, documentation and purchase process.</p>
     <div class="hero-cta">
       <a class="btn btn-gold" href="site-visit.html">Schedule a Site Visit</a>
@@ -133,5 +146,38 @@
   </div>
 </footer>
 
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+    // Failsafe: if anything is still hidden after 3s (background tab, observer
+    // never fired), show it rather than leaving the page blank.
+    setTimeout(function () {
+      document.querySelectorAll('.reveal:not(.in)').forEach(function (el) {
+        el.classList.add('in');
+      });
+    }, 3000);
+  }
+  var btn = document.querySelector('.menu-btn');
+  var nav = document.getElementById('mnav');
+  if (btn && nav) {
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+})();
+</script>
 </body>
 </html>

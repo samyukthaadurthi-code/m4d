@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>document.documentElement.className="js";</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Schedule a Site Visit | MRC Landmarks</title>
@@ -8,7 +9,7 @@
 <link rel="icon" href="MRC LOGO LOTUS25 copy.pdf.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="mrc.css">
 </head>
 <body>
@@ -43,6 +44,18 @@
     </button>
   </div>
 </header>
+<div class="mobile-nav" id="mnav">
+  <div class="wrap">
+    <a href="about.html">About</a>
+    <a href="approach.html">Our Approach</a>
+    <a href="why-mrc.html">Why MRC</a>
+    <a href="locations.html">Locations</a>
+    <a href="trust.html">Trust</a>
+    <a href="channel-partners.html">Partners</a>
+    <a href="insights.html">Insights</a>
+    <a class="btn btn-gold" href="site-visit.html">Schedule a Visit</a>
+  </div>
+</div>
 <main>
 <section class="pagehead">
   <div class="wrap">
@@ -54,14 +67,14 @@
 </section>
   <section>
     <div class="wrap">
-      <p class="eyebrow">What a visit covers</p>
+      <p class="eyebrow reveal">What a visit covers</p>
       <div class="rule"></div>
-      <h2 class="display">Layout, documents, and the land itself.</h2>
+      <h2 class="display reveal">Layout, documents, and the land itself.</h2>
       <div class="why">
-        <article><h3>Guided site tour</h3><p>The project site and the area around it.</p></article>
-        <article><h3>Layout walkthrough</h3><p>Plot positions, roads and open space.</p></article>
-        <article><h3>Documentation review</h3><p>The approvals that apply to the layout.</p></article>
-        <article><h3>Your questions</h3><p>Answered on site by our team.</p></article>
+        <article class="reveal"><h3>Guided site tour</h3><p>The project site and the area around it.</p></article>
+        <article class="reveal"><h3>Layout walkthrough</h3><p>Plot positions, roads and open space.</p></article>
+        <article class="reveal"><h3>Documentation review</h3><p>The approvals that apply to the layout.</p></article>
+        <article class="reveal"><h3>Your questions</h3><p>Answered on site by our team.</p></article>
       </div>
       <div class="hero-cta">
         <a class="btn btn-ink" href="https://mrc-event.vercel.app/visit">Book your visit</a>
@@ -73,7 +86,7 @@
 <section class="closing">
   <div class="wrap">
     <p class="eyebrow" style="color:var(--gold)">Get Started</p>
-    <h2 class="display">See the Location.<br>Understand the Opportunity.</h2>
+    <h2 class="display reveal">See the Location.<br>Understand the Opportunity.</h2>
     <p>Explore an MRC project in person and speak with our team about the location, layout, documentation and purchase process.</p>
     <div class="hero-cta">
       <a class="btn btn-gold" href="site-visit.html">Schedule a Site Visit</a>
@@ -126,5 +139,38 @@
   </div>
 </footer>
 
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach(function (el) { el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (el) { io.observe(el); });
+    // Failsafe: if anything is still hidden after 3s (background tab, observer
+    // never fired), show it rather than leaving the page blank.
+    setTimeout(function () {
+      document.querySelectorAll('.reveal:not(.in)').forEach(function (el) {
+        el.classList.add('in');
+      });
+    }, 3000);
+  }
+  var btn = document.querySelector('.menu-btn');
+  var nav = document.getElementById('mnav');
+  if (btn && nav) {
+    btn.setAttribute('aria-expanded', 'false');
+    btn.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+})();
+</script>
 </body>
 </html>
