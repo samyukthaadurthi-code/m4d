@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MRC Landmarks | Plotted Developments in Southern Tamil Nadu</title>
+<meta name="description" content="DTCP approved, RERA registered plotted developments across six cities in Southern Tamil Nadu. Title verified, bank eligible, survey completed.">
+<link rel="icon" href="MRC LOGO LOTUS25 copy.pdf.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Instrument+Serif:ital@0;1&display=swap">
+<style>
+  :root {
+    --ink:      #1A2A2D;
+    --ink-deep: #101B1D;
+    --deep:     #12474C;
+    --teal:     #176A70;
+    --gold:     #C4A97D;
+    --gold-dim: #A8863F;
+    --cream:    #F7F5EF;
+    --sand:     #E4E2DA;
+    --muted:    #4A5450;
+    --soft:     #8A8D82;
+    --serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+    --sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+    --pad: clamp(4.5rem, 8vw, 7rem);   /* section rhythm */
+    --gut: clamp(1.25rem, 4vw, 3rem);  /* page gutter */
+    --max: 1240px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--ink);
+    background: var(--cream);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--gut); }
+  section { padding-block: var(--pad); }
+
+  /* ---------- type ---------- */
+  .display {
+    font-family: var(--serif);
+    font-weight: 400;
+    line-height: 1.04;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+  h1.display { font-size: clamp(2.9rem, 7vw, 5.25rem); }
+  h2.display { font-size: clamp(2.1rem, 4.4vw, 3.4rem); }
+  h3 { font-size: 1.15rem; font-weight: 600; letter-spacing: -0.01em; }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    font-weight: 500;
+    margin-bottom: 1.15rem;
+  }
+  .lede { font-size: 1.06rem; color: var(--muted); max-width: 56ch; }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex; align-items: center; gap: .55rem;
+    padding: .95rem 1.9rem; border-radius: 999px;
+    font-size: .93rem; font-weight: 500; letter-spacing: .01em;
+    border: 1px solid transparent; cursor: pointer;
+    transition: background .22s ease, color .22s ease, border-color .22s ease;
+  }
+  .btn-gold { background: var(--gold); color: var(--ink); }
+  .btn-gold:hover { background: #d3bb95; }
+  .btn-ghost { border-color: rgba(255,255,255,.38); color: #fff; }
+  .btn-ghost:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.6); }
+  .btn-ink { background: var(--teal); color: #fff; }
+  .btn-ink:hover { background: var(--deep); }
+  .btn-out { border-color: var(--teal); color: var(--teal); }
+  .btn-out:hover { background: var(--teal); color: #fff; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 4px;
+  }
+
+  /* ---------- top bar + header ---------- */
+  .topbar {
+    background: var(--ink-deep); color: rgba(255,255,255,.62);
+    font-size: .78rem; letter-spacing: .04em;
+  }
+  .topbar .wrap {
+    display: flex; justify-content: space-between; gap: 1rem;
+    padding-block: .6rem; flex-wrap: wrap;
+  }
+  .topbar a:hover { color: var(--gold); }
+  .topbar .sep { display: inline-block; margin-inline: .85rem; opacity: .35; }
+
+  header.site {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(26,42,45,.92);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,.08);
+  }
+  header.site .wrap {
+    display: flex; align-items: center; gap: 1.5rem; padding-block: .85rem;
+  }
+  .brand { display: flex; align-items: center; gap: .8rem; margin-right: auto; }
+  .brand .mark {
+    width: 44px; height: 44px; border-radius: 50%; background: var(--cream);
+    display: grid; place-items: center; flex-shrink: 0;
+  }
+  .brand .mark img { width: 33px; height: 33px; }
+  .brand .name { color: #fff; font-weight: 600; letter-spacing: .17em; font-size: .93rem; }
+  .brand .tag { color: var(--gold); font-size: .68rem; letter-spacing: .13em; }
+
+  nav.main { display: flex; gap: 1.7rem; }
+  nav.main a {
+    color: rgba(255,255,255,.8); font-size: .87rem;
+    padding-block: .3rem; border-bottom: 1px solid transparent;
+    transition: color .2s, border-color .2s;
+  }
+  nav.main a:hover { color: #fff; border-bottom-color: var(--gold); }
+  header.site .btn { padding: .68rem 1.4rem; font-size: .85rem; }
+  .menu-btn { display: none; background: none; border: 0; color: #fff; padding: .5rem; }
+
+  /* ---------- hero ---------- */
+  .hero {
+    position: relative; min-height: 88vh; display: flex; align-items: flex-end;
+    padding-block: clamp(5rem, 12vw, 8rem) clamp(2.5rem, 5vw, 4rem);
+    background:
+      linear-gradient(180deg, rgba(16,27,29,.78) 0%, rgba(16,27,29,.30) 32%, rgba(16,27,29,.74) 64%, rgba(16,27,29,.96) 100%),
+      url('2b1442b6-33c3-4be9-aa9e-cc22d6a2ebea.png') center 38% / cover no-repeat;
+    color: #fff;
+  }
+  .hero h1 { max-width: 15ch; }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+  .hero p.sub {
+    margin-top: 1.6rem; max-width: 46ch;
+    font-size: 1.08rem; color: rgba(255,255,255,.82);
+  }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: .85rem; margin-top: 2.4rem; }
+
+  .hero-stats {
+    display: flex; flex-wrap: wrap; gap: clamp(2rem, 6vw, 4.5rem);
+    margin-top: 3.2rem; padding-top: 2.1rem;
+    border-top: 1px solid rgba(255,255,255,.2);
+  }
+  .hero-stats .n {
+    font-family: var(--serif); font-size: 2.3rem; line-height: 1; color: var(--gold);
+  }
+  .hero-stats .l {
+    font-size: .7rem; letter-spacing: .19em; text-transform: uppercase;
+    color: rgba(255,255,255,.62); margin-top: .5rem;
+  }
+
+  .chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2.1rem; }
+  .chip {
+    font-size: .74rem; letter-spacing: .09em; text-transform: uppercase;
+    padding: .42rem .95rem; border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.26); color: rgba(255,255,255,.8);
+  }
+
+  /* ---------- belief: two column ---------- */
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 5rem); align-items: start; }
+  .split .right { padding-top: .6rem; }
+  .rule { width: 56px; height: 2px; background: var(--gold); margin-bottom: 1.6rem; }
+
+  /* ---------- stat band ---------- */
+  .band { background: var(--ink); color: #fff; }
+  .band .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: rgba(255,255,255,.12); }
+  .band .cell { background: var(--ink); padding: clamp(1.8rem, 4vw, 2.8rem) 1.4rem; }
+  .band .n { font-family: var(--serif); font-size: clamp(2.1rem, 4vw, 2.9rem); color: var(--gold); line-height: 1; }
+  .band .l { margin-top: .7rem; font-size: .82rem; color: rgba(255,255,255,.66); line-height: 1.45; }
+
+  /* ---------- process ---------- */
+  .steps { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(1.6rem, 3vw, 2.6rem); margin-top: 3.4rem; }
+  .step {
+    background: #fff; border: 1px solid var(--sand); border-radius: 3px;
+    padding: clamp(1.7rem, 3vw, 2.4rem); display: flex; flex-direction: column;
+  }
+  .step .num {
+    font-family: var(--serif); font-size: 2.5rem; color: var(--sand); line-height: 1; margin-bottom: 1rem;
+  }
+  .step h3 { margin-bottom: .7rem; }
+  .step p { color: var(--muted); font-size: .95rem; }
+  .step .metrics { display: flex; flex-wrap: wrap; gap: 1.1rem 2rem; margin-top: auto; padding-top: 1.6rem; }
+  .step .metrics .m .v { font-weight: 600; color: var(--teal); font-size: 1rem; }
+  .step .metrics .m .k { font-size: .66rem; letter-spacing: .15em; text-transform: uppercase; color: var(--soft); margin-top: .2rem; }
+
+  /* ---------- why: 4 cards ---------- */
+  .why { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(1.2rem, 2.5vw, 2rem); margin-top: 3.4rem; }
+  .why article { border-top: 2px solid var(--teal); padding-top: 1.5rem; }
+  .why h3 { margin-bottom: .6rem; }
+  .why p { font-size: .93rem; color: var(--muted); }
+
+  /* ---------- locations (deep ground) ---------- */
+  .locations { background: var(--deep); color: #fff; }
+  .locations .eyebrow { color: var(--gold); }
+  .cities { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 2rem; }
+  .cities a {
+    padding: .6rem 1.3rem; border-radius: 999px; font-size: .9rem;
+    border: 1px solid rgba(255,255,255,.24); transition: background .2s, border-color .2s;
+  }
+  .cities a:hover, .cities a.on { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+  .featured {
+    margin-top: 3rem; background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.14); border-radius: 4px;
+    padding: clamp(1.8rem, 4vw, 2.8rem);
+    display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr auto; gap: 2rem; align-items: center;
+  }
+  .featured .place { font-family: var(--serif); font-size: 1.9rem; line-height: 1.1; }
+  .featured .place span { display: block; font-family: var(--sans); font-size: .74rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.6); margin-top: .4rem; }
+  .featured .f-n { font-family: var(--serif); font-size: 1.75rem; color: var(--gold); line-height: 1; }
+  .featured .f-l { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: rgba(255,255,255,.6); margin-top: .4rem; }
+
+  /* ---------- trust ---------- */
+  .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--sand); margin-top: 3.2rem; border: 1px solid var(--sand); }
+  .trust-grid .t { background: var(--cream); padding: 1.7rem; display: flex; gap: .95rem; align-items: flex-start; }
+  .tick { width: 20px; height: 20px; flex-shrink: 0; margin-top: .18rem; }
+  .trust-grid .t strong { display: block; font-size: .97rem; font-weight: 600; }
+  .trust-grid .t span { font-size: .85rem; color: var(--soft); }
+
+  /* ---------- partners ---------- */
+  .duo { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.5rem, 3vw, 2.4rem); }
+  .duo .card {
+    background: #fff; border: 1px solid var(--sand); border-radius: 3px;
+    padding: clamp(2rem, 4vw, 3rem); display: flex; flex-direction: column;
+  }
+  .duo .card p { color: var(--muted); margin-block: .9rem 2rem; font-size: .96rem; }
+  .duo .card .btn { align-self: flex-start; margin-top: auto; }
+
+  /* ---------- insights ---------- */
+  .posts { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 2.2rem); margin-top: 3.4rem; }
+  .post { background: #fff; border: 1px solid var(--sand); border-radius: 3px; padding: 1.9rem; transition: border-color .2s, transform .2s; }
+  .post:hover { border-color: var(--teal); transform: translateY(-3px); }
+  .post .k { font-size: .66rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-dim); }
+  .post h3 { margin-block: .9rem .6rem; line-height: 1.35; }
+  .post p { font-size: .9rem; color: var(--muted); }
+  .post .go { display: inline-block; margin-top: 1.4rem; font-size: .85rem; color: var(--teal); font-weight: 500; }
+
+  /* ---------- closing ---------- */
+  .closing {
+    background:
+      linear-gradient(180deg, rgba(18,71,76,.93), rgba(16,27,29,.96)),
+      url('5db28d84-affe-4203-96e5-90852a4c59f6.png') center / cover no-repeat;
+    color: #fff; text-align: center;
+  }
+  .closing p { color: rgba(255,255,255,.78); margin: 1.5rem auto 0; max-width: 52ch; }
+  .closing .hero-cta { justify-content: center; }
+
+  /* ---------- footer ---------- */
+  footer.site { background: var(--ink-deep); color: rgba(255,255,255,.62); padding-block: var(--pad) 2.5rem; }
+  .foot-top { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: clamp(2rem, 5vw, 4rem); }
+  footer.site h4 { font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; font-weight: 500; }
+  footer.site ul { list-style: none; display: grid; gap: .7rem; }
+  footer.site a:hover { color: #fff; }
+  footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
+  .disclaimer {
+    margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,.12);
+    font-size: .78rem; line-height: 1.7; color: rgba(255,255,255,.45); max-width: 90ch;
+  }
+  .copy { margin-top: 1.6rem; font-size: .78rem; color: rgba(255,255,255,.4); }
+
+  /* ---------- scroll cue ---------- */
+  .cue { position: absolute; left: 50%; bottom: 1.6rem; transform: translateX(-50%); text-align: center; }
+  .cue span { font-size: .66rem; letter-spacing: .28em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+  .cue svg { margin: .5rem auto 0; animation: bob 2.4s ease-in-out infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0) } 50% { transform: translateY(6px) } }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 980px) {
+    .why, .band .grid { grid-template-columns: repeat(2, 1fr); }
+    .trust-grid { grid-template-columns: repeat(2, 1fr); }
+    .posts { grid-template-columns: 1fr; }
+    .featured { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 760px) {
+    nav.main, header.site .btn { display: none; }
+    .menu-btn { display: block; }
+    .split, .steps, .duo, .foot-top { grid-template-columns: 1fr; }
+    .why, .trust-grid, .band .grid, .featured { grid-template-columns: 1fr; }
+    .hero { min-height: 78vh; }
+    .topbar .wrap { justify-content: center; }
+    .topbar .right { display: none; }
+  }
+  /* Very narrow phones: the letter-spaced wordmark is the widest fixed thing. */
+  @media (max-width: 400px) {
+    .brand .name { letter-spacing: .1em; font-size: .82rem; }
+    .brand .tag { display: none; }
+    .brand .mark { width: 38px; height: 38px; }
+    .brand .mark img { width: 28px; height: 28px; }
+    .hero-stats { gap: 1.6rem 2.2rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div><a href="tel:+919000000000">+91 90000 00000</a><span class="sep">·</span><a href="mailto:info@mrclandmarks.com">info@mrclandmarks.com</a></div>
+    <div class="right">Plotted Developments in Southern Tamil Nadu</div>
+  </div>
+</div>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="/">
+      <span class="mark"><img src="MRC LOGO LOTUS25 copy.pdf.png" alt=""></span>
+      <span>
+        <span class="name">MRC LANDMARKS</span><br>
+        <span class="tag">Landmarks of the South</span>
+      </span>
+    </a>
+    <nav class="main">
+      <a href="#belief">About</a>
+      <a href="#process">Our Approach</a>
+      <a href="#why">Why MRC</a>
+      <a href="#locations">Locations</a>
+      <a href="#trust">Trust</a>
+      <a href="#partners">Partners</a>
+      <a href="#insights">Insights</a>
+    </nav>
+    <a class="btn btn-gold" href="site-visit.html">Schedule a Visit</a>
+    <button class="menu-btn" aria-label="Open menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow" style="color:var(--gold)">MRC Landmarks</p>
+      <h1 class="display">Own the power to shape <em>tomorrow.</em></h1>
+      <p class="sub">Because land is never only land. It is security, possibility and a place for everything that comes next.</p>
+
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="projects.html">Begin the Journey</a>
+        <a class="btn btn-ghost" href="site-visit.html">Schedule a Visit</a>
+      </div>
+
+      <div class="hero-stats">
+        <div><div class="n">6+</div><div class="l">Cities</div></div>
+        <div><div class="n">100%</div><div class="l">Title Verified</div></div>
+        <div><div class="n">RERA</div><div class="l">Registered</div></div>
+      </div>
+
+      <div class="chips">
+        <span class="chip">RERA registered</span>
+        <span class="chip">DTCP approved</span>
+        <span class="chip">Bank eligible</span>
+        <span class="chip">Survey verified</span>
+      </div>
+    </div>
+    <div class="cue">
+      <span>Scroll</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+  </section>
+
+  <!-- BELIEF -->
+  <section id="belief">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow">Our Belief</p>
+        <div class="rule"></div>
+        <h2 class="display">Land deserves more thought.</h2>
+      </div>
+      <div class="right">
+        <p class="lede">Buying land is a significant decision — it begins with the right location, but it also depends on planning, documentation, infrastructure and trust. MRC Landmarks brings these elements together, so buyers can evaluate an opportunity with clarity, not guesswork.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAT BAND -->
+  <section class="band" style="padding-block:0">
+    <div class="wrap" style="padding-inline:0">
+      <div class="grid">
+        <div class="cell"><div class="n">6+</div><div class="l">Cities across<br>Southern Tamil Nadu</div></div>
+        <div class="cell"><div class="n">RERA</div><div class="l">Registered<br>projects</div></div>
+        <div class="cell"><div class="n">DTCP</div><div class="l">Approved<br>layouts</div></div>
+        <div class="cell"><div class="n">100%</div><div class="l">Title verified<br>documentation</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="wrap">
+      <p class="eyebrow">The Process</p>
+      <div class="rule"></div>
+      <h2 class="display">From Land to Landmark.</h2>
+      <p class="lede" style="margin-top:1.2rem">Every MRC project follows a considered process — from understanding a location to presenting it clearly for buyers.</p>
+
+      <div class="steps">
+        <article class="step">
+          <div class="num">01</div>
+          <h3>Understand the location</h3>
+          <p>We begin with the city, its connectivity, its surrounding communities and the role the location can play in the years ahead.</p>
+          <div class="metrics">
+            <div class="m"><div class="v">6+</div><div class="k">Cities studied</div></div>
+            <div class="m"><div class="v">50+</div><div class="k">Data points</div></div>
+          </div>
+        </article>
+        <article class="step">
+          <div class="num">02</div>
+          <h3>Verify the opportunity</h3>
+          <p>Every project is subject to the legal, technical and commercial checks applicable to that development.</p>
+          <div class="metrics">
+            <div class="m"><div class="v">RERA</div><div class="k">Compliant</div></div>
+            <div class="m"><div class="v">DTCP</div><div class="k">Approved</div></div>
+          </div>
+        </article>
+        <article class="step">
+          <div class="num">03</div>
+          <h3>Plan the development</h3>
+          <p>Layout, access, plot sizes, infrastructure and shared spaces are planned around practical use and long-term relevance.</p>
+          <div class="metrics">
+            <div class="m"><div class="v">100%</div><div class="k">Infra planned</div></div>
+          </div>
+        </article>
+        <article class="step">
+          <div class="num">04</div>
+          <h3>Present it clearly</h3>
+          <p>We give buyers access to the project information and documentation required to understand the opportunity.</p>
+          <div class="metrics">
+            <div class="m"><div class="v">Full</div><div class="k">Transparency</div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section id="why" style="background:#fff">
+    <div class="wrap">
+      <p class="eyebrow">Why MRC</p>
+      <div class="rule"></div>
+      <h2 class="display">A Clearer Way to Buy Land.</h2>
+
+      <div class="why">
+        <article><h3>Thoughtful Locations</h3><p>Connectivity, local demand and long-term potential evaluated before every project.</p></article>
+        <article><h3>Planned Development</h3><p>Access, infrastructure and shared spaces designed around practical everyday use.</p></article>
+        <article><h3>Clear Information</h3><p>Approvals, pricing and timelines presented so buyers make informed decisions.</p></article>
+        <article><h3>Local Understanding</h3><p>Deep focus on Southern Tamil Nadu's cities, buyers and growth corridors.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATIONS -->
+  <section id="locations" class="locations">
+    <div class="wrap">
+      <p class="eyebrow">Our Locations</p>
+      <div class="rule"></div>
+      <h2 class="display">Rooted in the South.</h2>
+      <p class="lede" style="color:rgba(255,255,255,.75); margin-top:1.2rem">Six cities, twelve projects. Tap a city to explore projects in that region.</p>
+
+      <div class="cities">
+        <a class="on" href="projects.html?city=madurai">Madurai</a>
+        <a href="projects.html?city=dindigul">Dindigul</a>
+        <a href="projects.html?city=theni">Theni</a>
+        <a href="projects.html?city=sivakasi">Sivakasi</a>
+        <a href="projects.html?city=tenkasi">Tenkasi</a>
+        <a href="projects.html?city=ramanathapuram">Ramanathapuram</a>
+      </div>
+
+      <div class="featured">
+        <div class="place">Madurai<span>Southern Tamil Nadu</span></div>
+        <div><div class="f-n">3</div><div class="f-l">Projects</div></div>
+        <div><div class="f-n">120+</div><div class="f-l">Plots</div></div>
+        <div><div class="f-n">&#8377;6L</div><div class="f-l">Starting</div></div>
+        <a class="btn btn-gold" href="projects.html?city=madurai">View projects</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section id="trust">
+    <div class="wrap">
+      <p class="eyebrow">Trust &amp; Transparency</p>
+      <div class="rule"></div>
+      <h2 class="display">Clarity at Every Step.</h2>
+      <p class="lede" style="margin-top:1.2rem">Trust is built through information that can be checked — not broad promises. Every project page clearly displays its applicable approvals and documentation.</p>
+
+      <div class="trust-grid">
+        <div class="t"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#176A70" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><div><strong>DTCP Approved</strong><span>Town planning approval</span></div></div>
+        <div class="t"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#176A70" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><div><strong>RERA Registered</strong><span>Regulatory compliance</span></div></div>
+        <div class="t"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#176A70" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><div><strong>Title Verified</strong><span>Legal documentation</span></div></div>
+        <div class="t"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#176A70" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><div><strong>Bank Approved</strong><span>Loan eligible</span></div></div>
+        <div class="t"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#176A70" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><div><strong>Survey Completed</strong><span>Boundary verified</span></div></div>
+        <div class="t"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#176A70" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><div><strong>Infrastructure</strong><span>Status tracked</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section id="partners" style="background:#fff">
+    <div class="wrap duo">
+      <div class="card">
+        <p class="eyebrow">Channel Partners</p>
+        <h2 class="display" style="font-size:clamp(1.8rem,3vw,2.4rem)">Grow With MRC</h2>
+        <p>Join a growing network of real-estate professionals representing MRC projects across Southern Tamil Nadu. Access project information, sales material and dedicated support.</p>
+        <a class="btn btn-ink" href="channel-partners.html">Become a Partner</a>
+      </div>
+      <div class="card">
+        <p class="eyebrow">MRC Forum</p>
+        <h2 class="display" style="font-size:clamp(1.8rem,3vw,2.4rem)">Where the South Builds Together</h2>
+        <p>Brokers, developers, architects and advisers — one network for the region's real-estate ecosystem. Built around trusted relationships and meaningful business connections.</p>
+        <a class="btn btn-out" href="mrc-forum.html">Explore Forum</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- INSIGHTS -->
+  <section id="insights">
+    <div class="wrap">
+      <p class="eyebrow">Insights</p>
+      <div class="rule"></div>
+      <h2 class="display">Know the Land Before You Buy.</h2>
+      <p class="lede" style="margin-top:1.2rem">Practical buyer guides, project updates and location insights for better-informed real-estate decisions.</p>
+
+      <div class="posts">
+        <a class="post" href="insight-verify-before-buying.html">
+          <div class="k">Buyer Guide</div>
+          <h3>What to Verify Before Buying a Plot in Tamil Nadu</h3>
+          <p>The essential checks every buyer should complete before signing.</p>
+          <span class="go">Read guide &rarr;</span>
+        </a>
+        <a class="post" href="insight-dtcp-rera.html">
+          <div class="k">Regulations</div>
+          <h3>DTCP and RERA: What Plot Buyers Need to Understand</h3>
+          <p>A clear explanation of the approvals that protect your purchase.</p>
+          <span class="go">Read guide &rarr;</span>
+        </a>
+        <a class="post" href="insight-master-plan.html">
+          <div class="k">How-to</div>
+          <h3>How to Read a Plotted-Development Master Plan</h3>
+          <p>Understanding layouts, access roads and amenity planning.</p>
+          <span class="go">Read guide &rarr;</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="closing">
+    <div class="wrap">
+      <p class="eyebrow" style="color:var(--gold)">Get Started</p>
+      <h2 class="display">See the Location.<br>Understand the Opportunity.</h2>
+      <p>Explore an MRC project in person and speak with our team about the location, layout, documentation and purchase process.</p>
+      <div class="hero-cta">
+        <a class="btn btn-gold" href="site-visit.html">Schedule a Site Visit</a>
+        <a class="btn btn-ghost" href="https://wa.me/919000000000">Talk to Us on WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <a class="brand" href="/" style="margin:0">
+          <span class="mark"><img src="MRC LOGO LOTUS25 copy.pdf.png" alt=""></span>
+          <span>
+            <span class="name">MRC LANDMARKS</span><br>
+            <span class="tag">Landmarks of the South</span>
+          </span>
+        </a>
+        <p class="about">Plotted developments across Southern Tamil Nadu, planned and documented so buyers can decide with clarity.</p>
+      </div>
+      <div>
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#belief">About</a></li>
+          <li><a href="#process">Our Approach</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="insights.html">Insights</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <ul>
+          <li><a href="channel-partners.html">Channel Partners</a></li>
+          <li><a href="mrc-forum.html">MRC Forum</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="site-visit.html">Schedule a Visit</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
+          <li><a href="terms.html">Terms</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="disclaimer">Project information, specifications, amenities, pricing and timelines are subject to the applicable project documents and may change. Buyers should review the relevant approvals and legal documents before making a purchase decision.</p>
+    <p class="copy">&copy; 2026 MRC Landmarks. All rights reserved.</p>
+  </div>
+</footer>
+
+</body>
+</html>
