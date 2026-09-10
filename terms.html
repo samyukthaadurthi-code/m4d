@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms & Disclaimer | MRC Landmarks</title>
+<meta name="description" content="MRC Landmarks terms of use and property information disclaimer for plotted developments in Southern Tamil Nadu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F5EF;
+    --teal: #176A70;
+    --teal-deep: #12474C;
+    --gold: #C4A97D;
+    --text: #1A2A2D;
+    --text-body: #4A5450;
+    --text-muted: #8A8D82;
+    --border: #E4E2DA;
+    --white: #FFFFFF;
+    --teal-pale: #E2EDEB;
+  }
+
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--bg); color: var(--text-body);
+    font-size: 15px; line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: 'Instrument Sans', system-ui, sans-serif; color: var(--text); line-height: 1.3; }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 16px 20px; display: flex; align-items: center; justify-content: space-between;
+    background: rgba(247,245,239,0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(228,226,218,0.5); box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+  }
+  .nav-logo img { height: 44px; }
+  .nav-burger {
+    width: 40px; height: 40px; background: var(--white); border: 1px solid var(--border);
+    border-radius: 10px; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 5px; cursor: pointer; padding: 0;
+  }
+  .nav-burger span { display: block; width: 18px; height: 1.5px; background: var(--text); border-radius: 1px; }
+
+  .mobile-menu {
+    position: fixed; inset: 0; z-index: 200; background: var(--teal-deep);
+    display: flex; flex-direction: column; opacity: 0; visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  .mobile-menu.open { opacity: 1; visibility: visible; }
+  .mobile-menu-top { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; }
+  .mobile-menu-top .nav-logo img { height: 44px; filter: brightness(10); }
+  .mobile-menu-close {
+    width: 40px; height: 40px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px; color: var(--white); font-size: 24px; display: flex; align-items: center;
+    justify-content: center; cursor: pointer; line-height: 1;
+  }
+  .mobile-menu nav { display: flex; flex-direction: column; padding: 40px 24px; gap: 0; }
+  .mobile-menu nav a {
+    font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 28px; font-weight: 600;
+    color: var(--white); padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .mobile-menu-ctas { padding: 20px 24px; margin-top: auto; padding-bottom: 40px; }
+  .btn-gold {
+    display: inline-block; background: var(--gold); color: var(--white);
+    font-family: 'Instrument Sans', system-ui, sans-serif; font-weight: 600; font-size: 15px;
+    padding: 14px 28px; border-radius: 12px; text-align: center; width: 100%;
+  }
+
+  .page-header { background: var(--teal-deep); padding: 120px 24px 60px; text-align: center; }
+  .page-header-eyebrow {
+    font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 12px; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px;
+  }
+  .page-header h1 { font-size: 36px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+  .page-header-date { font-size: 14px; color: rgba(255,255,255,0.5); }
+
+  .policy-content { max-width: 720px; margin: 0 auto; padding: 60px 24px 80px; }
+  .policy-content h2 { font-size: 22px; font-weight: 600; margin-top: 48px; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+  .policy-content h2:first-child { margin-top: 0; }
+  .policy-content h3 { font-size: 17px; font-weight: 600; margin-top: 28px; margin-bottom: 10px; color: var(--teal-deep); }
+  .policy-content p { margin-bottom: 16px; }
+  .policy-content ul { margin-bottom: 16px; padding-left: 20px; }
+  .policy-content ul li { margin-bottom: 8px; padding-left: 4px; }
+  .policy-content ul li::marker { color: var(--teal); }
+  .policy-content a { color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+  .policy-intro { font-size: 16px; color: var(--text); line-height: 1.9; margin-bottom: 32px; }
+
+  .footer { background: var(--teal-deep); color: rgba(255,255,255,0.6); padding: 60px 24px 32px; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top { display: flex; flex-direction: column; gap: 40px; margin-bottom: 48px; }
+  .footer-brand img { height: 28px; opacity: 0.5; filter: brightness(10); }
+  .footer-tagline { margin-top: 12px; font-size: 14px; color: rgba(255,255,255,0.4); }
+  .footer-cols { display: flex; gap: 48px; }
+  .footer-col { display: flex; flex-direction: column; gap: 10px; }
+  .footer-col h4 { font-family: 'Instrument Sans', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); margin-bottom: 6px; }
+  .footer-col a { font-size: 14px; color: rgba(255,255,255,0.5); }
+  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; display: flex; flex-direction: column; gap: 12px; }
+  .footer-bottom-links { display: flex; gap: 20px; }
+  .footer-bottom-links a { font-size: 13px; color: rgba(255,255,255,0.4); }
+  .footer-copy { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+  @media (min-width: 600px) {
+    .page-header { padding: 140px 40px 72px; }
+    .page-header h1 { font-size: 44px; }
+    .policy-content { padding: 72px 40px 100px; }
+    .footer { padding: 72px 40px 36px; }
+    .footer-top { flex-direction: row; justify-content: space-between; align-items: flex-start; }
+    .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav scrolled">
+  <a href="index.html" class="nav-logo"><img src="MRC LOGO LOTUS25 copy.pdf.png" alt="MRC Landmarks"></a>
+  <button class="nav-burger" id="menuOpen" aria-label="Menu"><span></span><span></span><span></span></button>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-top">
+    <a href="index.html" class="nav-logo"><img src="MRC LOGO LOTUS25 copy.pdf.png" alt="MRC Landmarks"></a>
+    <button class="mobile-menu-close" id="menuClose">&times;</button>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="insights.html">Insights</a>
+    <a href="mrc-forum.html">MRC Forum</a>
+    <a href="channel-partners.html">Channel Partners</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="mobile-menu-ctas">
+    <a href="site-visit.html" class="btn-gold">Schedule a Site Visit</a>
+  </div>
+</div>
+
+<section class="page-header">
+  <p class="page-header-eyebrow">Legal</p>
+  <h1>Terms &amp; Disclaimer</h1>
+  <p class="page-header-date">Last updated: August 2026</p>
+</section>
+
+<main class="policy-content">
+
+  <p class="policy-intro">Please read these terms carefully before using the MRC Landmarks website or engaging with our services. By accessing this website, you agree to be bound by the following terms and conditions.</p>
+
+  <h2>1. Property Information Disclaimer</h2>
+  <p>All project information, including but not limited to specifications, amenities, layouts, images, pricing, timelines, and availability, is provided for general informational purposes only. While MRC Landmarks makes every effort to present accurate and up-to-date information, the following apply:</p>
+  <ul>
+    <li>Project details, specifications, and amenities are subject to change without prior notice and shall be governed by the applicable project documents and agreements.</li>
+    <li>Photographs, renderings, illustrations, and maps on this website are indicative and may not represent actual conditions, proportions, or specifications.</li>
+    <li>Pricing information, when displayed, is subject to change and does not constitute a binding offer or commitment. Final pricing will be confirmed in the sale agreement.</li>
+    <li>Plot availability shown on the website may not reflect real-time status. Confirm availability directly with MRC Landmarks before making any decision.</li>
+  </ul>
+
+  <h2>2. No Offer or Solicitation</h2>
+  <p>Nothing on this website constitutes an offer to sell, a solicitation to buy, or a commitment regarding any plot, land, or property. Any purchase or investment decision must be based on the relevant legal documents, sale agreements, and independent due diligence conducted by the buyer.</p>
+  <p>This website does not constitute a prospectus, advertisement, or public offering under the Real Estate (Regulation and Development) Act, 2016 (RERA), or any other applicable law, beyond what is permitted and disclosed.</p>
+
+  <h2>3. Buyer Responsibility</h2>
+  <p>Prospective buyers are strongly advised to:</p>
+  <ul>
+    <li>Independently verify all project details, approvals, and legal documentation before entering into any agreement.</li>
+    <li>Review the relevant DTCP approval, RERA registration, title deeds, encumbrance certificates, and other legal documents.</li>
+    <li>Engage qualified legal and financial advisors for advice specific to their circumstances.</li>
+    <li>Visit the project site in person before making a purchase decision.</li>
+    <li>Not rely solely on the information presented on this website for any investment or purchase decision.</li>
+  </ul>
+
+  <h2>4. Approvals and Registrations</h2>
+  <p>MRC Landmarks projects are developed in compliance with applicable regulations. Approval and registration details, including DTCP approval numbers and RERA registration numbers, are specific to each project and will be shared upon request and in the sale documentation. The mention of approvals on this website is for informational purposes and buyers should verify the validity and scope of such approvals independently.</p>
+
+  <h2>5. Intellectual Property</h2>
+  <p>All content on this website, including text, graphics, logos, images, layout designs, and software, is the property of MRC Landmarks or its licensors and is protected by applicable intellectual property laws. You may not reproduce, distribute, modify, or create derivative works from any content without prior written permission from MRC Landmarks.</p>
+
+  <h2>6. Use of Website</h2>
+  <p>You agree to use this website only for lawful purposes and in a manner that does not infringe upon the rights of others. You may not:</p>
+  <ul>
+    <li>Use this website for any fraudulent or unlawful purpose.</li>
+    <li>Attempt to gain unauthorised access to any part of the website or its systems.</li>
+    <li>Transmit any harmful code, viruses, or other disruptive elements.</li>
+    <li>Scrape, copy, or extract content from this website without permission.</li>
+  </ul>
+
+  <h2>7. Third-Party Links</h2>
+  <p>This website may contain links to third-party websites or services that are not owned or controlled by MRC Landmarks. We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party websites. Visiting external links is at your own risk.</p>
+
+  <h2>8. Limitation of Liability</h2>
+  <p>To the fullest extent permitted by law, MRC Landmarks shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of this website, reliance on any information provided herein, or any errors or omissions in the content.</p>
+  <p>MRC Landmarks does not guarantee that the website will be uninterrupted, error-free, or free from viruses or other harmful components.</p>
+
+  <h2>9. Governing Law</h2>
+  <p>These terms shall be governed by and construed in accordance with the laws of India. Any disputes arising out of or in connection with these terms or the use of this website shall be subject to the exclusive jurisdiction of the courts in Madurai, Tamil Nadu.</p>
+
+  <h2>10. Changes to Terms</h2>
+  <p>MRC Landmarks reserves the right to update or modify these terms at any time without prior notice. Your continued use of the website after any changes constitutes your acceptance of the revised terms. We encourage you to review this page periodically.</p>
+
+  <h2>11. Contact</h2>
+  <p>If you have any questions about these terms, please contact us at:</p>
+  <p><strong>MRC Landmarks</strong><br>Southern Tamil Nadu<br>Email: <a href="mailto:info@mrclandmarks.com">info@mrclandmarks.com</a></p>
+
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="MRC LOGO LOTUS25 copy.pdf.png" alt="MRC Landmarks" style="height:28px; opacity:0.5; filter:brightness(10);">
+        <p class="footer-tagline">Landmarks of the South.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="index.html">Home</a>
+          <a href="projects.html">Projects</a>
+          <a href="insights.html">Insights</a>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <a href="channel-partners.html">Channel Partners</a>
+          <a href="mrc-forum.html">MRC Forum</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 MRC Landmarks. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('menuOpen').addEventListener('click', function() {
+    document.getElementById('mobileMenu').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+  document.getElementById('menuClose').addEventListener('click', function() {
+    document.getElementById('mobileMenu').classList.remove('open');
+    document.body.style.overflow = '';
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DTCP and RERA Approval for Plots in Tamil Nadu | MRC Landmarks</title>
+<meta name="description" content="Learn how DTCP planning approval and TNRERA registration differ, what each covers and what to verify before buying a plot.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DTCP vs RERA: A Clear Guide for Plot Buyers">
+<meta property="og:description" content="Understand the difference between planning approval, project registration and title verification.">
+<meta property="og:image" content="5db28d84-affe-4203-96e5-90852a4c59f6.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "DTCP and RERA: What Plot Buyers Need to Understand",
+  "description": "Learn how DTCP planning approval and TNRERA registration differ, what each covers and what to verify before buying a plot.",
+  "image": "5db28d84-affe-4203-96e5-90852a4c59f6.png",
+  "datePublished": "2026-08-01",
+  "dateModified": "2026-08-31",
+  "author": {
+    "@type": "Organization",
+    "name": "MRC Landmarks",
+    "url": "https://mrclandmarks.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "MRC Landmarks"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage"
+  },
+  "articleSection": "Regulations"
+}
+</script>
+<style>
+:root {
+  --bg: #F7F5EF;
+  --bg-alt: #EEF1EC;
+  --white: #FFFFFF;
+  --teal: #176A70;
+  --teal-deep: #12474C;
+  --teal-mid: #1A8085;
+  --teal-pale: #E2EDEB;
+  --terra: #B8755D;
+  --terra-pale: #F5ECE7;
+  --gold: #C4A97D;
+  --gold-light: #EDE4D4;
+  --text: #1A2A2D;
+  --text-body: #4A5450;
+  --text-muted: #8A8D82;
+  --text-light: #B0B3A8;
+  --border: #E4E2DA;
+  --border-teal: rgba(23,106,112,0.1);
+  --shadow-sm: 0 2px 16px rgba(23,106,112,0.04);
+  --shadow-md: 0 4px 28px rgba(23,106,112,0.06);
+  --shadow-lg: 0 8px 44px rgba(23,106,112,0.08);
+  --r: 20px;
+  --r-sm: 12px;
+  --r-btn: 14px;
+  --font-d: 'Instrument Sans', system-ui, sans-serif;
+  --font-b: 'Inter', system-ui, sans-serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+body {
+  font-family: var(--font-b);
+  color: var(--text-body);
+  background: var(--bg);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+button { border: none; background: none; cursor: pointer; font: inherit; }
+
+/* ---- GRAIN ---- */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px;
+}
+
+/* ---- NAV ---- */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(247,245,239,0.9);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(228,226,218,0.5);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+  transition: background 0.4s, box-shadow 0.3s, border-color 0.4s;
+}
+.nav-logo { height: 44px; }
+.nav-logo img { height: 100%; width: auto; }
+.nav-burger {
+  width: 40px; height: 40px;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 6px;
+  background: var(--white);
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.nav-burger span {
+  display: block; width: 18px; height: 1.5px;
+  background: var(--text); border-radius: 2px;
+  transition: all 0.3s;
+}
+.nav-links {
+  display: none;
+}
+@media (min-width: 900px) {
+  .nav { padding: 16px 48px; }
+  .nav-burger { display: none; }
+  .nav-links {
+    display: flex; align-items: center; gap: 32px;
+  }
+  .nav-links a {
+    font-size: 14px; font-weight: 500; color: var(--text-body);
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--teal); }
+  .nav-links a.active { color: var(--teal); font-weight: 600; }
+  .nav-links .nav-cta {
+    padding: 10px 22px;
+    background: var(--teal); color: var(--white);
+    border-radius: var(--r-btn); font-weight: 600;
+    border: 1px solid var(--teal);
+    transition: background 0.3s;
+  }
+  .nav-links .nav-cta:hover { background: var(--teal-deep); }
+}
+
+/* Mobile menu overlay */
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--bg);
+  display: flex; flex-direction: column;
+  padding: 24px;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+.mobile-menu.open { transform: translateX(0); }
+.mobile-menu-top {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 48px;
+}
+.mobile-menu-close {
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--white); border-radius: 10px;
+  border: 1px solid var(--border);
+  font-size: 20px; color: var(--text);
+}
+.mobile-menu nav { display: flex; flex-direction: column; gap: 8px; }
+.mobile-menu nav a {
+  font-family: var(--font-d);
+  font-size: 24px; font-weight: 600; color: var(--text);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+.mobile-menu nav a:hover { color: var(--teal); }
+.mobile-menu nav a.active { color: var(--teal); }
+.mobile-menu-ctas {
+  margin-top: auto; padding-top: 32px;
+}
+.btn-gold {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 14px 28px;
+  background: var(--gold); color: var(--white);
+  font-family: var(--font-d);
+  font-size: 14px; font-weight: 600;
+  border-radius: var(--r-btn);
+  transition: background 0.3s, transform 0.3s;
+  width: 100%;
+  text-align: center;
+}
+.btn-gold:hover {
+  background: #b89a6f;
+  transform: translateY(-2px);
+}
+
+/* ---- ARTICLE HERO ---- */
+.article-hero {
+  padding-top: 76px;
+}
+.article-hero-cover {
+  width: 100%;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+}
+.article-hero-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (min-width: 900px) {
+  .article-hero {
+    padding-top: 100px;
+    max-width: 960px;
+    margin: 0 auto;
+    padding-left: 48px;
+    padding-right: 48px;
+  }
+  .article-hero-cover {
+    aspect-ratio: 16/7;
+    border-radius: var(--r);
+  }
+}
+
+/* ---- ARTICLE HEADER ---- */
+.article-header {
+  padding: 28px 20px 0;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+.breadcrumb a {
+  color: var(--teal);
+  transition: color 0.2s;
+}
+.breadcrumb a:hover {
+  color: var(--teal-deep);
+}
+.breadcrumb .sep {
+  color: var(--text-light);
+}
+
+.category-pill {
+  display: inline-block;
+  padding: 4px 12px;
+  font-family: var(--font-d);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--teal-pale);
+  color: var(--teal);
+  border-radius: 100px;
+  margin-bottom: 16px;
+}
+
+.article-title {
+  font-family: var(--font-d);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.article-excerpt {
+  font-family: var(--font-b);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.article-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.article-meta .dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-light);
+  flex-shrink: 0;
+}
+
+.article-reviewed {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-bottom: 16px;
+}
+
+.article-share {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 36px;
+}
+.share-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.share-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.share-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  transition: border-color 0.2s, color 0.2s;
+}
+.share-link:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+.share-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (min-width: 900px) {
+  .article-header {
+    padding: 36px 20px 0;
+  }
+  .article-title {
+    font-size: 36px;
+  }
+}
+
+/* ---- ARTICLE BODY ---- */
+.article-body {
+  padding: 0 20px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.article-body p {
+  font-family: var(--font-b);
+  font-size: 16.5px;
+  line-height: 1.8;
+  color: var(--text-body);
+  margin-bottom: 24px;
+}
+.article-body h2 {
+  font-family: var(--font-d);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+  margin-top: 48px;
+  margin-bottom: 16px;
+}
+.article-body ul,
+.article-body ol {
+  padding-left: 24px;
+  margin-bottom: 24px;
+}
+.article-body li {
+  font-size: 16.5px;
+  line-height: 1.8;
+  color: var(--text-body);
+  margin-bottom: 8px;
+}
+.article-body ul { list-style-type: disc; }
+.article-body ol { list-style-type: decimal; }
+.article-body blockquote {
+  border-left: 3px solid var(--teal);
+  padding-left: 20px;
+  margin: 32px 0;
+  font-style: italic;
+  color: var(--text-muted);
+  font-size: 16.5px;
+  line-height: 1.8;
+}
+.article-body strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ---- COMPARISON TABLE ---- */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 28px 0 32px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+  background: var(--white);
+}
+.comparison-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.comparison-table thead th {
+  background: var(--teal-pale);
+  color: var(--teal-deep);
+  font-family: var(--font-d);
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.comparison-table thead th:first-child {
+  border-top-left-radius: var(--r-sm);
+}
+.comparison-table thead th:last-child {
+  border-top-right-radius: var(--r-sm);
+}
+.comparison-table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-body);
+  vertical-align: top;
+}
+.comparison-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.comparison-table tbody td:first-child {
+  font-weight: 600;
+  color: var(--text);
+  font-family: var(--font-d);
+  font-size: 13.5px;
+  white-space: nowrap;
+}
+@media (min-width: 600px) {
+  .comparison-table {
+    font-size: 15px;
+  }
+  .comparison-table thead th {
+    font-size: 13.5px;
+    padding: 16px 20px;
+  }
+  .comparison-table tbody td {
+    padding: 16px 20px;
+  }
+}
+
+/* ---- FAQ ACCORDION ---- */
+.faq-section {
+  margin-top: 48px;
+  margin-bottom: 12px;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+.faq-item:first-child {
+  border-top: 1px solid var(--border);
+}
+.faq-question {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 0;
+  font-family: var(--font-d);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  background: none;
+  border: none;
+  line-height: 1.4;
+  transition: color 0.2s;
+}
+.faq-question:hover {
+  color: var(--teal);
+}
+.faq-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--teal-pale);
+  color: var(--teal);
+  font-size: 18px;
+  font-weight: 400;
+  transition: transform 0.3s, background 0.3s;
+  margin-top: 2px;
+}
+.faq-item.open .faq-icon {
+  transform: rotate(45deg);
+  background: var(--teal);
+  color: var(--white);
+}
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.22,1,0.36,1), padding 0.3s;
+}
+.faq-answer-inner {
+  padding: 0 0 20px;
+  font-size: 15.5px;
+  line-height: 1.75;
+  color: var(--text-body);
+}
+
+/* ---- DISCLAIMER ---- */
+.article-disclaimer {
+  margin-top: 40px;
+  padding: 20px 24px;
+  background: var(--teal-pale);
+  border-radius: var(--r-sm);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+.article-disclaimer strong {
+  font-weight: 600;
+  color: var(--text-body);
+}
+
+/* ---- BACK LINK ---- */
+.article-back {
+  padding: 40px 20px 0;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-d);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--teal);
+  transition: gap 0.3s;
+}
+.back-link:hover {
+  gap: 10px;
+}
+.back-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ---- CTA BANNER ---- */
+.article-cta {
+  margin: 56px 20px 0;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  background: var(--teal-deep);
+  border-radius: var(--r);
+  padding: 40px 24px;
+  text-align: center;
+}
+.article-cta-heading {
+  font-family: var(--font-d);
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.article-cta-sub {
+  font-size: 14px;
+  line-height: 1.6;
+  color: rgba(247,245,239,0.6);
+  margin-bottom: 28px;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.article-cta-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+.cta-btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  background: var(--gold);
+  color: var(--text);
+  font-family: var(--font-d);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--r-btn);
+  transition: background 0.3s, transform 0.3s;
+  width: 100%;
+  max-width: 260px;
+}
+.cta-btn-gold:hover {
+  background: #b89a6f;
+  transform: translateY(-2px);
+}
+.cta-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  background: transparent;
+  color: var(--white);
+  font-family: var(--font-d);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: var(--r-btn);
+  border: 1.5px solid rgba(255,255,255,0.35);
+  transition: border-color 0.3s, transform 0.3s;
+  width: 100%;
+  max-width: 260px;
+}
+.cta-btn-outline:hover {
+  border-color: rgba(255,255,255,0.7);
+  transform: translateY(-2px);
+}
+
+@media (min-width: 600px) {
+  .article-cta-buttons {
+    flex-direction: row;
+    justify-content: center;
+  }
+  .cta-btn-gold,
+  .cta-btn-outline {
+    width: auto;
+  }
+}
+@media (min-width: 900px) {
+  .article-cta {
+    margin-top: 64px;
+    padding: 48px 40px;
+    max-width: 800px;
+  }
+  .article-cta-heading {
+    font-size: 26px;
+  }
+}
+
+/* ---- RELATED ARTICLES ---- */
+.related-section {
+  padding: 56px 20px 64px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.related-heading {
+  font-family: var(--font-d);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 24px;
+}
+.related-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+@media (min-width: 600px) {
+  .related-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 900px) {
+  .related-section {
+    padding: 72px 48px 80px;
+  }
+}
+
+/* Card styles */
+.card {
+  display: block;
+  background: var(--white);
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s, transform 0.3s;
+  cursor: pointer;
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+.card-cover {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+.card-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.card:hover .card-cover img {
+  transform: scale(1.03);
+}
+.card-body {
+  padding: 20px;
+}
+.card-title {
+  font-family: var(--font-d);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+  margin-bottom: 10px;
+}
+.card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-d);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--teal);
+  transition: gap 0.3s ease;
+}
+.read-more svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease;
+}
+.card:hover .read-more svg {
+  transform: translateX(3px);
+}
+
+/* ---- FOOTER ---- */
+.footer {
+  padding: 48px 24px 32px;
+  background: #0E2E32;
+  color: rgba(247,245,239,0.5);
+}
+@media (min-width: 900px) { .footer { padding: 64px 64px 40px; } }
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+}
+.footer-top {
+  display: flex; flex-direction: column; gap: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid rgba(247,245,239,0.08);
+  margin-bottom: 32px;
+}
+@media (min-width: 700px) {
+  .footer-top { flex-direction: row; justify-content: space-between; align-items: flex-start; }
+}
+.footer-brand img {
+  height: 36px; opacity: 0.5;
+  filter: invert(1);
+  mix-blend-mode: screen;
+  margin-bottom: 12px;
+}
+.footer-tagline {
+  font-family: var(--font-d);
+  font-size: 14px; font-weight: 500;
+  color: rgba(247,245,239,0.35);
+}
+.footer-cols {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.footer-col h4 {
+  font-family: var(--font-d);
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(247,245,239,0.25);
+  margin-bottom: 16px;
+}
+.footer-col a {
+  display: block;
+  font-size: 14px;
+  color: rgba(247,245,239,0.45);
+  padding: 4px 0;
+  transition: color 0.2s;
+}
+.footer-col a:hover { color: rgba(247,245,239,0.8); }
+.footer-bottom {
+  display: flex; flex-direction: column; gap: 12px;
+  align-items: center; text-align: center;
+}
+@media (min-width: 700px) {
+  .footer-bottom { flex-direction: row; justify-content: space-between; text-align: left; }
+}
+.footer-bottom-links {
+  display: flex; gap: 20px;
+}
+.footer-bottom-links a {
+  font-size: 12px;
+  color: rgba(247,245,239,0.35);
+  transition: color 0.2s;
+}
+.footer-bottom-links a:hover { color: rgba(247,245,239,0.6); }
+.footer-copy {
+  font-size: 12px;
+  color: rgba(247,245,239,0.25);
+  white-space: nowrap;
+}
+
+/* ---- REVEAL ANIMATION ---- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV ===== -->
+<header class="nav scrolled" id="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="MRC LOGO LOTUS25 copy.pdf.png" alt="MRC Landmarks">
+  </a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#intro">About</a>
+    <a href="projects.html">Locations</a>
+    <a href="insights.html" class="active">Insights</a>
+    <a href="contact.html">Contact</a>
+    <a href="site-visit.html" class="nav-cta">Schedule a Visit</a>
+  </div>
+  <button class="nav-burger" id="menuOpen" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- ===== MOBILE MENU ===== -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-top">
+    <a href="index.html" class="nav-logo">
+      <img src="MRC LOGO LOTUS25 copy.pdf.png" alt="MRC Landmarks">
+    </a>
+    <button class="mobile-menu-close" id="menuClose">&times;</button>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="index.html#intro">About</a>
+    <a href="projects.html">Locations</a>
+    <a href="insights.html" class="active">Insights</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="mobile-menu-ctas">
+    <a href="site-visit.html" class="btn-gold">Schedule a Site Visit</a>
+  </div>
+</div>
+
+<!-- ===== ARTICLE HERO ===== -->
+<section class="article-hero">
+  <div class="article-hero-cover">
+    <img src="5db28d84-affe-4203-96e5-90852a4c59f6.png" alt="Approved-layout drawing beside an aerial plotted development in Tamil Nadu">
+  </div>
+</section>
+
+<!-- ===== ARTICLE HEADER ===== -->
+<div class="article-header">
+  <div class="breadcrumb">
+    <a href="insights.html">Insights</a>
+    <span class="sep">/</span>
+    <span>Regulations</span>
+  </div>
+
+  <span class="category-pill">Regulations</span>
+
+  <h1 class="article-title">DTCP and RERA: What Plot Buyers Need to Understand</h1>
+
+  <p class="article-excerpt">DTCP approval and RERA registration are related to a project in different ways. Here is how to understand both before buying a plot.</p>
+
+  <div class="article-meta">
+    <span>4 min read</span>
+    <span class="dot"></span>
+    <span>August 2026</span>
+  </div>
+
+  <p class="article-reviewed">Reviewed on August 2026</p>
+
+  <div class="article-share">
+    <span class="share-label">Share</span>
+    <div class="share-links">
+      <!-- Twitter / X -->
+      <span class="share-link" aria-label="Share on X" role="button" tabindex="0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l6.5 8L4 20h2l5.5-6.8L16 20h4l-7-8.5L20 4h-2l-5 6.2L9 4H4z"/></svg>
+      </span>
+      <!-- LinkedIn -->
+      <span class="share-link" aria-label="Share on LinkedIn" role="button" tabindex="0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </span>
+      <!-- Copy link -->
+      <span class="share-link" aria-label="Copy link" role="button" tabindex="0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ARTICLE BODY ===== -->
+<article class="article-body">
+  <p>"DTCP approved" and "RERA registered" are often used together in property conversations. They are not interchangeable. Each addresses a different part of a plotted development, and neither removes the need to verify the title and the exact plot being purchased.</p>
+
+  <p>Understanding the distinction makes it easier to ask the right questions&#8202;&#8212;&#8202;and to recognise when an approval claim is being used too broadly.</p>
+
+  <h2>What does DTCP approval mean?</h2>
+
+  <p>The Directorate of Town and Country Planning operates under Tamil Nadu's planning framework and has jurisdiction across the state except the Chennai Metropolitan Development Authority area. Depending on the location, the competent planning authority and local body may both have roles in approving and sanctioning a layout.</p>
+
+  <p>In practical terms, layout approval concerns whether land has been planned and divided in accordance with applicable planning rules. The sanctioned layout can identify matters such as:</p>
+
+  <ul>
+    <li>The approved boundary of the development</li>
+    <li>Plot arrangement and numbering</li>
+    <li>Internal roads and access</li>
+    <li>Areas reserved for open space or public purposes</li>
+    <li>Other planning conditions recorded in the approval</li>
+  </ul>
+
+  <p>An approval is specific to a survey extent, plan and reference number. It should never be assumed to cover neighbouring land, an altered plan or a plot outside the sanctioned boundary.</p>
+
+  <h2>What does TNRERA registration mean?</h2>
+
+  <p>TNRERA is Tamil Nadu's Real Estate Regulatory Authority under the central Real Estate (Regulation and Development) Act, 2016 and the state's rules.</p>
+
+  <p>The Act defines a real-estate project to include the development of land into plots for sale. For projects to which registration applies, a promoter must register before advertising, marketing, booking or selling plots. The registration process supports project-level disclosure and creates responsibilities relating to the information and commitments made to allottees.</p>
+
+  <p>The official TNRERA portal publishes registered layout projects. A buyer can use the registration number to compare core project details with the promoter's brochure and agreement.</p>
+
+  <h2>DTCP approval and TNRERA registration: the difference</h2>
+
+  <div class="table-wrap">
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Question</th>
+          <th>Planning / layout approval</th>
+          <th>TNRERA registration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Main purpose</td>
+          <td>Confirms that a particular layout has planning approval from the competent authority</td>
+          <td>Registers an applicable real-estate project under RERA and supports disclosure and buyer protection</td>
+        </tr>
+        <tr>
+          <td>What to match</td>
+          <td>Survey numbers, approved boundary, plots, roads, reservations, reference and date</td>
+          <td>Promoter, project name, survey details, approvals, declared timeline and registration status</td>
+        </tr>
+        <tr>
+          <td>Does it prove ownership?</td>
+          <td>No</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>Does it replace a title check?</td>
+          <td>No</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>Where to verify</td>
+          <td>DTCP / competent planning authority and local-body records</td>
+          <td>Official TNRERA project register</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>The central idea is straightforward: planning approval examines the layout; RERA regulates applicable projects and promoter obligations. A buyer still needs an independent title, survey and agreement review.</p>
+
+  <h2>How to verify a layout-approval claim</h2>
+
+  <p>Ask the developer for a complete, legible copy of the sanctioned layout and approval proceedings. Then check:</p>
+
+  <ol>
+    <li><strong>Approval authority:</strong> Is it the competent authority for that location?</li>
+    <li><strong>Reference and date:</strong> Do they match the official record?</li>
+    <li><strong>Survey numbers and extent:</strong> Do they cover the land being marketed?</li>
+    <li><strong>Plot number and dimensions:</strong> Is your plot shown exactly on the sanctioned plan?</li>
+    <li><strong>Roads and reserved areas:</strong> Are they shown consistently on the plan and site?</li>
+    <li><strong>Local-body requirements:</strong> Have the relevant sanction and handover conditions been addressed?</li>
+    <li><strong>Revisions:</strong> Is the plan you received the current approved version?</li>
+  </ol>
+
+  <p>Tamil Nadu DTCP provides an approved-layout page and buyer guidance on its official website. Where online records are incomplete or unclear, obtain confirmation from the competent office rather than depending on a cropped image or brochure statement.</p>
+
+  <h2>How to verify a TNRERA registration</h2>
+
+  <p>Search the project through the registered-layout section of the official TNRERA portal. Match the information carefully:</p>
+
+  <ul>
+    <li>Registration number and current status</li>
+    <li>Promoter's legal name</li>
+    <li>Project name and location</li>
+    <li>Survey numbers and land extent</li>
+    <li>Layout or planning-approval details</li>
+    <li>Declared project or development information</li>
+    <li>Any updated, extended, withdrawn or otherwise changed status shown by the Authority</li>
+  </ul>
+
+  <p>Do not simply search the brand name. Use the exact project name and registration number, then compare the official record with the agreement and approved layout.</p>
+
+  <h2>What RERA adds for buyers</h2>
+
+  <p>For an applicable registered project, the RERA framework includes several useful safeguards. Among other provisions, the Act requires disclosure of sanctioned plans and a stage-wise completion schedule, requires development in accordance with sanctioned plans and restricts a promoter from taking more than 10% of the plot cost before a written registered agreement for sale.</p>
+
+  <p>These protections are meaningful, but they work best when the buyer also reads the agreement, monitors official project information and preserves receipts and communications.</p>
+
+  <h2>What neither approval confirms</h2>
+
+  <p>DTCP approval or TNRERA registration should not be described as a complete guarantee of the individual purchase. Neither, by itself, confirms:</p>
+
+  <ul>
+    <li>A flawless chain of title</li>
+    <li>The absence of every encumbrance or dispute</li>
+    <li>The exact physical boundary of the plot</li>
+    <li>The buyer's suitability for a future building proposal</li>
+    <li>The completion of every promised amenity</li>
+    <li>The investment return or future resale value</li>
+  </ul>
+
+  <p>Those questions require document review, site inspection, surveying and&#8202;&#8212;&#8202;in some cases&#8202;&#8212;&#8202;additional permissions.</p>
+
+  <h2>Warning signs to pause on</h2>
+
+  <p>Take additional care if:</p>
+
+  <ul>
+    <li>The approval number is not shared before payment</li>
+    <li>The plot cannot be located on the sanctioned plan</li>
+    <li>Survey numbers differ between the plan and title documents</li>
+    <li>The brochure shows roads or amenities not found in the approved plan</li>
+    <li>The promoter claims that RERA "does not matter" without explaining the exemption</li>
+    <li>You are asked to rely only on a photocopy, screenshot or verbal assurance</li>
+    <li>An urgent discount is tied to paying before document review</li>
+  </ul>
+
+  <p>Trustworthy development is not afraid of verification. Clear documents, traceable approvals and consistent information are part of the product&#8202;&#8212;&#8202;not an afterthought.</p>
+
+  <!-- ===== FAQ ACCORDION ===== -->
+  <div class="faq-section">
+    <h2>Frequently asked questions</h2>
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        <span>Is a DTCP-approved plot automatically RERA registered?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">No. Planning approval and RERA registration are separate. Check whether RERA registration applies to the project and verify its status on the TNRERA portal.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        <span>Does RERA registration mean the title is guaranteed?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">No. RERA registration supports project disclosure and promoter accountability, but buyers should still obtain an independent legal title opinion and verify survey and revenue records.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        <span>How do I know whether a plot is inside the approved layout?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">Match its plot number, dimensions, survey details and position against the complete sanctioned layout. A site survey may be appropriate before purchase.</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-question" aria-expanded="false">
+        <span>Can I rely on an approval logo in an advertisement?</span>
+        <span class="faq-icon">+</span>
+      </button>
+      <div class="faq-answer">
+        <div class="faq-answer-inner">No. Ask for the approval proceedings and sanctioned plan, then verify them through the competent official authority.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DISCLAIMER ===== -->
+  <div class="article-disclaimer">
+    <strong>Disclaimer:</strong> This article provides general educational information, not legal, financial or investment advice. Approval and registration requirements depend on jurisdiction, project facts and current law. Verify the specific project with the competent authorities and qualified professionals before purchase.
+  </div>
+</article>
+
+<!-- ===== BACK LINK ===== -->
+<div class="article-back">
+  <a href="insights.html" class="back-link">
+    <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.5 8H3.5M3.5 8L7.5 4M3.5 8L7.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to Insights
+  </a>
+</div>
+
+<!-- ===== CTA BANNER ===== -->
+<div class="article-cta">
+  <h2 class="article-cta-heading">Approvals should be understood, not merely displayed.</h2>
+  <p class="article-cta-sub">Explore MRC Landmarks projects and review the location, sanctioned plan and available project information before your site visit.</p>
+  <div class="article-cta-buttons">
+    <a href="projects.html" class="cta-btn-gold">Explore Projects</a>
+    <a href="contact.html" class="cta-btn-outline">Talk to MRC</a>
+  </div>
+</div>
+
+<!-- ===== RELATED ARTICLES ===== -->
+<section class="related-section">
+  <h2 class="related-heading">More Insights</h2>
+  <div class="related-grid">
+
+    <!-- Related Card 1 -->
+    <div>
+      <a href="insight-verify-before-buying.html" class="card">
+        <div class="card-cover">
+          <img src="2b1442b6-33c3-4be9-aa9e-cc22d6a2ebea.png" alt="What to Verify Before Buying a Plot in Tamil Nadu">
+        </div>
+        <div class="card-body">
+          <span class="category-pill">Buyer Guide</span>
+          <h3 class="card-title">What to Verify Before Buying a Plot in Tamil Nadu</h3>
+          <div class="card-meta">
+            <span class="read-more">Read More <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Related Card 2 -->
+    <div>
+      <a href="insight-master-plan.html" class="card">
+        <div class="card-cover">
+          <img src="9551af30-d0e7-4eb6-9264-bcf8eb8e3831.png" alt="How to Read a Plotted-Development Master Plan">
+        </div>
+        <div class="card-body">
+          <span class="category-pill">Buyer Guide</span>
+          <h3 class="card-title">How to Read a Plotted-Development Master Plan</h3>
+          <div class="card-meta">
+            <span class="read-more">Read More <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="MRC LOGO LOTUS25 copy.pdf.png" alt="MRC Landmarks" style="height:28px; opacity:0.5; filter:brightness(10);">
+        <p class="footer-tagline">Landmarks of the South.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="index.html#intro">About</a>
+          <a href="index.html#process">Our Approach</a>
+          <a href="projects.html">Locations</a>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <a href="channel-partners.html">Channel Partners</a>
+          <a href="insights.html">Insights</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 MRC Landmarks. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ---- Mobile menu ----
+const menuOpen = document.getElementById('menuOpen');
+const menuClose = document.getElementById('menuClose');
+const mobileMenu = document.getElementById('mobileMenu');
+
+menuOpen.addEventListener('click', () => mobileMenu.classList.add('open'));
+menuClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+
+mobileMenu.querySelectorAll('nav a').forEach(link => {
+  link.addEventListener('click', () => mobileMenu.classList.remove('open'));
+});
+
+// ---- FAQ accordion ----
+document.querySelectorAll('.faq-question').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.closest('.faq-item');
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+
+    // Close all other items
+    document.querySelectorAll('.faq-item.open').forEach(openItem => {
+      if (openItem !== item) {
+        openItem.classList.remove('open');
+        openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        openItem.querySelector('.faq-answer').style.maxHeight = '0';
+      }
+    });
+
+    // Toggle current item
+    if (isOpen) {
+      item.classList.remove('open');
+      btn.setAttribute('aria-expanded', 'false');
+      answer.style.maxHeight = '0';
+    } else {
+      item.classList.add('open');
+      btn.setAttribute('aria-expanded', 'true');
+      answer.style.maxHeight = answer.scrollHeight + 'px';
+    }
+  });
+});
+
+</script>
+
+</body>
+</html>

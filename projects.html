@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>MRC Projects | Plotted Developments Across Southern Tamil Nadu</title>
+<meta name="description" content="Explore MRC Landmarks plotted developments across Madurai, Dindigul, Theni, Sivakasi, Tenkasi and Ramanathapuram. DTCP-approved residential plots in Southern Tamil Nadu.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+:root {
+  --bg: #F7F5EF;
+  --bg-alt: #EEF1EC;
+  --white: #FFFFFF;
+  --teal: #176A70;
+  --teal-deep: #12474C;
+  --teal-mid: #1A8085;
+  --teal-pale: #E2EDEB;
+  --teal-light: #D0E5E3;
+  --terra: #B8755D;
+  --terra-pale: #F5ECE7;
+  --gold: #C4A97D;
+  --gold-light: #EDE4D4;
+  --text: #1A2A2D;
+  --text-body: #4A5450;
+  --text-muted: #8A8D82;
+  --border: #E4E2DA;
+  --shadow-sm: 0 2px 16px rgba(23,106,112,0.04);
+  --shadow-md: 0 4px 28px rgba(23,106,112,0.06);
+  --shadow-lg: 0 8px 44px rgba(23,106,112,0.08);
+  --r: 20px;
+  --r-sm: 12px;
+  --r-btn: 14px;
+  --font-d: 'Instrument Sans', system-ui, sans-serif;
+  --font-b: 'Inter', system-ui, sans-serif;
+  --available: #2D9F6F;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-font-smoothing: antialiased; scroll-behavior: smooth; }
+body {
+  font-family: var(--font-b);
+  color: var(--text-body);
+  background: var(--bg);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; display: block; }
+
+/* ===== HEADER ===== */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 12px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  transition: background 0.3s, box-shadow 0.3s;
+}
+.header.scrolled {
+  background: rgba(247,245,239,0.95);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+}
+.header-logo { height: 44px; width: auto; }
+.header-right { display: flex; align-items: center; gap: 10px; }
+.header-cta {
+  background: var(--teal); color: var(--white);
+  font-family: var(--font-d); font-size: 13px; font-weight: 600;
+  padding: 10px 20px; border-radius: 28px; border: none; cursor: pointer;
+  transition: background 0.3s;
+}
+.header-cta:active { background: var(--teal-deep); }
+.menu-btn {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--white); border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: transform 0.2s;
+}
+.menu-btn:active { transform: scale(0.92); }
+.menu-btn svg { width: 18px; height: 18px; color: var(--text); }
+
+/* Mobile menu overlay */
+.mobile-menu {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--bg); transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+  display: flex; flex-direction: column; padding: 20px;
+}
+.mobile-menu.open { transform: translateX(0); }
+.mobile-menu-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+.mobile-menu-close {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--white); border: 1.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
+}
+.mobile-menu-close svg { width: 18px; height: 18px; color: var(--text); }
+.mobile-menu nav { display: flex; flex-direction: column; gap: 8px; }
+.mobile-menu nav a {
+  font-family: var(--font-d); font-size: 18px; font-weight: 600;
+  color: var(--text); padding: 14px 0; border-bottom: 1px solid var(--border);
+}
+.mobile-menu-ctas { margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-bottom: 24px; }
+.btn-gold {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: var(--teal); color: var(--white);
+  font-family: var(--font-d); font-size: 15px; font-weight: 600;
+  padding: 16px 28px; border-radius: var(--r-btn); border: none; cursor: pointer;
+}
+
+/* ===== BANNER ===== */
+.banner {
+  position: relative;
+  width: 100%;
+  padding-top: 68px;
+  overflow: hidden;
+}
+.banner-img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0 0 24px 24px;
+}
+
+/* ===== HERO CONTENT ===== */
+.hero-content {
+  padding: 28px 24px 0;
+}
+.hero-eyebrow {
+  font-family: var(--font-d); font-size: 11px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--teal); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+.hero-title {
+  font-family: var(--font-d); font-size: clamp(28px, 7vw, 38px);
+  font-weight: 700; color: var(--text); line-height: 1.12;
+  margin-bottom: 12px;
+}
+.hero-title span { color: var(--teal); }
+.hero-sub {
+  font-size: 15px; color: var(--text-body); line-height: 1.6;
+  max-width: 420px; margin-bottom: 28px;
+}
+
+/* ===== CITY SELECTOR ===== */
+.city-selector {
+  display: flex; gap: 8px;
+  padding: 0 24px 24px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.city-selector::-webkit-scrollbar { display: none; }
+.city-pill {
+  font-family: var(--font-d); font-size: 13px; font-weight: 600;
+  padding: 10px 20px; border-radius: 28px;
+  border: 1.5px solid var(--border); background: var(--white);
+  color: var(--text-muted); cursor: pointer;
+  white-space: nowrap; transition: all 0.3s;
+  display: flex; align-items: center; gap: 6px;
+}
+.city-pill:active { transform: scale(0.95); }
+.city-pill.active {
+  background: var(--teal); color: var(--white);
+  border-color: var(--teal);
+}
+.city-pill .count {
+  font-size: 11px; font-weight: 700;
+  background: rgba(255,255,255,0.2); padding: 2px 7px; border-radius: 10px;
+}
+.city-pill.active .count { background: rgba(255,255,255,0.25); }
+
+/* ===== MAP SECTION ===== */
+.map-section {
+  padding: 0 20px 24px;
+}
+.map-container {
+  width: 100%; height: 280px;
+  border-radius: var(--r); overflow: hidden;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+#projectsMap { width: 100%; height: 100%; }
+.map-badge-mini {
+  position: absolute; top: 12px; left: 12px; z-index: 500;
+  background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+  border-radius: var(--r-btn); padding: 6px 14px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-d); font-size: 12px; font-weight: 600; color: var(--text);
+}
+.map-badge-mini .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--available); }
+.leaflet-control-attribution { display: none !important; }
+.leaflet-marker-icon { overflow: visible !important; }
+
+/* Map marker styles */
+.mrc-marker {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: var(--teal); border: 2.5px solid rgba(255,255,255,0.9);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  position: relative;
+}
+.mrc-marker.anchor { width: 20px; height: 20px; background: var(--gold); }
+.mrc-marker::after {
+  content: ''; position: absolute; inset: -4px; border-radius: 50%;
+  border: 2px solid var(--teal); opacity: 0.3;
+  animation: marker-pulse 2s ease-out infinite;
+}
+@keyframes marker-pulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+.mrc-marker-label {
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(6px);
+  padding: 4px 10px; border-radius: 6px;
+  font-size: 11px; font-weight: 600;
+  color: var(--text); white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  font-family: var(--font-d);
+  text-align: center; letter-spacing: 0.01em;
+}
+.mrc-marker-label.left {
+  position: absolute;
+  right: calc(100% + 6px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+.mrc-marker-label.below {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+}
+.mrc-marker-label.left-up {
+  position: absolute;
+  right: calc(100% + 6px);
+  bottom: 100%;
+  transform: none;
+}
+.mrc-marker-label.active-city {
+  background: var(--teal); color: var(--white);
+}
+
+/* ===== CITY INTRO ===== */
+.city-intro {
+  padding: 0 24px 20px;
+}
+.city-intro-name {
+  font-family: var(--font-d); font-size: 22px; font-weight: 700;
+  color: var(--text); margin-bottom: 4px;
+}
+.city-intro-desc {
+  font-size: 14px; color: var(--text-body); line-height: 1.6;
+}
+
+/* ===== PROJECT CARDS ===== */
+.projects-grid {
+  padding: 0 20px 32px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+
+.project-card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.6);
+  border-radius: var(--r);
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(23,106,112,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.project-card:active { transform: scale(0.98); }
+
+.project-card-img {
+  width: 100%; height: 180px;
+  background: linear-gradient(135deg, var(--teal-deep) 0%, var(--teal) 40%, var(--teal-mid) 100%);
+  display: flex; align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+}
+.project-card-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.4) 100%);
+}
+.project-card-img .img-label {
+  position: relative; z-index: 2;
+  font-family: var(--font-d); font-size: 12px; font-weight: 600;
+  color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 0.08em;
+}
+.project-card-badge {
+  position: absolute; top: 12px; left: 12px; z-index: 2;
+  display: flex; align-items: center; gap: 5px;
+  background: rgba(45,159,111,0.9); backdrop-filter: blur(8px);
+  padding: 5px 12px; border-radius: 20px;
+  font-family: var(--font-d); font-size: 11px; font-weight: 600;
+  color: #fff; text-transform: uppercase; letter-spacing: 0.04em;
+}
+.project-card-badge .dot { width: 5px; height: 5px; border-radius: 50%; background: #fff; }
+
+.project-card-body { padding: 18px 20px 20px; }
+.project-card-name {
+  font-family: var(--font-d); font-size: 20px; font-weight: 700;
+  color: var(--text); line-height: 1.2; margin-bottom: 6px;
+}
+.project-card-location {
+  font-size: 13px; color: var(--text-muted);
+  display: flex; align-items: center; gap: 5px; margin-bottom: 14px;
+}
+.project-card-location svg { width: 13px; height: 13px; color: var(--teal); flex-shrink: 0; }
+
+.project-card-meta {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  margin-bottom: 16px;
+}
+.meta-chip {
+  background: var(--bg); border-radius: 10px; padding: 10px 12px;
+}
+.meta-chip-label {
+  font-size: 10px; text-transform: uppercase; letter-spacing: 0.04em;
+  color: var(--text-muted); margin-bottom: 2px;
+}
+.meta-chip-value {
+  font-family: var(--font-d); font-size: 14px; font-weight: 600;
+  color: var(--text);
+}
+
+.project-card-actions {
+  display: flex; gap: 8px;
+}
+.card-btn-primary {
+  flex: 1; padding: 13px 16px; border-radius: var(--r-btn);
+  background: var(--teal); color: var(--white);
+  font-family: var(--font-d); font-size: 13px; font-weight: 600;
+  border: none; cursor: pointer; text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: background 0.3s;
+}
+.card-btn-primary:active { background: var(--teal-deep); }
+.card-btn-primary svg { width: 14px; height: 14px; }
+.card-btn-secondary {
+  padding: 13px 16px; border-radius: var(--r-btn);
+  background: var(--teal-pale); color: var(--teal);
+  font-family: var(--font-d); font-size: 13px; font-weight: 600;
+  border: none; cursor: pointer; text-align: center;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  transition: background 0.3s;
+}
+.card-btn-secondary svg { width: 14px; height: 14px; }
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--teal-deep); color: #fff; padding: 0;
+  margin-top: 20px;
+}
+.footer-inner { max-width: 600px; margin: 0 auto; padding: 40px 24px 24px; }
+.footer-top { display: flex; flex-direction: column; gap: 32px; margin-bottom: 32px; }
+.footer-brand img { height: 48px; width: auto; margin-bottom: 10px; filter: brightness(0) invert(1); }
+.footer-tagline { font-family: var(--font-d); font-size: 15px; font-weight: 500; opacity: 0.6; }
+.footer-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.footer-col h4 {
+  font-family: var(--font-d); font-size: 12px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.4;
+  margin-bottom: 14px;
+}
+.footer-col a { display: block; font-size: 14px; opacity: 0.65; margin-bottom: 10px; transition: opacity 0.3s; }
+.footer-col a:hover { opacity: 1; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 20px; text-align: center; }
+.footer-bottom-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 12px; }
+.footer-bottom-links a { font-size: 12px; color: rgba(255,255,255,0.4); }
+.footer-legal { font-size: 11px; opacity: 0.3; line-height: 1.5; margin-bottom: 12px; }
+.footer-copy { font-size: 12px; opacity: 0.35; }
+
+/* ===== ANIMATIONS ===== */
+.reveal {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .mrc-marker::after { animation: none; }
+}
+
+@media (min-width: 700px) {
+  .banner-img { height: 340px; }
+  .hero-content { padding: 36px 40px 0; }
+  .city-selector { padding: 0 40px 28px; }
+  .map-section { padding: 0 32px 28px; }
+  .map-container { height: 360px; }
+  .projects-grid { padding: 0 32px 40px; }
+  .city-intro { padding: 0 40px 24px; }
+  .footer-inner { padding: 48px 40px 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="siteHeader">
+  <a href="index.html">
+    <img src="MRC LOGO LOTUS25 copy.pdf.png" alt="MRC Landmarks" class="header-logo">
+  </a>
+  <div class="header-right">
+    <a href="site-visit.html" class="header-cta">Site Visit</a>
+    <button class="menu-btn" id="menuOpen">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-top">
+    <a href="index.html"><img src="MRC LOGO LOTUS25 copy.pdf.png" alt="MRC" style="height:40px;"></a>
+    <button class="mobile-menu-close" id="menuClose">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="projects.html" style="color:var(--teal);">Projects</a>
+    <a href="insights.html">Insights</a>
+    <a href="mrc-forum.html">MRC Forum</a>
+    <a href="channel-partners.html">Channel Partners</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="mobile-menu-ctas">
+    <a href="site-visit.html" class="btn-gold">Schedule a Site Visit</a>
+  </div>
+</div>
+
+<!-- BANNER -->
+<div class="banner">
+  <img src="projects banner.png" alt="MRC Projects — The South, plotted with purpose" class="banner-img">
+</div>
+
+<!-- HERO CONTENT -->
+<div class="hero-content reveal">
+  <div class="hero-eyebrow"><span class="dot"></span> MRC PROJECTS</div>
+  <h1 class="hero-title">Find the right land<br>in the right <span>location.</span></h1>
+  <p class="hero-sub">Explore MRC developments across the cities shaping Southern Tamil Nadu.</p>
+</div>
+
+<!-- CITY SELECTOR -->
+<div class="city-selector reveal" id="citySelector">
+  <button class="city-pill active" data-city="all">All<span class="count" id="countAll"></span></button>
+  <button class="city-pill" data-city="madurai">Madurai<span class="count" id="countMadurai"></span></button>
+  <button class="city-pill" data-city="dindigul">Dindigul<span class="count" id="countDindigul"></span></button>
+  <button class="city-pill" data-city="theni">Theni<span class="count" id="countTheni"></span></button>
+  <button class="city-pill" data-city="sivakasi">Sivakasi<span class="count" id="countSivakasi"></span></button>
+  <button class="city-pill" data-city="tenkasi">Tenkasi<span class="count" id="countTenkasi"></span></button>
+  <button class="city-pill" data-city="ramanathapuram">Ramanathapuram<span class="count" id="countRamanathapuram"></span></button>
+</div>
+
+<!-- MAP -->
+<div class="map-section reveal">
+  <div class="map-container">
+    <div id="projectsMap"></div>
+    <div class="map-badge-mini"><span class="dot"></span> <span id="mapBadgeText">6 cities &middot; 12 projects</span></div>
+  </div>
+</div>
+
+<!-- CITY INTRO -->
+<div class="city-intro reveal" id="cityIntro">
+  <h2 class="city-intro-name" id="cityIntroName">All Locations</h2>
+  <p class="city-intro-desc" id="cityIntroDesc">Plotted developments across 6 cities in Southern Tamil Nadu, each designed for the families and futures building here.</p>
+</div>
+
+<!-- PROJECT CARDS -->
+<div class="projects-grid" id="projectsGrid"></div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="MRC LOGO LOTUS25 copy.pdf.png" alt="MRC Landmarks">
+        <p class="footer-tagline">Landmarks of the South.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <a href="index.html">Home</a>
+          <a href="projects.html">Projects</a>
+          <a href="insights.html">Insights</a>
+        </div>
+        <div class="footer-col">
+          <h4>Connect</h4>
+          <a href="channel-partners.html">Channel Partners</a>
+          <a href="mrc-forum.html">MRC Forum</a>
+          <a href="contact.html">Contact</a>
+          <a href="site-visit.html">Schedule a Visit</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-bottom-links">
+        <a href="privacy-policy.html">Privacy Policy</a>
+        <a href="terms.html">Terms</a>
+      </div>
+      <p class="footer-legal">Project information, specifications, amenities, pricing and timelines are subject to the applicable project documents and may change. Buyers should review the relevant approvals and legal documents before making a purchase decision.</p>
+      <p class="footer-copy">&copy; 2026 MRC Landmarks. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+// ===== PROJECT DATA =====
+const PROJECTS = [
+  {
+    key: 'madurai',
+    name: 'Emerald Gardens',
+    city: 'Madurai',
+    area: 'Othakadai',
+    lat: 9.9252, lng: 78.1198,
+    status: 'Active',
+    approval: 'DTCP Approved',
+    totalPlots: 24,
+    plotRange: '1,200 – 2,400 sq ft',
+    priceFrom: '₹6L',
+    acres: '2.8',
+    desc: 'Residential plotted development off Othakadai Main Road with wide internal roads and planned open spaces.',
+  },
+  {
+    key: 'madurai',
+    name: 'Lotus Residency',
+    city: 'Madurai',
+    area: 'Vilangudi',
+    lat: 9.9400, lng: 78.0900,
+    status: 'Active',
+    approval: 'DTCP Approved',
+    totalPlots: 18,
+    plotRange: '1,000 – 2,000 sq ft',
+    priceFrom: '₹5.5L',
+    acres: '2.1',
+    desc: 'Compact residential layout in the growing Vilangudi corridor, close to IT and educational hubs.',
+  },
+  {
+    key: 'madurai',
+    name: 'Madhura Nagar',
+    city: 'Madurai',
+    area: 'Kappalur',
+    lat: 9.9500, lng: 78.0600,
+    status: 'Upcoming',
+    approval: 'RERA Registered',
+    totalPlots: 32,
+    plotRange: '1,200 – 2,800 sq ft',
+    priceFrom: '₹7L',
+    acres: '3.5',
+    desc: 'Premium residential development near SIPCOT and the Madurai–Dindigul highway expansion zone.',
+  },
+  {
+    key: 'dindigul',
+    name: 'Hilltop Meadows',
+    city: 'Dindigul',
+    area: 'Palani Road',
+    lat: 10.3673, lng: 77.9803,
+    status: 'Active',
+    approval: 'DTCP Approved',
+    totalPlots: 30,
+    plotRange: '1,200 – 2,000 sq ft',
+    priceFrom: '₹7L',
+    acres: '3.2',
+    desc: 'Hillside residential layout along the Palani corridor, with views of the Western Ghats foothills.',
+  },
+  {
+    key: 'dindigul',
+    name: 'Fort View Gardens',
+    city: 'Dindigul',
+    area: 'Begampur',
+    lat: 10.3550, lng: 77.9700,
+    status: 'Active',
+    approval: 'DTCP Approved',
+    totalPlots: 22,
+    plotRange: '1,000 – 1,800 sq ft',
+    priceFrom: '₹6L',
+    acres: '2.4',
+    desc: 'Residential layout near the heritage fort area with proximity to the town centre.',
+  },
+  {
+    key: 'theni',
+    name: 'Valley View Estate',
+    city: 'Theni',
+    area: 'Periyakulam Road',
+    lat: 10.0104, lng: 77.4768,
+    status: 'Active',
+    approval: 'DTCP Approved',
+    totalPlots: 20,
+    plotRange: '1,200 – 2,200 sq ft',
+    priceFrom: '₹5.5L',
+    acres: '2.5',
+    desc: 'Scenic residential layout near the Periyakulam corridor, set against the Western Ghats backdrop.',
+  },
+  {
+    key: 'theni',
+    name: 'Green Meadows',
+    city: 'Theni',
+    area: 'Cumbum Road',
+    lat: 9.9900, lng: 77.5000,
+    status: 'Upcoming',
+    approval: 'RERA Registered',
+    totalPlots: 16,
+    plotRange: '1,200 – 1,800 sq ft',
+    priceFrom: '₹5L',
+    acres: '1.8',
+    desc: 'Compact layout along the Cumbum corridor, ideal for families seeking proximity to hill station access.',
+  },
+  {
+    key: 'sivakasi',
+    name: 'Sunrise Township',
+    city: 'Sivakasi',
+    area: 'Srivilliputhur Road',
+    lat: 9.4494, lng: 77.7983,
+    status: 'Active',
+    approval: 'DTCP Approved',
+    totalPlots: 28,
+    plotRange: '1,000 – 2,000 sq ft',
+    priceFrom: '₹5L',
+    acres: '3.0',
+    desc: 'Well-connected layout along the Srivilliputhur highway corridor in Sivakasi\'s expanding residential zone.',
+  },
+  {
+    key: 'sivakasi',
+    name: 'Lakshmi Nagar',
+    city: 'Sivakasi',
+    area: 'Virudhunagar Road',
+    lat: 9.4600, lng: 77.8100,
+    status: 'Active',
+    approval: 'DTCP Approved',
+    totalPlots: 20,
+    plotRange: '1,000 – 1,600 sq ft',
+    priceFrom: '₹4.5L',
+    acres: '2.0',
+    desc: 'Residential layout on the Virudhunagar corridor, near industrial and commercial hubs.',
+  },
+  {
+    key: 'tenkasi',
+    name: 'Courtallam Heights',
+    city: 'Tenkasi',
+    area: 'Courtallam Road',
+    lat: 8.9604, lng: 77.3152,
+    status: 'Active',
+    approval: 'DTCP Approved',
+    totalPlots: 16,
+    plotRange: '1,200 – 1,800 sq ft',
+    priceFrom: '₹4.5L',
+    acres: '2.2',
+    desc: 'Compact layout near the Courtallam waterfalls corridor with a cooler Western Ghats microclimate.',
+  },
+  {
+    key: 'ramanathapuram',
+    name: 'Coastal Greens',
+    city: 'Ramanathapuram',
+    area: 'Mandapam Road',
+    lat: 9.3639, lng: 78.8395,
+    status: 'Active',
+    approval: 'DTCP Approved',
+    totalPlots: 22,
+    plotRange: '1,000 – 2,000 sq ft',
+    priceFrom: '₹4L',
+    acres: '2.6',
+    desc: 'Coastal layout along the Mandapam corridor, between Ramanathapuram town and the Pamban bridge approach.',
+  },
+  {
+    key: 'ramanathapuram',
+    name: 'Rameswaram Gateway',
+    city: 'Ramanathapuram',
+    area: 'NH Road',
+    lat: 9.3700, lng: 78.8500,
+    status: 'Upcoming',
+    approval: 'RERA Registered',
+    totalPlots: 18,
+    plotRange: '1,000 – 1,800 sq ft',
+    priceFrom: '₹3.5L',
+    acres: '2.0',
+    desc: 'Upcoming layout near the NH corridor, positioned for the coastal development growth of the district.',
+  },
+];
+
+const CITY_DATA = {
+  all: { name: 'All Locations', desc: 'Plotted developments across 6 cities in Southern Tamil Nadu, each designed for the families and futures building here.' },
+  madurai: { name: 'Madurai', desc: 'Rooted in culture and expanding through new neighbourhoods, connections and opportunities.', lat: 9.9252, lng: 78.1198 },
+  dindigul: { name: 'Dindigul', desc: 'A growing corridor between the plains and the Western Ghats, attracting new residents and investment.', lat: 10.3673, lng: 77.9803 },
+  theni: { name: 'Theni', desc: 'Gateway to the hills with a growing commercial role and demand for planned residential spaces.', lat: 10.0104, lng: 77.4768 },
+  sivakasi: { name: 'Sivakasi', desc: 'An industrial town with rising demand for residential plots beyond the commercial core.', lat: 9.4494, lng: 77.7983 },
+  tenkasi: { name: 'Tenkasi', desc: 'The newest district headquarters, benefiting from government infrastructure investment and cool climate.', lat: 8.9604, lng: 77.3152 },
+  ramanathapuram: { name: 'Ramanathapuram', desc: 'Coastal district seeing renewed interest with improved road connectivity and development momentum.', lat: 9.3639, lng: 78.8395 },
+};
+
+const CITIES_MAP = [
+  { name: 'Madurai', key: 'madurai', lat: 9.9252, lng: 78.1198, anchor: true },
+  { name: 'Dindigul', key: 'dindigul', lat: 10.3673, lng: 77.9803 },
+  { name: 'Theni', key: 'theni', lat: 10.0104, lng: 77.4768 },
+  { name: 'Sivakasi', key: 'sivakasi', lat: 9.4494, lng: 77.7983, labelBelow: true },
+  { name: 'Tenkasi', key: 'tenkasi', lat: 8.9604, lng: 77.3152 },
+  { name: 'Ramanathapuram', key: 'ramanathapuram', lat: 9.3639, lng: 78.8395, labelLeftUp: true },
+];
+
+// ===== COUNT BADGES =====
+const counts = {};
+PROJECTS.forEach(p => { counts[p.key] = (counts[p.key] || 0) + 1; });
+document.getElementById('countAll').textContent = PROJECTS.length;
+Object.keys(counts).forEach(k => {
+  const el = document.getElementById('count' + k.charAt(0).toUpperCase() + k.slice(1));
+  if (el) el.textContent = counts[k];
+});
+
+// ===== RENDER PROJECT CARDS =====
+function renderCards(cityKey) {
+  const filtered = cityKey === 'all' ? PROJECTS : PROJECTS.filter(p => p.key === cityKey);
+  const grid = document.getElementById('projectsGrid');
+  grid.innerHTML = filtered.map(p => `
+    <div class="project-card">
+      <div class="project-card-img">
+        <div class="project-card-img-overlay"></div>
+        <span class="img-label">Site Photo</span>
+        <div class="project-card-badge"><span class="dot"></span> ${p.status}</div>
+      </div>
+      <div class="project-card-body">
+        <h3 class="project-card-name">${p.name}</h3>
+        <div class="project-card-location">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          ${p.area}, ${p.city}
+        </div>
+        <div class="project-card-meta">
+          <div class="meta-chip">
+            <div class="meta-chip-label">Plots</div>
+            <div class="meta-chip-value">${p.totalPlots} plots</div>
+          </div>
+          <div class="meta-chip">
+            <div class="meta-chip-label">Starting</div>
+            <div class="meta-chip-value">${p.priceFrom}</div>
+          </div>
+          <div class="meta-chip">
+            <div class="meta-chip-label">Plot Size</div>
+            <div class="meta-chip-value">${p.plotRange}</div>
+          </div>
+          <div class="meta-chip">
+            <div class="meta-chip-label">Approval</div>
+            <div class="meta-chip-value">${p.approval}</div>
+          </div>
+        </div>
+        <div class="project-card-actions">
+          <a href="project.html?city=${p.key}" class="card-btn-primary">
+            View Project
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+          <a href="site-visit.html" class="card-btn-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Visit
+          </a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ===== CITY SELECTOR =====
+let activeCity = 'all';
+document.querySelectorAll('.city-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    const city = pill.dataset.city;
+    activeCity = city;
+    document.querySelectorAll('.city-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+
+    const data = CITY_DATA[city];
+    document.getElementById('cityIntroName').textContent = data.name;
+    document.getElementById('cityIntroDesc').textContent = data.desc;
+
+    renderCards(city);
+
+    // Update map
+    if (city === 'all') {
+      map.flyTo([9.55, 78.05], 7.6, { duration: 0.8 });
+    } else {
+      const cd = CITY_DATA[city];
+      map.flyTo([cd.lat, cd.lng], 11, { duration: 0.8 });
+    }
+
+    // Update marker labels
+    updateMarkerHighlight(city);
+
+    // Update badge
+    const count = city === 'all' ? PROJECTS.length : PROJECTS.filter(p => p.key === city).length;
+    document.getElementById('mapBadgeText').textContent = city === 'all'
+      ? '6 cities · ' + PROJECTS.length + ' projects'
+      : CITY_DATA[city].name + ' · ' + count + ' projects';
+  });
+});
+
+// ===== LEAFLET MAP =====
+const map = L.map('projectsMap', {
+  center: [9.55, 78.05],
+  zoom: 7.6,
+  zoomControl: false,
+  attributionControl: false,
+  scrollWheelZoom: false,
+});
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+  maxZoom: 18,
+}).addTo(map);
+
+const markerLabels = {};
+CITIES_MAP.forEach(city => {
+  const isAnchor = city.anchor;
+  const size = isAnchor ? 20 : 14;
+  const icon = L.divIcon({
+    className: '',
+    html: '<div class="mrc-marker ' + (isAnchor ? 'anchor' : '') + '"></div><div class="mrc-marker-label' + (city.labelLeftUp ? ' left-up' : '') + (city.labelLeft ? ' left' : '') + (city.labelBelow ? ' below' : '') + '" id="label-' + city.key + '">' + city.name + '</div>',
+    iconSize: [size, size + 20],
+    iconAnchor: [size / 2, size / 2],
+  });
+  const marker = L.marker([city.lat, city.lng], { icon }).addTo(map);
+  marker.on('click', () => {
+    const pill = document.querySelector('.city-pill[data-city="' + city.key + '"]');
+    if (pill) pill.click();
+    pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+  });
+});
+
+function updateMarkerHighlight(cityKey) {
+  CITIES_MAP.forEach(c => {
+    const label = document.getElementById('label-' + c.key);
+    if (label) {
+      if (cityKey === 'all' || cityKey === c.key) {
+        label.classList.remove('active-city');
+        if (cityKey === c.key) label.classList.add('active-city');
+      } else {
+        label.classList.remove('active-city');
+      }
+    }
+  });
+}
+
+// ===== HEADER SCROLL =====
+window.addEventListener('scroll', () => {
+  document.getElementById('siteHeader').classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// ===== MOBILE MENU =====
+document.getElementById('menuOpen').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.add('open');
+});
+document.getElementById('menuClose').addEventListener('click', () => {
+  document.getElementById('mobileMenu').classList.remove('open');
+});
+
+// ===== REVEAL ANIMATIONS =====
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ===== INITIAL RENDER =====
+renderCards('all');
+
+// ===== URL PARAM: pre-select city =====
+const params = new URLSearchParams(window.location.search);
+const preCity = params.get('city');
+if (preCity && CITY_DATA[preCity.toLowerCase()]) {
+  const pill = document.querySelector('.city-pill[data-city="' + preCity.toLowerCase() + '"]');
+  if (pill) {
+    setTimeout(() => pill.click(), 600);
+  }
+}
+</script>
+</body>
+</html>
