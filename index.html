@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MRC Landmarks | Plotted Developments in Southern Tamil Nadu</title>
-<meta name="description" content="MRC Landmarks is developing its first DTCP approved, RERA registered plotted layout in Southern Tamil Nadu, with title verified and boundaries surveyed.">
+<meta name="description" content="MRC Landmarks is developing its first DTCP approved, RERA registered plotted layout at Yanaimalai, Madurai, with title verified and boundaries surveyed.">
 <link rel="icon" type="image/svg+xml" href="mrc-logo.svg">
 <link rel="icon" type="image/png" href="MRC LOGO LOTUS25 copy.pdf.png">
 <link rel="apple-touch-icon" href="MRC LOGO LOTUS25 copy.pdf.png">
@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="mrc.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </head>
 <body>
 <div class="topbar">
@@ -40,7 +41,7 @@
       <a href="channel-partners.html">Partners</a>
       <a href="insights.html">Insights</a>
     </nav>
-    <a class="btn btn-gold" href="site-visit.html">Schedule a Visit</a>
+    <a class="btn btn-gold" href="https://mrc-event.vercel.app/visit">Schedule a Visit</a>
     <button class="menu-btn" aria-label="Open menu">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
@@ -55,29 +56,30 @@
     <a href="trust.html">Trust</a>
     <a href="channel-partners.html">Partners</a>
     <a href="insights.html">Insights</a>
-    <a class="btn btn-gold" href="site-visit.html">Schedule a Visit</a>
+    <a class="btn btn-gold" href="https://mrc-event.vercel.app/visit">Schedule a Visit</a>
   </div>
 </div>
 <main>
   <section class="hero">
     <div class="wrap">
-      <p class="eyebrow" style="color:var(--gold)">MRC Landmarks</p>
-      <h1 class="display">Own the power to shape <em>tomorrow.</em></h1>
+      <p class="eyebrow reveal">MRC Landmarks</p>
+      <h1 class="display">Own the power<br>to shape <em>tomorrow.</em></h1>
       <p class="sub">Because land is never only land. It is security, possibility and a place for everything that comes next.</p>
+      <div class="hero-stats">
+        <div class="hero-stat"><div class="n">500</div><div class="l">Acre land bank</div></div>
+        <div class="hero-stat"><div class="n">20</div><div class="l">Years experience</div></div>
+        <div class="hero-stat"><div class="n">RERA</div><div class="l">Registered</div></div>
+      </div>
       <div class="hero-cta">
-        <a class="btn btn-gold" href="projects.html">Begin the Journey</a>
-        <a class="btn btn-ghost" href="site-visit.html">Schedule a Visit</a>
+        <a class="btn btn-gold" href="project-yanaimalai.html">Begin the Journey &rarr;</a>
+        <a class="btn btn-ghost" href="https://mrc-event.vercel.app/visit">Schedule a Visit</a>
       </div>
-      <div class="chips" style="margin-top:3.2rem; padding-top:2.1rem; border-top:1px solid rgba(255,255,255,.2)">
-        <span class="chip">RERA registered</span>
-        <span class="chip">DTCP approved</span>
-        <span class="chip">Bank eligible</span>
-        <span class="chip">Survey verified</span>
+      <div class="hero-trust">
+        <span><i class="hero-trust-dot"></i>RERA registered</span>
+        <span><i class="hero-trust-dot"></i>DTCP approved</span>
+        <span><i class="hero-trust-dot"></i>Bank eligible</span>
+        <span><i class="hero-trust-dot"></i>Survey verified</span>
       </div>
-    </div>
-    <div class="cue">
-      <span>Scroll</span>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.5"><path d="M6 9l6 6 6-6"/></svg>
     </div>
   </section>
 
@@ -89,7 +91,7 @@
         <h2 class="display reveal">Land deserves more thought.</h2>
       </div>
       <div class="right">
-        <p class="lede reveal">Buying land is a significant decision — it begins with the right location, but it also depends on planning, documentation, infrastructure and trust. MRC Landmarks brings these elements together, so buyers can evaluate an opportunity with clarity, not guesswork.</p>
+        <p class="lede reveal">Buying land is a significant decision. It begins with the right location, but it also depends on planning, documentation, infrastructure and trust. MRC brings these together so buyers can decide with clarity, not guesswork.</p>
         <a class="btn btn-out" style="margin-top:1.8rem" href="about.html">More about MRC</a>
       </div>
     </div>
@@ -106,44 +108,106 @@
   </div>
 </section>
 
-  <section style="background:#fff">
+  <section class="alt">
+    <div class="wrap">
+      <p class="eyebrow reveal">The Process</p>
+      <div class="rule"></div>
+      <h2 class="display reveal">From Land to Landmark.</h2>
+      <div class="steps">
+        <article class="step reveal">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="num">01</div>
+          <h3>Understand the location</h3>
+          <p>We begin with the city rather than the land.</p>
+        </article>
+        <article class="step reveal">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
+          <div class="num">02</div>
+          <h3>Verify the opportunity</h3>
+          <p>Ownership is traced through its documents.</p>
+        </article>
+        <article class="step reveal">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+          <div class="num">03</div>
+          <h3>Plan the development</h3>
+          <p>Road widths, plot sizes, drainage, electrical routing and open space are planned together, because changing one after the fact means changing all of them.</p>
+        </article>
+        <article class="step reveal">
+          <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg></div>
+          <div class="num">04</div>
+          <h3>Present it clearly</h3>
+          <p>Approval references, survey numbers, plot dimensions and infrastructure status are published as they stand, including the parts still in progress.</p>
+        </article>
+      </div>
+      <a class="btn btn-out" style="margin-top:2.6rem" href="approach.html">How we work</a>
+    </div>
+  </section>
+
+  <section>
     <div class="wrap">
       <p class="eyebrow reveal">Why MRC</p>
       <div class="rule"></div>
       <h2 class="display reveal">A Clearer Way to Buy Land.</h2>
-      <div class="why">
-        <article class="reveal"><h3>Rooted in the South</h3><p>Twenty years of the founders&rsquo; working life has been spent in this region. That is the difference between reading a location report and knowing which road floods, which panchayat moves quickly, and which stretch of land people actually want.</p></article>
-        <article class="reveal"><h3>Planned, not parcelled</h3><p>It is easy to divide land into the maximum number of sellable rectangles. We plan road widths, drainage and open space first, and let the plot count follow — because the layout is what the buyer lives with long after the sale.</p></article>
-        <article class="reveal"><h3>Documented before promoted</h3><p>Approval references, survey numbers and infrastructure status are published as they are confirmed, and not before. Nothing on this site is a claim we would not put in writing.</p></article>
-        <article class="reveal"><h3>Backed by land, not leverage</h3><p>A 500-acre land bank means projects can be released when they are ready rather than when cash flow demands it. Scale here is a reason to move carefully, not quickly.</p></article>
+      <div class="why-split">
+        <div class="why-visual"><canvas id="whyCanvas"></canvas></div>
+        <div class="why-compact">
+          <article><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.2 6.4-6.4 2.2 2.2-6.4z"/></svg></div><div><h3>Rooted in the South</h3><p>Twenty years of the founders&rsquo; working life has been spent in this region.</p></div></article>
+          <article><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 12 10 5 10-5M2 17l10 5 10-5"/></svg></div><div><h3>Planned, not parcelled</h3><p>It is easy to divide land into the maximum number of sellable rectangles.</p></div></article>
+          <article><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div><div><h3>Documented before promoted</h3><p>Approval references, survey numbers and infrastructure status are published as they are confirmed, and not before.</p></div></article>
+          <article><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18M5 20V9l7-5 7 5v11"/><path d="M9 20v-6h6v6"/></svg></div><div><h3>Backed by land, not leverage</h3><p>A 500-acre land bank means projects can be released when they are ready rather than when cash flow demands it.</p></div></article>
+        </div>
       </div>
-      <a class="btn btn-out" style="margin-top:2.6rem" href="why-mrc.html">Why choose MRC</a>
     </div>
   </section>
 
-  <section class="locations">
+  <section class="alt" id="locations">
     <div class="wrap">
       <p class="eyebrow reveal">Our Locations</p>
       <div class="rule"></div>
       <h2 class="display reveal">Rooted in the South.</h2>
-      <p class="lede reveal" style="color:rgba(255,255,255,.75); margin-top:1.2rem">MRC Landmarks is developing its first plotted layout in Southern Tamil Nadu — planned, approved and documented before a single plot is offered.</p>
-      <a class="btn btn-gold" style="margin-top:2.2rem" href="locations.html">About the project</a>
+      <p class="lede reveal" style="margin-top:1.2rem">Tap the pin to see the project.</p>
+      <div class="map-wrapper">
+        <div class="map-city-badge"><span class="map-city-badge-dot"></span><span>1 project &middot; Madurai</span></div>
+        <div id="mrcMap"></div>
+      </div>
+      <div style="text-align:center;margin-top:1.8rem">
+        <a class="btn btn-gold" href="locations.html">See All Locations &rarr;</a>
+      </div>
     </div>
   </section>
 
-  <section style="background:#fff">
-    <div class="wrap duo">
-      <div class="card reveal">
-        <p class="eyebrow reveal">Channel Partners</p>
-        <h2 class="display" style="font-size:clamp(1.8rem,3vw,2.4rem)">Grow With MRC</h2>
-        <p>Join a growing network of real-estate professionals representing MRC projects across Southern Tamil Nadu. Access project information, sales material and dedicated support.</p>
-        <a class="btn btn-ink" href="channel-partners.html">Become a Partner</a>
+  <section>
+    <div class="wrap">
+      <p class="eyebrow reveal">Trust &amp; Transparency</p>
+      <div class="rule"></div>
+      <h2 class="display reveal">Clarity at Every Step.</h2>
+      <div class="trust-grid">
+        <div class="t reveal"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#176A70" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><div><strong>DTCP Approved</strong><span>Town planning approval</span></div></div>
+        <div class="t reveal"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#176A70" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><div><strong>RERA Registered</strong><span>Regulatory compliance</span></div></div>
+        <div class="t reveal"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#176A70" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><div><strong>Title Verified</strong><span>Legal documentation</span></div></div>
+        <div class="t reveal"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#176A70" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><div><strong>Bank Approved</strong><span>Loan eligible</span></div></div>
+        <div class="t reveal"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#176A70" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><div><strong>Survey Completed</strong><span>Boundary verified</span></div></div>
+        <div class="t reveal"><svg class="tick" viewBox="0 0 24 24" fill="none" stroke="#176A70" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><div><strong>Infrastructure</strong><span>Status tracked</span></div></div>
       </div>
-      <div class="card reveal">
+      <a class="btn btn-out" style="margin-top:2.6rem" href="trust.html">What each approval means</a>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap network">
+      <div class="network-card partners">
+        <img class="art" src="0bd09915-c564-42c0-ba1a-c6aecd405f13.png" alt="">
+        <p class="eyebrow reveal">Channel Partners</p>
+        <h2 class="display" style="font-size:clamp(1.7rem,2.8vw,2.2rem)">Grow With MRC</h2>
+        <p>Early access to developments, project support and sales material for brokers and agents across Southern Tamil Nadu.</p>
+        <a class="btn btn-ink" href="https://mrc-event.vercel.app/register">Become a Partner</a>
+      </div>
+      <div class="network-card forum">
+        <img class="art" src="5889b5d7-cdc9-472b-beb2-1faeef7505af.png" alt="">
         <p class="eyebrow reveal">MRC Forum</p>
-        <h2 class="display" style="font-size:clamp(1.8rem,3vw,2.4rem)">Where the South Builds Together</h2>
-        <p>Brokers, developers, architects and advisers — one network for the region's real-estate ecosystem. Built around trusted relationships and meaningful business connections.</p>
-        <a class="btn btn-out" href="mrc-forum.html">Explore Forum</a>
+        <h2 class="display" style="font-size:clamp(1.7rem,2.8vw,2.2rem)">Where the South Builds Together</h2>
+        <p>Brokers, developers, architects and advisers &mdash; one network for the region.</p>
+        <a class="btn btn-gold" href="mrc-forum.html">Explore Forum</a>
       </div>
     </div>
   </section>
@@ -182,7 +246,7 @@
     <h2 class="display reveal">See the Location.<br>Understand the Opportunity.</h2>
     <p>Explore an MRC project in person and speak with our team about the location, layout, documentation and purchase process.</p>
     <div class="hero-cta">
-      <a class="btn btn-gold" href="site-visit.html">Schedule a Site Visit</a>
+      <a class="btn btn-gold" href="https://mrc-event.vercel.app/visit">Schedule a Site Visit</a>
       <a class="btn btn-ghost" href="https://wa.me/918925972469">Talk to Us on WhatsApp</a>
     </div>
   </div>
@@ -220,7 +284,7 @@
           <li><a href="channel-partners.html">Channel Partners</a></li>
           <li><a href="mrc-forum.html">MRC Forum</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="site-visit.html">Schedule a Visit</a></li>
+          <li><a href="https://mrc-event.vercel.app/visit">Schedule a Visit</a></li>
           <li><a href="privacy-policy.html">Privacy Policy</a></li>
           <li><a href="terms.html">Terms</a></li>
         </ul>
@@ -263,6 +327,46 @@
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   }
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+(function () {
+  if (!window.L) return;
+  var el = document.getElementById('mrcMap'); if (!el) return;
+  var projects = [{"name": "Yanaimalai", "city": "Madurai", "slug": "yanaimalai", "lat": 9.951, "lng": 78.216}];
+  var map = L.map('mrcMap', { center: [9.90, 78.16], zoom: 10, zoomControl: true,
+    attributionControl: false, scrollWheelZoom: false });
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+    { maxZoom: 18 }).addTo(map);
+  projects.forEach(function (p) {
+    var icon = L.divIcon({ className: '', iconSize: [22, 44], iconAnchor: [11, 11],
+      html: '<div class="mrc-marker anchor"></div><div class="mrc-marker-label">' + p.name + ', ' + p.city + '</div>' });
+    L.marker([p.lat, p.lng], { icon: icon }).addTo(map)
+      .on('click', function () { window.location.href = 'project-' + p.slug + '.html'; });
+  });
+})();
+</script>
+
+<script>
+(function () {
+  var c = document.getElementById('whyCanvas'); if (!c || !window.THREE) return;
+  var W = c.clientWidth, H = c.clientHeight;
+  var r = new THREE.WebGLRenderer({ canvas: c, alpha: true, antialias: true });
+  r.setPixelRatio(Math.min(window.devicePixelRatio, 2)); r.setSize(W, H);
+  var sc = new THREE.Scene(), cam = new THREE.PerspectiveCamera(40, W / H, .1, 100); cam.position.z = 5.2;
+  var g = new THREE.Group();
+  g.add(new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.IcosahedronGeometry(1.7, 1)),
+        new THREE.LineBasicMaterial({ color: 0x176A70, transparent: true, opacity: .55 })));
+  g.add(new THREE.Mesh(new THREE.IcosahedronGeometry(1.7, 1),
+        new THREE.MeshStandardMaterial({ color: 0xC4A97D, transparent: true, opacity: .12, flatShading: true })));
+  sc.add(g); sc.add(new THREE.AmbientLight(0xffffff, .9));
+  var d = new THREE.DirectionalLight(0xffffff, .6); d.position.set(3, 4, 5); sc.add(d);
+  var id, run = function () { g.rotation.y += .0035; g.rotation.x += .0012; r.render(sc, cam); id = requestAnimationFrame(run); };
+  new IntersectionObserver(function (e) { e[0].isIntersecting ? run() : cancelAnimationFrame(id); }, { threshold: .1 }).observe(c);
+  window.addEventListener('resize', function () { W = c.clientWidth; H = c.clientHeight; r.setSize(W, H); cam.aspect = W / H; cam.updateProjectionMatrix(); });
 })();
 </script>
 </body>

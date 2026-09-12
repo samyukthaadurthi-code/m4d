@@ -314,3 +314,103 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 .reveal:nth-child(4) { transition-delay: .21s }
 .reveal:nth-child(5) { transition-delay: .28s }
 .reveal:nth-child(6) { transition-delay: .35s }
+
+/* ================================================================
+   Restored from the original single-page build
+   ================================================================ */
+
+/* ---- hero: the MRC-letters banner, glass stat boxes, trust row ---- */
+.hero {
+  background:
+    linear-gradient(180deg, rgba(12,71,76,.10) 0%, rgba(10,45,35,.12) 30%, rgba(12,71,76,.45) 65%, rgba(12,71,76,.88) 100%),
+    url('hero%20banner.png') center 40% / cover no-repeat;
+}
+.hero::after {
+  content: ""; position: absolute; top: 0; left: 0; right: 0; height: 120px;
+  background: linear-gradient(180deg, rgba(0,0,0,.15), transparent); pointer-events: none;
+}
+.hero-stats { gap: .8rem; border-top: 0; padding-top: 0; margin-top: 2.2rem; }
+.hero-stat {
+  background: rgba(255,255,255,.10); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,.14); border-radius: 12px; padding: 14px 20px; text-align: center;
+  min-width: 96px; transition: background .3s, transform .4s var(--ease);
+}
+.hero-stat:hover { background: rgba(255,255,255,.16); transform: translateY(-3px); }
+.hero-stat .n { font-size: 1.5rem; color: #fff; }
+.hero-stat .l { margin-top: .3rem; font-size: .62rem; letter-spacing: .14em; }
+.hero-trust {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.4rem; margin-top: 2.6rem;
+  padding-top: 1.4rem; border-top: 1px solid rgba(255,255,255,.14);
+  font-size: .78rem; color: rgba(255,255,255,.72);
+}
+.hero-trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); display: inline-block; margin-right: .5rem; }
+
+/* ---- satellite map ---- */
+.map-wrapper { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #2D5535; box-shadow: var(--shadow-lg); margin-top: 2.4rem; }
+#mrcMap { height: 560px; width: 100%; }
+@media (max-width: 760px) { #mrcMap { height: 420px; } }
+.map-city-badge {
+  position: absolute; top: 12px; left: 12px; z-index: 500; display: flex; align-items: center; gap: .5rem;
+  background: rgba(255,255,255,.92); backdrop-filter: blur(6px); border-radius: 10px; padding: 6px 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15); font-size: .8rem; font-weight: 600; color: var(--text);
+}
+.map-city-badge-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
+.mrc-marker { width: 16px; height: 16px; background: var(--teal); border: 2.5px solid #fff; border-radius: 50%; box-shadow: 0 2px 8px rgba(0,0,0,.3); position: relative; }
+.mrc-marker.anchor { width: 22px; height: 22px; background: var(--gold); border-width: 3px; }
+.mrc-marker.anchor::after {
+  content: ""; position: absolute; inset: -8px; border-radius: 50%;
+  border: 2px solid rgba(196,169,125,.5); animation: markerPulse 2s ease-out infinite;
+}
+.mrc-marker-label {
+  background: rgba(255,255,255,.96); backdrop-filter: blur(6px); padding: 5px 11px; border-radius: 6px;
+  font-family: var(--font-d); font-size: 11.5px; font-weight: 600; color: var(--text); white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0,0,0,.18); margin-top: 6px; transform: translateX(-50%); position: relative; left: 50%;
+}
+.leaflet-container { font-family: var(--font-b); }
+.leaflet-control-zoom a { color: var(--text) !important; }
+
+/* ---- partners / forum glow cards ---- */
+.network { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.4rem,3vw,2.2rem); }
+.network-card {
+  border-radius: var(--r); padding: clamp(2rem,4vw,2.8rem); position: relative; overflow: hidden;
+  border: 1.5px solid transparent; transition: box-shadow .5s, transform .5s var(--ease);
+  display: flex; flex-direction: column; min-height: 380px;
+}
+.network-card.partners { background: var(--white); animation: glowPulse 3s ease-in-out infinite; }
+.network-card.forum { background: var(--teal-deep); color: #fff; animation: glowPulse 3s ease-in-out infinite .5s; }
+.network-card.forum .display, .network-card.forum p { color: #fff; }
+.network-card.forum .eyebrow { color: var(--gold); }
+.network-card:hover { transform: translateY(-6px); box-shadow: 0 0 60px rgba(23,106,112,.35), 0 12px 44px rgba(23,106,112,.25); }
+.network-card .art { position: absolute; right: -6%; bottom: -8%; width: 52%; opacity: .55; pointer-events: none; transition: opacity .5s, transform .6s var(--ease); }
+.network-card:hover .art { opacity: .8; transform: scale(1.04); }
+.network-card > * { position: relative; z-index: 1; }
+.network-card .art { z-index: 0; }
+.network-card p { max-width: 30ch; margin-block: .9rem 2rem; }
+.network-card .btn { align-self: flex-start; margin-top: auto; }
+@media (max-width: 860px) { .network { grid-template-columns: 1fr; } .network-card { min-height: 0; } }
+
+/* ---- why: 3D canvas beside the pillars ---- */
+.why-split { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(2rem,5vw,4rem); align-items: center; margin-top: 3rem; }
+.why-visual { position: relative; aspect-ratio: 1; border-radius: var(--r); overflow: hidden; background: radial-gradient(circle at 40% 40%, var(--teal-pale), var(--bg-alt)); box-shadow: var(--shadow-md); }
+.why-visual canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; }
+.why-compact { display: grid; gap: 1rem; }
+.why-compact article {
+  display: grid; grid-template-columns: 48px 1fr; gap: 1rem; align-items: start;
+  background: var(--white); border-radius: var(--r-sm); padding: 1.2rem 1.4rem; border-top: 0;
+  border-left: 3px solid var(--teal); box-shadow: var(--shadow-sm);
+}
+.why-compact .ico { width: 44px; height: 44px; border-radius: 12px; background: var(--teal-pale); display: grid; place-items: center; color: var(--teal); }
+.why-compact h3 { font-size: 1.02rem; margin-bottom: .25rem; }
+.why-compact p { font-size: .9rem; margin: 0; }
+@media (max-width: 860px) { .why-split { grid-template-columns: 1fr; } }
+
+/* ---- icon step cards (process, scannable) ---- */
+.step .ico { width: 46px; height: 46px; border-radius: 12px; background: var(--teal-pale); color: var(--teal); display: grid; place-items: center; margin-bottom: 1rem; }
+.step .num { position: absolute; top: 1.2rem; right: 1.4rem; font-size: 2rem; margin: 0; }
+.step { position: relative; }
+
+/* ---- per-page hero images ---- */
+.pagehead.img { position: relative; color: #fff; min-height: 46vh; display: flex; align-items: flex-end; }
+.pagehead.img::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,71,76,.35) 0%, rgba(18,71,76,.55) 45%, rgba(26,42,45,.94) 100%); }
+.pagehead.img > .wrap { position: relative; z-index: 1; }
+.pagehead.img .rule { background: var(--gold); }
