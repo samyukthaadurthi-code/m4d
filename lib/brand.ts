@@ -9,5 +9,5 @@ export const brand = {
   muted: "#4A5450",
   softMuted: "#8A8D82",
   name: "MRC LANDMARKS",
-  tagline: "Landmarks of the South",
+  tagline: "Crafting Landmarks, Creating Legacies.",
 } as const;

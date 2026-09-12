@@ -61,7 +61,7 @@ function wrap(body: string) {
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;background:#ffffff;border-radius:10px;overflow:hidden">
 <tr><td style="background:${INK};padding:22px 28px">
 <div style="color:#ffffff;font-size:15px;font-weight:bold;letter-spacing:3px">MRC LANDMARKS</div>
-<div style="color:${GOLD};font-size:11px;letter-spacing:2px;margin-top:4px">Landmarks of the South</div>
+<div style="color:${GOLD};font-size:11px;letter-spacing:2px;margin-top:4px">Crafting Landmarks, Creating Legacies.</div>
 </td></tr>
 <tr><td style="padding:28px">${body}</td></tr>
 <tr><td style="background:${CREAM};padding:16px 28px;font-size:11px;color:#8A8D82;line-height:1.6">
