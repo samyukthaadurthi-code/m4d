@@ -587,6 +587,27 @@ html:not(.js) .roots-panel, html:not(.js) .roots-mrc, html:not(.js) .roots-text 
 .prose .checklist-items li, .prose .checklist-box li { position: relative; padding-left: 1.4rem; }
 .prose .checklist-items li::before, .prose .checklist-box li::before { content: ""; position: absolute; left: 0; top: .55em; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); }
 
+/* ---- review wall: glass cards over the closing photo ---- */
+.reviews { position: relative; color: #fff; overflow: hidden; padding-block: var(--pad);
+  background: linear-gradient(180deg, rgba(12,40,43,.82), rgba(12,40,43,.9)), url('9551af30-d0e7-4eb6-9264-bcf8eb8e3831.png') center / cover no-repeat; }
+.reviews .display { color: #fff; text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
+.reviews-note { margin-top: .8rem; font-size: .78rem; letter-spacing: .06em; color: var(--gold); }
+.review-grid { columns: 3; column-gap: 1.2rem; margin-top: 2.6rem; }
+.review { break-inside: avoid; margin: 0 0 1.2rem; padding: 1.4rem 1.5rem; border-radius: var(--r);
+  background: rgba(255,255,255,.09); -webkit-backdrop-filter: blur(18px) saturate(1.2); backdrop-filter: blur(18px) saturate(1.2);
+  border: 1px solid rgba(255,255,255,.22); box-shadow: 0 20px 50px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.35);
+  transition: transform .5s var(--ease), background .4s; }
+.review:hover { transform: translateY(-4px); background: rgba(255,255,255,.14); }
+.review blockquote { margin: 0; font-family: var(--font-d); font-size: 1.02rem; line-height: 1.55; color: #fff; }
+.review figcaption { display: flex; align-items: center; gap: .8rem; margin-top: 1.1rem; font-size: .84rem; }
+.review figcaption > span:nth-child(2) { display: flex; flex-direction: column; flex: 1; }
+.review strong { color: #fff; font-weight: 600; }
+.review em { font-style: normal; color: rgba(255,255,255,.6); font-size: .76rem; }
+.review .av { width: 38px; height: 38px; border-radius: 50%; background: var(--gold); color: var(--teal-deep); display: grid; place-items: center; font-family: var(--font-d); font-weight: 700; flex-shrink: 0; }
+.review .stars { color: var(--gold); letter-spacing: .1em; font-size: .8rem; }
+@media (max-width: 980px) { .review-grid { columns: 2; } }
+@media (max-width: 600px) { .review-grid { columns: 1; } }
+
 /* ---- floating WhatsApp ---- */
 .fab {
   position: fixed; right: clamp(1rem, 3vw, 1.8rem); bottom: clamp(1rem, 3vw, 1.8rem); z-index: 60;
