@@ -314,10 +314,7 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   .rule.reveal { transform: none !important; }
   .launch-pro .scene img { opacity: 1 !important; scale: 1 !important; filter: none !important; }
   .launch-pro .intro { opacity: 1 !important; }
-  /* painted blend over the render's top edge — no mask, so Safari and Chrome agree */
-.launch-pro .scene::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 46%; z-index: 1; pointer-events: none;
-  background: linear-gradient(to bottom, #0c3033 0%, #0c3033 48%, rgba(12,48,51,0) 100%); }
-.launch-pro .sweep { display: none; }
+  .launch-pro .sweep { display: none; }
   html { scroll-behavior: auto; }
 }
 
@@ -461,6 +458,9 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 /* ---- launch: studio hero of the wordmark; lights come up, a light sweeps, slow parallax ---- */
 .launch-pro { position: relative; background: #0c3033; color: #fff; overflow: hidden; aspect-ratio: 2400 / 1290; min-height: 0; padding: 0; --p: .5; }
 .launch-pro .scene { position: absolute; inset: 0; }
+/* painted blend over the render's top edge — no mask, so Safari and Chrome agree */
+.launch-pro .scene::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 46%; z-index: 1; pointer-events: none;
+  background: linear-gradient(to bottom, #0c3033 0%, #0c3033 48%, rgba(12,48,51,0) 100%); }
 .launch-pro .scene img {
   width: 100%; height: 100%; object-fit: contain; object-position: center bottom; display: block;
   opacity: 0; scale: 1.08; filter: brightness(.15);
