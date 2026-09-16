@@ -491,6 +491,11 @@ html:not(.js) .launch-pro .intro { opacity: 1; }
   .launch-pro .intro { padding-top: 2.5rem; }
 }
 
+/* ---- text depth on the two dark heroes ---- */
+.hero h1.display, .launch-pro .intro .display { text-shadow: 0 2px 4px rgba(0,0,0,.35), 0 14px 40px rgba(0,0,0,.45); }
+.hero .eyebrow, .hero p.sub, .launch-pro .intro .tag, .launch-pro .intro .when { text-shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.4); }
+.hero h1 em { text-shadow: 0 2px 4px rgba(0,0,0,.4), 0 14px 40px rgba(0,0,0,.5), 0 0 40px rgba(26,128,133,.45); }
+
 /* ---- floating WhatsApp ---- */
 .fab {
   position: fixed; right: clamp(1rem, 3vw, 1.8rem); bottom: clamp(1rem, 3vw, 1.8rem); z-index: 60;
