@@ -315,6 +315,8 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   .launch-pro .scene img { opacity: 1 !important; scale: 1 !important; filter: none !important; }
   .launch-pro .intro { opacity: 1 !important; }
   .launch-pro .sweep { display: none; }
+  .roots-collage { clip-path: var(--tri) !important; }
+  .roots-mrc, .roots-text > * { opacity: 1 !important; transform: none !important; }
   html { scroll-behavior: auto; }
 }
 
@@ -494,6 +496,41 @@ html:not(.js) .launch-pro .intro { opacity: 1; }
 /* ---- text depth on the two dark heroes ---- */
 .hero h1.display, .launch-pro .intro .display { text-shadow: 0 2px 2px rgba(0,0,0,.45), 0 5px 10px rgba(0,0,0,.3); }
 .hero .eyebrow, .hero p.sub, .launch-pro .intro .tag, .launch-pro .intro .when { text-shadow: 0 1px 2px rgba(0,0,0,.45), 0 3px 6px rgba(0,0,0,.25); }
+
+/* ---- roots: the South as a triangle collage, MRC from the right ---- */
+.roots { position: relative; overflow: hidden; background: var(--bg); min-height: clamp(560px, 54vw, 900px); padding: 0; --tri: polygon(0 16%, 0 100%, 100% 100%); }
+.roots-edge, .roots-collage { position: absolute; inset: 0; clip-path: var(--tri); }
+.roots-edge { background: var(--teal-deep); }
+.roots-collage { clip-path: polygon(0 16%, 0 100%, 0 100%); translate: -10px 8px; }
+.roots-collage img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; display: block; animation: collageDrift 36s ease-in-out infinite alternate; }
+@keyframes collageDrift { from { scale: 1.04; translate: -1% 0; } to { scale: 1.1; translate: 1% -1.5%; } }
+.roots-copy { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr minmax(0, 42%); padding-block: clamp(2rem, 4vw, 3.5rem) 0; }
+.roots-mrc, .roots-text { grid-column: 2; }
+.roots-mrc { font-family: var(--font-d); font-weight: 700; font-size: clamp(4rem, 9.5vw, 9.5rem); line-height: .9; letter-spacing: -.03em; color: var(--teal-deep); opacity: 0; transform: translateX(70vw); }
+.roots-text { margin-top: .8rem; }
+.roots-text > * { opacity: 0; transform: translateX(60px); }
+.roots-text .display { font-size: clamp(1.7rem, 3vw, 2.5rem); }
+.roots-text .lede { margin-top: 1rem; font-size: 1rem; max-width: 44ch; }
+.roots-text .btn { margin-top: 1.5rem; }
+/* sequence: collage sweeps across from the left, MRC drives in from the right, the copy follows it */
+html.js .roots.in .roots-collage { animation: sweepIn 1.6s cubic-bezier(.7, 0, .2, 1) .1s forwards; }
+html.js .roots.in .roots-mrc { animation: driveIn .9s cubic-bezier(.2, 1.15, .3, 1) 1.5s forwards; }
+html.js .roots.in .roots-text > * { animation: slideFromRight .7s var(--ease) calc(2.15s + var(--i, 0) * .12s) forwards; }
+.roots-text > :nth-child(2) { --i: 1; } .roots-text > :nth-child(3) { --i: 2; } .roots-text > :nth-child(4) { --i: 3; }
+@keyframes sweepIn { to { clip-path: var(--tri); } }
+@keyframes driveIn { to { opacity: 1; transform: none; } }
+@keyframes slideFromRight { to { opacity: 1; transform: none; } }
+html.js .roots.reveal { opacity: 1; transform: none; }
+html:not(.js) .roots-collage { clip-path: var(--tri); }
+html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform: none; }
+@media (max-width: 860px) {
+  .roots { min-height: 0; }
+  .roots-edge, .roots-collage { position: relative; inset: auto; height: 62vw; grid-row: 2; }
+  .roots-edge { display: none; }
+  .roots-collage { --tri: polygon(0 0, 0 100%, 100% 100%); clip-path: polygon(0 0, 0 100%, 0 100%); translate: 0; margin-top: 1.5rem; }
+  .roots-copy { grid-template-columns: 1fr; padding-block: 2.5rem 0; }
+  .roots-mrc, .roots-text { grid-column: 1; }
+}
 
 /* ---- floating WhatsApp ---- */
 .fab {
