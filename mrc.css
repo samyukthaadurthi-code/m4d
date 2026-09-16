@@ -498,12 +498,12 @@ html:not(.js) .launch-pro .intro { opacity: 1; }
 .hero .eyebrow, .hero p.sub, .launch-pro .intro .tag, .launch-pro .intro .when { text-shadow: 0 1px 2px rgba(0,0,0,.45), 0 3px 6px rgba(0,0,0,.25); }
 
 /* ---- roots: the South as a triangle collage, MRC from the right ---- */
-.roots { position: relative; overflow: hidden; background: var(--bg); min-height: clamp(600px, 62vw, 1020px); padding: 0; --tri: polygon(0 14%, 0 100%, 100% 100%); }
+.roots { position: relative; overflow: hidden; background: var(--bg); min-height: clamp(600px, 62vw, 1020px); padding: 0; --tri: polygon(0 0, 0 100%, 100% 100%); }
 .roots-edge, .roots-collage { position: absolute; inset: 0; clip-path: var(--tri); }
 .roots-edge { background: var(--teal-deep); }
-.roots-collage { clip-path: polygon(0 14%, 0 100%, 0 100%); translate: -10px 8px; }
-.roots-collage img { width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; display: block; animation: collageDrift 36s ease-in-out infinite alternate; }
-@keyframes collageDrift { from { scale: 1.04; translate: -1% 0; } to { scale: 1.1; translate: 1% -1.5%; } }
+.roots-collage { clip-path: polygon(0 0, 0 100%, 0 100%); translate: -10px 8px; }
+.roots-collage img { width: 100%; height: 100%; object-fit: cover; object-position: 25% 55%; display: block; transform-origin: 30% 70%; animation: collageDrift 36s ease-in-out infinite alternate; }
+@keyframes collageDrift { from { scale: 1.3; translate: -1% 0; } to { scale: 1.38; translate: 1% -1.5%; } }
 .roots-copy { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr minmax(0, 44%); justify-items: end; text-align: right; padding-block: clamp(2rem, 4vw, 3.5rem) 0; }
 .roots-mrc, .roots-text { grid-column: 2; }
 .roots-mrc { font-family: var(--font-d); font-weight: 700; font-size: clamp(4rem, 9.5vw, 9.5rem); line-height: .9; letter-spacing: -.03em; color: var(--teal-deep); opacity: 0; transform: translateX(70vw); text-shadow: 0 2px 2px rgba(0,0,0,.14), 0 8px 18px rgba(18,71,76,.28); }
