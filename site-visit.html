@@ -188,6 +188,27 @@
     });
   }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  // land-to-plot stage player: cross-fades frames while the panel is on screen
+  var st = document.querySelector('.stages');
+  if (st) {
+    var frames = st.querySelectorAll('.frame'), segs = st.querySelectorAll('.stage-prog i'),
+        nEl = st.querySelector('.stage-n'), tEl = st.querySelector('.stage-t'),
+        names = JSON.parse(st.getAttribute('data-names')), cur = 0, timer = null;
+    function show(i) {
+      frames.forEach(function (f, k) { f.classList.toggle('is-on', k === i); });
+      segs.forEach(function (g, k) { g.classList.toggle('done', k <= i); });
+      nEl.textContent = (i < 9 ? '0' : '') + (i + 1); tEl.textContent = names[i]; cur = i;
+    }
+    function tick() { show((cur + 1) % frames.length); }
+    segs.forEach(function (g, k) { g.addEventListener('click', function () { show(k); }); });
+    show(0);
+    if (!reduce && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) {
+        if (e[0].isIntersecting) { if (!timer) timer = setInterval(tick, 3200); }
+        else { clearInterval(timer); timer = null; }
+      }, { threshold: .3 }).observe(st);
+    }
+  }
   var btn = document.querySelector('.menu-btn');
   var nav = document.getElementById('mnav');
   if (btn && nav) {
