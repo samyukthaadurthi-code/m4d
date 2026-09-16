@@ -591,7 +591,7 @@ html:not(.js) .roots-panel, html:not(.js) .roots-mrc, html:not(.js) .roots-text 
 .reviews { position: relative; color: #fff; overflow: hidden; padding-block: var(--pad);
   background: linear-gradient(180deg, rgba(12,40,43,.82), rgba(12,40,43,.9)), url('9551af30-d0e7-4eb6-9264-bcf8eb8e3831.png') center / cover no-repeat; }
 .reviews .display { color: #fff; text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
-.reviews-note { margin-top: .8rem; font-size: .78rem; letter-spacing: .06em; color: var(--gold); }
+.reviews-eyebrow { font-size: .9rem; margin-bottom: 0; }
 /* two rows drifting in opposite directions, never stopping */
 .review-row { overflow: hidden; margin-top: 1.2rem; }
 .review-row:first-of-type { margin-top: 2.6rem; }
