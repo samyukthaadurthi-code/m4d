@@ -231,7 +231,7 @@ header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .3
 .citycard:hover .go { transform: translateX(4px); }
 
 /* ---------------- prose ---------------- */
-.prose { max-width: 68ch; }
+.prose { max-width: 74ch; margin-inline: auto; }
 .prose h2 { font-family: var(--font-d); font-weight: 600; font-size: clamp(1.5rem,3vw,2rem); letter-spacing: -.02em; color: var(--text); margin: 2.8rem 0 .9rem; line-height: 1.18; }
 .prose h3 { margin: 2rem 0 .6rem; }
 .prose p { margin-bottom: 1.15rem; }
@@ -243,7 +243,9 @@ header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .3
 .prose th, .prose td { text-align: left; padding: .85rem 1rem; border-bottom: 1px solid var(--border); }
 .prose th { background: var(--white); font-family: var(--font-d); font-weight: 600; color: var(--text); }
 .table-wrap { overflow-x: auto; }
-.prose blockquote { margin: 1.6rem 0; padding: 1.2rem 1.5rem; background: var(--white); border-left: 3px solid var(--gold); border-radius: 0 var(--r-sm) var(--r-sm) 0; }
+.prose blockquote { margin: 1.8rem 0; padding: 1.3rem 1.6rem; background: var(--teal-deep); color: rgba(255,255,255,.9); border-left: 4px solid var(--gold); border-radius: 0 var(--r-sm) var(--r-sm) 0; font-family: var(--font-d); font-size: 1.02rem; line-height: 1.6; box-shadow: var(--shadow-md); }
+.prose blockquote .k { display: block; font-size: .66rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: .45rem; }
+.prose blockquote strong { color: #fff; }
 .prose blockquote p:last-child { margin-bottom: 0; }
 .faq-section { margin-top: 3rem; }
 .faq-item { border-bottom: 1px solid var(--border); padding: 1.3rem 0; }
@@ -575,6 +577,15 @@ html:not(.js) .roots-panel, html:not(.js) .roots-mrc, html:not(.js) .roots-text 
 .near-list li.none span { color: rgba(255,255,255,.55); font-size: .85rem; }
 .near-note { margin-top: 1rem; font-size: .74rem; color: var(--text-muted); }
 @media (max-width: 860px) { .near { grid-template-columns: 1fr; } }
+
+/* ---- knowledge hub figures + checklist ---- */
+.kh-fig { margin: 2rem 0; border-radius: var(--r); overflow: hidden; background: var(--white); box-shadow: var(--shadow-md); }
+.kh-fig img { width: 100%; height: auto; display: block; }
+.kh-fig figcaption { padding: .8rem 1.2rem; font-size: .84rem; color: var(--text-muted); border-top: 1px solid var(--border); }
+.prose .checklist-icon { display: none; }
+.prose .checklist-box, .prose .checklist-items { list-style: none; }
+.prose .checklist-items li, .prose .checklist-box li { position: relative; padding-left: 1.4rem; }
+.prose .checklist-items li::before, .prose .checklist-box li::before { content: ""; position: absolute; left: 0; top: .55em; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); }
 
 /* ---- floating WhatsApp ---- */
 .fab {
