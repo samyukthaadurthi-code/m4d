@@ -316,6 +316,9 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   .launch-pro .scene img { opacity: 1 !important; scale: 1 !important; filter: none !important; }
   .launch-pro .intro { opacity: 1 !important; }
   .launch-pro .sweep { display: none; }
+  .land .wild { opacity: 0 !important; } .land .bound, .land .road { stroke-dashoffset: 0 !important; }
+  .land .plot, .land .park, .land .tree, .land .lamp, .land .gate, .land .pins circle { opacity: 1 !important; transform: none !important; }
+  .land-caption span:last-child { opacity: 1 !important; }
   .roots-collage { clip-path: none !important; }
   .roots-panel, .roots-mrc, .roots-text > * { opacity: 1 !important; transform: none !important; }
   html { scroll-behavior: auto; }
@@ -609,17 +612,52 @@ html:not(.js) .roots-panel, html:not(.js) .roots-mrc, html:not(.js) .roots-text 
 
 /* ---- why: 3D canvas beside the pillars ---- */
 .why-split { display: grid; grid-template-columns: 1fr 1.2fr; gap: clamp(2rem,5vw,4rem); align-items: center; margin-top: 3rem; }
-.why-visual { position: relative; aspect-ratio: 1; border-radius: var(--r); overflow: hidden; background: radial-gradient(circle at 40% 40%, var(--teal-pale), var(--bg-alt)); box-shadow: var(--shadow-md); }
-.why-visual canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; }
+.why-visual { position: relative; aspect-ratio: 1; border-radius: var(--r); overflow: hidden; background: var(--teal-deep); box-shadow: var(--shadow-md); display: flex; flex-direction: column; }
+.why-visual .land { width: 100%; height: auto; flex: 1; display: block; }
+/* one 14s loop: land -> boundary -> roads -> plots -> avenues, lights, gate -> hold -> fade */
+.land { --T: 14s; }
+.land .soil { fill: #8fae7a; }
+.land .wild { fill: #7b9a68; animation: wildFade var(--T) linear infinite; }
+.land .bound { fill: none; stroke: #F7F5EF; stroke-width: 2.5; stroke-dasharray: 1840; stroke-dashoffset: 1840; animation: boundDraw var(--T) linear infinite; }
+.land .pins circle { fill: var(--gold); opacity: 0; animation: pinPop var(--T) linear infinite; }
+.land .road { fill: none; stroke: #d9d5c9; stroke-width: 18; stroke-linecap: round; stroke-dasharray: 560; stroke-dashoffset: 560; animation: roadDraw var(--T) linear infinite; }
+.land .road.v { stroke-dasharray: 340; stroke-dashoffset: 340; }
+.land .plot { fill: #a8c295; stroke: #F7F5EF; stroke-width: 1.5; opacity: 0; animation: plotIn var(--T) linear infinite; animation-delay: calc(var(--k) * .09s); }
+.land .park { fill: #6e9a5c; opacity: 0; animation: plotIn var(--T) linear infinite; animation-delay: 1.3s; }
+.land .tree { fill: #3f6b3a; opacity: 0; animation: treeIn var(--T) linear infinite; animation-delay: calc(var(--k) * .06s); }
+.land .lamp { fill: var(--gold); opacity: 0; animation: lampIn var(--T) linear infinite; animation-delay: calc(var(--k) * .05s); }
+.land .gate { fill: var(--gold); opacity: 0; animation: gateIn var(--T) linear infinite; }
+/* percentages of the 14s loop */
+@keyframes wildFade { 0%,14% { opacity: 1; } 24%,88% { opacity: 0; } 96%,100% { opacity: 1; } }
+@keyframes boundDraw { 0%,10% { stroke-dashoffset: 1840; opacity: 1; } 24% { stroke-dashoffset: 0; } 86% { stroke-dashoffset: 0; opacity: 1; } 91%,100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes pinPop { 0%,22% { opacity: 0; } 26%,86% { opacity: 1; } 91%,100% { opacity: 0; } }
+@keyframes roadDraw { 0%,26% { stroke-dashoffset: 560; opacity: 1; } 42% { stroke-dashoffset: 0; } 86% { stroke-dashoffset: 0; opacity: 1; } 91%,100% { stroke-dashoffset: 0; opacity: 0; } }
+.land .road.v { animation-name: roadDrawV; }
+@keyframes roadDrawV { 0%,30% { stroke-dashoffset: 340; opacity: 1; } 44% { stroke-dashoffset: 0; } 86% { stroke-dashoffset: 0; opacity: 1; } 91%,100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes plotIn { 0%,46% { opacity: 0; transform: scale(.9); transform-origin: center; transform-box: fill-box; } 52%,84% { opacity: 1; transform: none; } 88%,100% { opacity: 0; transform: none; } }
+@keyframes treeIn { 0%,64% { opacity: 0; transform: scale(0); transform-origin: center; transform-box: fill-box; } 70%,84% { opacity: 1; transform: none; } 88%,100% { opacity: 0; transform: none; } }
+@keyframes lampIn { 0%,72% { opacity: 0; } 76%,84% { opacity: 1; } 88%,100% { opacity: 0; } }
+@keyframes gateIn { 0%,78% { opacity: 0; transform: translateY(8px); } 82%,86% { opacity: 1; transform: none; } 90%,100% { opacity: 0; transform: none; } }
+/* caption strip under the diagram: one label per stage */
+.land-caption { position: relative; height: 3rem; background: var(--teal-deep); border-top: 1px solid rgba(255,255,255,.12); }
+.land-caption span { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-d); font-weight: 600; font-size: .86rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); opacity: 0; animation: cap var(--T, 14s) linear infinite; }
+.land-caption span:nth-child(1) { animation-name: cap1; } .land-caption span:nth-child(2) { animation-name: cap2; }
+.land-caption span:nth-child(3) { animation-name: cap3; } .land-caption span:nth-child(4) { animation-name: cap4; } .land-caption span:nth-child(5) { animation-name: cap5; }
+@keyframes cap1 { 0%,10% { opacity: 1; } 13%,93% { opacity: 0; } 96%,100% { opacity: 1; } }
+@keyframes cap2 { 0%,12% { opacity: 0; } 14%,28% { opacity: 1; } 30%,100% { opacity: 0; } }
+@keyframes cap3 { 0%,30% { opacity: 0; } 32%,46% { opacity: 1; } 48%,100% { opacity: 0; } }
+@keyframes cap4 { 0%,48% { opacity: 0; } 50%,64% { opacity: 1; } 66%,100% { opacity: 0; } }
+@keyframes cap5 { 0%,66% { opacity: 0; } 68%,88% { opacity: 1; } 92%,100% { opacity: 0; } }
 .why-compact { display: grid; gap: 1rem; }
 .why-compact article {
   display: grid; grid-template-columns: 48px 1fr; gap: 1rem; align-items: start;
-  background: var(--white); border-radius: var(--r-sm); padding: 1.2rem 1.4rem; border-top: 0;
-  border-left: 3px solid var(--teal); box-shadow: var(--shadow-sm);
+  background: var(--teal-deep); color: rgba(255,255,255,.82); border-radius: var(--r-sm); padding: 1.2rem 1.4rem; border-top: 0;
+  border-left: 3px solid var(--gold); box-shadow: var(--shadow-sm); transition: background .4s, transform .4s var(--ease);
 }
-.why-compact .ico { width: 44px; height: 44px; border-radius: 12px; background: var(--teal-pale); display: grid; place-items: center; color: var(--teal); }
-.why-compact h3 { font-size: 1.02rem; margin-bottom: .25rem; }
-.why-compact p { font-size: .9rem; margin: 0; }
+.why-compact article:hover { background: var(--teal); transform: translateX(4px); }
+.why-compact .ico { width: 44px; height: 44px; border-radius: 12px; background: rgba(196,169,125,.16); display: grid; place-items: center; color: var(--gold); }
+.why-compact h3 { font-size: 1.02rem; margin-bottom: .25rem; color: #fff; text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
+.why-compact p { font-size: .9rem; margin: 0; color: rgba(255,255,255,.82); }
 @media (max-width: 860px) { .why-split { grid-template-columns: 1fr; } }
 
 /* ---- icon step cards (process, scannable) ---- */
