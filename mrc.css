@@ -98,8 +98,12 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-
 .topbar .sep { display: inline-block; margin-inline: .8rem; opacity: .4; }
 
 header.site { position: sticky; top: 0; z-index: 50; background: rgba(247,245,239,.88); backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
-header.site .wrap { display: flex; align-items: center; gap: 1.5rem; padding-block: .8rem; }
-.brand { display: flex; align-items: center; gap: .8rem; margin-right: auto; }
+header.site .wrap { display: flex; align-items: center; gap: 1.5rem; padding-block: .6rem; }
+.brand { display: flex; align-items: center; margin-right: auto; }
+.brand img { height: 70px; width: auto; transition: height .35s var(--ease), transform .4s var(--ease); }
+.brand:hover img { transform: scale(1.04); }
+.scrolled .brand img { height: 54px; }
+footer .brand img { height: 72px; }
 .brand .mark { width: 46px; height: 46px; border-radius: 50%; background: var(--white); display: grid; place-items: center; flex-shrink: 0; box-shadow: var(--shadow-sm); transition: transform .4s var(--ease); }
 .brand:hover .mark { transform: scale(1.06); }
 .brand .mark img { width: 34px; height: 34px; }
@@ -114,7 +118,6 @@ header.site .btn { padding: .7rem 1.5rem; font-size: .85rem; }
 header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .35s var(--ease), height .35s var(--ease); }
 .scrolled header.site .wrap { padding-block: .45rem; }
 .scrolled header.site { box-shadow: var(--shadow-md); }
-.scrolled .brand .mark { width: 38px; height: 38px; }
 .menu-btn { display: none; background: none; border: 0; color: var(--text); padding: .5rem; }
 
 /* ---------------- hero ---------------- */
