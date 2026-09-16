@@ -77,19 +77,16 @@
     <div class="hero-trust marquee up" style="--d:4.8s"><div class="marquee-track"><span><i class="hero-trust-dot"></i>Built for Southern Tamil Nadu</span><span><i class="hero-trust-dot"></i>DTCP approved</span><span><i class="hero-trust-dot"></i>TNRERA registered</span><span><i class="hero-trust-dot"></i>Survey verified</span><span><i class="hero-trust-dot"></i>Bank-loan eligible</span><span><i class="hero-trust-dot"></i>Clear documentation</span><span><i class="hero-trust-dot"></i>Planned infrastructure</span><span><i class="hero-trust-dot"></i>Family-first communities</span><span><i class="hero-trust-dot"></i>Crafting Landmarks, Creating Legacies</span><span><i class="hero-trust-dot"></i>Built for Southern Tamil Nadu</span><span><i class="hero-trust-dot"></i>DTCP approved</span><span><i class="hero-trust-dot"></i>TNRERA registered</span><span><i class="hero-trust-dot"></i>Survey verified</span><span><i class="hero-trust-dot"></i>Bank-loan eligible</span><span><i class="hero-trust-dot"></i>Clear documentation</span><span><i class="hero-trust-dot"></i>Planned infrastructure</span><span><i class="hero-trust-dot"></i>Family-first communities</span><span><i class="hero-trust-dot"></i>Crafting Landmarks, Creating Legacies</span></div></div>
   </section>
 
-  <section class="alt launch-stage" id="launch">
-    <div class="wrap">
-      <div class="frame-outer reveal">
-        <div class="frame-inner">
-          <div class="gate">
-            <img class="gate-lines" src="anantaa-gate-lines.png" alt="" width="1400" height="940">
-            <img class="gate-photo" src="anantaa-gate.jpg" alt="ANANTAA entrance" width="1800" height="1208">
-          </div>
-          <img class="gate-title" src="anantaa-wordmark.png" alt="ANANTAA" width="2200" height="704">
-          <div class="gate-tag">A Life Without Limits</div>
-          <a class="btn btn-ink gate-cta" href="project-anantaa.html">Explore ANANTAA &rarr;</a>
-        </div>
-      </div>
+  <section class="launch-pro reveal" id="launch">
+    <div class="wrap intro">
+      <h2 class="display reveal">ANANTAA</h2>
+      <p class="tag">A Life Without Limits.</p>
+      <p class="when">Pre-launch &middot; Book your plot</p>
+      <div class="hero-cta"><a class="btn btn-ink" href="project-anantaa.html">Explore ANANTAA</a></div>
+    </div>
+    <div class="stage">
+      <div class="chrome-wrap"><div class="chrome depth" style="--k:5"></div><div class="chrome depth" style="--k:4"></div><div class="chrome depth" style="--k:3"></div><div class="chrome depth" style="--k:2"></div><div class="chrome depth" style="--k:1"></div><div class="chrome face"></div></div>
+      <div class="product"><div class="product-in"><img src="anantaa-gate.jpg" alt="ANANTAA entrance" width="1800" height="1208"></div></div>
     </div>
   </section>
 
@@ -344,13 +341,17 @@
     nums.forEach(function (el) { nio.observe(el); });
   }
   // header tightens once the page is scrolled; hero image drifts slower than the page
-  var bg = document.querySelector('.hero-bg'), ticking = false;
+  var bg = document.querySelector('.hero-bg'), pro = document.querySelector('.launch-pro'), ticking = false;
   function onScroll() {
     if (ticking) return; ticking = true;
     requestAnimationFrame(function () {
       var y = window.scrollY;
       document.documentElement.classList.toggle('scrolled', y > 40);
       if (bg && !reduce && y < window.innerHeight * 1.2) bg.style.transform = 'translateY(' + (y * 0.28).toFixed(1) + 'px)';
+      if (pro && !reduce) {
+        var r = pro.getBoundingClientRect(), vh = window.innerHeight;
+        pro.style.setProperty('--p', Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height))).toFixed(3));
+      }
       ticking = false;
     });
   }
