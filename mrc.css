@@ -325,7 +325,7 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 .hero {
   background:
     linear-gradient(180deg, rgba(12,71,76,.10) 0%, rgba(10,45,35,.12) 30%, rgba(12,71,76,.45) 65%, rgba(12,71,76,.88) 100%),
-    url('hero-yanaimalai.jpg') center 42% / cover no-repeat;
+    url('hero-yanaimalai.jpg') center 55% / cover no-repeat;
 }
 .hero::after {
   content: ""; position: absolute; top: 0; left: 0; right: 0; height: 120px;
