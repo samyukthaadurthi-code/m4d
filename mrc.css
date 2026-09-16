@@ -348,7 +348,7 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   flex-direction: column; justify-content: flex-end; align-items: stretch;
   padding-bottom: 0; min-height: clamp(560px, calc(100vh - 118px), 920px);
 }
-.hero-bg { position: absolute; inset: 0; z-index: 0; will-change: transform; overflow: hidden; }
+.hero-bg { position: absolute; inset: 0; z-index: 0; will-change: transform; overflow: hidden; contain: paint; }
 /* The stage is the photo's own box, cover-fitted (aspect-ratio + both mins) so every layer
    can be placed in % of the image and stays aligned at any viewport. */
 .hero-stage {
@@ -430,9 +430,10 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 @keyframes riseIn { from { opacity: 0; transform: translateY(var(--y, 28px)); } to { opacity: 1; transform: none; } }
 
 /* trust marquee */
-.marquee { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
-.marquee-track { display: flex; width: max-content; gap: 3rem; animation: marquee 34s linear infinite; }
-.marquee:hover .marquee-track { animation-play-state: paused; }
+/* no mask and no hover-pause: the mask forced a repaint of the moving track every frame,
+   and pausing under the cursor read as "it keeps stopping" */
+.marquee { overflow: hidden; }
+.marquee-track { display: flex; width: max-content; gap: 3rem; animation: marquee 34s linear infinite; will-change: transform; backface-visibility: hidden; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 
 .hero-stats { gap: .8rem; border-top: 0; padding-top: 0; margin-top: 2.2rem; }
