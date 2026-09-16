@@ -127,7 +127,7 @@ header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .3
     url('2b1442b6-33c3-4be9-aa9e-cc22d6a2ebea.png') center 38% / cover no-repeat; color: #fff; }
 .hero h1.display { color: #fff; max-width: 16ch; }
 .hero h1 em { font-style: normal; color: var(--teal-mid); }
-.hero .eyebrow { color: var(--teal-mid); }
+.hero .eyebrow { color: rgba(255,255,255,.78); }
 .hero p.sub { margin-top: 1.6rem; max-width: 48ch; font-size: 1.1rem; color: rgba(255,255,255,.85); }
 .hero-cta { display: flex; flex-wrap: wrap; gap: .85rem; margin-top: 2.4rem; }
 .hero-stats { display: flex; flex-wrap: wrap; gap: clamp(2rem,6vw,4.5rem); margin-top: 3.2rem; padding-top: 2.1rem; border-top: 1px solid rgba(255,255,255,.22); }
@@ -359,50 +359,53 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 @keyframes kenburns { from { scale: 1.12; } to { scale: 1; } }
 .hero-stage .plate { position: absolute; inset: 0; background: url('hero-plate.jpg') center / 100% 100% no-repeat; }
 /* the ground line sits at 74% of the photo; the hill is only ever visible above it */
-.hero-stage .rise { position: absolute; inset: 0; clip-path: inset(0 0 26% 0); }
+.hero-stage .rise { position: absolute; inset: 0; clip-path: inset(0 0 30% 0); }
 .hero-stage .hill {
-  position: absolute; left: 20.083%; top: 27.761%; width: 70.833%; height: auto;
-  transform: translateY(92%); animation: hillRise 1.7s cubic-bezier(.2, 1.1, .3, 1) .8s forwards;
+  position: absolute; left: 20.375%; top: 27.761%; width: 69%; height: auto;
+  transform: translateY(104%); animation: hillRise 2.9s cubic-bezier(.3, .9, .25, 1) 1.1s forwards;
   filter: drop-shadow(0 30px 40px rgba(12,71,76,.35));
 }
 @keyframes hillRise { to { transform: none; } }
 /* the ground shakes twice: as it cracks, and as the rock lands */
-.hero-stage { animation: kenburns 16s var(--ease) both, quake .5s ease-in-out .45s, quake .35s ease-in-out 2.3s; }
+.hero-stage { animation: kenburns 18s var(--ease) both, quake .7s ease-in-out .5s, quake .45s ease-in-out 3.7s; }
 @keyframes quake {
   0%,100% { transform: translate(0,0); } 20% { transform: translate(-3px,2px); } 40% { transform: translate(3px,-2px); }
   60% { transform: translate(-2px,-2px); } 80% { transform: translate(2px,2px); }
 }
 /* fissure along the ground line: draws, glows, then closes */
 .hero-stage .crack {
-  position: absolute; left: 0; width: 100%; top: 72.2%; height: 3.6%; overflow: visible;
+  position: absolute; left: 0; width: 100%; top: 68.2%; height: 3.6%; overflow: visible;
   fill: none; stroke: #2a1d14; stroke-width: 3; stroke-linejoin: round;
   stroke-dasharray: 1400; stroke-dashoffset: 1400; opacity: 0;
   filter: drop-shadow(0 0 6px rgba(0,0,0,.6));
-  animation: crackDraw .55s ease-out .5s forwards, crackFade .6s ease-in 2.4s forwards;
+  animation: crackDraw 1s ease-out .6s forwards, crackFade .8s ease-in 3.8s forwards;
 }
 @keyframes crackDraw { to { stroke-dashoffset: 0; opacity: 1; } }
 @keyframes crackFade { to { opacity: 0; } }
 /* dust puffs along the line while the rock is coming up */
 .hero-stage .dust i {
-  position: absolute; left: var(--x); top: 71%; width: 14%; aspect-ratio: 1.6; translate: -50% -50%;
+  position: absolute; left: var(--x); top: 67.5%; width: 16%; aspect-ratio: 1.6; translate: -50% -50%;
   background: radial-gradient(closest-side, rgba(150,120,90,.65), rgba(150,120,90,0));
-  opacity: 0; scale: 0; animation: puff 1.5s ease-out var(--d) forwards;
+  opacity: 0; scale: 0; animation: puff 2.4s ease-out var(--d) forwards;
 }
 @keyframes puff {
   0% { opacity: 0; scale: .2; translate: -50% -50%; }
   25% { opacity: .95; }
   100% { opacity: 0; scale: calc(1.9 * var(--s)); translate: -50% -110%; }
 }
-/* a few fragments thrown up and falling back */
+/* fragments are chunks of the actual rock face, thrown up and falling back */
 .hero-stage .rocks b {
-  position: absolute; left: var(--x); top: 73%; width: 1.1%; aspect-ratio: 1; border-radius: 40% 60% 50% 45%;
-  background: #5b4634; opacity: 0; animation: fling 1.15s cubic-bezier(.2,.6,.5,1) var(--d) forwards;
+  position: absolute; left: var(--x); top: 69%; width: var(--w); aspect-ratio: 1.15;
+  background: url('hero-hill.webp') var(--bp) / 900% auto no-repeat; clip-path: var(--cp);
+  filter: brightness(.92) contrast(1.15) drop-shadow(0 6px 6px rgba(0,0,0,.45));
+  opacity: 0; animation: fling 1.9s cubic-bezier(.25,.6,.45,1) var(--d) forwards;
 }
 @keyframes fling {
   0% { opacity: 0; transform: translate(0,0) rotate(0); }
-  10% { opacity: 1; }
-  55% { transform: translate(var(--dx), var(--dy)) rotate(var(--r)); opacity: 1; }
-  100% { transform: translate(calc(var(--dx) * 1.3), 20px) rotate(calc(var(--r) * 1.6)); opacity: 0; }
+  8% { opacity: 1; }
+  50% { transform: translate(var(--dx), var(--dy)) rotate(var(--r)); opacity: 1; }
+  92% { opacity: 1; }
+  100% { transform: translate(calc(var(--dx) * 1.35), 30px) rotate(calc(var(--r) * 1.7)); opacity: 0; }
 }
 /* vertical fade for the bottom band, horizontal scrim so the headline reads over the rock */
 .hero::before {
