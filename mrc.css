@@ -607,6 +607,7 @@ html:not(.js) .roots-panel, html:not(.js) .roots-mrc, html:not(.js) .roots-text 
   background: rgba(255,255,255,.96); backdrop-filter: blur(6px); padding: 5px 11px; border-radius: 6px;
   font-family: var(--font-d); font-size: 11.5px; font-weight: 600; color: var(--text); white-space: nowrap;
   box-shadow: 0 2px 8px rgba(0,0,0,.18); margin-top: 6px; transform: translateX(-50%); position: relative; left: 50%;
+  display: inline-block; width: max-content;   /* the icon box is 22px wide — the pill must size to its own text */
 }
 .leaflet-container { font-family: var(--font-b); }
 .leaflet-control-zoom a { color: var(--text) !important; }
