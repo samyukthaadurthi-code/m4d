@@ -343,6 +343,14 @@
       else lv.pause();
     }, { threshold: .25 }).observe(lv);
   }
+  // maps: trackpad pinch zooms right away, plain scroll only after the map is clicked (so the page keeps scrolling)
+  window.mrcCoopZoom = function (map, el) {
+    el.addEventListener('wheel', function (e) {
+      if (e.ctrlKey) { e.preventDefault(); map.setZoom(map.getZoom() + (e.deltaY < 0 ? .5 : -.5), { animate: false }); }
+    }, { passive: false });
+    el.addEventListener('mousedown', function () { map.scrollWheelZoom.enable(); });
+    el.addEventListener('mouseleave', function () { map.scrollWheelZoom.disable(); });
+  };
   var btn = document.querySelector('.menu-btn');
   var nav = document.getElementById('mnav');
   if (btn && nav) {
@@ -364,6 +372,7 @@
   var TN = [[8.05, 76.2], [13.6, 80.4]];
   var map = L.map('mrcMap', { zoomControl: true, attributionControl: false, scrollWheelZoom: false, zoomSnap: .25 });
   map.fitBounds(TN, { padding: [10, 10] });
+  window.mrcCoopZoom && window.mrcCoopZoom(map, el);
   L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }).addTo(map);
   // roads + place names only once we are close, so the state view stays clean
   var roads = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, opacity: .95 });
