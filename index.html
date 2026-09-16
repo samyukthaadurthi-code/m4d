@@ -152,10 +152,7 @@
     <div class="wrap">
       <h2 class="display reveal">Why MRC</h2>
       <div class="why-split">
-        <div class="why-visual stages" data-names="[&quot;Raw land&quot;,&quot;Survey & boundary stones&quot;,&quot;Clearing & levelling&quot;,&quot;Road formation&quot;,&quot;Drains & utilities&quot;,&quot;Tar roads & plot stones&quot;,&quot;Wall, trees, lights, gate&quot;,&quot;Ready&quot;]">
-          <div class="frames"><img class="frame is-on" src="stage-01.jpg" alt="Stage 1: Raw land" width="860" height="860"><img class="frame" src="stage-02.jpg" alt="Stage 2: Survey &amp; boundary stones" width="860" height="860" loading="lazy"><img class="frame" src="stage-03.jpg" alt="Stage 3: Clearing &amp; levelling" width="860" height="860" loading="lazy"><img class="frame" src="stage-04.jpg" alt="Stage 4: Road formation" width="860" height="860" loading="lazy"><img class="frame" src="stage-05.jpg" alt="Stage 5: Drains &amp; utilities" width="860" height="860" loading="lazy"><img class="frame" src="stage-06.jpg" alt="Stage 6: Tar roads &amp; plot stones" width="860" height="860" loading="lazy"><img class="frame" src="stage-07.jpg" alt="Stage 7: Wall, trees, lights, gate" width="860" height="860" loading="lazy"><img class="frame" src="stage-08.jpg" alt="Stage 8: Ready" width="860" height="860" loading="lazy"></div>
-          <div class="stage-bar"><span class="stage-n">01</span><span class="stage-t">Raw land</span><span class="stage-prog"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
-        </div>
+        <div class="why-visual"><video class="land-video" src="land-to-plot.mp4" poster="stage-01.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Aerial view of a site outside Madurai going from raw land to a finished plotted layout"></video></div>
         <div class="why-compact">
           <article><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.2 6.4-6.4 2.2 2.2-6.4z"/></svg></div><div><h3>Rooted in the South</h3><p>Twenty years of the founders&rsquo; working life has been spent in this region.</p></div></article>
           <article><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 12 10 5 10-5M2 17l10 5 10-5"/></svg></div><div><h3>Planned, not parcelled</h3><p>It is easy to divide land into the maximum number of sellable rectangles.</p></div></article>
@@ -338,26 +335,13 @@
     });
   }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
-  // land-to-plot stage player: cross-fades frames while the panel is on screen
-  var st = document.querySelector('.stages');
-  if (st) {
-    var frames = st.querySelectorAll('.frame'), segs = st.querySelectorAll('.stage-prog i'),
-        nEl = st.querySelector('.stage-n'), tEl = st.querySelector('.stage-t'),
-        names = JSON.parse(st.getAttribute('data-names')), cur = 0, timer = null;
-    function show(i) {
-      frames.forEach(function (f, k) { f.classList.toggle('is-on', k === i); });
-      segs.forEach(function (g, k) { g.classList.toggle('done', k <= i); });
-      nEl.textContent = (i < 9 ? '0' : '') + (i + 1); tEl.textContent = names[i]; cur = i;
-    }
-    function tick() { show((cur + 1) % frames.length); }
-    segs.forEach(function (g, k) { g.addEventListener('click', function () { show(k); }); });
-    show(0);
-    if (!reduce && 'IntersectionObserver' in window) {
-      new IntersectionObserver(function (e) {
-        if (e[0].isIntersecting) { if (!timer) timer = setInterval(tick, 3200); }
-        else { clearInterval(timer); timer = null; }
-      }, { threshold: .3 }).observe(st);
-    }
+  // the land-to-plot video plays while on screen, rests otherwise (and survives autoplay blocks)
+  var lv = document.querySelector('.land-video');
+  if (lv && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function (e) {
+      if (e[0].isIntersecting) { var p = lv.play(); if (p && p.catch) p.catch(function () {}); }
+      else lv.pause();
+    }, { threshold: .25 }).observe(lv);
   }
   var btn = document.querySelector('.menu-btn');
   var nav = document.getElementById('mnav');
