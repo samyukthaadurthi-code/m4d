@@ -190,13 +190,15 @@
       else lv.pause();
     }, { threshold: .25 }).observe(lv);
   }
-  // maps: trackpad pinch zooms right away, plain scroll only after the map is clicked (so the page keeps scrolling)
+  // maps: pinch zooms (slowly), plain scroll only after the map is clicked so the page keeps scrolling
   window.mrcCoopZoom = function (map, el) {
+    var armed = false;
     el.addEventListener('wheel', function (e) {
-      if (e.ctrlKey) { e.preventDefault(); map.setZoom(map.getZoom() + (e.deltaY < 0 ? .5 : -.5), { animate: false }); }
-    }, { passive: false });
-    el.addEventListener('mousedown', function () { map.scrollWheelZoom.enable(); });
-    el.addEventListener('mouseleave', function () { map.scrollWheelZoom.disable(); });
+      if (e.ctrlKey) { e.preventDefault(); map.scrollWheelZoom.enable(); }
+      else if (!armed) map.scrollWheelZoom.disable();
+    }, { capture: true, passive: false });
+    el.addEventListener('mousedown', function () { armed = true; map.scrollWheelZoom.enable(); });
+    el.addEventListener('mouseleave', function () { armed = false; map.scrollWheelZoom.disable(); });
   };
   var btn = document.querySelector('.menu-btn');
   var nav = document.getElementById('mnav');

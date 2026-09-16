@@ -564,13 +564,12 @@ html:not(.js) .roots-panel, html:not(.js) .roots-mrc, html:not(.js) .roots-text 
 .near-map { height: clamp(360px, 42vw, 560px); border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow-md); background: var(--teal-pale); }
 .near-cats { display: grid; gap: .8rem; }
 .near-cat { background: var(--teal-deep); color: #fff; border-radius: var(--r-sm); overflow: hidden; box-shadow: var(--shadow-sm); }
-.near-cat h3 { display: flex; justify-content: space-between; align-items: center; color: #fff; font-size: .8rem; letter-spacing: .16em; text-transform: uppercase; padding: 1rem 1.2rem; cursor: pointer; user-select: none; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
+.near-cat h3 { color: #fff; font-size: .78rem; letter-spacing: .16em; text-transform: uppercase; padding: .9rem 1.2rem .2rem; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
 .near-cat .pm { width: 14px; height: 14px; position: relative; opacity: .8; }
 .near-cat .pm::before, .near-cat .pm::after { content: ""; position: absolute; background: var(--gold); left: 0; top: 6px; width: 14px; height: 2px; }
 .near-cat .pm::after { transform: rotate(90deg); transition: transform .3s; }
 .near-cat.open .pm::after { transform: rotate(0); }
-.near-list { list-style: none; margin: 0; padding: 0 1.2rem; max-height: 0; overflow: hidden; transition: max-height .4s var(--ease), padding .3s; }
-.near-cat.open .near-list { max-height: 420px; padding-bottom: .6rem; }
+.near-list { list-style: none; margin: 0; padding: 0 1.2rem .5rem; }
 .near-list li { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-top: 1px solid rgba(255,255,255,.12); font-size: .9rem; color: rgba(255,255,255,.88); }
 .near-list li b { color: var(--gold); white-space: nowrap; font-weight: 600; }
 .near-list li.none span { color: rgba(255,255,255,.55); font-size: .85rem; }
