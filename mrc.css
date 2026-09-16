@@ -456,10 +456,11 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 .hero-trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-mid); display: inline-block; margin-right: .5rem; }
 
 /* ---- launch: studio hero of the wordmark; lights come up, a light sweeps, slow parallax ---- */
-.launch-pro { position: relative; background: #000; color: #fff; overflow: hidden; aspect-ratio: 2400 / 1330; min-height: 0; padding: 0; --p: .5; }
+.launch-pro { position: relative; background: linear-gradient(180deg, #0f3a3e 0%, #092426 100%); color: #fff; overflow: hidden; aspect-ratio: 2400 / 1180; min-height: 0; padding: 0; --p: .5; }
 .launch-pro .scene { position: absolute; inset: 0; }
 .launch-pro .scene img {
   width: 100%; height: 100%; object-fit: contain; object-position: center bottom; display: block;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 12%, #000 36%); mask-image: linear-gradient(to bottom, transparent 12%, #000 36%);
   opacity: 0; scale: 1.08; filter: brightness(.15);
   translate: 0 calc((var(--p) - .5) * 40px);
 }
@@ -467,11 +468,13 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   position: absolute; inset: -30% -60%; pointer-events: none; mix-blend-mode: screen; opacity: 0;
   background: linear-gradient(112deg, transparent 42%, rgba(255,240,215,.16) 50%, transparent 58%);
 }
-.launch-pro .intro { position: relative; z-index: 1; text-align: center; padding-top: clamp(2.5rem, 5vw, 5rem); opacity: 0; }
+.launch-pro .intro { position: relative; z-index: 1; text-align: center; padding-top: clamp(1.8rem, 3vw, 2.8rem); opacity: 0; }
 .launch-pro .intro .display { color: #fff; font-size: clamp(2.4rem, 5vw, 3.8rem); letter-spacing: .02em; }
 .launch-pro .intro .tag { margin-top: .6rem; font-family: var(--font-d); font-size: clamp(1.2rem, 2.2vw, 1.7rem); font-weight: 500; color: rgba(255,255,255,.92); }
-.launch-pro .intro .when { margin-top: .5rem; font-size: 1.02rem; color: rgba(255,255,255,.55); }
-.launch-pro .intro .hero-cta { justify-content: center; margin-top: 1.6rem; }
+.launch-pro .intro .when { margin-top: .5rem; font-size: 1.02rem; color: rgba(255,255,255,.62); }
+.launch-pro .intro .hero-cta { justify-content: center; margin-top: 1.3rem; }
+.launch-pro .intro .btn-ink { background: var(--gold); color: var(--text); }
+.launch-pro .intro .btn-ink:hover { background: #d3bb95; box-shadow: 0 10px 32px rgba(196,169,125,.4); }
 html.js .launch-pro.in .scene img { animation: lightsUp 3s var(--ease) .1s forwards; }
 html.js .launch-pro.in .sweep { animation: sweep 9s ease-in-out 3.2s infinite; }
 html.js .launch-pro.in .intro { animation: riseIn 1s var(--ease) 1.6s forwards; }
@@ -481,7 +484,7 @@ html.js .launch-pro.reveal { opacity: 1; transform: none; }
 html:not(.js) .launch-pro .scene img { opacity: 1; scale: 1; filter: none; }
 html:not(.js) .launch-pro .intro { opacity: 1; }
 @media (max-width: 760px) {
-  .launch-pro { aspect-ratio: auto; min-height: 118vw; }
+  .launch-pro { aspect-ratio: auto; min-height: 112vw; }
   .launch-pro .scene img { object-fit: contain; object-position: center bottom; }
   .launch-pro .intro { padding-top: 2.5rem; }
 }
