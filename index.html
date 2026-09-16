@@ -167,8 +167,8 @@
     <div class="wrap">
       <p class="eyebrow reveal">Our Locations</p>
       <div class="rule reveal"></div>
-      <h2 class="display reveal">Rooted in the South.</h2>
-      <p class="lede reveal" style="margin-top:1.2rem">Tap the pin to open ANANTAA.</p>
+      <h2 class="display reveal">Where we build.</h2>
+      <p class="lede reveal" style="margin-top:1.2rem">Tap a pin to fly in.</p>
       <div class="map-wrapper">
         <div class="map-city-badge"><span class="map-city-badge-dot"></span><span>1 project &middot; Madurai</span></div>
         <div id="mrcMap"></div>
@@ -360,16 +360,32 @@
 (function () {
   if (!window.L) return;
   var el = document.getElementById('mrcMap'); if (!el) return;
-  var projects = [{"name": "ANANTAA", "city": "Madurai", "slug": "anantaa", "lat": 9.9538, "lng": 78.2065}];
-  var map = L.map('mrcMap', { center: [9.90, 78.16], zoom: 10, zoomControl: true,
-    attributionControl: false, scrollWheelZoom: false });
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    { maxZoom: 18 }).addTo(map);
+  var projects = [{"name": "ANANTAA", "city": "Madurai", "slug": "anantaa", "lat": 9.9538, "lng": 78.2065, "locality": "Othakadai, Madurai"}];
+  var TN = [[8.05, 76.2], [13.6, 80.4]];
+  var map = L.map('mrcMap', { zoomControl: true, attributionControl: false, scrollWheelZoom: false, zoomSnap: .25 });
+  map.fitBounds(TN, { padding: [10, 10] });
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }).addTo(map);
+  // roads + place names only once we are close, so the state view stays clean
+  var roads = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, opacity: .95 });
+  var places = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 });
+  function labels(on) { [roads, places].forEach(function (l) { on ? (map.hasLayer(l) || l.addTo(map)) : map.removeLayer(l); }); }
+  map.on('zoomend', function () { labels(map.getZoom() >= 11); });
+  var back = L.control({ position: 'topright' });
+  back.onAdd = function () {
+    var d = L.DomUtil.create('a', 'map-back'); d.href = '#'; d.textContent = 'All locations';
+    L.DomEvent.on(d, 'click', function (e) { L.DomEvent.stop(e); map.closePopup(); map.flyToBounds(TN, { padding: [10, 10], duration: 1.4 }); });
+    return d;
+  };
   projects.forEach(function (p) {
     var icon = L.divIcon({ className: '', iconSize: [22, 44], iconAnchor: [11, 11],
       html: '<div class="mrc-marker anchor"></div><div class="mrc-marker-label">' + p.name + ', ' + p.city + '</div>' });
-    L.marker([p.lat, p.lng], { icon: icon }).addTo(map)
-      .on('click', function () { window.location.href = 'project-' + p.slug + '.html'; });
+    var m = L.marker([p.lat, p.lng], { icon: icon }).addTo(map);
+    m.bindPopup('<strong>' + p.name + '</strong><br>' + p.locality + '<br><a class="map-open" href="project-' + p.slug + '.html">Open ' + p.name + ' &rarr;</a>', { offset: [0, -6] });
+    m.on('click', function () {
+      map.closePopup(); back.addTo(map);
+      map.flyTo([p.lat, p.lng], 15.5, { duration: 1.8, easeLinearity: .2 });
+      map.once('moveend', function () { m.openPopup(); });
+    });
   });
 })();
 </script>

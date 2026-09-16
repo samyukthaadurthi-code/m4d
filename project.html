@@ -13,6 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
 <link rel="stylesheet" href="mrc.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </head>
 <body>
 <div class="topbar">
@@ -110,6 +111,25 @@
       <div class="gallery">
         <figure class="figure"><span class="impression">Artist&rsquo;s impression</span><img src="anantaa-amenities.jpg" alt="" loading="lazy"></figure>
       </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <p class="eyebrow reveal">Life Around</p>
+      <div class="rule reveal"></div>
+      <h2 class="display reveal">Life around ANANTAA.</h2>
+      <p class="lede reveal" style="margin-top:1.2rem">Schools, colleges, hospitals and places to eat within 8 km of the site, as mapped on OpenStreetMap today, with straight-line distances.</p>
+      <div class="near">
+        <div id="siteMap" class="near-map" data-lat="9.9538" data-lng="78.2065" data-name="ANANTAA"></div>
+        <div class="near-cats">
+          <div class="near-cat open" data-cat="schools"><h3>Schools<span class="pm"></span></h3><ul class="near-list"><li class="none"><span>Loading&hellip;</span></li></ul></div>
+          <div class="near-cat" data-cat="colleges"><h3>Colleges<span class="pm"></span></h3><ul class="near-list"><li class="none"><span>Loading&hellip;</span></li></ul></div>
+          <div class="near-cat" data-cat="hospitals"><h3>Hospitals<span class="pm"></span></h3><ul class="near-list"><li class="none"><span>Loading&hellip;</span></li></ul></div>
+          <div class="near-cat" data-cat="restaurants"><h3>Restaurants<span class="pm"></span></h3><ul class="near-list"><li class="none"><span>Loading&hellip;</span></li></ul></div>
+        </div>
+      </div>
+      <p class="near-note">Distances are straight-line from the site entrance; data &copy; OpenStreetMap contributors.</p>
     </div>
   </section>
 
@@ -272,6 +292,70 @@
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   }
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+
+<script>
+(function () {
+  var el = document.getElementById('siteMap'); if (!el || !window.L) return;
+  var lat = +el.dataset.lat, lng = +el.dataset.lng, name = el.dataset.name;
+  var map = L.map('siteMap', { center: [lat, lng], zoom: 15, zoomControl: true, attributionControl: false, scrollWheelZoom: false });
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }).addTo(map);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }).addTo(map);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }).addTo(map);
+  var site = L.divIcon({ className: '', iconSize: [22, 44], iconAnchor: [11, 11],
+    html: '<div class="mrc-marker anchor"></div><div class="mrc-marker-label">' + name + '</div>' });
+  L.marker([lat, lng], { icon: site }).addTo(map);
+  var poiLayer = L.layerGroup().addTo(map);
+
+  // nearby places straight from OpenStreetMap (Overpass), sorted by distance
+  var CATS = [
+    ['schools', 'Schools', /^school$/],
+    ['colleges', 'Colleges', /^(college|university)$/],
+    ['hospitals', 'Hospitals', /^(hospital|clinic)$/],
+    ['restaurants', 'Restaurants', /^(restaurant|cafe)$/]
+  ];
+  function dist(a, b, c, d) {
+    var R = 6371000, p = Math.PI / 180, x = (c - a) * p, y = (d - b) * p;
+    var h = Math.sin(x / 2) * Math.sin(x / 2) + Math.cos(a * p) * Math.cos(c * p) * Math.sin(y / 2) * Math.sin(y / 2);
+    return 2 * R * Math.asin(Math.sqrt(h));
+  }
+  function fmt(m) { return m < 1000 ? Math.round(m / 50) * 50 + ' m' : (m / 1000).toFixed(1) + ' km'; }
+  function render(list) {
+    CATS.forEach(function (c) {
+      var box = document.querySelector('[data-cat="' + c[0] + '"] .near-list'); if (!box) return;
+      var items = list.filter(function (e) { return c[2].test(e.kind); }).slice(0, 6);
+      box.innerHTML = items.length
+        ? items.map(function (e) { return '<li><span>' + e.name + '</span><b>' + fmt(e.d) + '</b></li>'; }).join('')
+        : '<li class="none"><span>Nothing mapped yet within 8 km</span></li>';
+      items.forEach(function (e) {
+        L.circleMarker([e.lat, e.lng], { radius: 5, color: '#fff', weight: 1.5, fillColor: '#C4A97D', fillOpacity: .95 })
+          .bindTooltip(e.name).addTo(poiLayer);
+      });
+    });
+  }
+  var q = '[out:json][timeout:40];(nwr["amenity"~"school|college|university|hospital|clinic|restaurant|cafe"](around:8000,' + lat + ',' + lng + '););out center tags;';
+  var key = 'near:' + lat + ',' + lng, cached = null;
+  try { cached = JSON.parse(sessionStorage.getItem(key) || 'null'); } catch (e) {}
+  if (cached) { render(cached); return; }
+  fetch('https://overpass-api.de/api/interpreter?data=' + encodeURIComponent(q), { headers: { Accept: 'application/json' } })
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var list = d.elements.map(function (e) {
+        var t = e.tags || {}, la = e.lat || (e.center && e.center.lat), lo = e.lon || (e.center && e.center.lon);
+        return { name: t['name:en'] || t.name, kind: t.amenity, lat: la, lng: lo, d: la ? dist(lat, lng, la, lo) : 1e9 };
+      }).filter(function (e) { return e.name && e.lat; }).sort(function (a, b) { return a.d - b.d; });
+      try { sessionStorage.setItem(key, JSON.stringify(list)); } catch (e) {}
+      render(list);
+    })
+    .catch(function () {
+      document.querySelectorAll('.near-list').forEach(function (b) { b.innerHTML = '<li class="none"><span>Could not load nearby places right now.</span></li>'; });
+    });
+  // accordion
+  document.querySelectorAll('.near-cat h3').forEach(function (h) {
+    h.addEventListener('click', function () { h.parentNode.classList.toggle('open'); });
+  });
 })();
 </script>
 </body>
