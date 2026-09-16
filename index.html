@@ -170,7 +170,6 @@
       <h2 class="display reveal">Where we build.</h2>
       <p class="lede reveal" style="margin-top:1.2rem">Tap a pin to fly in.</p>
       <div class="map-wrapper">
-        <div class="map-city-badge"><span class="map-city-badge-dot"></span><span>1 project &middot; Madurai</span></div>
         <div id="mrcMap"></div>
       </div>
       <div style="text-align:center;margin-top:1.8rem">
@@ -372,7 +371,7 @@
   var el = document.getElementById('mrcMap'); if (!el) return;
   var projects = [{"name": "ANANTAA", "city": "Madurai", "slug": "anantaa", "lat": 9.9538, "lng": 78.2065, "locality": "Othakadai, Madurai"}];
   var TN = [[8.05, 76.2], [13.6, 80.4]];
-  var map = L.map('mrcMap', { zoomControl: true, attributionControl: false, scrollWheelZoom: false, zoomSnap: .25, zoomDelta: .5, wheelPxPerZoomLevel: 220, wheelDebounceTime: 60 });
+  var map = L.map('mrcMap', { zoomControl: false, attributionControl: false, scrollWheelZoom: false, zoomSnap: .25, zoomDelta: .5, wheelPxPerZoomLevel: 220, wheelDebounceTime: 60 });
   map.fitBounds(TN, { padding: [10, 10] });
   window.mrcCoopZoom && window.mrcCoopZoom(map, el);
   L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }).addTo(map);
