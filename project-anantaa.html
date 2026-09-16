@@ -62,7 +62,7 @@
 <section class="pagehead img" style="background-image:url('anantaa-gate.jpg');background-size:cover;background-position:center 30%">
   <div class="wrap">
     <p class="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Madurai</p>
-    <div class="rule"></div>
+    <div class="rule reveal"></div>
     <h1 class="display">ANANTAA.</h1>
     <p>A Life Without Limits &mdash; Othakadai, Madurai. 50 plots across 2.145 acres, beside Yanaimalai hill.</p>
   </div>
@@ -70,7 +70,7 @@
   <section>
     <div class="wrap">
       <p class="eyebrow reveal">Pre-launch</p>
-      <div class="rule"></div>
+      <div class="rule reveal"></div>
       <h2 class="display reveal">A Life Without Limits.</h2>
       <p class="lede reveal" style="margin-top:1.2rem">Fifty villa plots beside Yanaimalai at Othakadai, laid out around 7.2 m and 9.0 m internal roads with a tenth of the land kept as open space.</p>
       <div class="features">
@@ -86,7 +86,7 @@
   <section class="alt">
     <div class="wrap">
       <p class="eyebrow reveal">Master Plan</p>
-      <div class="rule"></div>
+      <div class="rule reveal"></div>
       <h2 class="display reveal">Fifty plots, drawn to the approval.</h2>
       <p class="lede reveal" style="margin-top:1.2rem">Plot numbers, road widths and the open-space reserve exactly as they appear on the approved layout. Tap to enlarge.</p>
       <a class="figure" href="anantaa-masterplan.jpg" target="_blank" rel="noopener"><img src="anantaa-masterplan.jpg" alt="ANANTAA master plan &mdash; 50 numbered plots"><div class="cap"><strong>Approved layout &middot; Ref 7CGTNBEB</strong><span>7.2 m and 9.0 m internal roads &middot; 601 sq.m park &middot; north at top</span></div></a>
@@ -96,7 +96,7 @@
   <section>
     <div class="wrap">
       <p class="eyebrow reveal">Infrastructure</p>
-      <div class="rule"></div>
+      <div class="rule reveal"></div>
       <h2 class="display reveal">What is being built in.</h2>
       <div class="amenities">
         <div class="amenity"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M3 14h18"/><path d="M7 10V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v4M7 14v4a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-4"/><path d="M12 17v3"/></svg></div><strong>Interconnected drains</strong><span>Storm water leaves the site, not your plot</span></div>
@@ -110,7 +110,7 @@
   <section class="alt">
     <div class="wrap">
       <p class="eyebrow reveal">Entrance</p>
-      <div class="rule"></div>
+      <div class="rule reveal"></div>
       <h2 class="display reveal">Arrive somewhere.</h2>
       <figure class="figure"><span class="impression">Artist&rsquo;s impression</span><img src="anantaa-gate.jpg" alt="ANANTAA entrance concept" loading="lazy"><div class="cap"><strong>Entrance concept</strong></div></figure>
       <div class="gallery">
@@ -122,7 +122,7 @@
   <section>
     <div class="wrap">
       <p class="eyebrow reveal">On Record</p>
-      <div class="rule"></div>
+      <div class="rule reveal"></div>
       <h2 class="display reveal">What is confirmed.</h2>
       <p class="lede reveal" style="margin-top:1.2rem">Every figure below is taken from the approved layout drawing. Nothing is published here before it can be checked.</p>
       <dl class="facts">
@@ -207,6 +207,7 @@
     <p class="copy">&copy; 2026 MRC Landmarks. All rights reserved.</p>
   </div>
 </footer>
+<a class="fab" href="https://wa.me/918925972469" target="_blank" rel="noopener" aria-label="Chat with MRC on WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></a>
 
 
 <script>
@@ -230,6 +231,38 @@
       });
     }, 3000);
   }
+  // numbers count up the first time they scroll into view
+  var nums = [].filter.call(document.querySelectorAll('.hero-stat .n, .band .n'), function (el) {
+    return /^\d+$/.test(el.textContent.trim());
+  });
+  function countUp(el) {
+    var n = parseInt(el.textContent, 10), t0 = performance.now(), dur = 1400;
+    (function f(t) {
+      var p = Math.min(1, (t - t0) / dur); p = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(n * p);
+      if (p < 1) requestAnimationFrame(f);
+    })(t0);
+  }
+  if (!reduce && 'IntersectionObserver' in window) {
+    var nio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { countUp(e.target); nio.unobserve(e.target); }
+      });
+    }, { threshold: 0.6 });
+    nums.forEach(function (el) { nio.observe(el); });
+  }
+  // header tightens once the page is scrolled; hero image drifts slower than the page
+  var bg = document.querySelector('.hero-bg'), ticking = false;
+  function onScroll() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () {
+      var y = window.scrollY;
+      document.documentElement.classList.toggle('scrolled', y > 40);
+      if (bg && !reduce && y < window.innerHeight * 1.2) bg.style.transform = 'translateY(' + (y * 0.28).toFixed(1) + 'px)';
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
   var btn = document.querySelector('.menu-btn');
   var nav = document.getElementById('mnav');
   if (btn && nav) {

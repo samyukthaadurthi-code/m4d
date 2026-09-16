@@ -62,7 +62,7 @@
 <section class="pagehead img" style="background-image:url('5db28d84-affe-4203-96e5-90852a4c59f6.png');background-size:cover;background-position:center 40%">
   <div class="wrap">
     <p class="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Channel Partners</p>
-    <div class="rule"></div>
+    <div class="rule reveal"></div>
     <h1 class="display">Grow where the South grows.</h1>
     <p>Join MRC&rsquo;s channel partner network and gain early access to plotted developments, project support and opportunities across Southern Tamil Nadu.</p>
   </div>
@@ -70,7 +70,7 @@
   <section>
     <div class="wrap">
       <p class="eyebrow reveal">For brokers, agents and advisers</p>
-      <div class="rule"></div>
+      <div class="rule reveal"></div>
       <h2 class="display reveal">What partners get.</h2>
       <div class="why">
         <article class="reveal"><h3>Project information</h3><p>Approvals, layout and documentation, kept current.</p></article>
@@ -140,6 +140,7 @@
     <p class="copy">&copy; 2026 MRC Landmarks. All rights reserved.</p>
   </div>
 </footer>
+<a class="fab" href="https://wa.me/918925972469" target="_blank" rel="noopener" aria-label="Chat with MRC on WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></a>
 
 
 <script>
@@ -163,6 +164,38 @@
       });
     }, 3000);
   }
+  // numbers count up the first time they scroll into view
+  var nums = [].filter.call(document.querySelectorAll('.hero-stat .n, .band .n'), function (el) {
+    return /^\d+$/.test(el.textContent.trim());
+  });
+  function countUp(el) {
+    var n = parseInt(el.textContent, 10), t0 = performance.now(), dur = 1400;
+    (function f(t) {
+      var p = Math.min(1, (t - t0) / dur); p = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(n * p);
+      if (p < 1) requestAnimationFrame(f);
+    })(t0);
+  }
+  if (!reduce && 'IntersectionObserver' in window) {
+    var nio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { countUp(e.target); nio.unobserve(e.target); }
+      });
+    }, { threshold: 0.6 });
+    nums.forEach(function (el) { nio.observe(el); });
+  }
+  // header tightens once the page is scrolled; hero image drifts slower than the page
+  var bg = document.querySelector('.hero-bg'), ticking = false;
+  function onScroll() {
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(function () {
+      var y = window.scrollY;
+      document.documentElement.classList.toggle('scrolled', y > 40);
+      if (bg && !reduce && y < window.innerHeight * 1.2) bg.style.transform = 'translateY(' + (y * 0.28).toFixed(1) + 'px)';
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
   var btn = document.querySelector('.menu-btn');
   var nav = document.getElementById('mnav');
   if (btn && nav) {
