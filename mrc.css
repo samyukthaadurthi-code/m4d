@@ -414,8 +414,8 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   gap: 2rem clamp(2rem, 5vw, 5rem); align-items: end;
 }
 .hero h1.display { max-width: none; font-size: clamp(2.7rem, 5.6vw, 4.9rem); }
-.hero h1 .line { display: block; overflow: hidden; padding-bottom: .06em; margin-bottom: -.06em; }
-.hero h1 .line > span { display: block; --y: 110%; }
+.hero h1 .line { display: block; }
+.hero h1 .line > span { display: block; --y: 36px; }
 .hero-side { display: flex; flex-direction: column; align-items: flex-end; }
 .hero-side .hero-cta { justify-content: flex-end; }
 .hero-side .hero-stats { justify-content: flex-end; margin-top: 0; flex-wrap: nowrap; }
@@ -492,9 +492,8 @@ html:not(.js) .launch-pro .intro { opacity: 1; }
 }
 
 /* ---- text depth on the two dark heroes ---- */
-.hero h1.display, .launch-pro .intro .display { text-shadow: 0 2px 4px rgba(0,0,0,.35), 0 14px 40px rgba(0,0,0,.45); }
-.hero .eyebrow, .hero p.sub, .launch-pro .intro .tag, .launch-pro .intro .when { text-shadow: 0 1px 2px rgba(0,0,0,.35), 0 8px 24px rgba(0,0,0,.4); }
-.hero h1 em { text-shadow: 0 2px 4px rgba(0,0,0,.4), 0 14px 40px rgba(0,0,0,.5), 0 0 40px rgba(26,128,133,.45); }
+.hero h1.display, .launch-pro .intro .display { text-shadow: 0 2px 2px rgba(0,0,0,.45), 0 5px 10px rgba(0,0,0,.3); }
+.hero .eyebrow, .hero p.sub, .launch-pro .intro .tag, .launch-pro .intro .when { text-shadow: 0 1px 2px rgba(0,0,0,.45), 0 3px 6px rgba(0,0,0,.25); }
 
 /* ---- floating WhatsApp ---- */
 .fab {
