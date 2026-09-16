@@ -312,8 +312,9 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   .hero-stage .dust, .hero-stage .rocks { display: none; }
   .pic.reveal { clip-path: none !important; }
   .rule.reveal { transform: none !important; }
-  .launch-pro .chrome-wrap { opacity: 1 !important; scale: 1 !important; filter: none !important; }
-  .launch-pro .product-in { opacity: 1 !important; transform: none !important; }
+  .launch-pro .scene img { opacity: 1 !important; scale: 1 !important; filter: none !important; }
+  .launch-pro .intro { opacity: 1 !important; }
+  .launch-pro .sweep { display: none; }
   html { scroll-behavior: auto; }
 }
 
@@ -454,58 +455,35 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 .hero-trust span { display: inline-flex; align-items: center; }
 .hero-trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-mid); display: inline-block; margin-right: .5rem; }
 
-/* ---- launch: chrome wordmark behind, the gate in front ---- */
-.launch-pro { background: #061416; color: #fff; overflow: hidden; padding-block: clamp(3.5rem, 7vw, 6rem) 0; --p: .5; }
-.launch-pro .intro { text-align: center; }
+/* ---- launch: studio hero of the wordmark; lights come up, a light sweeps, slow parallax ---- */
+.launch-pro { position: relative; background: #000; color: #fff; overflow: hidden; aspect-ratio: 2400 / 1330; min-height: 0; padding: 0; --p: .5; }
+.launch-pro .scene { position: absolute; inset: 0; }
+.launch-pro .scene img {
+  width: 100%; height: 100%; object-fit: contain; object-position: center bottom; display: block;
+  opacity: 0; scale: 1.08; filter: brightness(.15);
+  translate: 0 calc((var(--p) - .5) * 40px);
+}
+.launch-pro .sweep {
+  position: absolute; inset: -30% -60%; pointer-events: none; mix-blend-mode: screen; opacity: 0;
+  background: linear-gradient(112deg, transparent 42%, rgba(255,240,215,.16) 50%, transparent 58%);
+}
+.launch-pro .intro { position: relative; z-index: 1; text-align: center; padding-top: clamp(2.5rem, 5vw, 5rem); opacity: 0; }
 .launch-pro .intro .display { color: #fff; font-size: clamp(2.4rem, 5vw, 3.8rem); letter-spacing: .02em; }
 .launch-pro .intro .tag { margin-top: .6rem; font-family: var(--font-d); font-size: clamp(1.2rem, 2.2vw, 1.7rem); font-weight: 500; color: rgba(255,255,255,.92); }
 .launch-pro .intro .when { margin-top: .5rem; font-size: 1.02rem; color: rgba(255,255,255,.55); }
 .launch-pro .intro .hero-cta { justify-content: center; margin-top: 1.6rem; }
-.launch-pro .stage { position: relative; height: clamp(360px, 44vw, 720px); margin-top: clamp(1rem, 3vw, 2.5rem); }
-/* the wordmark PNG is the mask; what shows through is a moving metallic gradient */
-.launch-pro .chrome-wrap {
-  position: absolute; left: 50%; top: 46%; width: min(100%, 1560px); aspect-ratio: 2200 / 704;
-  translate: -50% calc(-50% + (var(--p) - .5) * -50px);
-  opacity: 0; scale: .94; filter: blur(14px);
-}
-.launch-pro .chrome {
-  position: absolute; inset: 0;
-  -webkit-mask: url('anantaa-wordmark.png') center / contain no-repeat; mask: url('anantaa-wordmark.png') center / contain no-repeat;
-  background: linear-gradient(100deg, #e3eaea 0%, #7d9293 14%, #ffffff 28%, #d9c39a 40%, #ffffff 50%, #6a8081 62%, #f2f5f4 76%, #9db0b0 88%, #eef2f2 100%);
-  background-size: 260% 100%; animation: sheen 7s ease-in-out infinite alternate;
-}
-.launch-pro .chrome.depth { translate: calc(var(--k) * 1.6px) calc(var(--k) * 2px); filter: brightness(calc(.55 - var(--k) * .06)); }
-@keyframes sheen { from { background-position: 0% 0; } to { background-position: 100% 0; } }
-/* the gate sits in front, tilted a touch, drifting slower than the letters */
-.launch-pro .product {
-  position: absolute; left: 50%; top: 50%; width: min(52%, 800px);
-  translate: -50% calc(-44% + (var(--p) - .5) * 60px);
-  perspective: 1400px;
-}
-.launch-pro .product-in {
-  position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 16 / 9;
-  box-shadow: 0 50px 120px rgba(0,0,0,.65), 0 0 0 1px rgba(255,255,255,.12) inset;
-  transform: rotateX(8deg) rotateZ(-2.5deg) translateY(120px); opacity: 0;
-}
-.launch-pro .product-in img { width: 100%; height: 100%; object-fit: cover; display: block; }
-/* one gloss pass over the card once it has landed */
-.launch-pro .product-in::after {
-  content: ""; position: absolute; inset: 0; transform: translateX(-130%) skewX(-18deg);
-  background: linear-gradient(90deg, transparent 20%, rgba(255,255,255,.28) 50%, transparent 80%);
-}
-html.js .launch-pro.in .chrome-wrap { animation: chromeIn 1.4s var(--ease) .1s forwards; }
-html.js .launch-pro.in .product-in { animation: productIn 1.3s cubic-bezier(.2, .9, .25, 1) .55s forwards; }
-html.js .launch-pro.in .product-in::after { animation: gloss 1.4s ease-in-out 1.9s forwards; }
-@keyframes chromeIn { to { opacity: 1; scale: 1; filter: blur(0); } }
-@keyframes productIn { to { transform: rotateX(8deg) rotateZ(-2.5deg) translateY(0); opacity: 1; } }
-@keyframes gloss { to { transform: translateX(130%) skewX(-18deg); } }
-/* the section itself must not be hidden by the generic reveal rule */
+html.js .launch-pro.in .scene img { animation: lightsUp 3s var(--ease) .1s forwards; }
+html.js .launch-pro.in .sweep { animation: sweep 9s ease-in-out 3.2s infinite; }
+html.js .launch-pro.in .intro { animation: riseIn 1s var(--ease) 1.6s forwards; }
+@keyframes lightsUp { to { opacity: 1; scale: 1; filter: brightness(1); } }
+@keyframes sweep { 0% { transform: translateX(-45%); opacity: 0; } 12% { opacity: 1; } 55% { opacity: 1; } 70%,100% { transform: translateX(45%); opacity: 0; } }
 html.js .launch-pro.reveal { opacity: 1; transform: none; }
-html:not(.js) .launch-pro .chrome-wrap { opacity: 1; scale: 1; filter: none; }
-html:not(.js) .launch-pro .product-in { opacity: 1; transform: none; }
+html:not(.js) .launch-pro .scene img { opacity: 1; scale: 1; filter: none; }
+html:not(.js) .launch-pro .intro { opacity: 1; }
 @media (max-width: 760px) {
-  .launch-pro .stage { height: 62vw; }
-  .launch-pro .product { width: 84%; }
+  .launch-pro { aspect-ratio: auto; min-height: 118vw; }
+  .launch-pro .scene img { object-fit: contain; object-position: center bottom; }
+  .launch-pro .intro { padding-top: 2.5rem; }
 }
 
 /* ---- floating WhatsApp ---- */
