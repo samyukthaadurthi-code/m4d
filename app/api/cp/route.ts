@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { appendRow, findById, sheetsConfigured } from "@/lib/sheets";
 import { CP_COLUMNS, CP_FIELDS, SHEETS } from "@/lib/schema";
+import { notifySales } from "@/lib/email-lead";
 
 export const runtime = "nodejs";
 
@@ -59,6 +60,10 @@ export async function POST(req: Request) {
     SHEETS.cp,
     CP_COLUMNS.map((c) => meta[c] ?? values[c] ?? ""),
   );
+
+  notifySales(`Channel partner joined ${uniqueId}: ${meta.full_name}`, {
+    ID: uniqueId, Name: meta.full_name, Mobile: meta.mobile, ...values,
+  }).catch(() => {});
 
   return NextResponse.json({ ok: true, unique_id: uniqueId });
 }

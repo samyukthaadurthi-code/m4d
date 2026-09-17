@@ -3,6 +3,7 @@ import { appendRow, findById, setCell, sheetsConfigured } from "@/lib/sheets";
 import { SHEETS, VISIT_COLUMNS, VISIT_FIELDS } from "@/lib/schema";
 import { sendVisitConfirmation, sendLeadAlert } from "@/lib/whatsapp";
 import { sendVisitConfirmationEmail } from "@/lib/email";
+import { notifySales } from "@/lib/email-lead";
 import { t, type Lang } from "@/lib/i18n";
 
 export const runtime = "nodejs";
@@ -109,6 +110,11 @@ export async function POST(req: Request) {
       values.budget,
       `${values.visit_date} (${values.visit_time})`,
     ),
+    notifySales(`Site visit request ${leadId}: ${values.visitor_name}`, {
+      Lead: leadId, Name: values.visitor_name, Mobile: values.visitor_mobile, Email: values.visitor_email,
+      From: values.visitor_location, "Looking for": requirement, Budget: values.budget,
+      "Preferred visit": `${values.visit_date} (${values.visit_time})`, "Via partner": cpName || "direct",
+    }),
     process.env.SALES_LEAD_WHATSAPP
       ? sendLeadAlert(
           process.env.SALES_LEAD_WHATSAPP,
