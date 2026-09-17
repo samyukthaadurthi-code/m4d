@@ -809,7 +809,7 @@ nav.main a, header.site .btn { white-space: nowrap; }
 .day figure:nth-child(2) { margin-top: -2.2rem; }
 .day img { width: 100%; height: auto; display: block; border-radius: var(--r); box-shadow: var(--shadow-md); }
 .day figcaption { margin-top: 1rem; font-size: .92rem; color: var(--text-muted); line-height: 1.6; }
-.pullquote { position: relative; max-width: 22ch; margin: 0 auto; text-align: center; font-family: var(--font-d); font-weight: 500; font-size: clamp(1.9rem, 3.6vw, 3rem); line-height: 1.2; color: var(--teal-deep); padding-top: 2.4rem; }
+.pullquote { position: relative; max-width: 30ch; margin: 0 auto; text-align: center; font-family: var(--font-d); font-weight: 500; font-size: clamp(1.6rem, 3vw, 2.5rem); line-height: 1.25; color: var(--teal-deep); padding-top: 2.4rem; }
 .pullquote .q { position: absolute; top: -.2em; left: 50%; translate: -50% 0; font-family: 'Cinzel', serif; font-size: 5rem; line-height: 1; color: var(--gold); opacity: .8; }
 .pullquote footer { margin-top: 1.4rem; font-family: var(--font-b); font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-dim, #9c8457); font-weight: 600; }
 @media (max-width: 860px) {
