@@ -123,8 +123,7 @@ header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .3
 /* ---------------- hero ---------------- */
 .hero { position: relative; min-height: 90vh; display: flex; align-items: flex-end;
   padding-block: clamp(5rem,12vw,8rem) clamp(2.5rem,5vw,4rem);
-  background: linear-gradient(180deg, rgba(18,71,76,.76) 0%, rgba(18,71,76,.28) 32%, rgba(26,42,45,.78) 66%, rgba(26,42,45,.96) 100%),
-    url('2b1442b6-33c3-4be9-aa9e-cc22d6a2ebea.png') center 38% / cover no-repeat; color: #fff; }
+  background: linear-gradient(180deg, rgba(18,71,76,.76) 0%, rgba(18,71,76,.28) 32%, rgba(26,42,45,.78) 66%, rgba(26,42,45,.96) 100%); color: #fff; }
 .hero h1.display { color: #fff; max-width: 16ch; }
 .hero h1 em { font-style: normal; color: var(--teal-mid); }
 .hero .eyebrow { color: rgba(255,255,255,.78); }
@@ -205,7 +204,7 @@ header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .3
 .post .go { display: inline-block; margin-top: 1.4rem; font-size: .87rem; color: var(--teal); font-weight: 600; transition: transform .3s var(--ease); }
 .post:hover .go { transform: translateX(4px); }
 
-.closing { background: linear-gradient(180deg, rgba(18,71,76,.94), rgba(26,42,45,.97)), url('5db28d84-affe-4203-96e5-90852a4c59f6.png') center / cover no-repeat; color: #fff; text-align: center; }
+.closing { background: radial-gradient(ellipse 70% 90% at 50% 110%, rgba(196,169,125,.22), transparent 60%), linear-gradient(160deg, var(--teal-deep), #1a2a2d); color: #fff; text-align: center; }
 .closing .display { color: #fff; } .closing .eyebrow { color: var(--gold); }
 .closing p { color: rgba(255,255,255,.8); margin: 1.5rem auto 0; max-width: 54ch; }
 .closing .hero-cta { justify-content: center; }
@@ -604,9 +603,10 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 
 /* ---- review wall: glass cards over the closing photo ---- */
 .reviews { position: relative; color: #fff; overflow: hidden; padding-block: var(--pad);
-  background: linear-gradient(180deg, rgba(12,40,43,.82), rgba(12,40,43,.9)), url('9551af30-d0e7-4eb6-9264-bcf8eb8e3831.png') center / cover no-repeat; }
+  background: linear-gradient(180deg, rgba(12,40,43,.78), rgba(12,40,43,.88)), url('reviews-bg.jpg') center 60% / cover no-repeat; }
 .reviews .display { color: #fff; text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
 .reviews-eyebrow { font-size: .9rem; margin-bottom: 0; }
+.review .stars .e { opacity: .28; }
 /* two rows drifting in opposite directions, never stopping */
 .review-row { overflow: hidden; margin-top: 1.2rem; }
 .review-row:first-of-type { margin-top: 2.6rem; }
