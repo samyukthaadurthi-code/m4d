@@ -211,8 +211,8 @@ header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .3
 .closing { position: relative; color: #fff; text-align: center; overflow: hidden;
   background: linear-gradient(to bottom, rgba(18,71,76,0) calc(100% - 3rem), var(--teal-deep)), radial-gradient(ellipse 70% 90% at 50% 110%, rgba(196,169,125,.22), transparent 60%), linear-gradient(160deg, var(--teal-deep), #0c3033); }
 /* the lotus from the logo, faint in gold, with a short stem drooping from its base towards the left — one drawing, anchored bottom-right */
-.closing::before { content: ""; position: absolute; right: -6%; bottom: 0; width: clamp(760px, 88vw, 1400px); aspect-ratio: 2000 / 720; pointer-events: none;
-  background: url('lotus-mark.svg') right bottom / contain no-repeat; }
+.closing::before { content: ""; position: absolute; left: 0; right: -6%; bottom: 0; aspect-ratio: 2800 / 720; pointer-events: none;
+  background: url('lotus-mark.svg') right bottom / 100% auto no-repeat; }   /* the drawing is 2800 wide: the flower at the right, the stem all the way to the left edge */
 .closing > .wrap { position: relative; }
 .closing .display { color: #fff; } .closing .eyebrow { color: var(--gold); }
 .closing p { color: rgba(255,255,255,.8); margin: 1.5rem auto 0; max-width: 54ch; }
