@@ -210,6 +210,9 @@ header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .3
 
 .closing { position: relative; color: #fff; text-align: center; overflow: hidden;
   background: linear-gradient(to bottom, rgba(18,71,76,0) calc(100% - 3rem), var(--teal-deep)), radial-gradient(ellipse 70% 90% at 50% 110%, rgba(196,169,125,.22), transparent 60%), linear-gradient(160deg, var(--teal-deep), #0c3033); }
+/* the lotus from the logo, large and faint in gold, sitting off the right edge; a brand mark rather than a picture, so every page can carry it */
+.closing::before { content: ""; position: absolute; right: -6%; bottom: -18%; width: clamp(320px, 38vw, 620px); aspect-ratio: 1; pointer-events: none;
+  background: url('lotus-gold.svg') center / contain no-repeat; opacity: .13; }
 .closing > .wrap { position: relative; }
 .closing .display { color: #fff; } .closing .eyebrow { color: var(--gold); }
 .closing p { color: rgba(255,255,255,.8); margin: 1.5rem auto 0; max-width: 54ch; }
