@@ -368,4 +368,17 @@ export const SHEETS = {
   registrations: "Registrations",
   cp: "CP_Programme",
   visits: "Site_Visits",
+  enquiries: "Enquiries",
 } as const;
+
+/** Quick enquiry from the website's promo strip: the minimum a salesperson needs to call back. */
+export const ENQUIRY_COLUMNS = [
+  "enquiry_id",
+  "submitted_at",
+  "name",
+  "mobile",
+  "email",
+  "interest",
+  "page",
+  "consent",
+] as const;
