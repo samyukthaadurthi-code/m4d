@@ -412,7 +412,7 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background:
-    linear-gradient(90deg, rgba(12,71,76,.62) 0%, rgba(12,71,76,.28) 38%, rgba(12,71,76,0) 68%),
+    radial-gradient(ellipse 70% 60% at 0% 42%, rgba(12,71,76,.62), rgba(12,71,76,0) 100%),   /* headline scrim: fades out before the bottom edge, so the seam into the launch section is one colour */
     linear-gradient(180deg, rgba(0,0,0,.18) 0%, rgba(12,71,76,0) 22%, rgba(12,71,76,.28) 58%, rgba(12,48,51,.82) 84%, #0c3033 100%);
 }
 .hero > .wrap, .hero > .marquee, .hero > .cue { position: relative; z-index: 2; }
