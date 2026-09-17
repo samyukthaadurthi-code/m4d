@@ -92,16 +92,14 @@
   </section>
 
   <section class="roots reveal" id="roots">
-    <div class="roots-collage"><img src="south-collage.jpg" alt="Cut-out collage of Madurai and Southern Tamil Nadu: the Meenakshi gopuram, a Bharatanatyam dancer, jasmine, filter coffee, a temple elephant, an auto-rickshaw" width="2000" height="1116"></div>
-    <div class="wrap roots-wrap">
-      <div class="roots-panel">
+    <div class="wrap roots-grid">
+      <div class="roots-window"><div class="roots-collage"><img src="south-collage-v2.jpg" alt="Collage of Madurai and Southern Tamil Nadu: the Meenakshi gopuram, a Bharatanatyam dancer, jasmine, filter coffee, a temple elephant, an auto-rickshaw" width="2000" height="1116"></div></div>
+      <div class="roots-text">
         <div class="roots-mrc" aria-hidden="true">MRC</div>
-        <div class="roots-text">
-          <p class="eyebrow r">Our Roots</p>
-          <h2 class="display r">Born of the South.<br>Built for it.</h2>
-          <p class="lede r">Everything MRC does starts here &mdash; the towns, the temples and the families we grew up among. We plan and deliver land the way people who live here would want it done: approved, documented and honest.</p>
-          <a class="btn btn-ink" href="about.html">More about MRC</a>
-        </div>
+        <p class="eyebrow r">Our Roots</p>
+        <h2 class="display r">Born of the South.<br>Built for it.</h2>
+        <p class="lede r">Everything MRC does starts here &mdash; the towns, the temples and the families we grew up among. We plan and deliver land the way people who live here would want it done: approved, documented and honest.</p>
+        <a class="btn btn-ink" href="about.html">More about MRC</a>
       </div>
     </div>
   </section>
@@ -325,17 +323,17 @@
     nums.forEach(function (el) { nio.observe(el); });
   }
   // header tightens once the page is scrolled; hero image drifts slower than the page
-  var bg = document.querySelector('.hero-bg'), pro = document.querySelector('.launch-pro'), ticking = false;
+  var bg = document.querySelector('.hero-bg'), pros = document.querySelectorAll('.launch-pro, .roots'), ticking = false;
   function onScroll() {
     if (ticking) return; ticking = true;
     requestAnimationFrame(function () {
       var y = window.scrollY;
       document.documentElement.classList.toggle('scrolled', y > 40);
       if (bg && !reduce && y < window.innerHeight * 1.2) bg.style.transform = 'translateY(' + (y * 0.28).toFixed(1) + 'px)';
-      if (pro && !reduce) {
+      if (!reduce) pros.forEach(function (pro) {
         var r = pro.getBoundingClientRect(), vh = window.innerHeight;
         pro.style.setProperty('--p', Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height))).toFixed(3));
-      }
+      });
       ticking = false;
     });
   }

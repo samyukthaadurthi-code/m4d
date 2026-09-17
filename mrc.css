@@ -320,7 +320,8 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   .launch-pro .edge { display: none; }
 
   .roots-collage { clip-path: none !important; }
-  .roots-panel, .roots-mrc, .roots-text > * { opacity: 1 !important; transform: none !important; }
+  .roots-collage img { translate: 0 0 !important; }
+  .roots-mrc, .roots-text > * { opacity: 1 !important; transform: none !important; }
   html { scroll-behavior: auto; }
 }
 
@@ -503,41 +504,35 @@ html:not(.js) .launch-pro .intro { opacity: 1; }
 .hero h1.display, .launch-pro .intro .display { text-shadow: 0 2px 2px rgba(0,0,0,.45), 0 5px 10px rgba(0,0,0,.3); }
 .hero .eyebrow, .hero p.sub, .launch-pro .intro .tag, .launch-pro .intro .when { text-shadow: 0 1px 2px rgba(0,0,0,.45), 0 3px 6px rgba(0,0,0,.25); }
 
-/* ---- roots: full-bleed collage, frosted panel from the right ---- */
-.roots { position: relative; overflow: hidden; background: var(--teal-deep); aspect-ratio: 16 / 10; max-height: 1120px; min-height: 640px; padding: 0; display: flex; align-items: center; }
-.roots-collage { position: absolute; inset: 0; clip-path: inset(0 100% 0 0); }
-.roots-collage img { width: 100%; height: 100%; object-fit: cover; object-position: 45% 50%; display: block; transform-origin: 40% 60%; animation: collageDrift 40s ease-in-out infinite alternate; }
-@keyframes collageDrift { from { scale: 1.02; translate: -.4% 0; } to { scale: 1.08; translate: .6% -.8%; } }
-.roots-wrap { position: relative; z-index: 1; width: 100%; display: flex; justify-content: flex-end; }
-/* the panel blurs only what sits behind it; the collage stays visible through it */
-.roots-panel {
-  width: min(100%, 520px); padding: clamp(1.8rem, 3vw, 2.8rem); border-radius: calc(var(--r) + 4px);
-  background: rgba(247,245,239,.62); -webkit-backdrop-filter: blur(22px) saturate(1.15); backdrop-filter: blur(22px) saturate(1.15);
-  border: 1px solid rgba(255,255,255,.7); box-shadow: 0 30px 80px rgba(18,71,76,.35), inset 0 1px 0 rgba(255,255,255,.8);
-  opacity: 0; transform: translateX(120%);
-}
-.roots-mrc { font-family: var(--font-d); font-weight: 700; font-size: clamp(3.6rem, 7vw, 6.5rem); line-height: .9; letter-spacing: -.03em; color: var(--teal-deep); text-shadow: 0 2px 2px rgba(0,0,0,.12), 0 8px 18px rgba(18,71,76,.22); opacity: 0; transform: translateX(60px); }
-.roots-text { margin-top: 1rem; }
-.roots-text > * { opacity: 0; transform: translateX(60px); }
-.roots-text .display { font-size: clamp(1.6rem, 2.6vw, 2.2rem); }
-.roots-text .lede { margin-top: .9rem; font-size: .98rem; }
+/* ---- roots: the collage behind an arch window that pans with the scroll; copy beside it ---- */
+.roots { background: var(--bg); --p: 0; }
+.roots-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
+.roots-window { position: relative; aspect-ratio: 1 / 1; --arch: 50% 50% var(--r) var(--r) / 42% 42% var(--r) var(--r); }
+/* a thin gold ring set just outside the arch */
+.roots-window::after { content: ""; position: absolute; inset: -14px; border: 1px solid rgba(196,169,125,.55); border-radius: var(--arch); pointer-events: none; }
+.roots-collage { position: absolute; inset: 0; overflow: hidden; border-radius: var(--arch); background: var(--teal-deep); box-shadow: 0 30px 70px rgba(18,71,76,.28); clip-path: inset(100% 0 0 0); }
+/* the picture is wider than the window; --p (0→1 as the section crosses the viewport) slides it across */
+.roots-collage img { position: absolute; top: 0; left: 0; height: 100%; width: auto; max-width: none; display: block; translate: calc(var(--p) * -1 * var(--pan, 44%)) 0; }
+.roots-mrc { font-family: var(--font-d); font-weight: 700; font-size: clamp(3.6rem, 7vw, 6.5rem); line-height: .9; letter-spacing: -.03em; color: var(--teal-deep); opacity: 0; transform: translateX(60px); }
+.roots-text > .r, .roots-text > .btn { opacity: 0; transform: translateX(60px); }
+.roots-text .eyebrow { margin-top: 1.2rem; }
+.roots-text .display { font-size: clamp(1.8rem, 2.8vw, 2.5rem); }
+.roots-text .lede { margin-top: .9rem; }
 .roots-text .btn { margin-top: 1.4rem; }
-/* sequence: collage wipes in from the left, the panel drives in from the right, MRC then the copy */
-html.js .roots.in .roots-collage { animation: wipeIn 1.5s cubic-bezier(.7, 0, .2, 1) .1s forwards; }
-html.js .roots.in .roots-panel { animation: driveIn .9s cubic-bezier(.2, 1.1, .3, 1) 1.5s forwards; }
-html.js .roots.in .roots-mrc { animation: slideFromRight .7s var(--ease) 2.2s forwards; }
-html.js .roots.in .roots-text > * { animation: slideFromRight .7s var(--ease) calc(2.45s + var(--i, 0) * .12s) forwards; }
-.roots-text > :nth-child(2) { --i: 1; } .roots-text > :nth-child(3) { --i: 2; } .roots-text > :nth-child(4) { --i: 3; }
-@keyframes wipeIn { to { clip-path: inset(0 0 0 0); } }
-@keyframes driveIn { to { opacity: 1; transform: none; } }
+/* sequence: the arch fills from the ground up, then MRC and the copy slide in */
+html.js .roots.in .roots-collage { animation: buildUp 1.4s cubic-bezier(.7, 0, .2, 1) .1s forwards; }
+html.js .roots.in .roots-mrc { animation: slideFromRight .7s var(--ease) .9s forwards; }
+html.js .roots.in .roots-text > .r, html.js .roots.in .roots-text > .btn { animation: slideFromRight .7s var(--ease) calc(1.15s + var(--i, 0) * .12s) forwards; }
+.roots-text > :nth-child(3) { --i: 1; } .roots-text > :nth-child(4) { --i: 2; } .roots-text > :nth-child(5) { --i: 3; }
 @keyframes slideFromRight { to { opacity: 1; transform: none; } }
 html.js .roots.reveal { opacity: 1; transform: none; }
 html:not(.js) .roots-collage { clip-path: none; }
-html:not(.js) .roots-panel, html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform: none; }
+html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform: none; }
 @media (max-width: 860px) {
-  .roots { aspect-ratio: auto; min-height: 0; padding-block: 62vw 1.5rem; align-items: flex-end; }
-  .roots-collage { clip-path: inset(0 100% 0 0); }
-  .roots-panel { width: 100%; }
+  .roots-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .roots-window { aspect-ratio: 4 / 3; --pan: 25%; }   /* 1 - (4/3) / (2000/1116): the part of the picture the window cannot show */
+  .roots-mrc { font-size: 3.2rem; }
+}
 }
 
 /* ---- process cards + verify cards: teal, white type, lifted titles ---- */

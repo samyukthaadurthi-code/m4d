@@ -239,17 +239,17 @@
     nums.forEach(function (el) { nio.observe(el); });
   }
   // header tightens once the page is scrolled; hero image drifts slower than the page
-  var bg = document.querySelector('.hero-bg'), pro = document.querySelector('.launch-pro'), ticking = false;
+  var bg = document.querySelector('.hero-bg'), pros = document.querySelectorAll('.launch-pro, .roots'), ticking = false;
   function onScroll() {
     if (ticking) return; ticking = true;
     requestAnimationFrame(function () {
       var y = window.scrollY;
       document.documentElement.classList.toggle('scrolled', y > 40);
       if (bg && !reduce && y < window.innerHeight * 1.2) bg.style.transform = 'translateY(' + (y * 0.28).toFixed(1) + 'px)';
-      if (pro && !reduce) {
+      if (!reduce) pros.forEach(function (pro) {
         var r = pro.getBoundingClientRect(), vh = window.innerHeight;
         pro.style.setProperty('--p', Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height))).toFixed(3));
-      }
+      });
       ticking = false;
     });
   }
