@@ -10,6 +10,7 @@ export const runtime = "nodejs";
 const ORIGINS = new Set([
   "https://mrc-1-one.vercel.app",
   "https://mrc-landmarks.vercel.app",
+  "https://forms.mrclandmarks.com",
   "https://mrclandmarks.com",
   "https://www.mrclandmarks.com",
   "http://localhost:8899",
