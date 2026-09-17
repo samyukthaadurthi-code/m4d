@@ -61,7 +61,7 @@ export async function POST(req: Request) {
     CP_COLUMNS.map((c) => meta[c] ?? values[c] ?? ""),
   );
 
-  notifySales(`Channel partner joined ${uniqueId}: ${meta.full_name}`, {
+  await notifySales(`Channel partner joined ${uniqueId}: ${meta.full_name}`, {
     ID: uniqueId, Name: meta.full_name, Mobile: meta.mobile, ...values,
   }).catch(() => {});
 

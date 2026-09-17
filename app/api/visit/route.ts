@@ -94,7 +94,7 @@ export async function POST(req: Request) {
     .join(" · ");
 
   // Fire and forget — the lead is already saved, messaging must not risk it.
-  Promise.all([
+  await Promise.all([
     sendVisitConfirmation(
       values.visitor_mobile,
       values.visitor_name,

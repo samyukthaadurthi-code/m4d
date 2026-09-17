@@ -71,7 +71,7 @@ export async function POST(req: Request) {
   await setCell(SHEETS.enquiries, `A${row}`, id);
 
   const summary = `${id} · ${name} · ${mobile}${interest ? ` · ${interest}` : ""}`;
-  Promise.all([
+  await Promise.all([
     process.env.SALES_LEAD_WHATSAPP ? sendLeadAlert(process.env.SALES_LEAD_WHATSAPP, summary) : Promise.resolve(),
     sendEnquiryAlertEmail(summary, { Name: name, Mobile: mobile, Email: email, Interest: interest, Page: page }),
   ]).catch((err) => console.error("[enquiry] notify failed:", err));
