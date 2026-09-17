@@ -216,6 +216,9 @@ header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .3
 /* Our Approach: the closing sits on the survey-at-sunrise photo instead of the lotus */
 .closing.v-approach { background: linear-gradient(to bottom, rgba(18,71,76,0) calc(100% - 3rem), var(--teal-deep)), linear-gradient(180deg, rgba(12,48,51,.72), rgba(12,48,51,.62)), url('closing-approach.jpg') center 55% / cover no-repeat; }
 .closing.v-approach::before { display: none; }
+/* About: the meeting corner — two chairs, coffee, the hill through the window */
+.closing.v-about { background: linear-gradient(to bottom, rgba(18,71,76,0) calc(100% - 3rem), var(--teal-deep)), linear-gradient(180deg, rgba(12,48,51,.74), rgba(12,48,51,.66)), url('closing-about.jpg') center 60% / cover no-repeat; }
+.closing.v-about::before { display: none; }
 .closing > .wrap { position: relative; }
 .closing .display { color: #fff; } .closing .eyebrow { color: var(--gold); }
 .closing p { color: rgba(255,255,255,.8); margin: 1.5rem auto 0; max-width: 54ch; }
