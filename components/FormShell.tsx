@@ -23,15 +23,14 @@ export function FormShell({
     <main className="min-h-screen bg-[#F7F5EF] pb-16">
       <header className="bg-[#1A2A2D] px-5 py-6 text-white">
         <div className="mx-auto flex max-w-xl items-center gap-3">
-          <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-[#F7F5EF]">
-            <Image
-              src="/mrc-logo.png"
-              alt="MRC Landmarks"
-              width={40}
-              height={40}
-              priority
-            />
-          </div>
+          <Image
+            src="/mrc-logo-white.svg"
+            alt="MRC Landmarks"
+            width={64}
+            height={64}
+            priority
+            className="h-16 w-auto flex-shrink-0"
+          />
           <div className="flex-1">
             <div className="text-base font-bold tracking-[0.18em]">
               {brand.name}
