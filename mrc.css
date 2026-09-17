@@ -874,7 +874,7 @@ nav.main a, header.site .btn { white-space: nowrap; }
   background: var(--teal-deep); color: rgba(255,255,255,.88); font: inherit; font-size: .82rem; letter-spacing: .03em; height: 44px; }
 .promo:hover { background: #12474c; }
 .promo::after { content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: repeating-linear-gradient(90deg, rgba(196,169,125,.4) 0 10px, transparent 10px 18px); }
-.promo-run { position: absolute; top: 0; bottom: 0; left: 0; display: flex; align-items: center; gap: 1rem; white-space: nowrap; will-change: transform; animation: driveAcross 16s linear infinite; }
+.promo-run { position: absolute; top: 0; bottom: 0; left: 0; display: flex; align-items: center; gap: 1rem; white-space: nowrap; will-change: transform; animation: driveAcross 30s linear infinite; }
 .promo .car { position: relative; display: block; margin-top: 8px; }
 .promo .car svg { display: block; filter: drop-shadow(0 2px 2px rgba(0,0,0,.35)); }
 .promo .car::before { content: ""; position: absolute; left: -14px; bottom: 4px; width: 14px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.18); filter: blur(2px); }
@@ -883,7 +883,7 @@ nav.main a, header.site .btn { white-space: nowrap; }
 .promo-text strong { color: #fff; font-weight: 600; }
 .promo-text .sep { color: rgba(255,255,255,.4); }
 .promo-text em { font-style: normal; color: var(--gold); font-weight: 600; }
-@media (max-width: 640px) { .promo { height: 40px; font-size: .74rem; } .promo-run { animation-duration: 11s; } }
+@media (max-width: 640px) { .promo { height: 40px; font-size: .74rem; } .promo-run { animation-duration: 20s; } }
 @media (prefers-reduced-motion: reduce) { .promo-run { animation: none; left: 50%; transform: translateX(-50%); } }
 
 /* ---- enquiry pop-up ---- */
