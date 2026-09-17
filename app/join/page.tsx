@@ -113,6 +113,15 @@ export default function JoinPage() {
         >
           {busy ? s.joinChecking : s.joinContinue}
         </button>
+
+        {/* The badge only comes from the event form — say so up front, not just after a failed lookup. */}
+        <div className="rounded-xl border border-[#C4A97D] bg-[#FBF7EF] px-4 py-4 text-sm text-[#1A2A2D]">
+          <p className="font-semibold">{s.joinNoBadgeYet}</p>
+          <p className="mt-1 text-[#5c6b6d]">{s.joinNoBadgeYetNote}</p>
+          <a href={`/register?lang=${lang}`} className="mt-3 inline-block rounded-lg border border-[#176A70] px-4 py-2.5 font-semibold text-[#176A70]">
+            {s.joinRegisterCta} &rarr;
+          </a>
+        </div>
       </form>
     </FormShell>
   );

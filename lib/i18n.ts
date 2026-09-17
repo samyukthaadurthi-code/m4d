@@ -69,6 +69,8 @@ export const ui = {
     joinNeedBadgeId: "We found a badge for this number. Enter the badge ID printed on it to continue.",
     joinAlready: "You are already registered as a channel partner.",
     joinSignIn: "Open the partner resource centre",
+    joinNoBadgeYet: "Don\u2019t have a badge yet?",
+    joinNoBadgeYetNote: "Badges are issued only through the launch-event registration. Register there first (it takes two minutes and the badge is instant), then come back here with your badge ID.",
   },
   ta: {
     langName: "English",
@@ -135,6 +137,8 @@ export const ui = {
     joinNeedBadgeId: "இந்த எண்ணுக்கு அட்டை உள்ளது. அதில் அச்சிடப்பட்ட அட்டை ஐடியை உள்ளிடவும்.",
     joinAlready: "நீங்கள் ஏற்கனவே சேனல் பார்ட்னராகப் பதிவு செய்துள்ளீர்கள்.",
     joinSignIn: "பார்ட்னர் வளங்கள் மையத்தைத் திற",
+    joinNoBadgeYet: "அடையாள அட்டை இன்னும் இல்லையா?",
+    joinNoBadgeYetNote: "அட்டைகள் நிகழ்வுப் பதிவின் மூலம் மட்டுமே வழங்கப்படும். முதலில் அங்கு பதிவு செய்யுங்கள் (இரண்டு நிமிடம்; அட்டை உடனே கிடைக்கும்), பிறகு அட்டை ஐடியுடன் இங்கு திரும்பவும்.",
   },
 } as const;
 
