@@ -530,7 +530,7 @@ html:not(.js) .launch-pro .intro > *, html:not(.js) .launch-pro .intro .ch { opa
 .roots-window::after { content: ""; position: absolute; inset: -14px; border: 1px solid rgba(196,169,125,.55); border-radius: var(--arch); pointer-events: none; }
 .roots-collage { position: absolute; inset: 0; overflow: hidden; border-radius: var(--arch); background: var(--teal-deep); box-shadow: 0 30px 70px rgba(18,71,76,.28); clip-path: inset(100% 0 0 0); }
 /* the picture is wider than the window; --p (0→1 as the section crosses the viewport) slides it across */
-.roots-collage img { position: absolute; top: 0; left: 0; height: 100%; width: auto; max-width: none; display: block; translate: calc(var(--p) * -1 * var(--pan, 44%)) 0; }
+.roots-collage img { position: absolute; top: 0; left: 0; height: 100%; width: auto; max-width: none; display: block; translate: calc(var(--p) * -1 * var(--pan, 57%)) 0; }   /* 1 - 1 / (1916/821): the part of the panorama a square window cannot show */
 .roots-mrc { font-family: var(--font-d); font-weight: 700; font-size: clamp(3.6rem, 7vw, 6.5rem); line-height: .9; letter-spacing: -.03em; color: var(--teal-deep); opacity: 0; transform: translateX(60px); }
 .roots-text > .r, .roots-text > .btn { opacity: 0; transform: translateX(60px); }
 .roots-text .eyebrow { margin-top: 1.2rem; }
@@ -549,7 +549,7 @@ html:not(.js) .roots-collage { clip-path: none; }
 html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform: none; }
 @media (max-width: 860px) {
   .roots-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .roots-window { aspect-ratio: 4 / 3; --pan: 25%; }   /* 1 - (4/3) / (2000/1116): the part of the picture the window cannot show */
+  .roots-window { aspect-ratio: 4 / 3; --pan: 43%; }   /* 1 - (4/3) / (1916/821) */
   .roots-mrc { font-size: 3.2rem; }
 }
 
