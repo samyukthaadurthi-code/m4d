@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789660969">
+<link rel="stylesheet" href="mrc.css?v=1789661031">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </head>
 <body>
@@ -313,7 +313,7 @@
 (function () {
   var el = document.getElementById('siteMap'); if (!el || !window.L) return;
   var lat = +el.dataset.lat, lng = +el.dataset.lng, name = el.dataset.name;
-  var map = L.map('siteMap', { center: [lat, lng], zoom: 16, zoomControl: false, maxZoom: 19, attributionControl: false, scrollWheelZoom: false, zoomSnap: .25, zoomDelta: .5, wheelPxPerZoomLevel: 220, wheelDebounceTime: 60 });
+  var map = L.map('siteMap', { center: [lat, lng], zoom: 16, zoomControl: false, maxZoom: 18, attributionControl: false, scrollWheelZoom: false, zoomSnap: .25, zoomDelta: .5, wheelPxPerZoomLevel: 220, wheelDebounceTime: 60 });
   window.mrcCoopZoom && window.mrcCoopZoom(map, el);
   L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }).addTo(map);
   L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }).addTo(map);
