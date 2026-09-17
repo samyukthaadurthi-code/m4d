@@ -795,6 +795,7 @@ nav.main a, header.site .btn { white-space: nowrap; }
 .frame-img { position: relative; margin: 0; }
 .frame-img::before { content: ""; position: absolute; inset: 22px -22px -22px 22px; border: 1px solid rgba(196,169,125,.7); border-radius: var(--r); pointer-events: none; }
 .frame-img img { position: relative; width: 100%; height: auto; display: block; border-radius: var(--r); box-shadow: var(--shadow-lg); }
+.about-copy .display + .lede { margin-top: 1.6rem; }
 .about-copy .lede + .lede { margin-top: 1.2rem; }
 .creed { background: linear-gradient(160deg, var(--teal-deep), #0c3033); color: rgba(255,255,255,.82); }
 .creed .eyebrow { color: var(--gold); }
