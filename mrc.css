@@ -105,7 +105,7 @@ header.site .wrap { display: flex; align-items: center; gap: 1.5rem; padding-blo
 .brand img { height: 70px; width: auto; transition: height .35s var(--ease), transform .4s var(--ease); }
 .brand:hover img { transform: scale(1.04); }
 .scrolled .brand img { height: 54px; }
-footer .brand img { height: 72px; }
+footer .brand img { height: 72px; content: url('mrc-logo-white.svg'); }   /* white logo on the teal footer */
 .brand .mark { width: 46px; height: 46px; border-radius: 50%; background: var(--white); display: grid; place-items: center; flex-shrink: 0; box-shadow: var(--shadow-sm); transition: transform .4s var(--ease); }
 .brand:hover .mark { transform: scale(1.06); }
 .brand .mark img { width: 34px; height: 34px; }
