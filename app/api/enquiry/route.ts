@@ -9,6 +9,7 @@ export const runtime = "nodejs";
 // The website is a different origin, so it needs CORS to post here.
 const ORIGINS = new Set([
   "https://mrc-1-one.vercel.app",
+  "https://mrc-landmarks.vercel.app",
   "https://mrclandmarks.com",
   "https://www.mrclandmarks.com",
   "http://localhost:8899",
