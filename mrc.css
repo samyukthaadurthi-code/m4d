@@ -558,7 +558,7 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 .step:hover, .verify:hover { background: var(--teal); }
 .step h3, .verify h3 { color: #fff; text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
 .step p, .verify p { color: rgba(255,255,255,.82); }
-.step .num { color: rgba(255,255,255,.22); }
+.step .num { color: var(--gold); opacity: .85; }
 .step .ico, .verify .ico { background: rgba(196,169,125,.16); color: var(--gold); }
 .verify-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.2rem, 2.5vw, 2rem); margin-top: 3rem; }
 .verify { position: relative; padding: clamp(1.8rem, 3vw, 2.4rem); border-radius: var(--r); display: flex; flex-direction: column; transition: background .4s, transform .4s var(--ease), box-shadow .4s; box-shadow: var(--shadow-md); }
