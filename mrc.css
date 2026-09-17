@@ -610,7 +610,7 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 
 /* ---- review wall: glass cards over the closing photo ---- */
 .reviews { position: relative; color: #fff; overflow: hidden; padding-block: var(--pad);
-  background: linear-gradient(180deg, rgba(12,40,43,.78), rgba(12,40,43,.88)), url('reviews-bg.jpg') center 60% / cover no-repeat; }
+  background: linear-gradient(to bottom, rgba(18,71,76,0) calc(100% - 9rem), var(--teal-deep)), linear-gradient(180deg, rgba(12,40,43,.78), rgba(12,40,43,.88)), url('reviews-bg.jpg') center 60% / cover no-repeat; }   /* the last stretch eases into the footer teal */
 .reviews .display { color: #fff; text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
 .reviews-eyebrow { font-size: .9rem; margin-bottom: 0; }
 .brand-word { color: var(--teal); }
@@ -619,7 +619,7 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 .review-row { overflow: hidden; margin-top: 1.2rem; }
 .review-row:first-of-type { margin-top: 2.6rem; }
 .review-track { display: flex; gap: 1.2rem; width: max-content; padding-inline: .6rem; will-change: transform; backface-visibility: hidden; }
-.review-row.ltr .review-track { animation: reviewsLtr 70s linear infinite; }
+.review-row.ltr .review-track { animation: reviewsLtr 110s linear infinite; }   /* ten cards in one row: slower so each can be read */
 .review-row.rtl .review-track { animation: reviewsRtl 78s linear infinite; }
 @keyframes reviewsLtr { to { transform: translateX(-50%); } }
 @keyframes reviewsRtl { from { transform: translateX(-50%); } to { transform: translateX(0); } }
