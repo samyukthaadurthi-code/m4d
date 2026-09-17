@@ -531,7 +531,7 @@ html:not(.js) .launch-pro .intro > *, html:not(.js) .launch-pro .intro .ch { opa
 .roots-collage { position: absolute; inset: 0; overflow: hidden; border-radius: var(--arch); background: var(--teal-deep); box-shadow: 0 30px 70px rgba(18,71,76,.28); clip-path: inset(100% 0 0 0); }
 /* the picture is wider than the window; --p (0→1 as the section crosses the viewport) slides it across */
 .roots-collage img { position: absolute; top: 0; left: 0; height: 100%; width: auto; max-width: none; display: block; --q: clamp(0, (var(--p) - .25) / .5, 1);   /* the full slide happens while the section is actually on screen (p .25→.75), so both ends of the panorama get seen */
-  translate: calc(var(--q) * -1 * var(--pan, 57%)) 0; }   /* --pan = 1 - 1 / (1916/821): the part of the panorama a square window cannot show */
+  translate: calc(-6% - var(--q) * var(--pan, 62%)) 0; }   /* starts a little left and slides past the overflow (the picture's own teal meets the arch's teal, so no edge shows) */
 .roots-mrc { font-family: var(--font-d); font-weight: 700; font-size: clamp(3.6rem, 7vw, 6.5rem); line-height: .9; letter-spacing: -.03em; color: var(--teal-deep); opacity: 0; transform: translateX(60px); }
 .roots-text > .r, .roots-text > .btn { opacity: 0; transform: translateX(60px); }
 .roots-text .eyebrow { margin-top: 1.2rem; }
@@ -550,7 +550,7 @@ html:not(.js) .roots-collage { clip-path: none; }
 html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform: none; }
 @media (max-width: 860px) {
   .roots-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .roots-window { aspect-ratio: 4 / 3; --pan: 43%; }   /* 1 - (4/3) / (1916/821) */
+  .roots-window { aspect-ratio: 4 / 3; --pan: 48%; }
   .roots-mrc { font-size: 3.2rem; }
 }
 
