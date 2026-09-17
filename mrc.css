@@ -606,6 +606,7 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
   background: linear-gradient(180deg, rgba(12,40,43,.78), rgba(12,40,43,.88)), url('reviews-bg.jpg') center 60% / cover no-repeat; }
 .reviews .display { color: #fff; text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
 .reviews-eyebrow { font-size: .9rem; margin-bottom: 0; }
+.brand-word { color: var(--teal); }
 .review .stars .e { opacity: .28; }
 /* two rows drifting in opposite directions, never stopping */
 .review-row { overflow: hidden; margin-top: 1.2rem; }
