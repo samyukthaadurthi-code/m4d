@@ -219,8 +219,8 @@ header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .3
 /* About: the meeting corner — two chairs, coffee, the hill through the window */
 .closing.v-about { background: linear-gradient(to bottom, rgba(18,71,76,0) calc(100% - 3rem), var(--teal-deep)), linear-gradient(180deg, rgba(12,48,51,.74), rgba(12,48,51,.66)), url('closing-about.jpg') center 60% / cover no-repeat; }
 .closing.v-about::before { display: none; }
-/* Knowledge Hub: the study desk at dusk */
-.closing.v-hub { background: linear-gradient(to bottom, rgba(18,71,76,0) calc(100% - 3rem), var(--teal-deep)), linear-gradient(180deg, rgba(12,48,51,.74), rgba(12,48,51,.66)), url('closing-hub.jpg') center 50% / cover no-repeat; }
+/* Knowledge Hub: the plan held up against the land */
+.closing.v-hub { background: linear-gradient(to bottom, rgba(18,71,76,0) calc(100% - 3rem), var(--teal-deep)), linear-gradient(180deg, rgba(12,48,51,.74), rgba(12,48,51,.66)), url('closing-hub.jpg') center 40% / cover no-repeat; }
 .closing.v-hub::before { display: none; }
 .closing > .wrap { position: relative; }
 .closing .display { color: #fff; } .closing .eyebrow { color: var(--gold); }
