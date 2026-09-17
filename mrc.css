@@ -610,7 +610,7 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 
 /* ---- review wall: glass cards over the closing photo ---- */
 .reviews { position: relative; color: #fff; overflow: hidden; padding-block: var(--pad);
-  background: linear-gradient(to bottom, rgba(18,71,76,0) calc(100% - 9rem), var(--teal-deep)), linear-gradient(180deg, rgba(12,40,43,.78), rgba(12,40,43,.88)), url('reviews-bg.jpg') center 60% / cover no-repeat; }   /* the last stretch eases into the footer teal */
+  background: linear-gradient(to bottom, rgba(18,71,76,0) calc(100% - 3rem), var(--teal-deep)), linear-gradient(180deg, rgba(12,40,43,.78), rgba(12,40,43,.88)), url('reviews-bg.jpg') center 60% / cover no-repeat; }   /* the last stretch eases into the footer teal */
 .reviews .display { color: #fff; text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
 .reviews-eyebrow { font-size: .9rem; margin-bottom: 0; }
 .brand-word { color: var(--teal); }
