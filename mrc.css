@@ -213,6 +213,8 @@ header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .3
 /* the lotus from the logo, large and faint in gold, sitting off the right edge; a brand mark rather than a picture, so every page can carry it */
 .closing::before { content: ""; position: absolute; right: -6%; bottom: -18%; width: clamp(320px, 38vw, 620px); aspect-ratio: 1; pointer-events: none;
   background: url('lotus-gold.svg') center / contain no-repeat; opacity: .2; }
+/* a single stem runs from the lotus across to the far edge, with one leaf on the way */
+.closing::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: url('lotus-stem.svg') center / 100% 100% no-repeat; opacity: .55; }
 .closing > .wrap { position: relative; }
 .closing .display { color: #fff; } .closing .eyebrow { color: var(--gold); }
 .closing p { color: rgba(255,255,255,.8); margin: 1.5rem auto 0; max-width: 54ch; }
