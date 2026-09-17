@@ -819,3 +819,13 @@ nav.main a, header.site .btn { white-space: nowrap; }
   .day figure:nth-child(2) { margin-top: 0; }
   .frame-img::before { inset: 14px -14px -14px 14px; }
 }
+
+/* ---- Approach: the document track — six gold milestones on a line, what a buyer is handed before booking ---- */
+.docs { background: var(--bg-alt); color: var(--text-body); }   /* light, so it reads apart from the teal cards above and the closing below */
+.docs-track { list-style: none; margin: 2.6rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.2rem; position: relative; }
+.docs-track::before { content: ""; position: absolute; left: 22px; right: 22px; top: 22px; height: 1px; background: linear-gradient(90deg, rgba(196,169,125,.15), rgba(196,169,125,.7) 15%, rgba(196,169,125,.7) 85%, rgba(196,169,125,.15)); }
+.docs-track li { position: relative; padding-top: 3.4rem; font-size: .88rem; line-height: 1.5; }
+.docs-track .dot { position: absolute; top: 0; left: 0; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--teal-deep); border: 1px solid var(--gold); color: var(--gold); font: 700 .8rem var(--font-d); letter-spacing: .06em; box-shadow: 0 0 0 6px var(--bg-alt); }
+.docs-track strong { display: block; color: var(--teal-deep); font-family: var(--font-d); font-size: 1.02rem; margin-bottom: .35rem; }
+@media (max-width: 1000px) { .docs-track { grid-template-columns: repeat(3, 1fr); row-gap: 2.2rem; } .docs-track::before { display: none; } }
+@media (max-width: 560px) { .docs-track { grid-template-columns: repeat(2, 1fr); } }
