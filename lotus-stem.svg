@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" preserveAspectRatio="none" fill="none">
-  <path d="M1452 600 C1400 480 1220 436 960 466 S420 560 -40 430" stroke="#C4A97D" stroke-width="2" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-  <path d="M1452 600 C1400 480 1220 436 960 466 S420 560 -40 430" stroke="#C4A97D" stroke-width="10" stroke-opacity=".08" stroke-linecap="round" vector-effect="non-scaling-stroke"/>
-  <path d="M735 478 C700 445 640 440 606 468 C640 498 700 502 735 478 Z" fill="#C4A97D" fill-opacity=".22" stroke="#C4A97D" stroke-width="1.2" vector-effect="non-scaling-stroke"/>
-  <path d="M735 478 L606 468" stroke="#C4A97D" stroke-width="1" stroke-opacity=".6" vector-effect="non-scaling-stroke"/>
-</svg>
