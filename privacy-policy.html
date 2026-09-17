@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789680305">
+<link rel="stylesheet" href="mrc.css?v=1789681865">
 </head>
 <body>
 <button class="promo" type="button" data-enquire aria-label="Book a free site visit">
@@ -29,7 +29,7 @@
       <a href="channel-partners.html">Channel Partners</a>
       <a href="insights.html">Knowledge Hub</a>
     </nav>
-    <a class="btn btn-ink" href="https://mrc-forms.vercel.app/visit">Schedule a Visit</a>
+    <a class="btn btn-ink" href="https://forms.mrclandmarks.com/visit">Schedule a Visit</a>
     <button class="menu-btn" aria-label="Open menu">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
@@ -42,7 +42,7 @@
     <a href="locations.html">Locations</a>
     <a href="channel-partners.html">Channel Partners</a>
     <a href="insights.html">Knowledge Hub</a>
-    <a class="btn btn-ink" href="https://mrc-forms.vercel.app/visit">Schedule a Visit</a>
+    <a class="btn btn-ink" href="https://forms.mrclandmarks.com/visit">Schedule a Visit</a>
   </div>
 </div>
 <main>
@@ -186,7 +186,7 @@
           <li><a href="channel-partners.html">Channel Partners</a></li>
           <li><a href="mrc-forum.html">MRC Forum</a></li>
           <li><a href="contact.html">Contact</a></li>
-          <li><a href="https://mrc-forms.vercel.app/visit">Schedule a Visit</a></li>
+          <li><a href="https://forms.mrclandmarks.com/visit">Schedule a Visit</a></li>
           <li><a href="privacy-policy.html">Privacy Policy</a></li>
           <li><a href="terms.html">Terms</a></li>
         </ul>
@@ -282,7 +282,7 @@
       if (!payload.name || !/^[6-9]\d{9}$/.test(String(payload.mobile).replace(/\D/g, '').slice(-10))) { err.textContent = 'Please give us your name and a valid 10-digit mobile number.'; err.hidden = false; return; }
       if (!payload.consent) { err.textContent = 'Please tick the box so we can call you back.'; err.hidden = false; return; }
       btn.disabled = true; btn.textContent = 'Sending\u2026';
-      fetch('https://mrc-forms.vercel.app/api/enquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+      fetch('https://forms.mrclandmarks.com/api/enquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
         .then(function (x) {
           if (!x.ok) { var m = x.d.errors ? Object.values(x.d.errors)[0] : x.d.error; throw new Error(m || 'Please try again.'); }
