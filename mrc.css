@@ -315,9 +315,9 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   .hero-stage .dust, .hero-stage .rocks { display: none; }
   .pic.reveal { clip-path: none !important; }
   .rule.reveal { transform: none !important; }
-  .launch-pro .scene img { opacity: 1 !important; scale: 1 !important; filter: none !important; }
+  .launch-pro .scene img { clip-path: none !important; scale: 1 !important; }
   .launch-pro .intro { opacity: 1 !important; }
-  .launch-pro .sweep { display: none; }
+  .launch-pro .edge { display: none; }
 
   .roots-collage { clip-path: none !important; }
   .roots-panel, .roots-mrc, .roots-text > * { opacity: 1 !important; transform: none !important; }
@@ -461,21 +461,19 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 .hero-trust span { display: inline-flex; align-items: center; }
 .hero-trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-mid); display: inline-block; margin-right: .5rem; }
 
-/* ---- launch: studio hero of the wordmark; lights come up, a light sweeps, slow parallax ---- */
-.launch-pro { position: relative; background: #0c3033; color: #fff; overflow: hidden; aspect-ratio: 2400 / 1290; min-height: 0; padding: 0; --p: .5; }
+/* ---- launch: the gate builds itself — plan lines rise first, the built scene rises over them ---- */
+.launch-pro { position: relative; background: #0c3033; color: #fff; overflow: hidden; aspect-ratio: 16 / 9; max-height: 100vh; min-height: 560px; padding: 0; --p: .5; }
 .launch-pro .scene { position: absolute; inset: 0; }
-/* painted blend over the render's top edge — no mask, so Safari and Chrome agree */
-.launch-pro .scene::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 46%; z-index: 1; pointer-events: none;
-  background: linear-gradient(to bottom, #0c3033 0%, #0c3033 48%, rgba(12,48,51,0) 100%); }
-.launch-pro .scene img {
-  width: 100%; height: 100%; object-fit: contain; object-position: center bottom; display: block;
-  opacity: 0; scale: 1.08; filter: brightness(.15);
-  translate: 0 calc((var(--p) - .5) * 40px);
-}
-.launch-pro .sweep {
-  position: absolute; inset: -30% -60%; pointer-events: none; mix-blend-mode: screen; opacity: 0;
-  background: linear-gradient(112deg, transparent 42%, rgba(255,240,215,.16) 50%, transparent 58%);
-}
+.launch-pro .scene img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; display: block; clip-path: inset(100% 0 0 0); }
+.launch-pro .scene .lines { opacity: .9; }
+.launch-pro .scene .built { translate: 0 calc((var(--p) - .5) * 40px); transform-origin: 50% 80%; }
+/* the sky is already graded into the brand teal in the JPEG; this only steadies the title area */
+.launch-pro .scene::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 36%; z-index: 1; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(12,48,51,.75) 0%, rgba(12,48,51,.3) 55%, rgba(12,48,51,0) 100%); }
+/* the leading edge of the build */
+.launch-pro .edge { position: absolute; left: 0; right: 0; top: 100%; height: 2px; pointer-events: none; opacity: 0;
+  background: linear-gradient(90deg, transparent, rgba(196,169,125,.9) 18%, #fff 50%, rgba(196,169,125,.9) 82%, transparent);
+  box-shadow: 0 0 22px 5px rgba(196,169,125,.45); }
 .launch-pro .intro { position: relative; z-index: 2; text-align: center; padding-top: clamp(1.8rem, 3vw, 2.8rem); opacity: 0; }
 .launch-pro .intro .display { color: #fff; font-size: clamp(2.4rem, 5vw, 3.8rem); letter-spacing: .02em; }
 .launch-pro .intro .tag { margin-top: .6rem; font-family: var(--font-d); font-size: clamp(1.2rem, 2.2vw, 1.7rem); font-weight: 500; color: rgba(255,255,255,.92); }
@@ -483,18 +481,22 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 .launch-pro .intro .hero-cta { justify-content: center; margin-top: 1.3rem; }
 .launch-pro .intro .btn-ink { background: var(--gold); color: var(--text); }
 .launch-pro .intro .btn-ink:hover { background: #d3bb95; box-shadow: 0 10px 32px rgba(196,169,125,.4); }
-html.js .launch-pro.in .scene img { animation: lightsUp 3s var(--ease) .1s forwards; }
-html.js .launch-pro.in .sweep { animation: sweep 9s ease-in-out 3.2s infinite; }
-html.js .launch-pro.in .intro { animation: riseIn 1s var(--ease) 1.6s forwards; }
-@keyframes lightsUp { to { opacity: 1; scale: 1; filter: brightness(1); } }
-@keyframes sweep { 0% { transform: translateX(-45%); opacity: 0; } 12% { opacity: 1; } 55% { opacity: 1; } 70%,100% { transform: translateX(45%); opacity: 0; } }
+html.js .launch-pro.in .lines { animation: buildUp 1.7s cubic-bezier(.65, 0, .3, 1) .2s forwards; }
+html.js .launch-pro.in .built { animation: buildUp 2.3s cubic-bezier(.65, 0, .3, 1) 1.6s forwards, gateDrift 26s ease-out 3.9s forwards; }
+html.js .launch-pro.in .edge { animation: edgeUp 1.7s cubic-bezier(.65, 0, .3, 1) .2s forwards, edgeUp 2.3s cubic-bezier(.65, 0, .3, 1) 1.6s forwards; }
+html.js .launch-pro.in .intro { animation: riseIn 1s var(--ease) 2.6s forwards; }
+@keyframes buildUp { to { clip-path: inset(0 0 0 0); } }
+@keyframes edgeUp { 0% { top: 100%; opacity: 0; } 6% { opacity: 1; } 90% { opacity: 1; } 100% { top: 0; opacity: 0; } }
+@keyframes gateDrift { to { scale: 1.06; } }
 html.js .launch-pro.reveal { opacity: 1; transform: none; }
-html:not(.js) .launch-pro .scene img { opacity: 1; scale: 1; filter: none; }
+html:not(.js) .launch-pro .scene img { clip-path: none; }
 html:not(.js) .launch-pro .intro { opacity: 1; }
 @media (max-width: 760px) {
-  .launch-pro { aspect-ratio: auto; min-height: 112vw; }
-  .launch-pro .scene img { object-fit: contain; object-position: center bottom; }
-  .launch-pro .intro { padding-top: 2.5rem; }
+  .launch-pro { aspect-ratio: auto; min-height: 170vw; max-height: none; }
+  .launch-pro .intro { padding-top: 2rem; }
+  .launch-pro .intro .display { font-size: 2.1rem; }
+  .launch-pro .intro .tag { font-size: 1.15rem; }
+  .launch-pro .intro .when { font-size: .9rem; }
 }
 
 /* ---- text depth on the two dark heroes ---- */
