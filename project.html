@@ -12,16 +12,14 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789677627">
+<link rel="stylesheet" href="mrc.css?v=1789678061">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </head>
 <body>
-<div class="topbar">
-  <div class="wrap">
-    <div><a href="tel:+918925972469">+91 89259 72469</a><span class="sep">&middot;</span><a href="mailto:mrclandmarks@gmail.com">mrclandmarks@gmail.com</a></div>
-    <div class="right">Landmarks for Southern Tamil Nadu</div>
-  </div>
-</div>
+<button class="promo" type="button" data-enquire aria-label="Book a free site visit">
+  <span class="road"><span class="car" aria-hidden="true"><svg width="54" height="22" viewBox="0 0 54 22" fill="none" aria-hidden="true"><path d="M6 15h42a2 2 0 0 0 2-2v-3.5a3 3 0 0 0-2.4-2.94L36 5 30.5 1.7A5 5 0 0 0 27.9 1H15a4 4 0 0 0-3.2 1.6L8.5 7 4.6 8.1A3 3 0 0 0 2.5 11v2a2 2 0 0 0 2 2H6z" fill="#C4A97D"/><path d="M14.6 6.6 17 3.3h9.6l5 3.3z" fill="#0c3033" opacity=".8"/><circle cx="14" cy="16" r="4" fill="#0c3033"/><circle cx="14" cy="16" r="1.8" fill="#C4A97D"/><circle cx="40" cy="16" r="4" fill="#0c3033"/><circle cx="40" cy="16" r="1.8" fill="#C4A97D"/></svg></span></span>
+  <span class="promo-text"><strong>Book your free site visit</strong><span class="sep">&middot;</span>+91 89259 72469<span class="sep">&middot;</span><em>Click here &rarr;</em></span>
+</button>
 
 <header class="site">
   <div class="wrap">
@@ -215,6 +213,24 @@
 </footer>
 <a class="fab" href="https://wa.me/918925972469" target="_blank" rel="noopener" aria-label="Chat with MRC on WhatsApp"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></a>
 
+<div class="modal" id="enquiry" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="enqTitle">
+    <button class="modal-x" type="button" data-close aria-label="Close">&times;</button>
+    <p class="eyebrow" style="color:var(--gold)">Free site visit</p>
+    <h2 class="display" id="enqTitle">Tell us where to call.</h2>
+    <p class="modal-lede">Leave your number and someone from the MRC team &mdash; not a call centre &mdash; will call you to fix a time.</p>
+    <form class="enq" novalidate>
+      <label><span>Name</span><input name="name" autocomplete="name" required></label>
+      <label><span>Mobile number</span><input name="mobile" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit number" required></label>
+      <label><span>Email <small>(optional)</small></span><input name="email" type="email" autocomplete="email"></label>
+      <label><span>Interested in</span><select name="interest"><option value="ANANTAA, Othakadai">ANANTAA, Othakadai</option><option value="Upcoming projects">Upcoming projects</option><option value="Channel partnership">Channel partnership</option><option value="Something else">Something else</option></select></label>
+      <label class="check"><input type="checkbox" name="consent" value="yes"><span>I agree that MRC Landmarks may call or message me about this enquiry.</span></label>
+      <p class="enq-error" hidden></p>
+      <button class="btn btn-gold" type="submit">Request a call back</button>
+    </form>
+    <div class="enq-done" hidden><p class="display">Thank you.</p><p>We have your number. Expect a call from the MRC team within one working day.</p></div>
+  </div>
+</div>
 
 <script>
 (function () {
@@ -237,6 +253,34 @@
         if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in');
       });
     }, 3000);
+  }
+  // enquiry pop-up: opened by the promo strip on inner pages, posts to the forms app
+  var modal = document.getElementById('enquiry');
+  if (modal) {
+    var openers = document.querySelectorAll('[data-enquire]'), form = modal.querySelector('form.enq'),
+        err = modal.querySelector('.enq-error'), done = modal.querySelector('.enq-done');
+    function openM() { modal.hidden = false; document.documentElement.classList.add('modal-open'); setTimeout(function () { modal.querySelector('input').focus(); }, 50); }
+    function closeM() { modal.hidden = true; document.documentElement.classList.remove('modal-open'); }
+    openers.forEach(function (b) { b.addEventListener('click', openM); });
+    modal.querySelector('[data-close]').addEventListener('click', closeM);
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeM(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) closeM(); });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); err.hidden = true;
+      var f = new FormData(form), btn = form.querySelector('button[type=submit]');
+      var payload = { name: f.get('name'), mobile: f.get('mobile'), email: f.get('email'), interest: f.get('interest'),
+                      consent: f.get('consent') === 'yes', page: location.pathname };
+      if (!payload.name || !/^[6-9]\d{9}$/.test(String(payload.mobile).replace(/\D/g, '').slice(-10))) { err.textContent = 'Please give us your name and a valid 10-digit mobile number.'; err.hidden = false; return; }
+      if (!payload.consent) { err.textContent = 'Please tick the box so we can call you back.'; err.hidden = false; return; }
+      btn.disabled = true; btn.textContent = 'Sending\u2026';
+      fetch('https://mrc-event.vercel.app/api/enquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+        .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+        .then(function (x) {
+          if (!x.ok) { var m = x.d.errors ? Object.values(x.d.errors)[0] : x.d.error; throw new Error(m || 'Please try again.'); }
+          form.hidden = true; done.hidden = false;
+        })
+        .catch(function (e2) { err.textContent = e2.message; err.hidden = false; btn.disabled = false; btn.textContent = 'Request a call back'; });
+    });
   }
   // numbers count up the first time they scroll into view
   var nums = [].filter.call(document.querySelectorAll('.hero-stat .n, .band .n'), function (el) {
