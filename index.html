@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789678499">
+<link rel="stylesheet" href="mrc.css?v=1789678698">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </head>
 <body>
@@ -318,9 +318,32 @@
   if (modal) {
     var openers = document.querySelectorAll('[data-enquire]'), form = modal.querySelector('form.enq'),
         err = modal.querySelector('.enq-error'), done = modal.querySelector('.enq-done');
-    function openM() { modal.hidden = false; document.documentElement.classList.add('modal-open'); setTimeout(function () { modal.querySelector('input').focus(); }, 50); }
+    // auto pop-up bookkeeping (per tab session): once per page, at most twice in total, never after a submission
+    var SS = window.sessionStorage, here = location.pathname;
+    function ss(k) { try { return SS.getItem(k) || ''; } catch (e) { return ''; } }
+    function ssSet(k, v) { try { SS.setItem(k, v); } catch (e) {} }
+    function shownHere() { return (ss('mrc_enq_pages') || '').split('|').indexOf(here) !== -1; }
+    function markHere() { if (!shownHere()) ssSet('mrc_enq_pages', (ss('mrc_enq_pages') ? ss('mrc_enq_pages') + '|' : '') + here); }
+    function openM(auto) {
+      if (auto) {
+        modal.querySelector('.eyebrow').textContent = 'Before you go';
+        modal.querySelector('#enqTitle').textContent = 'Want us to call you?';
+        ssSet('mrc_enq_count', String((+ss('mrc_enq_count') || 0) + 1));
+      }
+      markHere();
+      modal.hidden = false; document.documentElement.classList.add('modal-open'); setTimeout(function () { modal.querySelector('input').focus(); }, 50);
+    }
     function closeM() { modal.hidden = true; document.documentElement.classList.remove('modal-open'); }
-    openers.forEach(function (b) { b.addEventListener('click', openM); });
+    function mayAuto() { return modal.hidden && !ss('mrc_enq_done') && (+ss('mrc_enq_count') || 0) < 2 && !shownHere(); }
+    var arrived = Date.now();
+    // trigger 1: the visitor reaches the end of the page (after at least 6s on it)
+    window.addEventListener('scroll', function () {
+      if (!mayAuto() || Date.now() - arrived < 6000) return;
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 160) openM(true);
+    }, { passive: true });
+    // trigger 2: they linger on the page
+    setTimeout(function () { if (mayAuto()) openM(true); }, 45000);
+    openers.forEach(function (b) { b.addEventListener('click', function () { openM(false); }); });
     modal.querySelector('[data-close]').addEventListener('click', closeM);
     modal.addEventListener('click', function (e) { if (e.target === modal) closeM(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !modal.hidden) closeM(); });
@@ -336,7 +359,7 @@
         .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
         .then(function (x) {
           if (!x.ok) { var m = x.d.errors ? Object.values(x.d.errors)[0] : x.d.error; throw new Error(m || 'Please try again.'); }
-          form.hidden = true; done.hidden = false;
+          form.hidden = true; done.hidden = false; ssSet('mrc_enq_done', '1');
         })
         .catch(function (e2) { err.textContent = e2.message; err.hidden = false; btn.disabled = false; btn.textContent = 'Request a call back'; });
     });
