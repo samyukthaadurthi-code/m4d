@@ -552,7 +552,6 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
   .roots-window { aspect-ratio: 4 / 3; --pan: 25%; }   /* 1 - (4/3) / (2000/1116): the part of the picture the window cannot show */
   .roots-mrc { font-size: 3.2rem; }
 }
-}
 
 /* ---- process cards + verify cards: teal, white type, lifted titles ---- */
 .step, .verify { background: var(--teal-deep); color: rgba(255,255,255,.82); border-color: transparent; }
