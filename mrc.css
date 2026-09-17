@@ -31,6 +31,7 @@
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
   --pad: clamp(4.5rem, 8vw, 7rem);
+  --fade: clamp(3.5rem, 6vw, 6rem);   /* height of the colour blend between neighbouring sections */
   --gut: clamp(1.25rem, 4vw, 3rem);
   --max: 1240px;
 }
@@ -42,7 +43,10 @@ img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
 .wrap { max-width: var(--max); margin: 0 auto; padding-inline: var(--gut); }
 section { padding-block: var(--pad); }
-.alt { background: var(--bg-alt); }
+.alt { background: linear-gradient(to bottom, var(--bg), var(--bg-alt) var(--fade), var(--bg-alt) calc(100% - var(--fade)), var(--bg)); }
+.alt + .alt { background: linear-gradient(to bottom, var(--bg-alt), var(--bg-alt) calc(100% - var(--fade)), var(--bg)); }
+.alt:has(+ .alt) { background: linear-gradient(to bottom, var(--bg), var(--bg-alt) var(--fade), var(--bg-alt)); }
+section:has(+ .reviews) { background: linear-gradient(to bottom, var(--bg) calc(100% - var(--fade)), #0c282b); }
 
 /* ---------------- motion ---------------- */
 /* Hidden only once JS confirms it can reveal them again. Without this guard a
@@ -411,7 +415,7 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background:
     linear-gradient(90deg, rgba(12,71,76,.62) 0%, rgba(12,71,76,.28) 38%, rgba(12,71,76,0) 68%),
-    linear-gradient(180deg, rgba(0,0,0,.18) 0%, rgba(12,71,76,0) 22%, rgba(12,71,76,.28) 60%, rgba(12,71,76,.86) 100%);
+    linear-gradient(180deg, rgba(0,0,0,.18) 0%, rgba(12,71,76,0) 22%, rgba(12,71,76,.28) 58%, rgba(12,48,51,.82) 84%, #0c3033 100%);
 }
 .hero > .wrap, .hero > .marquee, .hero > .cue { position: relative; z-index: 2; }
 /* flex child: without width the wrap shrinks to its text and floats in the middle */
@@ -467,6 +471,8 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 /* painted blend over the render's top edge — no mask, so Safari and Chrome agree */
 .launch-pro .scene::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 46%; z-index: 1; pointer-events: none;
   background: linear-gradient(to bottom, #0c3033 0%, #0c3033 48%, rgba(12,48,51,0) 100%); }
+.launch-pro .scene::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: var(--fade); z-index: 1; pointer-events: none;
+  background: linear-gradient(to top, var(--teal-deep), rgba(18,71,76,0)); }
 .launch-pro .scene img {
   width: 100%; height: 100%; object-fit: contain; object-position: center bottom; display: block;
   opacity: 0; scale: 1.08; filter: brightness(.15);
@@ -506,6 +512,8 @@ html:not(.js) .launch-pro .intro { opacity: 1; }
 .roots-collage { position: absolute; inset: 0; clip-path: inset(0 100% 0 0); }
 .roots-collage img { width: 100%; height: 100%; object-fit: cover; object-position: 45% 50%; display: block; transform-origin: 40% 60%; animation: collageDrift 40s ease-in-out infinite alternate; }
 @keyframes collageDrift { from { scale: 1.02; translate: -.4% 0; } to { scale: 1.08; translate: .6% -.8%; } }
+.roots::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(to bottom, var(--teal-deep), rgba(18,71,76,0) var(--fade)), linear-gradient(to top, var(--bg), rgba(247,245,239,0) var(--fade)); }
 .roots-wrap { position: relative; z-index: 1; width: 100%; display: flex; justify-content: flex-end; }
 /* the panel blurs only what sits behind it; the collage stays visible through it */
 .roots-panel {
@@ -589,7 +597,7 @@ html:not(.js) .roots-panel, html:not(.js) .roots-mrc, html:not(.js) .roots-text 
 
 /* ---- review wall: glass cards over the closing photo ---- */
 .reviews { position: relative; color: #fff; overflow: hidden; padding-block: var(--pad);
-  background: linear-gradient(180deg, rgba(12,40,43,.82), rgba(12,40,43,.9)), url('9551af30-d0e7-4eb6-9264-bcf8eb8e3831.png') center / cover no-repeat; }
+  background: linear-gradient(to bottom, #0c282b, rgba(12,40,43,0) var(--fade), rgba(12,40,43,0) calc(100% - var(--fade)), var(--teal-deep)), linear-gradient(180deg, rgba(12,40,43,.82), rgba(12,40,43,.9)), url('9551af30-d0e7-4eb6-9264-bcf8eb8e3831.png') center / cover no-repeat; }
 .reviews .display { color: #fff; text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
 .reviews-eyebrow { font-size: .9rem; margin-bottom: 0; }
 /* two rows drifting in opposite directions, never stopping */
