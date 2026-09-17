@@ -89,6 +89,8 @@ h3 { font-family: var(--font-d); font-size: 1.15rem; font-weight: 600; color: va
 .btn-out:hover { background: var(--teal); color: #fff; box-shadow: 0 10px 32px rgba(23,106,112,.25); }
 .btn-ghost { border-color: rgba(255,255,255,.4); color: #fff; }
 .btn-ghost:hover { background: rgba(255,255,255,.14); border-color: #fff; }
+.btn-gold-out { border-color: var(--gold); color: var(--gold); background: transparent; }
+.btn-gold-out:hover { background: var(--gold); color: var(--text); box-shadow: 0 10px 32px rgba(196,169,125,.35); }
 a:focus-visible, button:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
 
 /* ---------------- header ---------------- */
@@ -415,15 +417,13 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 }
 .hero > .wrap, .hero > .marquee, .hero > .cue { position: relative; z-index: 2; }
 /* flex child: without width the wrap shrinks to its text and floats in the middle */
-.hero > .wrap {
-  width: 100%; display: grid; grid-template-columns: minmax(0, 1.42fr) minmax(0, .58fr);
-  gap: 2rem clamp(2rem, 5vw, 5rem); align-items: end;
-}
+/* one column: copy on top, buttons under it where the copy used to sit, so the whole block rides higher */
+.hero > .wrap { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.8rem; align-items: end; }
 .hero h1.display { max-width: none; font-size: clamp(2.7rem, 5.6vw, 4.9rem); }
 .hero h1 .line { display: block; }
 .hero h1 .line > span { display: block; --y: 36px; }
-.hero-side { display: flex; flex-direction: column; align-items: flex-end; }
-.hero-side .hero-cta { justify-content: flex-end; }
+.hero-side { display: flex; flex-direction: column; align-items: flex-start; }
+.hero-side .hero-cta { justify-content: flex-start; }
 .hero-side .hero-stats { justify-content: flex-end; margin-top: 0; flex-wrap: nowrap; }
 .hero-side .hero-stat { min-width: 0; padding: 12px 18px; }
 .hero-side .hero-stat .l { white-space: nowrap; }
