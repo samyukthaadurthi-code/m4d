@@ -315,9 +315,9 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   .hero-stage .dust, .hero-stage .rocks { display: none; }
   .pic.reveal { clip-path: none !important; }
   .rule.reveal { transform: none !important; }
-  .launch-pro .scene img { clip-path: none !important; scale: 1 !important; }
-  .launch-pro .intro { opacity: 1 !important; }
-  .launch-pro .edge { display: none; }
+  .launch-pro .elems, .launch-pro .gate { transform: none !important; opacity: 1 !important; }
+  .launch-pro .stage { scale: 1 !important; }
+  .launch-pro .intro > * { opacity: 1 !important; transform: none !important; }
 
   .roots-collage { clip-path: none !important; }
   .roots-collage img { translate: 0 0 !important; }
@@ -462,36 +462,46 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 .hero-trust span { display: inline-flex; align-items: center; }
 .hero-trust-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal-mid); display: inline-block; margin-right: .5rem; }
 
-/* ---- launch: the gate builds itself — plan lines rise first, the built scene rises over them ---- */
+/* ---- launch: the gate builds itself — planting pops up from the ground, then the gate rises while the title drops in ---- */
 .launch-pro { position: relative; background: #0c3033; color: #fff; overflow: hidden; aspect-ratio: 16 / 9; max-height: 100vh; min-height: 560px; padding: 0; --p: .5; }
 .launch-pro .scene { position: absolute; inset: 0; }
-.launch-pro .scene img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; display: block; clip-path: inset(100% 0 0 0); }
-.launch-pro .scene .lines { opacity: .9; }
-.launch-pro .scene .built { translate: 0 calc((var(--p) - .5) * 40px); transform-origin: 50% 80%; }
-/* the sky is already graded into the brand teal in the JPEG; this only steadies the title area */
+/* the stage is the render's own box, cover-fitted and pinned to the ground, so every layer lines up at any viewport */
+.launch-pro .stage {
+  position: absolute; left: 50%; bottom: 0; translate: -50% calc((var(--p) - .5) * 30px);
+  aspect-ratio: 2200 / 1227; min-width: 100%; min-height: 100%; transform-origin: 50% 100%;
+}
+.launch-pro .stage img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; }
+.launch-pro .elems { transform: translateY(45%); opacity: 0; }
+.launch-pro .elems[style*="--g:0"] { clip-path: inset(0 76% 0 0); }
+.launch-pro .elems[style*="--g:1"] { clip-path: inset(0 24% 0 24%); }
+.launch-pro .elems[style*="--g:2"] { clip-path: inset(0 0 0 76%); }
+/* the gate sprite is cropped to its own box; these are its coordinates in the render */
+.launch-pro .stage .gate { left: 15.32%; top: 37.9%; width: 68.23%; height: auto; transform: translateY(110%); filter: drop-shadow(0 24px 30px rgba(0,0,0,.35)); }
+/* steadies the title area over the graded sky */
 .launch-pro .scene::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 36%; z-index: 1; pointer-events: none;
   background: linear-gradient(to bottom, rgba(12,48,51,.75) 0%, rgba(12,48,51,.3) 55%, rgba(12,48,51,0) 100%); }
-/* the leading edge of the build */
-.launch-pro .edge { position: absolute; left: 0; right: 0; top: 100%; height: 2px; pointer-events: none; opacity: 0;
-  background: linear-gradient(90deg, transparent, rgba(196,169,125,.9) 18%, #fff 50%, rgba(196,169,125,.9) 82%, transparent);
-  box-shadow: 0 0 22px 5px rgba(196,169,125,.45); }
-.launch-pro .intro { position: relative; z-index: 2; text-align: center; padding-top: clamp(1.8rem, 3vw, 2.8rem); opacity: 0; }
+.launch-pro .intro { position: relative; z-index: 2; text-align: center; padding-top: clamp(1.8rem, 3vw, 2.8rem); }
+.launch-pro .intro > * { opacity: 0; }
 .launch-pro .intro .display { color: #fff; font-size: clamp(2.4rem, 5vw, 3.8rem); letter-spacing: .02em; }
 .launch-pro .intro .tag { margin-top: .6rem; font-family: var(--font-d); font-size: clamp(1.2rem, 2.2vw, 1.7rem); font-weight: 500; color: rgba(255,255,255,.92); }
 .launch-pro .intro .when { margin-top: .5rem; font-size: 1.02rem; color: rgba(255,255,255,.62); }
 .launch-pro .intro .hero-cta { justify-content: center; margin-top: 1.3rem; }
 .launch-pro .intro .btn-ink { background: var(--gold); color: var(--text); }
 .launch-pro .intro .btn-ink:hover { background: #d3bb95; box-shadow: 0 10px 32px rgba(196,169,125,.4); }
-html.js .launch-pro.in .lines { animation: buildUp 1.7s cubic-bezier(.65, 0, .3, 1) .2s forwards; }
-html.js .launch-pro.in .built { animation: buildUp 2.3s cubic-bezier(.65, 0, .3, 1) 1.6s forwards, gateDrift 26s ease-out 3.9s forwards; }
-html.js .launch-pro.in .edge { animation: edgeUp 1.7s cubic-bezier(.65, 0, .3, 1) .2s forwards, edgeUp 2.3s cubic-bezier(.65, 0, .3, 1) 1.6s forwards; }
-html.js .launch-pro.in .intro { animation: riseIn 1s var(--ease) 2.6s forwards; }
-@keyframes buildUp { to { clip-path: inset(0 0 0 0); } }
-@keyframes edgeUp { 0% { top: 100%; opacity: 0; } 6% { opacity: 1; } 90% { opacity: 1; } 100% { top: 0; opacity: 0; } }
-@keyframes gateDrift { to { scale: 1.06; } }
+/* sequence: planting pops (left, middle, right) → gate rises as the title drops → button */
+html.js .launch-pro.in .elems { animation: popUp 1.1s cubic-bezier(.2, 1.25, .4, 1) calc(.15s + var(--g) * .18s) forwards; }
+html.js .launch-pro.in .gate { animation: gateRise 2s cubic-bezier(.3, .9, .25, 1) 1s forwards; }
+html.js .launch-pro.in .intro > * { animation: dropIn 1.1s var(--ease) calc(1.1s + var(--i, 0) * .15s) forwards; }
+html.js .launch-pro.in .intro .hero-cta { animation: riseIn .8s var(--ease) 2.6s forwards; }
+.launch-pro .intro > :nth-child(2) { --i: 1; } .launch-pro .intro > :nth-child(3) { --i: 2; }
+html.js .launch-pro.in .stage { animation: gateDrift 26s ease-out 3.6s forwards; }
+@keyframes popUp { 0% { transform: translateY(45%); opacity: 0; } 25% { opacity: 1; } 100% { transform: none; opacity: 1; } }
+@keyframes gateRise { to { transform: none; } }
+@keyframes dropIn { from { opacity: 0; transform: translateY(-60px); } to { opacity: 1; transform: none; } }
+@keyframes gateDrift { to { scale: 1.05; } }
 html.js .launch-pro.reveal { opacity: 1; transform: none; }
-html:not(.js) .launch-pro .scene img { clip-path: none; }
-html:not(.js) .launch-pro .intro { opacity: 1; }
+html:not(.js) .launch-pro .elems, html:not(.js) .launch-pro .gate { transform: none; opacity: 1; }
+html:not(.js) .launch-pro .intro > * { opacity: 1; }
 @media (max-width: 760px) {
   .launch-pro { aspect-ratio: auto; min-height: 170vw; max-height: none; }
   .launch-pro .intro { padding-top: 2rem; }
@@ -525,6 +535,7 @@ html.js .roots.in .roots-mrc { animation: slideFromRight .7s var(--ease) .9s for
 html.js .roots.in .roots-text > .r, html.js .roots.in .roots-text > .btn { animation: slideFromRight .7s var(--ease) calc(1.15s + var(--i, 0) * .12s) forwards; }
 .roots-text > :nth-child(3) { --i: 1; } .roots-text > :nth-child(4) { --i: 2; } .roots-text > :nth-child(5) { --i: 3; }
 @keyframes slideFromRight { to { opacity: 1; transform: none; } }
+@keyframes buildUp { to { clip-path: inset(0 0 0 0); } }
 html.js .roots.reveal { opacity: 1; transform: none; }
 html:not(.js) .roots-collage { clip-path: none; }
 html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform: none; }
