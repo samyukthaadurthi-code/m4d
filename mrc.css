@@ -435,16 +435,8 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   .hero-side .hero-stats { flex-wrap: wrap; }
 }
 
-/* sound toggle: small glass button in the hero's top corner (the WhatsApp button owns the bottom-right); waves light up once sound is on */
-.hero .sfx { position: absolute; right: clamp(1rem, 3vw, 2.5rem); top: 1.2rem; z-index: 3; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
-  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.28); color: #fff; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); cursor: pointer; transition: background .3s, transform .3s var(--ease); }
-.hero .sfx:hover { background: rgba(255,255,255,.22); transform: scale(1.06); }
-.hero .sfx .w1, .hero .sfx .w2 { opacity: .35; transition: opacity .3s; }
-.hero .sfx[aria-pressed="true"] .w1, .hero .sfx[aria-pressed="true"] .w2 { opacity: 1; }
-@media (prefers-reduced-motion: reduce) { .hero .sfx { display: none; } }
-
 /* entrance: each piece rises in on its own delay; pure CSS so a script failure can't hide it */
-.up { opacity: 0; animation: riseIn .95s var(--ease) var(--d, 0s) forwards; }
+.up { opacity: 0; animation: riseIn .7s var(--ease) var(--d, 0s) forwards; }
 @keyframes riseIn { from { opacity: 0; transform: translateY(var(--y, 28px)); } to { opacity: 1; transform: none; } }
 
 /* trust marquee */

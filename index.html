@@ -63,20 +63,18 @@
     </div></div>
     <div class="wrap">
       <div class="hero-main">
-        <p class="eyebrow up" style="--d:2.2s">MRC Landmarks</p>
-        <h1 class="display"><span class="line"><span class="up" style="--d:2.3s">Crafting landmarks</span></span><span class="line"><span class="up" style="--d:2.4s">for the <em>South.</em></span></span></h1>
-        <p class="sub up" style="--d:2.55s">Across Southern Tamil Nadu, we plan, document and deliver land that families can build a future on.</p>
+        <p class="eyebrow up" style="--d:1.2s">MRC Landmarks</p>
+        <h1 class="display"><span class="line"><span class="up" style="--d:1.3s">Crafting landmarks</span></span><span class="line"><span class="up" style="--d:1.4s">for the <em>South.</em></span></span></h1>
+        <p class="sub up" style="--d:1.5s">Across Southern Tamil Nadu, we plan, document and deliver land that families can build a future on.</p>
       </div>
-      <div class="hero-side up" style="--d:2.7s">
+      <div class="hero-side up" style="--d:1.6s">
         <div class="hero-cta">
           <a class="btn btn-ink" href="locations.html">Begin the Journey &rarr;</a>
           <a class="btn btn-ghost" href="https://mrc-event.vercel.app/visit">Schedule a Visit</a>
         </div>
       </div>
     </div>
-    <audio id="heroSfx" src="hero-rumble.mp3" preload="auto"></audio>
-    <button class="sfx" type="button" aria-pressed="false" aria-label="Play the hero with sound"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H2v6h4l5 4z"/><path class="w1" d="M15.5 8.5a5 5 0 0 1 0 7"/><path class="w2" d="M19 5a9 9 0 0 1 0 14"/></svg></button>
-    <div class="hero-trust marquee up" style="--d:2.9s"><div class="marquee-track"><span><i class="hero-trust-dot"></i>Built for Southern Tamil Nadu</span><span><i class="hero-trust-dot"></i>DTCP approved</span><span><i class="hero-trust-dot"></i>TNRERA registered</span><span><i class="hero-trust-dot"></i>Survey verified</span><span><i class="hero-trust-dot"></i>Bank-loan eligible</span><span><i class="hero-trust-dot"></i>Clear documentation</span><span><i class="hero-trust-dot"></i>Planned infrastructure</span><span><i class="hero-trust-dot"></i>Family-first communities</span><span><i class="hero-trust-dot"></i>Crafting Landmarks, Creating Legacies</span><span><i class="hero-trust-dot"></i>Built for Southern Tamil Nadu</span><span><i class="hero-trust-dot"></i>DTCP approved</span><span><i class="hero-trust-dot"></i>TNRERA registered</span><span><i class="hero-trust-dot"></i>Survey verified</span><span><i class="hero-trust-dot"></i>Bank-loan eligible</span><span><i class="hero-trust-dot"></i>Clear documentation</span><span><i class="hero-trust-dot"></i>Planned infrastructure</span><span><i class="hero-trust-dot"></i>Family-first communities</span><span><i class="hero-trust-dot"></i>Crafting Landmarks, Creating Legacies</span></div></div>
+    <div class="hero-trust marquee up" style="--d:1.7s"><div class="marquee-track"><span><i class="hero-trust-dot"></i>Built for Southern Tamil Nadu</span><span><i class="hero-trust-dot"></i>DTCP approved</span><span><i class="hero-trust-dot"></i>TNRERA registered</span><span><i class="hero-trust-dot"></i>Survey verified</span><span><i class="hero-trust-dot"></i>Bank-loan eligible</span><span><i class="hero-trust-dot"></i>Clear documentation</span><span><i class="hero-trust-dot"></i>Planned infrastructure</span><span><i class="hero-trust-dot"></i>Family-first communities</span><span><i class="hero-trust-dot"></i>Crafting Landmarks, Creating Legacies</span><span><i class="hero-trust-dot"></i>Built for Southern Tamil Nadu</span><span><i class="hero-trust-dot"></i>DTCP approved</span><span><i class="hero-trust-dot"></i>TNRERA registered</span><span><i class="hero-trust-dot"></i>Survey verified</span><span><i class="hero-trust-dot"></i>Bank-loan eligible</span><span><i class="hero-trust-dot"></i>Clear documentation</span><span><i class="hero-trust-dot"></i>Planned infrastructure</span><span><i class="hero-trust-dot"></i>Family-first communities</span><span><i class="hero-trust-dot"></i>Crafting Landmarks, Creating Legacies</span></div></div>
   </section>
 
   <section class="launch-pro reveal" id="launch">
@@ -302,27 +300,6 @@
         if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in');
       });
     }, 3000);
-  }
-  // hero sound: browsers only allow it after a gesture, so try, then fall back to the first tap; the button replays
-  var sfx = document.getElementById('heroSfx'), sfxBtn = document.querySelector('.hero .sfx'), heroT0 = performance.now();
-  if (sfx && sfxBtn && !reduce) {
-    var play = function (from) { sfx.currentTime = from || 0; sfx.volume = .8; return sfx.play(); };
-    var replay = function () {
-      document.querySelectorAll('.hero-stage, .hero-stage .hill, .hero-stage .dust i, .hero-stage .rocks b, .hero .up').forEach(function (el) {
-        el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
-      });
-      heroT0 = performance.now(); play(0).catch(function () {});
-    };
-    var armed = function () { sfxBtn.setAttribute('aria-pressed', 'true'); };
-    play(0).then(armed).catch(function () {
-      var onFirst = function () {
-        document.removeEventListener('pointerdown', onFirst); document.removeEventListener('keydown', onFirst);
-        var dt = (performance.now() - heroT0) / 1000;
-        if (dt < 2.4) play(dt).then(armed).catch(function () {});
-      };
-      document.addEventListener('pointerdown', onFirst); document.addEventListener('keydown', onFirst);
-    });
-    sfxBtn.addEventListener('click', function (e) { e.stopPropagation(); replay(); armed(); });
   }
   // numbers count up the first time they scroll into view
   var nums = [].filter.call(document.querySelectorAll('.hero-stat .n, .band .n'), function (el) {
