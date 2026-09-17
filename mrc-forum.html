@@ -147,6 +147,27 @@
       });
     }, 3000);
   }
+  // hero sound: browsers only allow it after a gesture, so try, then fall back to the first tap; the button replays
+  var sfx = document.getElementById('heroSfx'), sfxBtn = document.querySelector('.hero .sfx'), heroT0 = performance.now();
+  if (sfx && sfxBtn && !reduce) {
+    var play = function (from) { sfx.currentTime = from || 0; sfx.volume = .8; return sfx.play(); };
+    var replay = function () {
+      document.querySelectorAll('.hero-stage, .hero-stage .hill, .hero-stage .dust i, .hero-stage .rocks b, .hero .up').forEach(function (el) {
+        el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
+      });
+      heroT0 = performance.now(); play(0).catch(function () {});
+    };
+    var armed = function () { sfxBtn.setAttribute('aria-pressed', 'true'); };
+    play(0).then(armed).catch(function () {
+      var onFirst = function () {
+        document.removeEventListener('pointerdown', onFirst); document.removeEventListener('keydown', onFirst);
+        var dt = (performance.now() - heroT0) / 1000;
+        if (dt < 2.4) play(dt).then(armed).catch(function () {});
+      };
+      document.addEventListener('pointerdown', onFirst); document.addEventListener('keydown', onFirst);
+    });
+    sfxBtn.addEventListener('click', function (e) { e.stopPropagation(); replay(); armed(); });
+  }
   // numbers count up the first time they scroll into view
   var nums = [].filter.call(document.querySelectorAll('.hero-stat .n, .band .n'), function (el) {
     return /^\d+$/.test(el.textContent.trim());

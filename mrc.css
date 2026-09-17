@@ -372,12 +372,12 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 .hero-stage .rise { position: absolute; inset: 0; -webkit-mask-image: linear-gradient(to bottom, #000 64%, transparent 70.5%); mask-image: linear-gradient(to bottom, #000 64%, transparent 70.5%); }
 .hero-stage .hill {
   position: absolute; left: 20.375%; top: 27.761%; width: 69%; height: auto;
-  transform: translateY(104%); animation: hillRise 2.9s cubic-bezier(.3, .9, .25, 1) 1.1s forwards;
+  transform: translateY(104%); animation: hillRise 1.6s cubic-bezier(.3, .9, .25, 1) .45s forwards;
   filter: drop-shadow(0 30px 40px rgba(12,71,76,.35));
 }
 @keyframes hillRise { to { transform: none; } }
 /* the ground shakes twice: as it cracks, and as the rock lands */
-.hero-stage { animation: kenburns 18s var(--ease) both, quake .7s ease-in-out .5s, quake .45s ease-in-out 3.7s; }
+.hero-stage { animation: kenburns 18s var(--ease) both, quake .6s ease-in-out .25s, quake .45s ease-in-out 2.05s; }
 @keyframes quake {
   0%,100% { transform: translate(0,0); } 20% { transform: translate(-3px,2px); } 40% { transform: translate(3px,-2px); }
   60% { transform: translate(-2px,-2px); } 80% { transform: translate(2px,2px); }
@@ -386,7 +386,7 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 .hero-stage .dust i {
   position: absolute; left: var(--x); top: 67.5%; width: 16%; aspect-ratio: 1.6; translate: -50% -50%;
   background: radial-gradient(closest-side, rgba(150,120,90,.65), rgba(150,120,90,0));
-  opacity: 0; scale: 0; animation: puff 2.4s ease-out var(--d) forwards;
+  opacity: 0; scale: 0; animation: puff 1.5s ease-out var(--d) forwards;
 }
 @keyframes puff {
   0% { opacity: 0; scale: .2; translate: -50% -50%; }
@@ -398,7 +398,7 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   position: absolute; left: var(--x); top: 69%; width: var(--w); aspect-ratio: 1.15;
   background: url('hero-hill.webp') var(--bp) / 900% auto no-repeat; clip-path: var(--cp);
   filter: brightness(.92) contrast(1.15) drop-shadow(0 6px 6px rgba(0,0,0,.45));
-  opacity: 0; animation: fling 1.9s cubic-bezier(.25,.6,.45,1) var(--d) forwards;
+  opacity: 0; animation: fling 1.3s cubic-bezier(.25,.6,.45,1) var(--d) forwards;
 }
 @keyframes fling {
   0% { opacity: 0; transform: translate(0,0) rotate(0); }
@@ -434,6 +434,14 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   .hero-side .hero-cta, .hero-side .hero-stats { justify-content: flex-start; }
   .hero-side .hero-stats { flex-wrap: wrap; }
 }
+
+/* sound toggle: small glass button in the hero's top corner (the WhatsApp button owns the bottom-right); waves light up once sound is on */
+.hero .sfx { position: absolute; right: clamp(1rem, 3vw, 2.5rem); top: 1.2rem; z-index: 3; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.28); color: #fff; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); cursor: pointer; transition: background .3s, transform .3s var(--ease); }
+.hero .sfx:hover { background: rgba(255,255,255,.22); transform: scale(1.06); }
+.hero .sfx .w1, .hero .sfx .w2 { opacity: .35; transition: opacity .3s; }
+.hero .sfx[aria-pressed="true"] .w1, .hero .sfx[aria-pressed="true"] .w2 { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .hero .sfx { display: none; } }
 
 /* entrance: each piece rises in on its own delay; pure CSS so a script failure can't hide it */
 .up { opacity: 0; animation: riseIn .95s var(--ease) var(--d, 0s) forwards; }
