@@ -801,7 +801,7 @@ nav.main a, header.site .btn { white-space: nowrap; }
 .creed-grid { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 2rem; }
 .creed-grid > div { padding: 1.6rem clamp(1.4rem, 3vw, 2.6rem) 1.6rem 0; }
 .creed-grid > div + div { padding-left: clamp(1.4rem, 3vw, 2.6rem); border-left: 1px solid rgba(196,169,125,.35); }
-.creed .n { font-family: 'Cinzel', serif; font-weight: 700; font-size: 2.6rem; color: var(--gold); line-height: 1; margin-bottom: 1rem; }
+.creed .n { font-family: var(--font-d); font-weight: 700; font-size: 2.6rem; color: var(--gold); opacity: .85; line-height: 1; margin-bottom: 1rem; }   /* the 01 02 03 of the process cards */
 .creed h3 { color: #fff; font-size: 1.25rem; margin-bottom: .7rem; text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
 .day { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.4rem, 3vw, 2.4rem); margin-top: 3.4rem; align-items: start; }
 .day figure { margin: 0; }
