@@ -363,8 +363,8 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 /* The stage is the photo's own box, cover-fitted (aspect-ratio + both mins) so every layer
    can be placed in % of the image and stays aligned at any viewport. */
 .hero-stage {
-  position: absolute; left: 50%; top: 55%; translate: -50% -55%;
-  aspect-ratio: 2400 / 1340; min-width: 100%; min-height: 100%;
+  position: absolute; left: 54%; top: 55%; translate: -50% -55%;   /* a touch right of centre, so the hill clears the copy */
+  aspect-ratio: 2400 / 1340; min-width: 108%; min-height: 108%;
   animation: kenburns 16s var(--ease) both;
 }
 @keyframes kenburns { from { scale: 1.12; } to { scale: 1; } }
@@ -418,7 +418,7 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 .hero > .wrap, .hero > .marquee, .hero > .cue { position: relative; z-index: 2; }
 /* flex child: without width the wrap shrinks to its text and floats in the middle */
 /* one column: copy on top, buttons under it where the copy used to sit, so the whole block rides higher */
-.hero > .wrap { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.8rem; align-items: end; }
+.hero > .wrap { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.8rem; align-items: end; margin-block: auto; }   /* auto margins centre the copy between the top and the marquee */
 .hero h1.display { max-width: none; font-size: clamp(2.7rem, 5.6vw, 4.9rem); }
 .hero h1 .line { display: block; }
 .hero h1 .line > span { display: block; --y: 36px; }
