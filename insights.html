@@ -151,11 +151,12 @@
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
     els.forEach(function (el) { io.observe(el); });
-    // Failsafe: if anything is still hidden after 3s (background tab, observer
-    // never fired), show it rather than leaving the page blank.
+    // Failsafe: if something on screen is still hidden after 3s (observer never
+    // fired), show it. Only what is on screen: revealing everything here made every
+    // section below the fold play its entrance while the visitor was still on the hero.
     setTimeout(function () {
       document.querySelectorAll('.reveal:not(.in)').forEach(function (el) {
-        el.classList.add('in');
+        if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in');
       });
     }, 3000);
   }
