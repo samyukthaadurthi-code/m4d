@@ -707,6 +707,7 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 .network-card {
   border-radius: var(--r); position: relative; overflow: hidden; display: flex; flex-direction: column; min-height: 640px;
   border: 1.5px solid transparent; transition: box-shadow .5s, transform .5s var(--ease); padding: 0;
+  will-change: transform; isolation: isolate; backface-visibility: hidden;   /* own compositor layer: no hairline seam while the card and its photo move */
 }
 .network-card.partners { background: var(--white); animation: glowPulse 3s ease-in-out infinite; --fade: #ffffff; }
 .network-card.forum { background: var(--teal-deep); color: #fff; animation: glowPulse 3s ease-in-out infinite .5s; --fade: #12474C; }
@@ -715,8 +716,8 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 .network-card:hover { transform: translateY(-6px); box-shadow: 0 0 60px rgba(23,106,112,.35), 0 12px 44px rgba(23,106,112,.25); }
 /* photo across the top, fading into the card colour so the title sits on the fade */
 .network-card .art { position: relative; height: 300px; overflow: hidden; }
-.network-card .art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--ease); }
-.network-card:hover .art img { transform: scale(1.04); }
+.network-card .art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--ease); transform: scale(1.01) translateZ(0); backface-visibility: hidden; }
+.network-card:hover .art img { transform: scale(1.05) translateZ(0); }
 .network-card .art::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 58%; background: linear-gradient(to bottom, transparent, var(--fade)); }
 .network-card .body { position: relative; padding: 0 clamp(2rem,4vw,2.8rem) clamp(2rem,4vw,2.8rem); margin-top: -2.2rem; display: flex; flex-direction: column; align-items: flex-start; }
 .network-card .display { font-size: clamp(1.8rem, 2.8vw, 2.4rem); text-shadow: 0 2px 2px rgba(0,0,0,.12), 0 5px 10px rgba(0,0,0,.1); }
