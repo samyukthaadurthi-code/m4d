@@ -956,6 +956,6 @@ html.modal-open { overflow: hidden; }
   .forum-photo figcaption { left: .8rem; right: .8rem; bottom: -.9rem; text-align: center; }   /* caption chip never overhangs the photo */
   .rv-arrow { width: 38px; height: 38px; }
   .rv-prev { left: .3rem; } .rv-next { right: .3rem; }
-  .hero-cta .btn { width: 100%; text-align: center; }                   /* stacked buttons line up edge to edge */
-  .closing .hero-cta .btn { width: auto; }
+  .hero-cta .btn { width: 100%; text-align: center; justify-content: center; }   /* stacked buttons line up edge to edge */
+  .closing .hero-cta .btn, .launch-pro .hero-cta .btn { width: auto; }            /* centred sections keep their natural width */
 }
