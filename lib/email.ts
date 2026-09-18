@@ -227,3 +227,21 @@ export function sendCpApprovedEmail(to: string, name: string, cpId: string, logi
     partnerDesk()[0],
   );
 }
+
+export function sendForumWaitlistEmail(to: string, name: string, id: string) {
+  return safeSend(
+    "forum waitlist",
+    to,
+    "You are on the MRC Forum early-access list",
+    wrap(`
+      <p style="margin:0 0 14px;font-size:17px;font-weight:bold">Thank you, ${name}.</p>
+      <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#4A5450">
+        The MRC Forum &mdash; one network for the professionals who build in the South &mdash; opens soon,
+        and you are on the early-access list under reference <strong>${id}</strong>. You will hear from us
+        before it opens, with your invitation and the first meet-up dates.
+      </p>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#8A8D82">
+        Questions in the meantime? Just reply to this email.
+      </p>`),
+  );
+}

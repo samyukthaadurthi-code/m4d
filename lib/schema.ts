@@ -371,9 +371,22 @@ export const SHEETS = {
   cp: "CP_Programme",
   visits: "Site_Visits",
   enquiries: "Enquiries",
+  forum: "Forum_Waitlist",
 } as const;
 
 /** Quick enquiry from the website's promo strip: the minimum a salesperson needs to call back. */
+export const FORUM_COLUMNS = [
+  "forum_id",
+  "submitted_at",
+  "name",
+  "mobile",
+  "email",
+  "profession",
+  "organisation",
+  "city",
+  "consent",
+] as const;
+
 export const ENQUIRY_COLUMNS = [
   "enquiry_id",
   "submitted_at",

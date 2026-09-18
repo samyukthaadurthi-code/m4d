@@ -4,37 +4,12 @@ import { ENQUIRY_COLUMNS, SHEETS } from "@/lib/schema";
 import { sendLeadAlert } from "@/lib/whatsapp";
 import { sendEnquiryAlertEmail } from "@/lib/email-lead";
 import { sendEnquiryAckEmail } from "@/lib/email";
+import { cors, preflight, tenDigits, validEmail } from "@/lib/cors";
+
+export const OPTIONS = preflight;
 
 export const runtime = "nodejs";
 
-// The website is a different origin, so it needs CORS to post here.
-const ORIGINS = new Set([
-  "https://mrc-1-one.vercel.app",
-  "https://mrc-landmarks.vercel.app",
-  "https://forms.mrclandmarks.com",
-  "https://mrclandmarks.com",
-  "https://www.mrclandmarks.com",
-  "http://localhost:8899",
-]);
-function cors(req: Request, res: NextResponse) {
-  const origin = req.headers.get("origin") ?? "";
-  if (ORIGINS.has(origin)) {
-    res.headers.set("Access-Control-Allow-Origin", origin);
-    res.headers.set("Vary", "Origin");
-  }
-  res.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.headers.set("Access-Control-Allow-Headers", "Content-Type");
-  return res;
-}
-export async function OPTIONS(req: Request) {
-  return cors(req, new NextResponse(null, { status: 204 }));
-}
-
-const tenDigits = (raw: string) => {
-  const d = raw.replace(/\D/g, "");
-  const ten = d.length > 10 ? d.slice(-10) : d;
-  return /^[6-9]\d{9}$/.test(ten) ? ten : "";
-};
 let sheetReady = false;
 
 export async function POST(req: Request) {
@@ -55,7 +30,7 @@ export async function POST(req: Request) {
   const errors: Record<string, string> = {};
   if (!name) errors.name = "Please tell us your name.";
   if (!mobile) errors.mobile = "Enter a valid 10-digit mobile number.";
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) errors.email = "Enter a valid email address.";
+  if (!validEmail(email)) errors.email = "Enter a valid email address.";
   if (!consent) errors.consent = "Please tick the box so we can call you back.";
   if (Object.keys(errors).length) return reply({ errors }, 400);
 
