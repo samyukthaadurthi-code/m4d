@@ -996,47 +996,31 @@ html.modal-open { overflow: hidden; }
   .launch-pro .scene::before { height: 22%; }
 }
 
-/* ---- Projects: the South itself fills the right of the head — a label-free map in the brand teal, fading in from the
-   copy like the home collage window; no box. A second map in the city section shows where the plot sits in Madurai. ---- */
-.pagehead.with-map { position: relative; overflow: hidden; min-height: clamp(460px, 56vh, 640px); display: flex; align-items: center; }
-.pagehead.with-map > .wrap { position: relative; z-index: 2; width: 100%; }
-.pagehead.with-map .head-copy { max-width: 46%; }
-.pagehead.with-map .crumb { color: rgba(255,255,255,.6); letter-spacing: .22em; font-size: .78rem; text-transform: uppercase; }
-.pagehead.with-map .crumb a { color: rgba(255,255,255,.6); }
-.pagehead.with-map .rule { background: var(--gold); }
-.head-map { position: absolute; top: 0; bottom: 0; right: 0; width: 62%; z-index: 1; isolation: isolate;
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 34%); mask-image: linear-gradient(to right, transparent 0, #000 34%); }
-#headMap, #cityMap { position: absolute; inset: 0; background: var(--teal-deep); cursor: grab; }
-#headMap:active, #cityMap:active { cursor: grabbing; }
-/* the grey canvas tiles are re-coloured into the palette: land teal, water the deep teal of the section */
-.head-map .leaflet-tile-pane, .city-map .leaflet-tile-pane { filter: grayscale(1) brightness(.72) contrast(1.15) sepia(1) hue-rotate(128deg) saturate(1.7); }
-.head-map::after, .city-map::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: rgba(18,71,76,.22); mix-blend-mode: multiply; }
-.leaflet-container { font-family: var(--font-b); }
-.mpin { position: relative; display: block; width: 0; height: 0; }
-.mpin i { position: absolute; left: -6px; top: -6px; width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,.8); box-shadow: 0 0 0 3px rgba(255,255,255,.18); transition: transform .3s, background .3s; }
-.mpin em { position: absolute; left: 12px; top: -.7em; white-space: nowrap; font-style: normal; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.75); text-shadow: 0 1px 2px rgba(0,0,0,.5); transition: color .3s; }
-.mpin.l em { left: auto; right: 12px; text-align: right; }
-.mpin.up em { left: -3em; top: -2.1em; }
-.mpin.live i { background: var(--gold); animation: pinPulse 2.2s ease-out infinite; }
-.mpin.live em { color: var(--gold); font-weight: 600; }
-.mpin.on i { background: var(--gold); transform: scale(1.35); } .mpin.on em { color: #fff; }
-@keyframes pinPulse { 0% { box-shadow: 0 0 0 0 rgba(196,169,125,.6); } 100% { box-shadow: 0 0 0 18px rgba(196,169,125,0); } }
-.city-split { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(1.5rem, 3vw, 2.5rem); margin-top: 2.6rem; align-items: stretch; }
-.citycard.city-live { display: flex; flex-direction: column; background: var(--teal-deep); color: rgba(255,255,255,.82); border-color: transparent; }
+/* ---- Projects: the South as a collage in the shape of the region fills the right of the head; the collage answers the
+   pointer (tilt), the scroll (drift) and a finger (push). The city section is one card: Madurai. ---- */
+.pagehead.with-art { position: relative; overflow: hidden; background: #14444b; min-height: clamp(520px, 62vh, 700px); display: flex; align-items: center; perspective: 1200px; }
+.pagehead.with-art > .wrap { position: relative; z-index: 2; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 2rem; }
+.pagehead.with-art .crumb { color: rgba(255,255,255,.6); letter-spacing: .22em; font-size: .78rem; text-transform: uppercase; }
+.pagehead.with-art .crumb a { color: rgba(255,255,255,.6); }
+.pagehead.with-art .rule { background: var(--gold); }
+.south-art { position: relative; justify-self: end; width: min(100%, 520px); transform-style: preserve-3d; will-change: transform; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-drag: none; animation: artIn 1.4s var(--ease) .2s both; }
+.south-art:active { cursor: grabbing; }
+.south-art img { display: block; width: 100%; height: auto; filter: drop-shadow(0 30px 60px rgba(0,0,0,.45)); -webkit-user-drag: none; pointer-events: none; }
+@keyframes artIn { from { opacity: 0; transform: translateY(40px) scale(.94); } to { opacity: 1; transform: none; } }
+.citycard.city-live { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(1.5rem, 4vw, 3.5rem); margin-top: 2.6rem; padding: clamp(1.6rem, 3vw, 2.4rem); background: var(--teal-deep); color: rgba(255,255,255,.82); border-color: transparent; }
+.citycard.city-live > div { display: flex; flex-direction: column; }
 .citycard.city-live .st { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
-.citycard.city-live h3 { color: #fff; margin-top: .4rem; font-size: 1.8rem; }
+.citycard.city-live h3 { color: #fff; margin-top: .4rem; font-size: 1.9rem; }
 .citycard.city-live .meta { color: rgba(255,255,255,.7); }
-.lm { list-style: none; margin: 1.4rem 0 0; padding: 0; border-top: 1px solid rgba(255,255,255,.14); }
-.lm li { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid rgba(255,255,255,.14); font-size: .92rem; cursor: pointer; transition: color .3s, padding-left .3s; }
-.lm li b { color: var(--gold); font-weight: 600; white-space: nowrap; }
-.lm li:hover, .lm li.on { color: #fff; padding-left: .5rem; }
-.citycard.city-live small { display: block; margin-top: .8rem; font-size: .74rem; color: rgba(255,255,255,.5); }
+.citycard.city-live p { margin-top: 1rem; font-size: .96rem; line-height: 1.6; }
 .citycard.city-live .go { margin-top: auto; padding-top: 1.2rem; color: var(--gold); }
-.city-map { position: relative; min-height: 420px; border-radius: var(--r); overflow: hidden; isolation: isolate; box-shadow: var(--shadow-md); }
+.lm { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(255,255,255,.14); }
+.lm li { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 0; border-bottom: 1px solid rgba(255,255,255,.14); font-size: .92rem; }
+.lm li b { color: var(--gold); font-weight: 600; white-space: nowrap; }
+.citycard.city-live small { display: block; margin-top: .8rem; font-size: .74rem; color: rgba(255,255,255,.5); }
 @media (max-width: 860px) {
-  .pagehead.with-map { display: block; min-height: 0; padding-bottom: 0; }
-  .pagehead.with-map .head-copy { max-width: none; }
-  .head-map { position: relative; width: 100%; height: 300px; margin-top: 1.6rem; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%); mask-image: linear-gradient(to bottom, transparent 0, #000 22%); }
-  .city-split { grid-template-columns: 1fr; }
-  .city-map { min-height: 320px; }
+  .pagehead.with-art { min-height: 0; }
+  .pagehead.with-art > .wrap { grid-template-columns: 1fr; gap: 1.2rem; }
+  .south-art { justify-self: center; width: min(100%, 360px); order: -1; }
+  .citycard.city-live { grid-template-columns: 1fr; gap: 1.4rem; }
 }

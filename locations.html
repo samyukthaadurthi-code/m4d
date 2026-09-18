@@ -12,8 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789758046">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="mrc.css?v=1789759132">
 </head>
 <body>
 <button class="promo" type="button" data-enquire aria-label="Book a free site visit">
@@ -47,15 +46,15 @@
   </div>
 </header>
 <main>
-<section class="pagehead with-map">
-  <div class="head-map" aria-hidden="true"><div id="headMap"></div></div>
+<section class="pagehead with-art">
   <div class="wrap">
     <div class="head-copy">
-      <p class="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Projects</p>
-      <div class="rule reveal"></div>
-      <h1 class="display">Rooted in the South.</h1>
-      <p>Every MRC development is in Southern Tamil Nadu, chosen for its connectivity, local demand and the role it can play in the years ahead. The first is open in Madurai.</p>
+      <p class="crumb up" style="--d:.05s"><a href="index.html">Home</a> &nbsp;/&nbsp; Projects</p>
+      <div class="rule up" style="--d:.15s"></div>
+      <h1 class="display up" style="--d:.25s">Rooted in the South.</h1>
+      <p class="up" style="--d:.4s">Every MRC development is in Southern Tamil Nadu, chosen for its connectivity, local demand and the role it can play in the years ahead. The first is open in Madurai.</p>
     </div>
+    <div class="south-art" aria-hidden="true"><img src="south-map.webp" alt="" width="1100" height="1474"></div>
   </div>
 </section>
   <section>
@@ -63,17 +62,19 @@
       <p class="eyebrow reveal">Cities</p>
       <div class="rule reveal"></div>
       <h2 class="display reveal">Where MRC builds.</h2>
-      <div class="city-split">
-        <a class="citycard city-live reveal" href="project-anantaa.html">
+      <a class="citycard city-live reveal" href="project-anantaa.html">
+        <div>
           <span class="st">Live</span>
           <h3>Madurai</h3>
           <div class="meta">1 project &middot; ANANTAA, Othakadai &middot; beside Yanaimalai</div>
-          <ul class="lm"><li data-i="0"><span>Ring Road, Othakadai</span><b>1.8 km</b></li><li data-i="1"><span>Mattuthavani bus stand</span><b>4.1 km</b></li><li data-i="2"><span>Meenakshi Amman Temple</span><b>9.6 km</b></li><li data-i="3"><span>Madurai Junction</span><b>10.1 km</b></li><li data-i="4"><span>Madurai Airport</span><b>18.2 km</b></li></ul>
-          <small>Straight-line distances from the plot centre. Hover a place to see it on the map.</small>
+          <p>Fifty villa plots on the city&rsquo;s growing east side, on an approved layout, with the documents open on the table.</p>
           <span class="go">View project &rarr;</span>
-        </a>
-        <div class="city-map reveal d1"><div id="cityMap" aria-label="Madurai, with the ANANTAA plot and nearby landmarks"></div></div>
-      </div>
+        </div>
+        <div>
+          <ul class="lm"><li><span>Ring Road, Othakadai</span><b>1.8 km</b></li><li><span>Mattuthavani bus stand</span><b>4.1 km</b></li><li><span>Meenakshi Amman Temple</span><b>9.6 km</b></li><li><span>Madurai Junction</span><b>10.1 km</b></li><li><span>Madurai Airport</span><b>18.2 km</b></li></ul>
+          <small>Straight-line distances from the plot centre.</small>
+        </div>
+      </a>
     </div>
   </section>
 
@@ -328,48 +329,27 @@
   }
 })();
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 (function () {
-  if (!window.L) return;
-  var P = [9.964539, 78.193672], LM = [{"name": "Ring Road, Othakadai", "lat": 9.96, "lng": 78.178, "km": 1.8, "side": "l"}, {"name": "Mattuthavani bus stand", "lat": 9.9457, "lng": 78.1616, "km": 4.1, "side": "r"}, {"name": "Meenakshi Amman Temple", "lat": 9.9195, "lng": 78.1193, "km": 9.6, "side": "r"}, {"name": "Madurai Junction", "lat": 9.9184, "lng": 78.114, "km": 10.1, "side": "l"}, {"name": "Madurai Airport", "lat": 9.8345, "lng": 78.0934, "km": 18.2, "side": "r"}];
-  var BASE = 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', OPT = { maxZoom: 19 };   /* the land itself, no names; re-coloured into the palette by CSS */
-  function pin(cls, html) { return L.divIcon({ className: '', iconSize: [1, 1], html: '<span class="' + cls + '">' + (html || '') + '</span>' }); }
-  // head: the South, inland (the sea stays off the right edge); drag and pinch move it, the wheel is the page's
-  var h = document.getElementById('headMap');
-  if (h) {
-    var land = L.latLngBounds([[8.9, 76.7], [10.9, 78.85]]);
-    var head = L.map(h, { zoomControl: false, attributionControl: false, scrollWheelZoom: false, minZoom: 8, maxZoom: 11, maxBounds: land.pad(.05), maxBoundsViscosity: .8, inertia: true });
-    L.tileLayer(BASE, OPT).addTo(head);
-    var HOME_VIEW = window.innerWidth < 860 ? [[9.96, 77.98], 8.2] : [[9.98, 77.9], 8.6];   /* phones: the pin and its label sit inside the narrower window */
-    head.setView(HOME_VIEW[0], HOME_VIEW[1]);
-    L.marker(P, { icon: pin('mpin live', '<i></i><em>ANANTAA &middot; Madurai</em>'), interactive: false }).addTo(head);
-    var idle;
-    head.on('movestart', function () { clearTimeout(idle); });
-    head.on('moveend', function () { clearTimeout(idle); idle = setTimeout(function () { head.flyTo(HOME_VIEW[0], HOME_VIEW[1], { duration: 1.8 }); }, 8000); });
+  // the collage answers the hand: it tilts toward the pointer, drifts with the scroll, and can be pushed by a finger
+  var head = document.querySelector('.pagehead.with-art'), art = document.querySelector('.south-art'); if (!head || !art) return;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; if (reduce) return;
+  var tx = 0, ty = 0, rx = 0, ry = 0, ctx = 0, cty = 0, crx = 0, cry = 0, px = 0, py = 0, drag = null, raf = 0;
+  function loop() {
+    ctx += (tx - ctx) * .08; cty += (ty - cty) * .08; crx += (rx - crx) * .08; cry += (ry - cry) * .08;
+    art.style.transform = 'translate3d(' + (ctx + px).toFixed(1) + 'px,' + (cty + py + window.scrollY * .12).toFixed(1) + 'px,0) rotateX(' + crx.toFixed(2) + 'deg) rotateY(' + cry.toFixed(2) + 'deg)';
+    raf = requestAnimationFrame(loop);
   }
-  // city: where the plot sits in Madurai; hovering a landmark lights it and draws the line
-  var c = document.getElementById('cityMap');
-  if (c) {
-    var city = L.map(c, { zoomControl: false, attributionControl: false, scrollWheelZoom: false, minZoom: 10, maxZoom: 14 });
-    L.tileLayer(BASE, OPT).addTo(city);
-    L.marker(P, { icon: pin('mpin live up', '<i></i><em>ANANTAA</em>'), interactive: false }).addTo(city);
-    var marks = LM.map(function (l) { return L.marker([l.lat, l.lng], { icon: pin('mpin ' + l.side, '<i></i><em>' + l.name + '</em>'), interactive: false }).addTo(city); });
-    var line = L.polyline([], { color: '#C4A97D', weight: 2, dashArray: '4 6', opacity: .9 }).addTo(city);
-    city.fitBounds(L.latLngBounds(LM.map(function (l) { return [l.lat, l.lng]; }).concat([P])).pad(.18));
-    var items = document.querySelectorAll('.lm li');
-    function show(i) {
-      items.forEach(function (li, k) { li.classList.toggle('on', k === i); });
-      marks.forEach(function (m, k) { var el = m.getElement(); if (el) el.classList.toggle('on', k === i); });
-      if (i < 0) { line.setLatLngs([]); return; }
-      line.setLatLngs([P, [LM[i].lat, LM[i].lng]]);
-    }
-    items.forEach(function (li, i) {
-      li.addEventListener('mouseenter', function () { show(i); });
-      li.addEventListener('click', function (e) { e.preventDefault(); show(li.classList.contains('on') ? -1 : i); });   /* tap on phones; never follows the card link */
-    });
-    document.querySelector('.lm').addEventListener('mouseleave', function () { show(-1); });
-  }
+  raf = requestAnimationFrame(loop);
+  head.addEventListener('pointermove', function (e) {
+    if (e.pointerType !== 'mouse') return;
+    var r = head.getBoundingClientRect(), nx = (e.clientX - r.left) / r.width - .5, ny = (e.clientY - r.top) / r.height - .5;
+    tx = nx * 26; ty = ny * 18; ry = nx * 9; rx = -ny * 7;
+  });
+  head.addEventListener('pointerleave', function () { tx = ty = rx = ry = 0; });
+  art.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') drag = { x: e.clientX, y: e.clientY }; });
+  window.addEventListener('pointermove', function (e) { if (drag) { px = (e.clientX - drag.x) * .6; py = (e.clientY - drag.y) * .6; } }, { passive: true });
+  window.addEventListener('pointerup', function () { if (drag) { drag = null; var back = setInterval(function () { px *= .8; py *= .8; if (Math.abs(px) + Math.abs(py) < .5) { px = py = 0; clearInterval(back); } }, 40); } });
 })();
 </script>
 </body>
