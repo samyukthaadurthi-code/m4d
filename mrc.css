@@ -718,7 +718,7 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 .network-card .art { position: relative; height: 300px; overflow: hidden; }
 .network-card .art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--ease); transform: scale(1.01) translateZ(0); backface-visibility: hidden; }
 .network-card:hover .art img { transform: scale(1.05) translateZ(0); }
-.network-card .art::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 58%; background: linear-gradient(to bottom, transparent, var(--fade)); }
+.network-card .art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 42%, var(--fade) 100%); }   /* full-height overlay: no interior top edge to raster as a hairline while the card moves */
 .network-card .body { position: relative; padding: 0 clamp(2rem,4vw,2.8rem) clamp(2rem,4vw,2.8rem); margin-top: -2.2rem; display: flex; flex-direction: column; align-items: flex-start; }
 .network-card .display { font-size: clamp(1.8rem, 2.8vw, 2.4rem); text-shadow: 0 2px 2px rgba(0,0,0,.12), 0 5px 10px rgba(0,0,0,.1); }
 .network-card.forum .display { text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
