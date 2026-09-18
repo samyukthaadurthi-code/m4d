@@ -1007,7 +1007,7 @@ html.modal-open { overflow: hidden; }
 .south-art { position: absolute; top: 0; bottom: 0; right: 0; width: 56%; z-index: 1; transform-style: preserve-3d; will-change: transform; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-drag: none; animation: artIn 1.4s var(--ease) .2s both;
   -webkit-mask-image: linear-gradient(to right, transparent 0, #000 18%); mask-image: linear-gradient(to right, transparent 0, #000 18%); }   /* melts into the copy side, like the home window */
 .south-art:active { cursor: grabbing; }
-.south-art img { position: absolute; inset: -6%; width: 112%; height: 112%; object-fit: cover; object-position: 80% center; -webkit-user-drag: none; pointer-events: none; }   /* a little larger than the box so the tilt never shows an edge */
+.south-art img { position: absolute; inset: -6%; width: 112%; max-width: none; height: 112%; object-fit: cover; object-position: 80% center; -webkit-user-drag: none; pointer-events: none; }   /* a little larger than the box so the tilt never shows an edge */
 @keyframes artIn { from { opacity: 0; transform: translateX(40px) scale(1.04); } to { opacity: 1; transform: none; } }
 .citycard.city-live { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(1.5rem, 4vw, 3.5rem); margin-top: 2.6rem; padding: clamp(1.6rem, 3vw, 2.4rem); background: var(--teal-deep); color: rgba(255,255,255,.82); border-color: transparent; }
 .citycard.city-live > div { display: flex; flex-direction: column; }
