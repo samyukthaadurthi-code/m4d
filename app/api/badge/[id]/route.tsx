@@ -155,10 +155,10 @@ export async function GET(
                 color: "rgba(255,255,255,0.5)",
               }}
             >
-              OPERATING AREA
+              UNIQUE ID
             </div>
-            <div style={{ fontSize: 26, marginTop: 8 }}>
-              {areas.length > 52 ? `${areas.slice(0, 52)}…` : areas}
+            <div style={{ fontSize: 46, fontWeight: 700, letterSpacing: 6, marginTop: 6 }}>
+              {id}
             </div>
           </div>
         </div>
@@ -174,8 +174,13 @@ export async function GET(
             padding: "22px 56px",
           }}
         >
-          <div style={{ fontSize: 46, fontWeight: 700, letterSpacing: 6 }}>
-            {id}
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ fontSize: 13, letterSpacing: 3, opacity: 0.7 }}>
+              OPERATING AREA
+            </div>
+            <div style={{ fontSize: 26, fontWeight: 700, marginTop: 4 }}>
+              {areas.length > 52 ? `${areas.slice(0, 52)}…` : areas}
+            </div>
           </div>
           <div style={{ fontSize: 16, letterSpacing: 2, opacity: 0.8 }}>
             VERIFY AT MRC DESK
