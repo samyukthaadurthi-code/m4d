@@ -1005,7 +1005,10 @@ html.modal-open { overflow: hidden; }
 .pagehead.with-art .rule { background: var(--gold); }
 .south-art { position: relative; justify-self: end; width: min(100%, 520px); transform-style: preserve-3d; will-change: transform; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-drag: none; animation: artIn 1.4s var(--ease) .2s both; }
 .south-art:active { cursor: grabbing; }
-.south-art img { display: block; width: 100%; height: auto; filter: drop-shadow(0 30px 60px rgba(0,0,0,.45)); -webkit-user-drag: none; pointer-events: none; }
+.south-art img { display: block; width: 100%; height: auto; -webkit-user-drag: none; pointer-events: none;
+  /* feathered edges: the artwork's own teal melts into the section, so no rectangle shows */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 6%, #000 94%, transparent); mask-composite: intersect; }
 @keyframes artIn { from { opacity: 0; transform: translateY(40px) scale(.94); } to { opacity: 1; transform: none; } }
 .citycard.city-live { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(1.5rem, 4vw, 3.5rem); margin-top: 2.6rem; padding: clamp(1.6rem, 3vw, 2.4rem); background: var(--teal-deep); color: rgba(255,255,255,.82); border-color: transparent; }
 .citycard.city-live > div { display: flex; flex-direction: column; }
