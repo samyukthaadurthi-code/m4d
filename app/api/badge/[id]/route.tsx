@@ -150,9 +150,9 @@ export async function GET(
           >
             <div
               style={{
-                fontSize: 14,
-                letterSpacing: 3,
-                color: "rgba(255,255,255,0.5)",
+                fontSize: 20,
+                letterSpacing: 4,
+                color: brand.gold,
               }}
             >
               UNIQUE ID
