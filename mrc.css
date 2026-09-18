@@ -648,7 +648,18 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 .brand-word { color: var(--teal); }
 .review .stars .e { opacity: .28; }
 /* a native horizontal scroller (swipe, trackpad, drag); the script drifts it and holds it under the pointer */
-.review-row { overflow-x: auto; overflow-y: hidden; margin-top: 2.6rem; scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior-x: contain; cursor: grab; }
+.reviews-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.rv-pause { display: inline-flex; align-items: center; gap: .5rem; font: inherit; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.85);
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.28); border-radius: 999px; padding: .5rem 1rem; cursor: pointer; transition: background .3s, border-color .3s; }
+.rv-pause:hover { background: rgba(255,255,255,.18); border-color: var(--gold); }
+.rv-pause .i-play, .rv-pause[aria-pressed="true"] .i-pause { display: none; }
+.rv-pause[aria-pressed="true"] .i-play { display: block; }
+.review-shell { position: relative; margin-top: 2.6rem; }
+.rv-arrow { position: absolute; top: 50%; z-index: 2; translate: 0 -50%; width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: #fff; background: rgba(12,40,43,.72); border: 1px solid rgba(255,255,255,.35); backdrop-filter: blur(10px); cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,.35); transition: background .3s, border-color .3s, transform .3s; }
+.rv-arrow:hover { background: var(--teal); border-color: var(--gold); }
+.rv-prev { left: clamp(.5rem, 2vw, 1.4rem); } .rv-next { right: clamp(.5rem, 2vw, 1.4rem); }
+.review-row { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior-x: contain; cursor: grab; }
 .review-row::-webkit-scrollbar { display: none; }
 .review-row.grab { cursor: grabbing; user-select: none; }
 .review-track { display: flex; gap: 1.2rem; width: max-content; padding-inline: .6rem; }

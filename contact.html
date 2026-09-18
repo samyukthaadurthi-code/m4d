@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789745744">
+<link rel="stylesheet" href="mrc.css?v=1789746134">
 </head>
 <body>
 <button class="promo" type="button" data-enquire aria-label="Book a free site visit">
@@ -235,26 +235,32 @@
     });
   }
   window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
-  // reviews: a real scroller that drifts on its own. Swipe / drag / wheel it freely; it holds still under the
-  // pointer or after you moved it, and picks the drift back up a few seconds later. Cards are doubled, so the
-  // scroll position wraps inside the first copy and the loop never shows a seam.
-  document.querySelectorAll('.review-row').forEach(function (row) {
-    var track = row.firstElementChild, pos = 0, held = false, idle = 0, dragX = null, dragL = 0;
+  // reviews: a real scroller that drifts on its own. Swipe / drag / wheel it freely or step it with the arrows;
+  // it holds still for a few seconds after you moved it, then drifts again. The pause button holds it until pressed
+  // again. Cards are doubled, so the position wraps inside the first copy and the loop never shows a seam.
+  document.querySelectorAll('.review-shell').forEach(function (shell) {
+    var row = shell.querySelector('.review-row'), track = row.firstElementChild, pauseBtn = document.querySelector('.rv-pause'),
+        pos = 0, held = false, stopped = false, idle = 0, dragX = null, dragL = 0, step = 400;
     function half() { return track.scrollWidth / 2; }
     function wrap(x) { var h = half(); return h ? ((x % h) + h) % h : x; }
     function put(x) { pos = wrap(x); row.scrollLeft = pos; }
     function rest(ms) { held = true; clearTimeout(idle); idle = setTimeout(function () { held = false; }, ms); }
-    row.addEventListener('pointerenter', function () { held = true; clearTimeout(idle); });
-    row.addEventListener('pointerleave', function () { dragX = null; rest(1500); });
     row.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse') { dragX = e.clientX; dragL = row.scrollLeft; row.classList.add('grab'); } rest(4000); });
     window.addEventListener('pointerup', function () { dragX = null; row.classList.remove('grab'); });
     row.addEventListener('pointermove', function (e) { if (dragX !== null) put(dragL - (e.clientX - dragX)); });
     row.addEventListener('scroll', function () { if (Math.abs(row.scrollLeft - pos) > 2) { pos = wrap(row.scrollLeft); rest(4000); } }, { passive: true });   /* moved by a hand, not by us */
     row.addEventListener('touchstart', function () { rest(4000); }, { passive: true });
-    row.querySelectorAll('img').forEach(function (i) { i.draggable = false; });
+    shell.querySelector('.rv-prev').addEventListener('click', function () {
+      if (row.scrollLeft < step) put(row.scrollLeft + half());   /* same picture one copy along, so there is always a card to the left */
+      row.scrollTo({ left: row.scrollLeft - step, behavior: 'smooth' }); rest(4000);
+    });
+    shell.querySelector('.rv-next').addEventListener('click', function () { row.scrollTo({ left: row.scrollLeft + step, behavior: 'smooth' }); rest(4000); });
+    if (pauseBtn) pauseBtn.addEventListener('click', function () {
+      stopped = !stopped; pauseBtn.setAttribute('aria-pressed', String(stopped)); pauseBtn.querySelector('span').textContent = stopped ? 'Play' : 'Pause';
+    });
     var last = 0;
     function tick(t) {
-      if (!reduce && !held && !document.hidden && last) put(pos + (t - last) * 0.036);   /* 36px/s, the old marquee's pace */
+      if (!reduce && !held && !stopped && !document.hidden && last) put(pos + (t - last) * 0.036);   /* 36px/s, the old marquee's pace */
       last = t; requestAnimationFrame(tick);
     }
     requestAnimationFrame(tick);
