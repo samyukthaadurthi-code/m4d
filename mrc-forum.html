@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789757114">
+<link rel="stylesheet" href="mrc.css?v=1789757425">
 </head>
 <body>
 <button class="promo" type="button" data-enquire aria-label="Book a free site visit">
@@ -229,7 +229,7 @@
       e.preventDefault(); err.hidden = true;
       var f = new FormData(form), btn = form.querySelector('button[type=submit]');
       var payload = { name: f.get('name'), mobile: f.get('mobile'), email: f.get('email'), interest: f.get('interest'),
-                      consent: f.get('consent') === 'yes', page: location.pathname };
+                      consent: f.get('consent') === 'yes', page: location.pathname + (window.mrcCity ? '#' + window.mrcCity : '') };
       if (!payload.name || !/^[6-9]\d{9}$/.test(String(payload.mobile).replace(/\D/g, '').slice(-10)) || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(payload.email))) { err.textContent = 'Please give us your name, a valid 10-digit mobile number and your email.'; err.hidden = false; return; }
       if (!payload.consent) { err.textContent = 'Please tick the box so we can call you back.'; err.hidden = false; return; }
       btn.disabled = true; btn.textContent = 'Sending\u2026';

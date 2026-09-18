@@ -12,7 +12,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789757114">
+<link rel="stylesheet" href="mrc.css?v=1789757425">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </head>
 <body>
 <button class="promo" type="button" data-enquire aria-label="Book a free site visit">
@@ -46,25 +47,31 @@
   </div>
 </header>
 <main>
-<section class="pagehead">
+<section class="pagehead with-map">
   <div class="wrap">
-    <p class="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Projects</p>
-    <div class="rule reveal"></div>
-    <h1 class="display">Rooted in the South.</h1>
-    <p>Every MRC development is in Southern Tamil Nadu, chosen for its connectivity, local demand and the role it can play in the years ahead. Pick a city to see what is being built there.</p>
+    <div class="head-copy">
+      <p class="crumb"><a href="index.html">Home</a> &nbsp;/&nbsp; Projects</p>
+      <div class="rule reveal"></div>
+      <h1 class="display">Rooted in the South.</h1>
+      <p>Every MRC development is in Southern Tamil Nadu, chosen for its connectivity, local demand and the role it can play in the years ahead. Drag the map, or pick a city below.</p>
+    </div>
+    <div class="head-map"><div id="headMap" aria-label="Map of Southern Tamil Nadu with MRC cities"></div><div class="map-key"><span><i class="k-live"></i>Live</span><span><i class="k-next"></i>Next on the map</span></div></div>
   </div>
 </section>
   <section>
     <div class="wrap">
       <p class="eyebrow reveal">Cities</p>
       <div class="rule reveal"></div>
-      <h2 class="display reveal">Where MRC builds.</h2>
-      <div class="citycards">
-        <a class="citycard reveal" href="project-anantaa.html">
-          <h3>Madurai</h3>
-          <div class="meta">1 project &middot; ANANTAA</div>
-          <span class="go">View project &rarr;</span>
-        </a>
+      <h2 class="display reveal">Where MRC builds, and where it looks next.</h2>
+      <p class="lede reveal" style="margin-top:1.2rem">One project is open today. The rest of these are towns we know and are watching &mdash; hover a city to find it on the map; tap one to be told first when something opens there.</p>
+      <div class="ctiles">
+        <a class="ctile live reveal" href="project-anantaa.html" data-city="Madurai" data-lat="9.9252" data-lng="78.1198"><span class="st">Live &middot; ANANTAA</span><strong>Madurai</strong><p>ANANTAA at Othakadai, beside Yanaimalai.</p><span class="go">View project &rarr;</span></a>
+        <button class="ctile reveal" type="button" data-city="Dindigul" data-lat="10.3673" data-lng="77.9803"><span class="st">Next on the map</span><strong>Dindigul</strong><p>Bypass, colleges and the Kodaikanal road.</p><span class="go">Tell me first &rarr;</span></button>
+        <button class="ctile reveal" type="button" data-city="Virudhunagar" data-lat="9.5851" data-lng="77.9579"><span class="st">Next on the map</span><strong>Virudhunagar</strong><p>Trading town growing along the highway.</p><span class="go">Tell me first &rarr;</span></button>
+        <button class="ctile reveal" type="button" data-city="Sivaganga" data-lat="9.8433" data-lng="78.4809"><span class="st">Next on the map</span><strong>Sivaganga</strong><p>Twenty minutes from Madurai's east side.</p><span class="go">Tell me first &rarr;</span></button>
+        <button class="ctile reveal" type="button" data-city="Theni" data-lat="10.0104" data-lng="77.4768"><span class="st">Next on the map</span><strong>Theni</strong><p>Hill-country air, an hour from Madurai.</p><span class="go">Tell me first &rarr;</span></button>
+        <button class="ctile reveal" type="button" data-city="Trichy" data-lat="10.7905" data-lng="78.7047"><span class="st">Next on the map</span><strong>Trichy</strong><p>The state's crossroads; second on our list.</p><span class="go">Tell me first &rarr;</span></button>
+        <button class="ctile reveal" type="button" data-city="Coimbatore" data-lat="11.0168" data-lng="76.9558"><span class="st">Next on the map</span><strong>Coimbatore</strong><p>Industry, colleges and a long buyer queue.</p><span class="go">Tell me first &rarr;</span></button>
       </div>
     </div>
   </section>
@@ -210,7 +217,7 @@
       e.preventDefault(); err.hidden = true;
       var f = new FormData(form), btn = form.querySelector('button[type=submit]');
       var payload = { name: f.get('name'), mobile: f.get('mobile'), email: f.get('email'), interest: f.get('interest'),
-                      consent: f.get('consent') === 'yes', page: location.pathname };
+                      consent: f.get('consent') === 'yes', page: location.pathname + (window.mrcCity ? '#' + window.mrcCity : '') };
       if (!payload.name || !/^[6-9]\d{9}$/.test(String(payload.mobile).replace(/\D/g, '').slice(-10)) || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(payload.email))) { err.textContent = 'Please give us your name, a valid 10-digit mobile number and your email.'; err.hidden = false; return; }
       if (!payload.consent) { err.textContent = 'Please tick the box so we can call you back.'; err.hidden = false; return; }
       btn.disabled = true; btn.textContent = 'Sending\u2026';
@@ -318,6 +325,45 @@
     });
     document.addEventListener('click', function (e) { if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); } });
   }
+})();
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(function () {
+  var el = document.getElementById('headMap'); if (!el || !window.L) return;
+  var cities = [{"name": "Madurai", "lat": 9.9252, "lng": 78.1198, "st": "live", "proj": "ANANTAA"}, {"name": "Dindigul", "lat": 10.3673, "lng": 77.9803, "st": "next", "proj": ""}, {"name": "Virudhunagar", "lat": 9.5851, "lng": 77.9579, "st": "next", "proj": ""}, {"name": "Sivaganga", "lat": 9.8433, "lng": 78.4809, "st": "next", "proj": ""}, {"name": "Theni", "lat": 10.0104, "lng": 77.4768, "st": "next", "proj": ""}, {"name": "Trichy", "lat": 10.7905, "lng": 78.7047, "st": "next", "proj": ""}, {"name": "Coimbatore", "lat": 11.0168, "lng": 76.9558, "st": "next", "proj": ""}];
+  // drag and pinch move it; the wheel is left to the page so scrolling past never hijacks the map
+  var map = L.map('headMap', { zoomControl: false, attributionControl: false, scrollWheelZoom: false, doubleClickZoom: true, minZoom: 6, maxZoom: 12 });
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}', { maxZoom: 16 }).addTo(map);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}', { maxZoom: 16, opacity: .8 }).addTo(map);
+  var pins = {};
+  cities.forEach(function (c) {
+    var live = c.st === 'live';
+    var m = L.marker([c.lat, c.lng], { icon: L.divIcon({ className: '', iconSize: [18, 18], iconAnchor: [9, 9],
+      html: '<span class="hpin' + (live ? ' live' : '') + '"></span>' }), title: c.name }).addTo(map);
+    m.bindPopup('<strong>' + c.name + '</strong><br><span class="pop-st">' + (live ? 'Live &middot; ' + c.proj : 'Next on the map') + '</span>', { closeButton: false, offset: [0, -6] });
+    m.on('click', function () { light(c.name); });
+    pins[c.name] = m;
+  });
+  var all = L.latLngBounds(cities.map(function (c) { return [c.lat, c.lng]; })).pad(.35);
+  map.fitBounds(all);
+  var tiles = document.querySelectorAll('.ctile');
+  function light(name) { tiles.forEach(function (t) { t.classList.toggle('lit', t.dataset.city === name); }); }
+  tiles.forEach(function (t) {
+    t.addEventListener('mouseenter', function () {
+      light(t.dataset.city); map.flyTo([+t.dataset.lat, +t.dataset.lng], 9, { duration: .9 }); pins[t.dataset.city].openPopup();
+    });
+    t.addEventListener('mouseleave', function () { map.closePopup(); });
+    if (t.tagName === 'BUTTON') t.addEventListener('click', function () {   /* "next" cities: ask to hear first, city noted on the enquiry */
+      var opener = document.querySelector('[data-enquire]'), sel = document.querySelector('#enquiry select[name=interest]');
+      if (sel) sel.value = 'Upcoming projects';
+      window.mrcCity = t.dataset.city;
+      if (opener) opener.click(); else if (window.mrcOpenEnquiry) window.mrcOpenEnquiry();
+    });
+  });
+  // rest: after a while with no hand on it, drift back to the whole South
+  var idle; map.on('movestart', function () { clearTimeout(idle); });
+  map.on('moveend', function () { clearTimeout(idle); idle = setTimeout(function () { map.flyToBounds(all, { duration: 1.6 }); }, 9000); });
 })();
 </script>
 </body>
