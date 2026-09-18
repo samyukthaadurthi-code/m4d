@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789746134">
+<link rel="stylesheet" href="mrc.css?v=1789746581">
 </head>
 <body>
 <button class="promo" type="button" data-enquire aria-label="Book a free site visit">
@@ -46,12 +46,12 @@
   </div>
 </div>
 <main>
-<section class="pagehead rich">
+<section class="pagehead img rich" style="background-image:url('forum-head.jpg');background-size:cover;background-position:center 35%">
   <div class="wrap">
     <p class="crumb up" style="--d:.05s"><a href="index.html">Home</a> &nbsp;/&nbsp; MRC Forum</p>
     <div class="rule up" style="--d:.15s"></div>
     <h1 class="display up" style="--d:.25s">Real estate works better together.</h1>
-    <p class="up" style="--d:0.4s">A connected business community for the professionals shaping Southern Tamil Nadu&rsquo;s real-estate ecosystem.</p>
+    <p class="up" style="--d:0.4s">A connected business community for the professionals shaping Southern Tamil Nadu&rsquo;s real-estate ecosystem. <strong class="soon">Opening soon</strong></p>
   </div>
 </section>
   <section>
@@ -59,20 +59,20 @@
       <p class="eyebrow reveal">Who it is for</p>
       <div class="rule reveal"></div>
       <h2 class="display reveal">Brokers, developers, architects and advisers.</h2>
-      <p class="lede reveal" style="margin-top:1.2rem">One network for the region, built around trusted relationships and meaningful business connections rather than volume.</p>
+      <p class="lede reveal" style="margin-top:1.2rem">One network for the region, built around trusted relationships and meaningful business connections rather than volume. The Forum has not opened yet: put your name down and you are in the first circle &mdash; first meet-ups, first introductions, first look at what MRC brings to market.</p>
       <div class="hero-cta">
-        <a class="btn btn-ink" href="https://forms.mrclandmarks.com/register">Join the forum</a>
+        <a class="btn btn-ink" href="#join">Get early access</a>
       </div>
     </div>
   </section>
 
 <section class="closing">
   <div class="wrap">
-    <p class="eyebrow" style="color:var(--gold)">Forum</p>
+    <p class="eyebrow" style="color:var(--gold)">Opening soon</p>
     <h2 class="display reveal">One network<br>for the South.</h2>
-    <p>Brokers, developers, architects and advisers who build here. Ask to join and we will add you.</p>
+    <p>Brokers, developers, architects and advisers who build here. Put your name down now and you are in the first circle when the Forum opens.</p>
     <div class="hero-cta">
-      <a class="btn btn-gold" href="https://wa.me/918925972469">Ask to Join on WhatsApp</a>
+      <a class="btn btn-gold" href="#join">Get early access</a>
       <a class="btn btn-ghost" href="https://forms.mrclandmarks.com/join">Become a Partner</a>
     </div>
   </div>
@@ -301,6 +301,49 @@
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   }
+})();
+</script>
+<div class="modal" id="forum" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="forumTitle">
+    <button class="modal-x" type="button" data-close aria-label="Close">&times;</button>
+    <p class="eyebrow" style="color:var(--gold)">MRC Forum &middot; Opening soon</p>
+    <h2 class="display" id="forumTitle">Be in the first circle.</h2>
+    <p class="modal-lede">Leave your details and you will hear from us before the Forum opens &mdash; with your invitation and the first meet-up dates.</p>
+    <form class="enq" novalidate>
+      <label><span>Name</span><input name="name" autocomplete="name" required></label>
+      <label><span>Mobile number</span><input name="mobile" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit number" required></label>
+      <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+      <label><span>You are a</span><select name="profession"><option value="Broker / agent">Broker / agent</option><option value="Developer">Developer</option><option value="Architect / engineer">Architect / engineer</option><option value="Legal / financial adviser">Legal / financial adviser</option><option value="Other">Other</option></select></label>
+      <label><span>Firm <small>(optional)</small></span><input name="organisation" autocomplete="organization"></label>
+      <label><span>City <small>(optional)</small></span><input name="city" autocomplete="address-level2"></label>
+      <label class="check"><input type="checkbox" name="consent" value="yes"><span>I agree that MRC Landmarks may contact me about the MRC Forum.</span></label>
+      <p class="enq-error" hidden></p>
+      <button class="btn btn-gold" type="submit">Put me on the list</button>
+    </form>
+    <div class="enq-done" hidden><p class="display">You are on the list.</p><p>A confirmation is on its way to your email. We will write again before the Forum opens.</p></div>
+  </div>
+</div>
+<script>
+(function () {
+  var m = document.getElementById('forum'), f = m.querySelector('form.enq'), err = m.querySelector('.enq-error'), done = m.querySelector('.enq-done');
+  function open() { m.hidden = false; document.documentElement.classList.add('modal-open'); setTimeout(function () { m.querySelector('input').focus(); }, 50); }
+  function close() { m.hidden = true; document.documentElement.classList.remove('modal-open'); }
+  document.querySelectorAll('a[href="#join"]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); open(); }); });
+  m.querySelector('[data-close]').addEventListener('click', close);
+  m.addEventListener('click', function (e) { if (e.target === m) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !m.hidden) close(); });
+  f.addEventListener('submit', function (e) {
+    e.preventDefault(); err.hidden = true;
+    var d = new FormData(f), btn = f.querySelector('button[type=submit]');
+    var p = { name: d.get('name'), mobile: d.get('mobile'), email: d.get('email'), profession: d.get('profession'), organisation: d.get('organisation'), city: d.get('city'), consent: d.get('consent') === 'yes' };
+    if (!p.name || !/^[6-9]\d{9}$/.test(String(p.mobile).replace(/\D/g, '').slice(-10)) || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(p.email))) { err.textContent = 'Please give us your name, a valid 10-digit mobile number and your email.'; err.hidden = false; return; }
+    if (!p.consent) { err.textContent = 'Please tick the box so we can contact you.'; err.hidden = false; return; }
+    btn.disabled = true; btn.textContent = 'Sending\u2026';
+    fetch('https://forms.mrclandmarks.com/api/forum', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (x) { if (!x.ok) { throw new Error((x.j.errors && Object.values(x.j.errors)[0]) || x.j.error || 'Please try again.'); } f.hidden = true; done.hidden = false; })
+      .catch(function (ex) { err.textContent = ex.message; err.hidden = false; btn.disabled = false; btn.textContent = 'Put me on the list'; });
+  });
 })();
 </script>
 </body>

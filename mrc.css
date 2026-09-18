@@ -240,6 +240,7 @@ header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .3
 .pagehead.rich.img::before { background: linear-gradient(180deg, rgba(12,48,51,.45) 0%, rgba(12,48,51,.6) 45%, rgba(12,48,51,.96) 100%); }
 .pagehead .display { color: #fff; max-width: 20ch; }
 .pagehead p { margin-top: 1.3rem; max-width: 56ch; color: rgba(255,255,255,.82); font-size: 1.05rem; }
+.pagehead .soon { display: inline-block; margin-left: .6rem; padding: .3rem .8rem; border-radius: 999px; font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--text); background: var(--gold); vertical-align: middle; }
 .crumb { font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.55); margin-bottom: 1.4rem; }
 .crumb a { transition: color .3s; } .crumb a:hover { color: var(--gold); }
 
