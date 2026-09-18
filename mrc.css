@@ -996,38 +996,45 @@ html.modal-open { overflow: hidden; }
   .launch-pro .scene::before { height: 22%; }
 }
 
-/* ---- Projects: the South on a map in the head, and city tiles that talk to it ---- */
-.pagehead.with-map .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(2rem, 5vw, 5rem); align-items: center; }
+/* ---- Projects: the South itself fills the right of the head — a label-free map in the brand teal, fading in from the
+   copy like the home collage window; no box. A second map in the city section shows where the plot sits in Madurai. ---- */
+.pagehead.with-map { position: relative; overflow: hidden; min-height: clamp(460px, 56vh, 640px); display: flex; align-items: center; }
+.pagehead.with-map > .wrap { position: relative; z-index: 2; width: 100%; }
+.pagehead.with-map .head-copy { max-width: 46%; }
 .pagehead.with-map .crumb { color: rgba(255,255,255,.6); letter-spacing: .22em; font-size: .78rem; text-transform: uppercase; }
 .pagehead.with-map .crumb a { color: rgba(255,255,255,.6); }
 .pagehead.with-map .rule { background: var(--gold); }
-.head-map { position: relative; }
-#headMap { height: clamp(300px, 38vw, 420px); border-radius: var(--r); background: #1f2a2b; box-shadow: 0 30px 70px rgba(0,0,0,.35); outline: 1px solid rgba(196,169,125,.45); outline-offset: 10px; cursor: grab; }
-#headMap:active { cursor: grabbing; }
+.head-map { position: absolute; top: 0; bottom: 0; right: 0; width: 62%; z-index: 1; isolation: isolate;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 34%); mask-image: linear-gradient(to right, transparent 0, #000 34%); }
+#headMap, #cityMap { position: absolute; inset: 0; background: var(--teal-deep); cursor: grab; }
+#headMap:active, #cityMap:active { cursor: grabbing; }
+/* the grey canvas tiles are re-coloured into the palette: land teal, water the deep teal of the section */
+.head-map .leaflet-tile-pane, .city-map .leaflet-tile-pane { filter: brightness(1.15) sepia(1) hue-rotate(128deg) saturate(1.9) contrast(1.05); }
+.head-map::after, .city-map::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: rgba(18,71,76,.22); mix-blend-mode: multiply; }
 .leaflet-container { font-family: var(--font-b); }
-.hpin { display: block; width: 12px; height: 12px; margin: 3px; border-radius: 50%; background: rgba(255,255,255,.75); box-shadow: 0 0 0 3px rgba(255,255,255,.18); transition: transform .3s; }
-.hpin.live { background: var(--gold); box-shadow: 0 0 0 4px rgba(196,169,125,.25); animation: pinPulse 2.2s ease-out infinite; }
-@keyframes pinPulse { 0% { box-shadow: 0 0 0 0 rgba(196,169,125,.6); } 100% { box-shadow: 0 0 0 16px rgba(196,169,125,0); } }
-.leaflet-popup-content .pop-st { color: var(--teal); font-size: .8rem; }
-.map-key { position: absolute; left: 1rem; bottom: 1rem; display: flex; gap: 1rem; padding: .45rem .8rem; border-radius: 999px; background: rgba(12,48,51,.78); backdrop-filter: blur(8px); font-size: .74rem; letter-spacing: .06em; text-transform: uppercase; color: rgba(255,255,255,.85); pointer-events: none; }
-.map-key span { display: inline-flex; align-items: center; gap: .4rem; }
-.map-key i { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
-.map-key .k-live { background: var(--gold); } .map-key .k-next { background: rgba(255,255,255,.7); }
-.ctiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.1rem; margin-top: 2.6rem; }
-.ctile { display: flex; flex-direction: column; align-items: flex-start; text-align: left; gap: .35rem; padding: 1.3rem 1.3rem 1.2rem; border-radius: var(--r); font: inherit; cursor: pointer;
-  background: var(--white); color: var(--text-body); border: 1px solid var(--border); box-shadow: var(--shadow-sm); transition: transform .35s var(--ease), box-shadow .35s, border-color .35s, background .35s; }
-.ctile .st { font-size: .68rem; letter-spacing: .14em; text-transform: uppercase; color: var(--teal); }
-.ctile.live .st { color: var(--gold); }
-.ctile strong { font-family: var(--font-d); font-size: 1.25rem; color: var(--text); }
-.ctile p { font-size: .88rem; line-height: 1.5; margin: 0; }
-.ctile .go { margin-top: auto; padding-top: .6rem; font-size: .84rem; font-weight: 600; color: var(--teal); }
-.ctile:hover, .ctile.lit { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 18px 40px rgba(18,71,76,.16); }
-.ctile.live { background: var(--teal-deep); color: rgba(255,255,255,.82); border-color: transparent; }
-.ctile.live strong { color: #fff; } .ctile.live .go { color: var(--gold); }
-@media (max-width: 960px) { .ctiles { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 760px) {
-  .pagehead.with-map .wrap { grid-template-columns: 1fr; gap: 1.8rem; }
-  #headMap { height: 280px; outline-offset: 6px; }
-  .ctiles { gap: .8rem; margin-top: 1.8rem; }
-  .ctile { padding: 1rem; }
+.mpin { position: relative; display: block; width: 0; height: 0; }
+.mpin i { position: absolute; left: -6px; top: -6px; width: 12px; height: 12px; border-radius: 50%; background: rgba(255,255,255,.8); box-shadow: 0 0 0 3px rgba(255,255,255,.18); transition: transform .3s, background .3s; }
+.mpin em { position: absolute; left: 12px; top: -.7em; white-space: nowrap; font-style: normal; font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.75); text-shadow: 0 1px 2px rgba(0,0,0,.5); transition: color .3s; }
+.mpin.live i { background: var(--gold); animation: pinPulse 2.2s ease-out infinite; }
+.mpin.live em { color: var(--gold); font-weight: 600; }
+.mpin.on i { background: var(--gold); transform: scale(1.35); } .mpin.on em { color: #fff; }
+@keyframes pinPulse { 0% { box-shadow: 0 0 0 0 rgba(196,169,125,.6); } 100% { box-shadow: 0 0 0 18px rgba(196,169,125,0); } }
+.city-split { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(1.5rem, 3vw, 2.5rem); margin-top: 2.6rem; align-items: stretch; }
+.citycard.city-live { display: flex; flex-direction: column; background: var(--teal-deep); color: rgba(255,255,255,.82); border-color: transparent; }
+.citycard.city-live .st { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+.citycard.city-live h3 { color: #fff; margin-top: .4rem; font-size: 1.8rem; }
+.citycard.city-live .meta { color: rgba(255,255,255,.7); }
+.lm { list-style: none; margin: 1.4rem 0 0; padding: 0; border-top: 1px solid rgba(255,255,255,.14); }
+.lm li { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid rgba(255,255,255,.14); font-size: .92rem; cursor: pointer; transition: color .3s, padding-left .3s; }
+.lm li b { color: var(--gold); font-weight: 600; white-space: nowrap; }
+.lm li:hover, .lm li.on { color: #fff; padding-left: .5rem; }
+.citycard.city-live small { display: block; margin-top: .8rem; font-size: .74rem; color: rgba(255,255,255,.5); }
+.citycard.city-live .go { margin-top: auto; padding-top: 1.2rem; color: var(--gold); }
+.city-map { position: relative; min-height: 420px; border-radius: var(--r); overflow: hidden; isolation: isolate; box-shadow: var(--shadow-md); }
+@media (max-width: 860px) {
+  .pagehead.with-map { display: block; min-height: 0; padding-bottom: 0; }
+  .pagehead.with-map .head-copy { max-width: none; }
+  .head-map { position: relative; width: 100%; height: 300px; margin-top: 1.6rem; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 22%); mask-image: linear-gradient(to bottom, transparent 0, #000 22%); }
+  .city-split { grid-template-columns: 1fr; }
+  .city-map { min-height: 320px; }
 }
