@@ -137,9 +137,11 @@ export async function POST(req: Request) {
   const uniqueId = idFor(row);
   await setCell(SHEETS.registrations, `A${row}`, uniqueId);
 
-  // Messaging never blocks the response: the badge is already on screen and in
-  // the sheet, so a Meta timeout must not cost the broker their registration.
-  notify(origin(req), uniqueId, values).catch((err) =>
+  // Awaited: Vercel freezes the function once the response is sent, so a
+  // fire-and-forget here silently drops the badge email. Every sender inside
+  // swallows its own errors, so a Meta/Resend failure still can't cost the
+  // broker their registration.
+  await notify(origin(req), uniqueId, values).catch((err) =>
     console.error("[register] notify failed:", err),
   );
 
