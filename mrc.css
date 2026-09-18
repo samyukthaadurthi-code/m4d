@@ -377,7 +377,8 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   box-shadow: var(--shadow-md); max-height: calc(100vh - 100%); overflow-y: auto;
 }
 .mobile-nav.open { display: block; }
-.mobile-nav .wrap { display: flex; flex-direction: column; align-items: stretch; gap: .2rem; padding-block: 1rem 1.4rem; }
+header.site .mobile-nav .wrap { display: flex; flex-direction: column; align-items: stretch; gap: .2rem; padding-block: 1rem 1.4rem; }
+.mobile-nav a { text-align: left; }
 .mobile-nav a {
   font-family: var(--font-d); font-weight: 500; font-size: 1rem; color: var(--text);
   padding: .85rem .4rem; border-bottom: 1px solid var(--border); transition: color .3s, padding-left .3s;
