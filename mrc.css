@@ -854,6 +854,7 @@ nav.main a, header.site .btn { white-space: nowrap; }
 .flow li { position: relative; background: var(--teal-deep); color: rgba(255,255,255,.82); border-radius: var(--r); padding: 1.6rem 1.5rem 1.7rem; box-shadow: var(--shadow-sm); transition: background .4s; }
 .flow li:hover { background: var(--teal); }
 .flow .k { display: inline-block; font-family: var(--font-d); font-weight: 700; color: var(--gold); font-size: 1.6rem; line-height: 1; margin-bottom: .9rem; }
+.flow li a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
 .flow strong { display: block; font-family: var(--font-d); font-size: 1.1rem; color: #fff; margin-bottom: .45rem; text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
 .flow p { margin: 0; font-size: .92rem; color: rgba(255,255,255,.82); }
 .photo-band { position: relative; min-height: 62vh; display: flex; align-items: center; background-size: cover; background-position: center 40%; color: #fff; }
