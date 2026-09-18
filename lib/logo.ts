@@ -9,8 +9,8 @@ let cached: string | null = null;
  */
 export function logoDataUri(): string {
   if (!cached) {
-    const buf = readFileSync(join(process.cwd(), "public", "mrc-logo-badge.png"));
-    cached = `data:image/png;base64,${buf.toString("base64")}`;
+    const buf = readFileSync(join(process.cwd(), "public", "mrc-logo-white.svg"));
+    cached = `data:image/svg+xml;base64,${buf.toString("base64")}`;
   }
   return cached;
 }

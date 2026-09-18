@@ -55,14 +55,12 @@ export async function GET(
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                width: 96,
-                height: 96,
-                borderRadius: 48,
-                backgroundColor: brand.cream,
+                width: 110,
+                height: 110,
               }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={logoDataUri()} width={72} height={72} alt="" />
+              <img src={logoDataUri()} width={110} height={110} alt="" />
             </div>
             <div style={{ display: "flex", flexDirection: "column" }}>
               <div style={{ fontSize: 34, fontWeight: 700, letterSpacing: 4 }}>
