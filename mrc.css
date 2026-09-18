@@ -119,6 +119,7 @@ nav.main a::after { content: ""; position: absolute; left: 0; bottom: 0; height:
 nav.main a:hover { color: var(--teal); }
 nav.main a:hover::after, nav.main a[aria-current]::after { width: 100%; }
 header.site .btn { padding: .7rem 1.5rem; font-size: .85rem; }
+header.site .btn .short { display: none; }
 header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .35s var(--ease), height .35s var(--ease); }
 .scrolled header.site .wrap { padding-block: .45rem; }
 .scrolled header.site { box-shadow: var(--shadow-md); }
@@ -325,13 +326,21 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
   .featured { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 960px) {
-  nav.main, header.site .btn { display: none; }
+  nav.main { display: none; }
+  header.site .btn { padding: .5rem .85rem; font-size: .72rem; letter-spacing: .02em; }
+  header.site .btn .full { display: none; } header.site .btn .short { display: inline; }
   .menu-btn { display: block; }
 }
 @media (max-width: 760px) {
-  .split, .steps, .duo, .foot-top, .why, .trust-grid, .band .grid,
+  .split, .steps, .duo, .foot-top, .why, .trust-grid,
   .featured, .citycards, .contact-grid { grid-template-columns: 1fr; }
+  .band .grid { grid-template-columns: repeat(2, 1fr); }
+  .band .cell { padding: .9rem 1rem; }
+  .band .n { font-size: 1.45rem; }
+  .band .l { font-size: .72rem; margin-top: .35rem; }
   .hero { min-height: 80vh; }
+  header.site .wrap { padding-block: .3rem; gap: .7rem; }
+  .brand img { height: 46px; }
   .topbar .right { display: none; }
   .topbar .wrap { justify-content: center; }
   .stack .row { grid-template-columns: 1fr; gap: .5rem; }
@@ -587,7 +596,7 @@ html:not(.js) .roots-collage { clip-path: none; }
 html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform: none; }
 @media (max-width: 860px) {
   .roots-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .roots-window { aspect-ratio: 4 / 3; --start: 4%; --pan: 33.5%; }
+  .roots-window { aspect-ratio: 1 / 1; }   /* same square window, same start and pan as desktop */
   .roots-mrc { font-size: 3.2rem; }
 }
 
@@ -892,9 +901,9 @@ nav.main a, header.site .btn { white-space: nowrap; }
 .promo::after { content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: repeating-linear-gradient(90deg, rgba(196,169,125,.4) 0 10px, transparent 10px 18px); }
 .promo-run { position: absolute; top: 0; bottom: 0; left: 0; display: flex; align-items: center; gap: 1rem; white-space: nowrap; will-change: transform; animation: driveAcross 30s linear infinite; }
 .promo .car { position: relative; display: block; margin-top: 8px; }
-.promo .car svg { display: block; filter: drop-shadow(0 2px 2px rgba(0,0,0,.35)); }
-.promo .car::before { content: ""; position: absolute; left: -14px; bottom: 4px; width: 14px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.18); filter: blur(2px); }
-@keyframes driveAcross { from { transform: translateX(-100%); } to { transform: translateX(100vw); } }
+.promo .car svg { display: block; filter: drop-shadow(0 2px 2px rgba(0,0,0,.35)); transform: scaleX(-1); }   /* faces left: the way it drives */
+.promo .car::before { content: ""; position: absolute; right: -14px; bottom: 4px; width: 14px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.18); filter: blur(2px); }
+@keyframes driveAcross { from { transform: translateX(100vw); } to { transform: translateX(-100%); } }
 .promo-text { display: flex; align-items: center; gap: .6rem; }
 .promo-text strong { color: #fff; font-weight: 600; }
 .promo-text .sep { color: rgba(255,255,255,.4); }
@@ -979,8 +988,8 @@ html.modal-open { overflow: hidden; }
   .hero-trust { background: #0c3033; }
 
   .launch-pro { display: flex; flex-direction: column; aspect-ratio: auto; min-height: 0; max-height: none; }
-  .launch-pro .intro { order: 1; padding-block: 1.8rem 1.2rem; }
+  .launch-pro .intro { order: 1; padding-block: 1.6rem .6rem; }
   .launch-pro .scene { order: 2; position: relative; inset: auto; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; }
-  .launch-pro .stage { bottom: 0; left: -20%; translate: 0 0; min-width: 0; min-height: 0; height: 100%; width: 134%; }   /* window 15%→90%: both pillars of the gate */
-  .launch-pro .scene::before { height: 30%; }
+  .launch-pro .stage { bottom: 0; left: -32%; translate: 0 0; min-width: 0; min-height: 0; height: 118%; width: 159%; }   /* window 20%→83% wide, top 18% of sky trimmed: both pillars, less empty sky */
+  .launch-pro .scene::before { height: 22%; }
 }

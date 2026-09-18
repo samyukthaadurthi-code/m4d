@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789755891">
+<link rel="stylesheet" href="mrc.css?v=1789756677">
 </head>
 <body>
 <button class="promo" type="button" data-enquire aria-label="Book a free site visit">
@@ -29,7 +29,7 @@
       <a href="channel-partners.html">Channel Partners</a>
       <a href="insights.html">Knowledge Hub</a>
     </nav>
-    <a class="btn btn-gold" href="https://forms.mrclandmarks.com/register">Register for the Launch Event</a>
+    <a class="btn btn-gold" href="https://forms.mrclandmarks.com/register"><span class="full">Register for the Launch Event</span><span class="short">Launch Event</span></a>
     <button class="menu-btn" aria-label="Open menu">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
     </button>
@@ -269,17 +269,19 @@
     function half() { return track.scrollWidth / 2; }
     function wrap(x) { var h = half(); return h ? ((x % h) + h) % h : x; }
     function put(x) { pos = wrap(x); row.scrollLeft = pos; }
-    function rest(ms) { held = true; clearTimeout(idle); idle = setTimeout(function () { held = false; }, ms); }
-    row.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse') { dragX = e.clientX; dragL = row.scrollLeft; row.classList.add('grab'); } rest(4000); });
-    window.addEventListener('pointerup', function () { dragX = null; row.classList.remove('grab'); });
-    row.addEventListener('pointermove', function (e) { if (dragX !== null) put(dragL - (e.clientX - dragX)); });
-    row.addEventListener('scroll', function () { if (Math.abs(row.scrollLeft - pos) > 2) { pos = wrap(row.scrollLeft); rest(4000); } }, { passive: true });   /* moved by a hand, not by us */
-    row.addEventListener('touchstart', function () { rest(4000); }, { passive: true });
+    function rest(ms) { held = true; clearTimeout(idle); idle = setTimeout(function () { held = false; }, ms); }   /* a short hold: the drift picks up again as soon as the hand is off */
+    row.addEventListener('pointerdown', function (e) { if (e.pointerType === 'mouse') { dragX = e.clientX; dragL = row.scrollLeft; row.classList.add('grab'); } rest(600); });
+    window.addEventListener('pointerup', function () { dragX = null; row.classList.remove('grab'); rest(250); });
+    row.addEventListener('pointermove', function (e) { if (dragX !== null) { put(dragL - (e.clientX - dragX)); rest(600); } });
+    row.addEventListener('scroll', function () { if (Math.abs(row.scrollLeft - pos) > 2) { pos = wrap(row.scrollLeft); rest(250); } }, { passive: true });   /* moved by a hand (or a smooth scroll), not by us */
+    row.addEventListener('touchstart', function () { rest(600); }, { passive: true });
+    row.addEventListener('touchmove', function () { rest(600); }, { passive: true });
+    row.addEventListener('touchend', function () { rest(250); }, { passive: true });
     shell.querySelector('.rv-prev').addEventListener('click', function () {
       if (row.scrollLeft < step) put(row.scrollLeft + half());   /* same picture one copy along, so there is always a card to the left */
-      row.scrollTo({ left: row.scrollLeft - step, behavior: 'smooth' }); rest(4000);
+      row.scrollTo({ left: row.scrollLeft - step, behavior: 'smooth' }); rest(250);
     });
-    shell.querySelector('.rv-next').addEventListener('click', function () { row.scrollTo({ left: row.scrollLeft + step, behavior: 'smooth' }); rest(4000); });
+    shell.querySelector('.rv-next').addEventListener('click', function () { row.scrollTo({ left: row.scrollLeft + step, behavior: 'smooth' }); rest(250); });
     if (pauseBtn) pauseBtn.addEventListener('click', function () {
       stopped = !stopped; pauseBtn.setAttribute('aria-pressed', String(stopped)); pauseBtn.querySelector('span').textContent = stopped ? 'Play' : 'Pause';
     });
