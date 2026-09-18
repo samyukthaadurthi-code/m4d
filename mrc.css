@@ -709,16 +709,18 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
   border: 1.5px solid transparent; transition: box-shadow .5s, transform .5s var(--ease); padding: 0;
   will-change: transform; isolation: isolate; backface-visibility: hidden;   /* own compositor layer: no hairline seam while the card and its photo move */
 }
-.network-card.partners { background: var(--white); animation: glowPulse 3s ease-in-out infinite; --fade: #ffffff; }
-.network-card.forum { background: var(--teal-deep); color: #fff; animation: glowPulse 3s ease-in-out infinite .5s; --fade: #12474C; }
+.network-card.partners { background: #ffffff; animation: glowPulse 3s ease-in-out infinite; }
+.network-card.forum { background: var(--teal-deep); color: #fff; animation: glowPulse 3s ease-in-out infinite .5s; }
 .network-card.forum .display, .network-card.forum p { color: #fff; }
 .network-card.forum .eyebrow { color: var(--gold); }
 .network-card:hover { transform: translateY(-6px); box-shadow: 0 0 60px rgba(23,106,112,.35), 0 12px 44px rgba(23,106,112,.25); }
 /* photo across the top, fading into the card colour so the title sits on the fade */
 .network-card .art { position: relative; height: 300px; overflow: hidden; }
-.network-card .art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--ease); transform: scale(1.01) translateZ(0); backface-visibility: hidden; }
-.network-card:hover .art img { transform: scale(1.05) translateZ(0); }
-.network-card .art::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 42%, var(--fade) 100%); }   /* full-height overlay: no interior top edge to raster as a hairline while the card moves */
+/* The fade is a mask on the photo itself (into the card's own background), not an overlay: an overlay lives on a different
+   compositor layer from the moving photo, and their clip edges round differently mid-transition — that was the hairline. */
+.network-card .art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .8s var(--ease); transform: scale(1.01);
+  -webkit-mask-image: linear-gradient(to bottom, #000 42%, transparent 100%); mask-image: linear-gradient(to bottom, #000 42%, transparent 100%); }
+.network-card:hover .art img { transform: scale(1.05); }
 .network-card .body { position: relative; padding: 0 clamp(2rem,4vw,2.8rem) clamp(2rem,4vw,2.8rem); margin-top: -2.2rem; display: flex; flex-direction: column; align-items: flex-start; }
 .network-card .display { font-size: clamp(1.8rem, 2.8vw, 2.4rem); text-shadow: 0 2px 2px rgba(0,0,0,.12), 0 5px 10px rgba(0,0,0,.1); }
 .network-card.forum .display { text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
