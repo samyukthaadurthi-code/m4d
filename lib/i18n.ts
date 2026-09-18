@@ -6,6 +6,7 @@ export type Lang = "en" | "ta";
 export const ui = {
   en: {
     langName: "தமிழ்",
+    back: "Back to the website",
     registerTitle: "Launch Event Registration",
     registerNote: "Register for the event and your badge is generated instantly. Joining the Channel Partner programme is a separate step at the end.",
     submit: "Register & get my badge",
@@ -76,6 +77,7 @@ export const ui = {
   },
   ta: {
     langName: "English",
+    back: "இணையதளத்திற்குத் திரும்பு",
     registerTitle: "நிகழ்வு பதிவு",
     registerNote: "நிகழ்வுக்குப் பதிவு செய்யுங்கள், உங்கள் அடையாள அட்டை உடனே உருவாக்கப்படும். சேனல் பார்ட்னர் திட்டத்தில் சேர்வது தனி படி.",
     submit: "பதிவு செய்து அடையாள அட்டை பெறுங்கள்",

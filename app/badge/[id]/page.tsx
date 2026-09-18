@@ -1,4 +1,5 @@
 import { headers } from "next/headers";
+import { BackAnchor, BackLink } from "@/components/BackLink";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { findById } from "@/lib/sheets";
@@ -40,14 +41,17 @@ export default async function BadgePage({
     <main className="min-h-screen bg-[#F7F5EF] pb-16">
       <header className="bg-[#1A2A2D] px-5 py-7 text-white print:hidden">
         <div className="mx-auto max-w-2xl">
-          <div className="text-xl font-bold tracking-[0.2em]">{brand.name}</div>
-          <div className="mt-1 text-sm tracking-widest text-[#C4A97D]">
-            {brand.tagline}
-          </div>
+          <BackAnchor className="block">
+            <div className="text-xl font-bold tracking-[0.2em]">{brand.name}</div>
+            <div className="mt-1 text-sm tracking-widest text-[#C4A97D]">
+              {brand.tagline}
+            </div>
+          </BackAnchor>
         </div>
       </header>
 
       <div className="mx-auto max-w-2xl px-5">
+        <BackLink label="Back to the website" className="mt-5 font-semibold text-[#176A70] hover:underline print:hidden" />
         {isNew && (
           <div className="mt-7 rounded-xl border border-[#176A70]/25 bg-[#176A70]/8 px-5 py-4">
             <p className="font-semibold text-[#12474C]">

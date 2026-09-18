@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { t, type Lang } from "@/lib/i18n";
 import { brand } from "@/lib/brand";
+import { BackAnchor, BackLink } from "@/components/BackLink";
 
 export function FormShell({
   lang,
@@ -23,22 +24,24 @@ export function FormShell({
     <main className="min-h-screen bg-[#F7F5EF] pb-16">
       <header className="bg-[#1A2A2D] px-5 py-6 text-white">
         <div className="mx-auto flex max-w-xl items-center gap-3">
-          <Image
-            src="/mrc-logo-white.svg"
-            alt="MRC Landmarks"
-            width={64}
-            height={64}
-            priority
-            className="h-16 w-auto flex-shrink-0"
-          />
-          <div className="flex-1">
-            <div className="text-base font-bold tracking-[0.18em]">
-              {brand.name}
+          <BackAnchor className="flex flex-1 items-center gap-3">
+            <Image
+              src="/mrc-logo-white.svg"
+              alt="MRC Landmarks"
+              width={64}
+              height={64}
+              priority
+              className="h-16 w-auto flex-shrink-0"
+            />
+            <div className="flex-1">
+              <div className="text-base font-bold tracking-[0.18em]">
+                {brand.name}
+              </div>
+              <div className="text-xs tracking-widest text-[#C4A97D]">
+                {brand.tagline}
+              </div>
             </div>
-            <div className="text-xs tracking-widest text-[#C4A97D]">
-              {brand.tagline}
-            </div>
-          </div>
+          </BackAnchor>
           <button
             type="button"
             onClick={() => setLang(lang === "en" ? "ta" : "en")}
@@ -50,7 +53,8 @@ export function FormShell({
       </header>
 
       <div className="mx-auto max-w-xl px-5">
-        <div className="mt-7 mb-7">
+        <BackLink label={s.back} className="mt-5 font-semibold text-[#176A70] hover:underline" />
+        <div className="mt-5 mb-7">
           <h1 className="text-2xl font-bold text-[#1A2A2D]">{title}</h1>
           {note && <p className="mt-1.5 text-sm text-[#4A5450]">{note}</p>}
         </div>
