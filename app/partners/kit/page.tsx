@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { findById } from "@/lib/sheets";
-import { SHEETS } from "@/lib/schema";
+import { findBy, findById } from "@/lib/sheets";
+import { CP_APPROVED, SHEETS } from "@/lib/schema";
 import { verify, SESSION_COOKIE, sessionConfigured } from "@/lib/session";
 import { KIT, releaseAt } from "@/lib/kit";
 import { PartnerKit } from "@/components/PartnerKit";
@@ -19,6 +19,9 @@ export default async function KitPage() {
   // by removing the row — no session store to purge.
   const row = await findById(SHEETS.registrations, cpId);
   if (!row) redirect("/partners");
+  // …or by changing the status cell back from Approved.
+  const app = await findBy(SHEETS.cp, "unique_id", cpId);
+  if (app?.status !== CP_APPROVED) redirect("/partners");
 
   const release = releaseAt();
 

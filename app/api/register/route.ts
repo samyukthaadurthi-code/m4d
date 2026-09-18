@@ -5,6 +5,7 @@ import { sendBadge, sendCpFormLink } from "@/lib/whatsapp";
 import { sendBadgeEmail, sendCpFormLinkEmail } from "@/lib/email";
 import { notifySales } from "@/lib/email-lead";
 import { t, type Lang } from "@/lib/i18n";
+import { origin } from "@/lib/origin";
 
 export const runtime = "nodejs";
 
@@ -15,13 +16,6 @@ function normalisePhone(raw: string): string | null {
   const digits = raw.replace(/\D/g, "");
   const ten = digits.length > 10 ? digits.slice(-10) : digits;
   return /^[6-9]\d{9}$/.test(ten) ? ten : null;
-}
-
-function origin(req: Request) {
-  const h = req.headers;
-  const host = h.get("x-forwarded-host") ?? h.get("host") ?? "";
-  const proto = h.get("x-forwarded-proto") ?? "https";
-  return `${proto}://${host}`;
 }
 
 /**

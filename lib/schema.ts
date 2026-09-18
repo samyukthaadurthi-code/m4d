@@ -236,7 +236,9 @@ export const CP_COLUMNS = [
   "full_name",
   "mobile",
   ...CP_FIELDS.map((f) => f.key),
+  "status", // Pending → Approved (via the approve link in the sales alert, or typed in the sheet)
 ];
+export const CP_APPROVED = "Approved";
 
 // Site visit form — filled by the CUSTOMER at a separate station, not the broker.
 // Budget brackets are placeholders until MRC sets them against real plot pricing.

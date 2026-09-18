@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { findById, sheetsConfigured } from "@/lib/sheets";
-import { SHEETS } from "@/lib/schema";
+import { findBy, findById, sheetsConfigured } from "@/lib/sheets";
+import { CP_APPROVED, SHEETS } from "@/lib/schema";
 import { issue, sessionConfigured } from "@/lib/session";
 import { t, type Lang } from "@/lib/i18n";
 
@@ -42,6 +42,11 @@ export async function POST(req: Request) {
   const known = tenDigits(row.mobile ?? "");
   const knownWa = tenDigits(row.whatsapp ?? "");
   if (mobile !== known && mobile !== knownWa) return reject();
+
+  // Identity proven — now the programme gate. The kit is for approved partners only.
+  const app = await findBy(SHEETS.cp, "unique_id", cpId);
+  if (!app) return NextResponse.json({ error: s.cpNotApplied }, { status: 403 });
+  if (app.status !== CP_APPROVED) return NextResponse.json({ error: s.cpPending }, { status: 403 });
 
   const cookie = issue(cpId);
   (await cookies()).set(cookie.name, cookie.value, {

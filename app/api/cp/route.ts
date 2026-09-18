@@ -1,7 +1,12 @@
 import { NextResponse } from "next/server";
-import { appendRow, findById, sheetsConfigured } from "@/lib/sheets";
+import { appendRow, ensureSheet, findById, sheetsConfigured } from "@/lib/sheets";
 import { CP_COLUMNS, CP_FIELDS, SHEETS } from "@/lib/schema";
 import { notifySales } from "@/lib/email-lead";
+import { sendCpReceivedEmail } from "@/lib/email";
+import { origin } from "@/lib/origin";
+import { approveToken } from "@/lib/approve";
+
+let sheetReady = false;
 
 export const runtime = "nodejs";
 
@@ -54,16 +59,26 @@ export async function POST(req: Request) {
     submitted_at: new Date().toISOString(),
     full_name: registration.full_name ?? "",
     mobile: registration.mobile ?? "",
+    status: "Pending",
   };
 
+  if (!sheetReady) {
+    await ensureSheet(SHEETS.cp, CP_COLUMNS); // adds the status header on sheets created before it existed
+    sheetReady = true;
+  }
   await appendRow(
     SHEETS.cp,
     CP_COLUMNS.map((c) => meta[c] ?? values[c] ?? ""),
   );
 
-  await notifySales(`Channel partner joined ${uniqueId}: ${meta.full_name}`, {
-    ID: uniqueId, Name: meta.full_name, Mobile: meta.mobile, ...values,
-  }).catch(() => {});
+  const base = origin(req);
+  await Promise.all([
+    notifySales(`Channel partner application ${uniqueId}: ${meta.full_name}`, {
+      ID: uniqueId, Name: meta.full_name, Mobile: meta.mobile, Email: registration.email ?? "", ...values,
+      "Approve": `${base}/api/cp/approve?id=${encodeURIComponent(uniqueId)}&t=${approveToken(uniqueId)}`,
+    }),
+    sendCpReceivedEmail(registration.email ?? "", meta.full_name, uniqueId),
+  ]).catch((err) => console.error("[cp] notify failed:", err));
 
   return NextResponse.json({ ok: true, unique_id: uniqueId });
 }

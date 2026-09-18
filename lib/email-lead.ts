@@ -10,7 +10,7 @@ export async function notifySales(subject: string, fields: Record<string, string
   if (!to.length || !emailConfigured()) return;
   const rows = Object.entries(fields)
     .filter(([, v]) => v)
-    .map(([k, v]) => `<tr><td style="padding:6px 14px 6px 0;color:#8A8D82;font-size:12px;text-transform:uppercase;letter-spacing:1px;white-space:nowrap">${k}</td><td style="padding:6px 0;font-size:14px;color:#1A2A2D">${v}</td></tr>`)
+    .map(([k, v]) => `<tr><td style="padding:6px 14px 6px 0;color:#8A8D82;font-size:12px;text-transform:uppercase;letter-spacing:1px;white-space:nowrap">${k}</td><td style="padding:6px 0;font-size:14px;color:#1A2A2D">${/^https?:\/\//.test(v) ? `<a href="${v}" style="color:#176A70">${v}</a>` : v}</td></tr>`)
     .join("");
   try {
     const res = await fetch("https://api.resend.com/emails", {

@@ -99,6 +99,15 @@ export function findBy(sheet: string, column: string, value: string) {
   });
 }
 
+/** 1-based sheet row number of the first row whose column matches, or null. */
+export async function findRowNumber(sheet: string, column: string, value: string) {
+  const rows = await allRows(sheet);
+  const col = rows[0]?.indexOf(column) ?? -1;
+  if (col === -1) return null;
+  const i = rows.findIndex((r, n) => n > 0 && (r[col] ?? "").trim() === value.trim());
+  return i === -1 ? null : i + 1;
+}
+
 /** Column A holds the unique ID on every sheet. */
 export function findById(sheet: string, id: string) {
   const wanted = id.trim();

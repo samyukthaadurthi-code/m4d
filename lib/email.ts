@@ -174,3 +174,40 @@ export function sendEnquiryAckEmail(
       </p>`),
   );
 }
+
+export function sendCpReceivedEmail(to: string, name: string, cpId: string) {
+  return safeSend(
+    "cp received",
+    to,
+    "Your Channel Partner application — MRC Landmarks",
+    wrap(`
+      <p style="margin:0 0 14px;font-size:17px;font-weight:bold">Thank you, ${name}.</p>
+      <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#4A5450">
+        We have your Channel Partner application under ID <strong>${cpId}</strong>.
+        The MRC partnerships team reviews every application; you will get an email
+        from us the moment it is approved, with your sign-in to the partner resource centre.
+      </p>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#8A8D82">
+        Questions in the meantime? Just reply to this email.
+      </p>`),
+  );
+}
+
+export function sendCpApprovedEmail(to: string, name: string, cpId: string, loginUrl: string) {
+  return safeSend(
+    "cp approved",
+    to,
+    "You are an MRC Landmarks Channel Partner",
+    wrap(`
+      <p style="margin:0 0 14px;font-size:17px;font-weight:bold">Welcome aboard, ${name}.</p>
+      <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#4A5450">
+        Your Channel Partner application is approved. Your partner resource centre —
+        the project file, brochure and creatives — is open now. Sign in with your
+        partner ID <strong>${cpId}</strong> and the mobile number you registered with.
+      </p>
+      <p style="margin:0 0 24px">${button(loginUrl, "Open the resource centre")}</p>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#8A8D82">
+        Every buyer you introduce is tracked to ${cpId}. Reply to this email to reach the partnerships team.
+      </p>`),
+  );
+}
