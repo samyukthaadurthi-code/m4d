@@ -647,14 +647,11 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 .reviews-eyebrow { font-size: .9rem; margin-bottom: 0; }
 .brand-word { color: var(--teal); }
 .review .stars .e { opacity: .28; }
-/* two rows drifting in opposite directions, never stopping */
-.review-row { overflow: hidden; margin-top: 1.2rem; }
-.review-row:first-of-type { margin-top: 2.6rem; }
-.review-track { display: flex; gap: 1.2rem; width: max-content; padding-inline: .6rem; will-change: transform; backface-visibility: hidden; }
-.review-row.ltr .review-track { animation: reviewsLtr 110s linear infinite; }   /* ten cards in one row: slower so each can be read */
-.review-row.rtl .review-track { animation: reviewsRtl 78s linear infinite; }
-@keyframes reviewsLtr { to { transform: translateX(-50%); } }
-@keyframes reviewsRtl { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+/* a native horizontal scroller (swipe, trackpad, drag); the script drifts it and holds it under the pointer */
+.review-row { overflow-x: auto; overflow-y: hidden; margin-top: 2.6rem; scrollbar-width: none; -ms-overflow-style: none; overscroll-behavior-x: contain; cursor: grab; }
+.review-row::-webkit-scrollbar { display: none; }
+.review-row.grab { cursor: grabbing; user-select: none; }
+.review-track { display: flex; gap: 1.2rem; width: max-content; padding-inline: .6rem; }
 .review { width: 380px; flex-shrink: 0; margin: 0; padding: 1.4rem 1.5rem; border-radius: var(--r);
   background: rgba(255,255,255,.09); -webkit-backdrop-filter: blur(18px) saturate(1.2); backdrop-filter: blur(18px) saturate(1.2);
   border: 1px solid rgba(255,255,255,.22); box-shadow: 0 20px 50px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.35); }
