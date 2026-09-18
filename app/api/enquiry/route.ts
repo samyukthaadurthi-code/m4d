@@ -3,6 +3,7 @@ import { appendRow, ensureSheet, setCell, sheetsConfigured } from "@/lib/sheets"
 import { ENQUIRY_COLUMNS, SHEETS } from "@/lib/schema";
 import { sendLeadAlert } from "@/lib/whatsapp";
 import { sendEnquiryAlertEmail } from "@/lib/email-lead";
+import { sendEnquiryAckEmail } from "@/lib/email";
 
 export const runtime = "nodejs";
 
@@ -54,7 +55,7 @@ export async function POST(req: Request) {
   const errors: Record<string, string> = {};
   if (!name) errors.name = "Please tell us your name.";
   if (!mobile) errors.mobile = "Enter a valid 10-digit mobile number.";
-  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "That email doesn't look right.";
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) errors.email = "Enter a valid email address.";
   if (!consent) errors.consent = "Please tick the box so we can call you back.";
   if (Object.keys(errors).length) return reply({ errors }, 400);
 
@@ -74,6 +75,7 @@ export async function POST(req: Request) {
   await Promise.all([
     process.env.SALES_LEAD_WHATSAPP ? sendLeadAlert(process.env.SALES_LEAD_WHATSAPP, summary) : Promise.resolve(),
     sendEnquiryAlertEmail(summary, { Name: name, Mobile: mobile, Email: email, Interest: interest, Page: page }),
+    sendEnquiryAckEmail(email, name, mobile, interest),
   ]).catch((err) => console.error("[enquiry] notify failed:", err));
 
   return reply({ ok: true, id });

@@ -145,3 +145,32 @@ export function sendVisitConfirmationEmail(
       </p>`),
   );
 }
+
+export function sendEnquiryAckEmail(
+  to: string,
+  name: string,
+  mobile: string,
+  interest: string,
+) {
+  const row = (k: string, v: string) =>
+    `<tr><td style="padding:7px 0;font-size:12px;color:#8A8D82;text-transform:uppercase;letter-spacing:1px;width:42%">${k}</td><td style="padding:7px 0;font-size:14px;color:${INK}">${v || "—"}</td></tr>`;
+  return safeSend(
+    "enquiry ack",
+    to,
+    "We have your enquiry — MRC Landmarks",
+    wrap(`
+      <p style="margin:0 0 14px;font-size:17px;font-weight:bold">Thank you, ${name}.</p>
+      <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#4A5450">
+        We have your enquiry. Someone from the MRC team &mdash; not a call centre &mdash;
+        will call you within one working day to fix a time for your free site visit.
+      </p>
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+             style="border-top:1px solid #E4E2DA;border-bottom:1px solid #E4E2DA;margin-bottom:20px">
+        ${row("Interested in", interest)}
+        ${row("We will call", mobile)}
+      </table>
+      <p style="margin:0;font-size:13px;line-height:1.6;color:#8A8D82">
+        If any of this is wrong, just reply to this email.
+      </p>`),
+  );
+}
