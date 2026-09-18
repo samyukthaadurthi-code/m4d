@@ -124,7 +124,7 @@ header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .3
 
 /* ---------------- hero ---------------- */
 .hero { position: relative; min-height: 90vh; display: flex; align-items: flex-end;
-  padding-block: clamp(5rem,12vw,8rem) clamp(2.5rem,5vw,4rem);
+  padding-block: clamp(1.25rem,2.5vw,2rem) clamp(2.5rem,5vw,4rem);   /* copy rides just under the header */
   background: linear-gradient(180deg, rgba(18,71,76,.76) 0%, rgba(18,71,76,.28) 32%, rgba(26,42,45,.78) 66%, rgba(26,42,45,.96) 100%); color: #fff; }
 .hero h1.display { color: #fff; max-width: 16ch; }
 .hero h1 em { font-style: normal; color: var(--teal-mid); }

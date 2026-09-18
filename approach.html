@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789721980">
+<link rel="stylesheet" href="mrc.css?v=1789744173">
 </head>
 <body>
 <button class="promo" type="button" data-enquire aria-label="Book a free site visit">
@@ -275,13 +275,12 @@
     nums.forEach(function (el) { nio.observe(el); });
   }
   // header tightens once the page is scrolled; hero image drifts slower than the page
-  var bg = document.querySelector('.hero-bg'), pros = document.querySelectorAll('.launch-pro, .roots'), ticking = false;
+  var pros = document.querySelectorAll('.launch-pro, .roots'), ticking = false;
   function onScroll() {
     if (ticking) return; ticking = true;
     requestAnimationFrame(function () {
       var y = window.scrollY;
       document.documentElement.classList.toggle('scrolled', y > 40);
-      if (bg && !reduce && y < window.innerHeight * 1.2) bg.style.transform = 'translateY(' + (y * 0.28).toFixed(1) + 'px)';
       if (!reduce) pros.forEach(function (pro) {
         var r = pro.getBoundingClientRect(), vh = window.innerHeight;
         pro.style.setProperty('--p', Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height))).toFixed(3));
