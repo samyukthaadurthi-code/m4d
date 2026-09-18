@@ -1004,18 +1004,21 @@ html.modal-open { overflow: hidden; }
 .pagehead.with-art .crumb { color: rgba(255,255,255,.6); letter-spacing: .22em; font-size: .78rem; text-transform: uppercase; }
 .pagehead.with-art .crumb a { color: rgba(255,255,255,.6); }
 .pagehead.with-art .rule { background: var(--gold); }
-.south-art { position: absolute; top: 0; bottom: 0; right: 0; width: 56%; z-index: 1; transform-style: preserve-3d; will-change: transform; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-drag: none; animation: artIn 1.4s var(--ease) .2s both;
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 18%); mask-image: linear-gradient(to right, transparent 0, #000 18%); }   /* melts into the copy side, like the home window */
+.south-art { position: absolute; top: 0; bottom: 0; right: 0; width: 60%; z-index: 1; transform-style: preserve-3d; will-change: transform; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-drag: none; animation: artIn 1.4s var(--ease) .2s both;
+  /* melts into the copy on the left and dissolves softly at the top and bottom, so the mass has no hard ends */
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16%), linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 16%), linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%); mask-composite: intersect; }
 .south-art:active { cursor: grabbing; }
-.south-art img { position: absolute; top: -6%; right: -6%; height: 112%; width: auto; max-width: none; -webkit-user-drag: none; pointer-events: none; }   /* a little larger than the box so the tilt never shows an edge */
+.south-art img { position: absolute; top: -12%; right: -4%; height: 124%; width: auto; max-width: none; -webkit-user-drag: none; pointer-events: none; }   /* a little larger than the box so the tilt never shows an edge */
 @keyframes artIn { from { opacity: 0; transform: translateX(40px) scale(1.04); } to { opacity: 1; transform: none; } }
 /* the Madurai card: the project poster as a framed print — white mount, MADURAI and the button set into the mount beneath it */
 .city-print { width: min(100%, 560px); margin: 2.6rem auto 0; padding: clamp(1.1rem, 2.2vw, 1.8rem); background: #fff; border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow-md); }
 .city-print > a { display: block; }
-.city-print img { display: block; width: 100%; height: auto; transition: transform .5s var(--ease); }
+.city-print img { display: block; width: 100%; height: auto; border-radius: var(--r-sm); transition: transform .5s var(--ease); }
 .city-print > a:hover img { transform: scale(1.01); }
 .city-print figcaption { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.1rem .4rem .2rem; }
 .city-print .place { font-family: var(--font-d); font-weight: 600; font-size: 1.05rem; letter-spacing: .34em; text-transform: uppercase; color: var(--gold); padding-left: .34em; }
+.city-print figcaption .btn { font-family: var(--font-d); font-weight: 600; font-size: 1.05rem; letter-spacing: .22em; text-transform: uppercase; padding: .8rem 1.5rem; }   /* the button speaks in the same voice as MADURAI */
 .lm { list-style: none; margin: 0; padding: 0; }
 .lm li { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 0; font-size: .92rem; }
 .lm li b { color: var(--gold); font-weight: 600; white-space: nowrap; }
