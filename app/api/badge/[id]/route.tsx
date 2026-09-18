@@ -157,7 +157,7 @@ export async function GET(
             >
               UNIQUE ID
             </div>
-            <div style={{ fontSize: 46, fontWeight: 700, letterSpacing: 6, marginTop: 6 }}>
+            <div style={{ fontSize: 58, fontWeight: 700, letterSpacing: 7, marginTop: 6 }}>
               {id}
             </div>
           </div>
