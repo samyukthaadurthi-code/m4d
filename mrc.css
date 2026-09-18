@@ -1009,7 +1009,7 @@ html.modal-open { overflow: hidden; }
 #headMap, #cityMap { position: absolute; inset: 0; background: var(--teal-deep); cursor: grab; }
 #headMap:active, #cityMap:active { cursor: grabbing; }
 /* the grey canvas tiles are re-coloured into the palette: land teal, water the deep teal of the section */
-.head-map .leaflet-tile-pane, .city-map .leaflet-tile-pane { filter: brightness(1.15) sepia(1) hue-rotate(128deg) saturate(1.9) contrast(1.05); }
+.head-map .leaflet-tile-pane, .city-map .leaflet-tile-pane { filter: brightness(1.6) sepia(1) hue-rotate(128deg) saturate(1.6) contrast(1.05); }
 .head-map::after, .city-map::after { content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none; background: rgba(18,71,76,.22); mix-blend-mode: multiply; }
 .leaflet-container { font-family: var(--font-b); }
 .mpin { position: relative; display: block; width: 0; height: 0; }

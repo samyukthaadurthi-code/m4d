@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789757834">
+<link rel="stylesheet" href="mrc.css?v=1789757883">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </head>
 <body>
@@ -333,14 +333,14 @@
 (function () {
   if (!window.L) return;
   var P = [9.964539, 78.193672], LM = [{"name": "Ring Road, Othakadai", "lat": 9.96, "lng": 78.178, "km": 1.8}, {"name": "Mattuthavani bus stand", "lat": 9.9457, "lng": 78.1616, "km": 4.1}, {"name": "Meenakshi Amman Temple", "lat": 9.9195, "lng": 78.1193, "km": 9.6}, {"name": "Madurai Junction", "lat": 9.9184, "lng": 78.114, "km": 10.1}, {"name": "Madurai Airport", "lat": 9.8345, "lng": 78.0934, "km": 18.2}];
-  var BASE = 'https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';   /* land, water, roads — no names */
+  var BASE = 'https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', OPT = { subdomains: 'abcd', maxZoom: 19 };   /* land, water, roads — not one name */
   function pin(cls, html) { return L.divIcon({ className: '', iconSize: [1, 1], html: '<span class="' + cls + '">' + (html || '') + '</span>' }); }
   // head: the South, inland (the sea stays off the right edge); drag and pinch move it, the wheel is the page's
   var h = document.getElementById('headMap');
   if (h) {
     var land = L.latLngBounds([[8.9, 76.7], [10.9, 78.85]]);
     var head = L.map(h, { zoomControl: false, attributionControl: false, scrollWheelZoom: false, minZoom: 8, maxZoom: 11, maxBounds: land.pad(.05), maxBoundsViscosity: .8, inertia: true });
-    L.tileLayer(BASE, { maxZoom: 16 }).addTo(head);
+    L.tileLayer(BASE, OPT).addTo(head);
     head.setView([9.98, 77.9], 8.6);
     L.marker(P, { icon: pin('mpin live', '<i></i><em>ANANTAA &middot; Madurai</em>'), interactive: false }).addTo(head);
     var idle;
@@ -351,7 +351,7 @@
   var c = document.getElementById('cityMap');
   if (c) {
     var city = L.map(c, { zoomControl: false, attributionControl: false, scrollWheelZoom: false, minZoom: 10, maxZoom: 14 });
-    L.tileLayer(BASE, { maxZoom: 16 }).addTo(city);
+    L.tileLayer(BASE, OPT).addTo(city);
     L.marker(P, { icon: pin('mpin live', '<i></i><em>ANANTAA</em>'), interactive: false }).addTo(city);
     var marks = LM.map(function (l) { return L.marker([l.lat, l.lng], { icon: pin('mpin', '<i></i><em>' + l.name + '</em>'), interactive: false }).addTo(city); });
     var line = L.polyline([], { color: '#C4A97D', weight: 2, dashArray: '4 6', opacity: .9 }).addTo(city);
