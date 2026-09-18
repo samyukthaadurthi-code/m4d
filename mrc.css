@@ -37,6 +37,8 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
+html, body { overflow-x: hidden; }
+@supports (overflow: clip) { html, body { overflow-x: clip; } }   /* clip, not hidden: keeps the sticky header working everywhere */
 body { font-family: var(--font-b); font-size: 16px; line-height: 1.7; color: var(--text-body); background: var(--bg); -webkit-font-smoothing: antialiased; }
 img { max-width: 100%; display: block; }
 a { color: inherit; text-decoration: none; }
@@ -556,7 +558,7 @@ html:not(.js) .launch-pro .intro > *, html:not(.js) .launch-pro .intro .ch { opa
 .hero .eyebrow, .hero p.sub, .launch-pro .intro .tag, .launch-pro .intro .when { text-shadow: 0 1px 2px rgba(0,0,0,.22); }
 
 /* ---- roots: the collage behind an arch window that pans with the scroll; copy beside it ---- */
-.roots { background: var(--bg); --p: 0; }
+.roots { background: var(--bg); --p: 0; overflow-x: clip; }
 .roots-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
 .roots-window { position: relative; aspect-ratio: 1 / 1; --arch: 50% 50% var(--r) var(--r) / 42% 42% var(--r) var(--r); }
 /* a thin gold ring set just outside the arch */
@@ -960,22 +962,25 @@ html.modal-open { overflow: hidden; }
   .closing .hero-cta .btn, .launch-pro .hero-cta .btn { width: auto; }            /* centred sections keep their natural width */
 }
 
-/* ---- phones: the two animated scenes are shown whole, not cropped. Copy sits on teal above the picture,
-   the picture keeps the render's own aspect ratio at full width, so the hill rise / gate rise play in full. ---- */
+/* ---- phones: the two animated scenes come first and are shown whole. The picture is a 4:3 window on the render that keeps
+   the hill / the gate fully in frame (only empty sky at the sides is trimmed), so the rise plays in full on the first screen. ---- */
 @media (max-width: 760px) {
   .hero { display: flex; flex-direction: column; min-height: 0; padding: 0; background: var(--teal-deep); }
   .hero::before { display: none; }
-  .hero > .wrap { order: 1; margin: 0; padding-block: 1.6rem 1.4rem; gap: .6rem; }
-  .hero-bg { order: 2; position: relative; inset: auto; width: 100%; aspect-ratio: 2400 / 1340; }
+  .hero-bg { order: 1; position: relative; inset: auto; width: 100%; aspect-ratio: 4 / 3; }
   .hero-bg::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-    background: linear-gradient(180deg, var(--teal-deep) 0%, rgba(18,71,76,0) 18%, rgba(12,48,51,0) 78%, #0c3033 100%); }
-  .hero-stage { left: 0; top: 0; translate: 0 0; min-width: 0; min-height: 0; width: 100%; height: 100%; }
+    background: linear-gradient(180deg, rgba(12,48,51,0) 70%, var(--teal-deep) 100%); }
+  .hero-stage { top: 0; left: -22.8%; translate: 0 0; min-width: 0; min-height: 0; height: 100%; width: 134%; }   /* window 17%→92% of the render: the whole hill */
+  .hero > .wrap { order: 2; margin: 0; padding-block: 1.4rem 1.4rem; gap: .6rem; }
+  .hero h1.display { font-size: 2.5rem; }
+  .hero p.sub { margin-top: 1rem; font-size: 1.02rem; }
+  .hero-cta { margin-top: 1.4rem; }
   .hero > .marquee { order: 3; margin-top: 0; }
   .hero-trust { background: #0c3033; }
 
   .launch-pro { display: flex; flex-direction: column; aspect-ratio: auto; min-height: 0; max-height: none; }
-  .launch-pro .intro { order: 1; padding-block: 1.8rem 1.4rem; }
-  .launch-pro .scene { order: 2; position: relative; inset: auto; width: 100%; aspect-ratio: 2200 / 1227; }
-  .launch-pro .stage { left: 0; bottom: 0; translate: 0 0; min-width: 0; min-height: 0; width: 100%; height: 100%; }
+  .launch-pro .intro { order: 1; padding-block: 1.8rem 1.2rem; }
+  .launch-pro .scene { order: 2; position: relative; inset: auto; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; }
+  .launch-pro .stage { bottom: 0; left: -20%; translate: 0 0; min-width: 0; min-height: 0; height: 100%; width: 134%; }   /* window 15%→90%: both pillars of the gate */
   .launch-pro .scene::before { height: 30%; }
 }
