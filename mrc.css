@@ -965,7 +965,7 @@ html.modal-open { overflow: hidden; }
 @media (max-width: 760px) {
   .hero { display: flex; flex-direction: column; min-height: 0; padding: 0; background: var(--teal-deep); }
   .hero::before { display: none; }
-  .hero > .wrap { order: 1; margin: 0; padding-block: 1.6rem 1.4rem; }
+  .hero > .wrap { order: 1; margin: 0; padding-block: 1.6rem 1.4rem; gap: .6rem; }
   .hero-bg { order: 2; position: relative; inset: auto; width: 100%; aspect-ratio: 2400 / 1340; }
   .hero-bg::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
     background: linear-gradient(180deg, var(--teal-deep) 0%, rgba(18,71,76,0) 18%, rgba(12,48,51,0) 78%, #0c3033 100%); }
