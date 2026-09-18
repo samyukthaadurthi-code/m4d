@@ -998,12 +998,12 @@ html.modal-open { overflow: hidden; }
 
 /* ---- Projects: the South as a collage in the shape of the region fills the right of the head; the collage answers the
    pointer (tilt), the scroll (drift) and a finger (push). The city section is one card: Madurai. ---- */
-.pagehead.with-art { position: relative; overflow: hidden; background: #14444b; min-height: clamp(520px, 62vh, 700px); display: flex; align-items: center; perspective: 1200px; }
+.pagehead.with-art { position: relative; overflow: hidden; background: #14444b; min-height: 0; padding-block: clamp(1.5rem, 3vw, 2.5rem); display: flex; align-items: center; perspective: 1200px; }
 .pagehead.with-art > .wrap { position: relative; z-index: 2; width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 2rem; }
 .pagehead.with-art .crumb { color: rgba(255,255,255,.6); letter-spacing: .22em; font-size: .78rem; text-transform: uppercase; }
 .pagehead.with-art .crumb a { color: rgba(255,255,255,.6); }
 .pagehead.with-art .rule { background: var(--gold); }
-.south-art { position: relative; justify-self: end; width: min(100%, 520px); transform-style: preserve-3d; will-change: transform; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-drag: none; animation: artIn 1.4s var(--ease) .2s both; }
+.south-art { position: relative; justify-self: end; width: min(100%, 360px); transform-style: preserve-3d; will-change: transform; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-drag: none; animation: artIn 1.4s var(--ease) .2s both; }
 .south-art:active { cursor: grabbing; }
 .south-art img { display: block; width: 100%; height: auto; -webkit-user-drag: none; pointer-events: none;
   /* feathered edges: the artwork's own teal melts into the section, so no rectangle shows */
@@ -1024,6 +1024,6 @@ html.modal-open { overflow: hidden; }
 @media (max-width: 860px) {
   .pagehead.with-art { min-height: 0; }
   .pagehead.with-art > .wrap { grid-template-columns: 1fr; gap: 1.2rem; }
-  .south-art { justify-self: center; width: min(100%, 360px); order: -1; }
+  .south-art { justify-self: center; width: min(78%, 300px); order: -1; }
   .citycard.city-live { grid-template-columns: 1fr; gap: 1.4rem; }
 }
