@@ -34,8 +34,12 @@ async function safeSend(
       body: JSON.stringify({
         from: process.env.EMAIL_FROM,
         to: [to],
+        // A real mailbox to reply to, and a plain-text part: HTML-only mail from
+        // a young domain is what tips Gmail into the spam folder.
+        reply_to: (process.env.SALES_LEAD_EMAIL || "").split(",")[0].trim() || undefined,
         subject,
         html,
+        text: html.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<a [^>]*href="([^"]+)"[^>]*>([^<]*)<\/a>/g, "$2: $1").replace(/<[^>]+>/g, " ").replace(/&mdash;/g, "—").replace(/&nbsp;/g, " ").replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n").trim(),
       }),
     });
     if (!res.ok) {
@@ -197,15 +201,16 @@ export function sendCpApprovedEmail(to: string, name: string, cpId: string, logi
   return safeSend(
     "cp approved",
     to,
-    "You are an MRC Landmarks Channel Partner",
+    `Your partner application ${cpId} is approved`,
     wrap(`
-      <p style="margin:0 0 14px;font-size:17px;font-weight:bold">Welcome aboard, ${name}.</p>
+      <p style="margin:0 0 14px;font-size:17px;font-weight:bold">Approved, ${name}.</p>
       <p style="margin:0 0 20px;font-size:14px;line-height:1.6;color:#4A5450">
-        Your Channel Partner application is approved. Your partner resource centre —
-        the project file, brochure and creatives — is open now. Sign in with your
-        partner ID <strong>${cpId}</strong> and the mobile number you registered with.
+        The MRC partnerships team has approved your Channel Partner application.
+        Your resource centre (project file, brochure and creatives) is open.
+        Sign in with your partner ID <strong>${cpId}</strong> and the mobile number you registered with.
       </p>
-      <p style="margin:0 0 24px">${button(loginUrl, "Open the resource centre")}</p>
+      <p style="margin:0 0 12px">${button(loginUrl, "Sign in to the resource centre")}</p>
+      <p style="margin:0 0 24px;font-size:13px;color:#8A8D82">Or open this address: ${loginUrl}</p>
       <p style="margin:0;font-size:13px;line-height:1.6;color:#8A8D82">
         Every buyer you introduce is tracked to ${cpId}. Reply to this email to reach the partnerships team.
       </p>`),
