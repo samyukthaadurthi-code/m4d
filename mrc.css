@@ -920,3 +920,30 @@ html.modal-open { overflow: hidden; }
 .enq .btn { justify-self: start; margin-top: .3rem; }
 .enq-done .display { font-size: 1.8rem; margin-top: 1rem; }
 .enq-done p + p { margin-top: .6rem; color: var(--text-muted); }
+
+/* ---- Forum: its own devices — captioned photo, a three-beat timeline on teal, diamond list ---- */
+.forum-split { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
+.forum-split.rev { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+.forum-photo { position: relative; margin: 0; }
+.forum-photo img { width: 100%; height: auto; display: block; border-radius: var(--r); box-shadow: var(--shadow-lg); }
+.forum-photo figcaption { position: absolute; left: 1.2rem; bottom: -1rem; padding: .6rem 1rem; border-radius: 999px; background: var(--teal-deep); color: rgba(255,255,255,.9); font-size: .78rem; letter-spacing: .04em; box-shadow: 0 10px 30px rgba(18,71,76,.3); border: 1px solid rgba(196,169,125,.5); }
+.rhythm { background: linear-gradient(160deg, var(--teal-deep), #0c3033); color: rgba(255,255,255,.82); }
+.rhythm .eyebrow { color: var(--gold); }
+.rhythm .display { color: #fff; text-shadow: 0 2px 2px rgba(0,0,0,.35), 0 5px 10px rgba(0,0,0,.25); }
+.beats { list-style: none; margin: 3rem 0 0; padding: 2.2rem 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(1.5rem, 4vw, 3.5rem); position: relative; }
+.beats::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: linear-gradient(90deg, rgba(196,169,125,.1), rgba(196,169,125,.7) 20%, rgba(196,169,125,.7) 80%, rgba(196,169,125,.1)); }
+.beats li { position: relative; }
+.beats li i { position: absolute; top: -2.2rem; left: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 6px rgba(196,169,125,.18); translate: 0 -50%; }
+.beats strong { display: block; font-family: var(--font-d); font-size: 1.5rem; color: #fff; margin-bottom: .6rem; }
+.beats p { font-size: .96rem; line-height: 1.65; }
+.gets { list-style: none; margin: 1.6rem 0 0; padding: 0; display: grid; gap: .9rem; }
+.gets li { position: relative; padding-left: 1.6rem; line-height: 1.6; }
+.gets li::before { content: ""; position: absolute; left: 0; top: .62em; width: 9px; height: 9px; background: var(--gold); rotate: 45deg; }
+@media (max-width: 860px) {
+  .forum-split, .forum-split.rev { grid-template-columns: 1fr; }
+  .forum-split.rev .forum-photo { order: 2; }
+  .beats { grid-template-columns: 1fr; gap: 2.4rem; padding-top: 0; }
+  .beats::before { display: none; }
+  .beats li { padding-left: 1.8rem; }
+  .beats li i { top: .55em; left: 0; translate: 0 0; }
+}
