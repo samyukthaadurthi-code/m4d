@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789757995">
+<link rel="stylesheet" href="mrc.css?v=1789758046">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </head>
 <body>
@@ -341,11 +341,12 @@
     var land = L.latLngBounds([[8.9, 76.7], [10.9, 78.85]]);
     var head = L.map(h, { zoomControl: false, attributionControl: false, scrollWheelZoom: false, minZoom: 8, maxZoom: 11, maxBounds: land.pad(.05), maxBoundsViscosity: .8, inertia: true });
     L.tileLayer(BASE, OPT).addTo(head);
-    head.setView([9.98, 77.9], 8.6);
+    var HOME_VIEW = window.innerWidth < 860 ? [[9.96, 77.98], 8.2] : [[9.98, 77.9], 8.6];   /* phones: the pin and its label sit inside the narrower window */
+    head.setView(HOME_VIEW[0], HOME_VIEW[1]);
     L.marker(P, { icon: pin('mpin live', '<i></i><em>ANANTAA &middot; Madurai</em>'), interactive: false }).addTo(head);
     var idle;
     head.on('movestart', function () { clearTimeout(idle); });
-    head.on('moveend', function () { clearTimeout(idle); idle = setTimeout(function () { head.flyTo([9.98, 77.9], 8.6, { duration: 1.8 }); }, 8000); });
+    head.on('moveend', function () { clearTimeout(idle); idle = setTimeout(function () { head.flyTo(HOME_VIEW[0], HOME_VIEW[1], { duration: 1.8 }); }, 8000); });
   }
   // city: where the plot sits in Madurai; hovering a landmark lights it and draws the line
   var c = document.getElementById('cityMap');
