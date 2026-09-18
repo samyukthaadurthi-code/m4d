@@ -182,9 +182,6 @@ export async function GET(
               {areas.length > 52 ? `${areas.slice(0, 52)}…` : areas}
             </div>
           </div>
-          <div style={{ fontSize: 16, letterSpacing: 2, opacity: 0.8 }}>
-            VERIFY AT MRC DESK
-          </div>
         </div>
       </div>
     ),
