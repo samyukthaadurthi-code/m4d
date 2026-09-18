@@ -372,8 +372,9 @@ footer.site .about { font-size: .93rem; max-width: 42ch; margin-top: 1.2rem; }
 
 /* ---------------- mobile nav ---------------- */
 .mobile-nav {
-  display: none; background: var(--white); border-bottom: 1px solid var(--border);
-  box-shadow: var(--shadow-md);
+  display: none; position: absolute; left: 0; right: 0; top: 100%; z-index: 49;   /* hangs off the sticky header: opens wherever you are */
+  background: var(--white); border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-md); max-height: calc(100vh - 100%); overflow-y: auto;
 }
 .mobile-nav.open { display: block; }
 .mobile-nav .wrap { display: flex; flex-direction: column; gap: .2rem; padding-block: 1rem 1.4rem; }
