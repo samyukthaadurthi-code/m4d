@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { appendRow, ensureSheet, findById, sheetsConfigured } from "@/lib/sheets";
 import { CP_COLUMNS, CP_FIELDS, SHEETS } from "@/lib/schema";
-import { notifySales } from "@/lib/email-lead";
+import { notifyPartners } from "@/lib/email-lead";
 import { sendCpReceivedEmail } from "@/lib/email";
 import { origin } from "@/lib/origin";
 import { approveToken } from "@/lib/approve";
@@ -73,7 +73,7 @@ export async function POST(req: Request) {
 
   const base = origin(req);
   await Promise.all([
-    notifySales(`Channel partner application ${uniqueId}: ${meta.full_name}`, {
+    notifyPartners(`Channel partner application ${uniqueId}: ${meta.full_name}`, {
       ID: uniqueId, Name: meta.full_name, Mobile: meta.mobile, Email: registration.email ?? "", ...values,
       "Approve": `${base}/api/cp/approve?id=${encodeURIComponent(uniqueId)}&t=${approveToken(uniqueId)}`,
     }),

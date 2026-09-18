@@ -1,12 +1,11 @@
-import { emailConfigured } from "@/lib/email";
+import { emailConfigured, partnerDesk, salesDesk } from "@/lib/email";
 
 /**
  * Sales-team alert: one plain table of facts per event, to every address in
  * SALES_LEAD_EMAIL (comma-separated). Reply-To is the same list so a rep can
  * answer straight from the alert. Fire-and-forget — never blocks the save.
  */
-export async function notifySales(subject: string, fields: Record<string, string>) {
-  const to = (process.env.SALES_LEAD_EMAIL || "").split(",").map((s) => s.trim()).filter(Boolean);
+export async function notifySales(subject: string, fields: Record<string, string>, to = salesDesk()) {
   if (!to.length || !emailConfigured()) return;
   const rows = Object.entries(fields)
     .filter(([, v]) => v)
@@ -21,7 +20,7 @@ export async function notifySales(subject: string, fields: Record<string, string
         to,
         reply_to: to,
         subject,
-        html: `<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px"><p style="margin:0 0 12px;font-size:15px;color:#1A2A2D"><strong>${subject}</strong></p><table role="presentation" cellpadding="0" cellspacing="0" style="border-top:1px solid #E4E2DA;border-bottom:1px solid #E4E2DA;width:100%">${rows}</table><p style="margin:12px 0 0;font-size:12px;color:#8A8D82">Sent automatically by the MRC Landmarks website. Reply to this email to reach the sales desk.</p></div>`,
+        html: `<div style="font-family:Arial,Helvetica,sans-serif;max-width:560px"><p style="margin:0 0 12px;font-size:15px;color:#1A2A2D"><strong>${subject}</strong></p><table role="presentation" cellpadding="0" cellspacing="0" style="border-top:1px solid #E4E2DA;border-bottom:1px solid #E4E2DA;width:100%">${rows}</table><p style="margin:12px 0 0;font-size:12px;color:#8A8D82">Sent automatically by the MRC Landmarks website.</p></div>`,
       }),
     });
     if (!res.ok) console.error("[sales alert] failed:", res.status, (await res.text()).slice(0, 200));
@@ -33,3 +32,7 @@ export async function notifySales(subject: string, fields: Record<string, string
 /** Kept for the enquiry route's existing import. */
 export const sendEnquiryAlertEmail = (summary: string, fields: Record<string, string>) =>
   notifySales(`New website enquiry: ${summary}`, fields);
+
+/** Channel-partner events go to the partner desk, not the sales desk. */
+export const notifyPartners = (subject: string, fields: Record<string, string>) =>
+  notifySales(subject, fields, partnerDesk());

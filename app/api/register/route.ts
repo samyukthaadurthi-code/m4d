@@ -3,7 +3,7 @@ import { appendRow, findBy, setCell, sheetsConfigured } from "@/lib/sheets";
 import { REGISTRATION_COLUMNS, REGISTRATION_FIELDS, SHEETS } from "@/lib/schema";
 import { sendBadge, sendCpFormLink } from "@/lib/whatsapp";
 import { sendBadgeEmail, sendCpFormLinkEmail } from "@/lib/email";
-import { notifySales } from "@/lib/email-lead";
+import { notifyPartners } from "@/lib/email-lead";
 import { t, type Lang } from "@/lib/i18n";
 import { origin } from "@/lib/origin";
 
@@ -37,7 +37,7 @@ async function notify(
   await Promise.allSettled([
     sendBadge(values.whatsapp, values.full_name, uniqueId, badgeUrl),
     sendBadgeEmail(values.email, values.full_name, uniqueId, badgeUrl, badgePage),
-    notifySales(`Event registration ${uniqueId}: ${values.full_name}`, {
+    notifyPartners(`Event registration ${uniqueId}: ${values.full_name}`, {
       ID: uniqueId, Name: values.full_name, Mobile: values.mobile, WhatsApp: values.whatsapp, Email: values.email,
       Type: values.partner_type, Organisation: values.organisation_name, Areas: values.operating_areas,
       "CP interested": values.cp_interested, Badge: badgePage,

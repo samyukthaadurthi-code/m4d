@@ -11,11 +11,18 @@ export function emailConfigured() {
   return Boolean(process.env.RESEND_API_KEY && process.env.EMAIL_FROM);
 }
 
+const list = (v: string | undefined) => (v || "").split(",").map((s) => s.trim()).filter(Boolean);
+/** Sales desk: enquiries and site visits. */
+export const salesDesk = () => list(process.env.SALES_LEAD_EMAIL);
+/** Partner desk: registrations, CP applications, approvals. Falls back to sales until PARTNER_LEAD_EMAIL is set. */
+export const partnerDesk = () => (list(process.env.PARTNER_LEAD_EMAIL).length ? list(process.env.PARTNER_LEAD_EMAIL) : salesDesk());
+
 async function safeSend(
   label: string,
   to: string,
   subject: string,
   html: string,
+  replyTo = salesDesk()[0],
 ) {
   if (!emailConfigured()) {
     console.warn(`[email] ${label} skipped — not configured`);
@@ -36,7 +43,7 @@ async function safeSend(
         to: [to],
         // A real mailbox to reply to, and a plain-text part: HTML-only mail from
         // a young domain is what tips Gmail into the spam folder.
-        reply_to: (process.env.SALES_LEAD_EMAIL || "").split(",")[0].trim() || undefined,
+        reply_to: replyTo || undefined,
         subject,
         html,
         text: html.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<a [^>]*href="([^"]+)"[^>]*>([^<]*)<\/a>/g, "$2: $1").replace(/<[^>]+>/g, " ").replace(/&mdash;/g, "—").replace(/&nbsp;/g, " ").replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n").trim(),
@@ -101,6 +108,7 @@ export function sendBadgeEmail(
         Keep this email — you will need your ID for site visits and to open the
         partner resource centre.
       </p>`),
+    partnerDesk()[0],
   );
 }
 
@@ -116,6 +124,7 @@ export function sendCpFormLinkEmail(to: string, fullName: string, link: string) 
         form takes under a minute.
       </p>
       ${button(link, "Complete my application")}`),
+    partnerDesk()[0],
   );
 }
 
@@ -194,6 +203,7 @@ export function sendCpReceivedEmail(to: string, name: string, cpId: string) {
       <p style="margin:0;font-size:13px;line-height:1.6;color:#8A8D82">
         Questions in the meantime? Just reply to this email.
       </p>`),
+    partnerDesk()[0],
   );
 }
 
@@ -214,5 +224,6 @@ export function sendCpApprovedEmail(to: string, name: string, cpId: string, logi
       <p style="margin:0;font-size:13px;line-height:1.6;color:#8A8D82">
         Every buyer you introduce is tracked to ${cpId}. Reply to this email to reach the partnerships team.
       </p>`),
+    partnerDesk()[0],
   );
 }
