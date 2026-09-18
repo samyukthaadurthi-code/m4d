@@ -1009,20 +1009,28 @@ html.modal-open { overflow: hidden; }
 .south-art:active { cursor: grabbing; }
 .south-art img { position: absolute; top: -6%; right: -6%; height: 112%; width: auto; max-width: none; -webkit-user-drag: none; pointer-events: none; }   /* a little larger than the box so the tilt never shows an edge */
 @keyframes artIn { from { opacity: 0; transform: translateX(40px) scale(1.04); } to { opacity: 1; transform: none; } }
-.citycard.city-live { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(1.5rem, 4vw, 3.5rem); margin-top: 2.6rem; padding: clamp(1.6rem, 3vw, 2.4rem); background: var(--teal-deep); color: rgba(255,255,255,.82); border-color: transparent; }
-.citycard.city-live > div { display: flex; flex-direction: column; }
-.citycard.city-live .st { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
-.citycard.city-live h3 { color: #fff; margin-top: .4rem; font-size: 1.9rem; }
-.citycard.city-live .meta { color: rgba(255,255,255,.7); }
-.citycard.city-live p { margin-top: 1rem; font-size: .96rem; line-height: 1.6; }
-.citycard.city-live .go { margin-top: auto; padding-top: 1.2rem; color: var(--gold); }
-.lm { list-style: none; margin: 0; padding: 0; border-top: 1px solid rgba(255,255,255,.14); }
-.lm li { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 0; border-bottom: 1px solid rgba(255,255,255,.14); font-size: .92rem; }
+/* the Madurai card: a framed print of the project poster inside a white box, its button under the poster's MADURAI, details beside */
+.city-print { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; margin-top: 2.6rem;
+  padding: clamp(1.6rem, 3vw, 2.8rem); background: #fff; border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow-md); }
+.print { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 1.2rem; padding: clamp(.8rem, 1.5vw, 1.4rem) clamp(.8rem, 1.5vw, 1.4rem) 0; }
+.print > a:first-child { display: block; width: 100%; }
+.print img { display: block; width: 100%; height: auto; box-shadow: 0 18px 44px rgba(18,71,76,.18); transition: transform .5s var(--ease), box-shadow .5s; }
+.print > a:first-child:hover img { transform: translateY(-4px); box-shadow: 0 26px 54px rgba(18,71,76,.24); }
+.print-copy { color: var(--text-body); }
+.print-copy .st { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.print-copy h3 { color: var(--text); margin-top: .4rem; font-size: clamp(1.8rem, 2.6vw, 2.3rem); }
+.print-copy .meta { color: var(--text-muted, #6b7370); margin-top: .3rem; }
+.print-copy p { margin-top: 1rem; font-size: .98rem; line-height: 1.65; }
+.print-copy .lm { margin-top: 1.5rem; border-top: 1px solid var(--border); }
+.print-copy .lm li { border-bottom: 1px solid var(--border); }
+.print-copy small { display: block; margin-top: .8rem; font-size: .74rem; color: #8a8d82; }
+.lm { list-style: none; margin: 0; padding: 0; }
+.lm li { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 0; font-size: .92rem; }
 .lm li b { color: var(--gold); font-weight: 600; white-space: nowrap; }
-.citycard.city-live small { display: block; margin-top: .8rem; font-size: .74rem; color: rgba(255,255,255,.5); }
 @media (max-width: 860px) {
   .pagehead.with-art { min-height: 0; display: block; padding-top: 0; }
   .pagehead.with-art .head-copy { max-width: none; }
   .south-art { position: relative; width: 100%; height: 72vw; margin-bottom: 1.4rem; overflow: hidden; -webkit-mask-image: linear-gradient(to top, transparent 0, #000 16%); mask-image: linear-gradient(to top, transparent 0, #000 16%); }
-  .citycard.city-live { grid-template-columns: 1fr; gap: 1.4rem; }
+  .city-print { grid-template-columns: 1fr; gap: 1.6rem; padding: 1.2rem; }
+  .print { padding: 0; }
 }
