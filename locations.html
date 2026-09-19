@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789806377">
+<link rel="stylesheet" href="mrc.css?v=1789809431">
 </head>
 <body>
 <button class="promo" type="button" data-enquire aria-label="Book a free site visit">
@@ -65,13 +65,32 @@
       <p class="eyebrow reveal">Cities</p>
       <div class="rule reveal"></div>
       <h2 class="display reveal">Where MRC builds.</h2>
-      <figure class="city-print reveal">
-        <a href="project-anantaa.html"><img src="anantaa-poster.jpg" alt="ANANTAA, Madurai &mdash; the project gate in front of the wordmark" width="1000" height="1090" loading="lazy"></a>
-        <figcaption>
-          <span class="place">Madurai</span>
-          <a class="btn btn-gold" href="project-anantaa.html">View ANANTAA &rarr;</a>
-        </figcaption>
-      </figure>
+      <div class="city-cards">
+        <figure class="city-print reveal" id="cityMadurai">
+          <div class="poster"><span class="word" aria-hidden="true">MADURAI</span><img class="art city" src="city-madurai.png" alt="Meenakshi Amman Temple gopuram, Madurai" width="640" height="920"></div>
+          <figcaption>
+            <div><span class="place">Madurai</span><small>1 project</small></div>
+            <button class="btn btn-gold" type="button" data-open-project>View project &rarr;</button>
+          </figcaption>
+        </figure>
+        <figure class="city-print project" id="projectAnantaa" hidden>
+          <div class="poster"><span class="word" aria-hidden="true">ANANTAA</span><img class="art gate" src="anantaa-gate-sprite.webp" alt="ANANTAA entrance gate" width="1379" height="770"></div>
+          <figcaption>
+            <div><span class="place">ANANTAA</span><small>Othakadai &middot; 50 residential plots</small></div>
+            <a class="btn btn-gold" href="project-anantaa.html">View project &rarr;</a>
+          </figcaption>
+        </figure>
+      </div>
+      <script>
+      (function () {
+        var b = document.querySelector('[data-open-project]'), p = document.getElementById('projectAnantaa');
+        b.addEventListener('click', function () {
+          if (!p.hidden) { p.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+          p.hidden = false; p.classList.add('in'); b.textContent = 'Project shown \u2193';
+          setTimeout(function () { p.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' }); }, 60);
+        });
+      })();
+      </script>
     </div>
   </section>
 

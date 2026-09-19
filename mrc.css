@@ -1028,14 +1028,23 @@ html.modal-open { overflow: hidden; }
 .south-art:active { cursor: grabbing; }
 .south-art img { position: absolute; top: -12%; left: 0; width: 100%; height: 124%; object-fit: cover; object-position: center; max-width: none; -webkit-user-drag: none; pointer-events: none; }   /* fills the panel edge to edge, so the fade on the left is the mask, never the picture's own edge */
 @keyframes artIn { from { opacity: 0; transform: translateX(40px) scale(1.04); } to { opacity: 1; transform: none; } }
-/* the Madurai card: the project poster as a framed print — white mount, MADURAI and the button set into the mount beneath it */
-.city-print { width: min(100%, 560px); margin: 2.6rem auto 0; padding: clamp(1.1rem, 2.2vw, 1.8rem); background: #fff; border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow-md); }
-.city-print > a { display: block; }
-.city-print img { display: block; width: 100%; height: auto; border-radius: var(--r-sm); transition: transform .5s var(--ease); }
-.city-print > a:hover img { transform: scale(1.01); }
+/* Projects: a city card (Madurai, its temple as a line icon) that reveals the project card beside it; both are framed prints
+   in the same format — teal square, the name behind in the display face, the element in front, name + button in the mount */
+.city-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 2.5rem); margin-top: 2.6rem; justify-content: center; }
+.city-cards:has(.project:not([hidden])) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.city-print { width: min(100%, 520px); margin: 0 auto; padding: clamp(1rem, 2vw, 1.4rem); background: #fff; border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow-md); }
+.city-print .poster { position: relative; aspect-ratio: 1; border-radius: var(--r-sm); overflow: hidden; background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(196,169,125,.16), transparent 70%), var(--teal-deep); display: grid; place-items: center; }
+.city-print .word { position: absolute; left: 50%; top: 50%; translate: -50% -50%; font-family: 'Cinzel', var(--font-d), serif; font-weight: 600; font-size: clamp(3.2rem, 9.5vw, 5.2rem); letter-spacing: .12em; color: var(--gold); opacity: .28; white-space: nowrap; pointer-events: none; }
+.city-print .art { position: relative; display: block; width: auto; height: auto; }
+.city-print .art.city { height: 72%; filter: drop-shadow(0 12px 30px rgba(0,0,0,.35)); }
+.city-print .art.gate { width: 92%; margin-top: 18%; filter: drop-shadow(0 20px 40px rgba(0,0,0,.45)); }
 .city-print figcaption { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.1rem .4rem .2rem; }
-.city-print .place { font-family: var(--font-d); font-weight: 600; font-size: 1.05rem; letter-spacing: .34em; text-transform: uppercase; color: var(--gold); padding-left: .34em; }
-.city-print figcaption .btn { font-family: var(--font-d); font-weight: 600; font-size: 1.05rem; letter-spacing: .22em; text-transform: uppercase; padding: .8rem 1.5rem; }   /* the button speaks in the same voice as MADURAI */
+.city-print .place { display: block; font-family: var(--font-d); font-weight: 600; font-size: 1.05rem; letter-spacing: .34em; text-transform: uppercase; color: var(--gold); padding-left: .34em; }
+.city-print figcaption small { display: block; margin-top: .2rem; padding-left: .34em; font-size: .78rem; color: var(--text-muted); letter-spacing: .04em; }
+.city-print figcaption .btn { font-family: var(--font-d); font-weight: 600; font-size: .9rem; letter-spacing: .16em; text-transform: uppercase; padding: .75rem 1.3rem; cursor: pointer; border: 0; white-space: nowrap; }
+.city-print.project { animation: riseIn .7s var(--ease) both; }
+.city-print[hidden] { display: none; }
+@media (max-width: 760px) { .city-cards:has(.project:not([hidden])) { grid-template-columns: 1fr; } .city-print figcaption { flex-direction: column; align-items: stretch; text-align: center; } .city-print figcaption small { padding-left: 0; } .city-print figcaption .btn { justify-content: center; text-align: center; } }
 .lm { list-style: none; margin: 0; padding: 0; }
 .lm li { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 0; font-size: .92rem; }
 .lm li b { color: var(--gold); font-weight: 600; white-space: nowrap; }
