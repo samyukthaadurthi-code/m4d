@@ -1031,19 +1031,16 @@ html.modal-open { overflow: hidden; }
 /* Projects: a city card (Madurai, its temple as a line icon) that reveals the project card beside it; both are framed prints
    in the same format — teal square, the name behind in the display face, the element in front, name + button in the mount */
 .city-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(1.5rem, 3vw, 2.5rem); margin-top: 2.6rem; justify-content: center; }
-.city-cards:has(.project:not([hidden])) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.city-print { width: min(100%, 520px); margin: 0 auto; padding: clamp(1rem, 2vw, 1.4rem); background: #fff; border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow-md); }
+.city-print { display: block; text-decoration: none; color: inherit; width: min(100%, 520px); margin: 0 auto; padding: clamp(1rem, 2vw, 1.4rem); background: #fff; border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow-md); }
 .city-print .poster { position: relative; aspect-ratio: 1; border-radius: var(--r-sm); overflow: hidden; background: radial-gradient(ellipse 70% 60% at 50% 100%, rgba(196,169,125,.16), transparent 70%), var(--teal-deep); display: grid; place-items: center; }
 .city-print .art { position: relative; display: block; width: auto; height: auto; }
-.city-print .art.city { height: 80%; filter: drop-shadow(0 22px 40px rgba(0,0,0,.45)); }
-.city-print .art.gate { width: 100%; height: auto; border-radius: 8px; box-shadow: 0 20px 44px rgba(0,0,0,.4); }   /* the whole render, letterboxed on the teal */
+.city-print .art.city { height: 80%; filter: drop-shadow(0 22px 40px rgba(0,0,0,.45)); transition: transform .6s var(--ease); }
+.city-print:hover .art.city { transform: scale(1.03); }
 .city-print figcaption { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.1rem .4rem .2rem; }
 .city-print .place { display: block; font-family: var(--font-d); font-weight: 600; font-size: 1.05rem; letter-spacing: .34em; text-transform: uppercase; color: var(--gold); padding-left: .34em; }
 .city-print figcaption small { display: block; margin-top: .2rem; padding-left: .34em; font-size: .78rem; color: var(--text-muted); letter-spacing: .04em; }
 .city-print figcaption .btn { font-family: var(--font-d); font-weight: 600; font-size: .9rem; letter-spacing: .16em; text-transform: uppercase; padding: .75rem 1.3rem; cursor: pointer; border: 0; white-space: nowrap; }
-.city-print.project { animation: riseIn .7s var(--ease) both; }
-.city-print[hidden] { display: none; }
-@media (max-width: 760px) { .city-cards:has(.project:not([hidden])) { grid-template-columns: 1fr; } .city-print figcaption { flex-direction: column; align-items: stretch; text-align: center; } .city-print figcaption small { padding-left: 0; } .city-print figcaption .btn { justify-content: center; text-align: center; } }
+@media (max-width: 760px) { .city-print figcaption { flex-direction: column; align-items: stretch; text-align: center; } .city-print figcaption small { padding-left: 0; } .city-print figcaption .btn { justify-content: center; text-align: center; } }
 .lm { list-style: none; margin: 0; padding: 0; }
 .lm li { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 0; font-size: .92rem; }
 .lm li b { color: var(--gold); font-weight: 600; white-space: nowrap; }
