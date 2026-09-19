@@ -9,7 +9,7 @@ import { MRC_KNOWLEDGE } from "@/lib/mrc-knowledge";
 export const runtime = "nodejs";
 export const OPTIONS = preflight;
 
-const MODEL = process.env.CHAT_MODEL || "anthropic/claude-haiku-4.5";
+const MODEL = process.env.CHAT_MODEL || "google/gemini-2.5-flash";   // clean Tamil, cheap; override with CHAT_MODEL
 const SYSTEM = `You are the MRC Landmarks assistant on mrclandmarks.com — a warm, precise member of the MRC team in Madurai.
 
 RULES
@@ -75,11 +75,11 @@ export async function POST(req: Request) {
     const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
       method: "POST",
       headers: { Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`, "Content-Type": "application/json", "HTTP-Referer": "https://mrclandmarks.com", "X-Title": "MRC Landmarks assistant" },
-      body: JSON.stringify({ model: MODEL, max_tokens: 400, temperature: 0.3, messages: [{ role: "system", content: SYSTEM + lead }, ...messages] }),
+      body: JSON.stringify({ model: MODEL, max_tokens: 700, temperature: 0.3, messages: [{ role: "system", content: SYSTEM + lead }, ...messages] }),
     });
     if (!res.ok) { console.error("[chat] upstream", res.status, (await res.text()).slice(0, 300)); return reply({ error: "The assistant is busy. Please try again, or WhatsApp us at +91 89259 72469." }, 502); }
     const data = await res.json();
-    const text: string = data?.choices?.[0]?.message?.content?.trim() || "I could not answer that just now. You can reach the team on +91 89259 72469.";
+    const text: string = (data?.choices?.[0]?.message?.content?.trim() || "I could not answer that just now. You can reach the team on +91 89259 72469.").replace(/\*\*/g, "").replace(/^#+\s*/gm, "");
     return reply({ reply: text });
   } catch (err) {
     console.error("[chat] failed:", err);
