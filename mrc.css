@@ -1010,7 +1010,10 @@ html.modal-open { overflow: hidden; }
 
 /* ---- Projects: the South as a collage fills the whole right of the head, edge to edge like the home collage window;
    it answers the pointer (tilt), the scroll (drift) and a finger (push). The city section is one card: Madurai. ---- */
-.pagehead.with-art { position: relative; overflow: hidden; background: #12474c; min-height: clamp(440px, 52vh, 560px); display: flex; align-items: center; perspective: 1200px; }
+.pagehead.with-art { position: relative; overflow: hidden; background: radial-gradient(ellipse 55% 75% at 88% 115%, rgba(196,169,125,.28), transparent 62%), #12474c; min-height: clamp(440px, 52vh, 560px); display: flex; align-items: center; perspective: 1200px; }
+.pagehead.with-art .crumb { color: var(--gold); letter-spacing: .22em; font-weight: 600; text-transform: uppercase; font-size: .78rem; }
+.pagehead.with-art .display { font-size: clamp(2.6rem, 5vw, 4.4rem); max-width: 16ch; text-shadow: 0 1px 2px rgba(0,0,0,.22); }
+.pagehead.with-art p { font-size: 1.12rem; }
 .pagehead.with-art > .wrap { position: relative; z-index: 2; width: 100%; }
 .pagehead.with-art .head-copy { max-width: 44%; }
 .pagehead.with-art .crumb { color: rgba(255,255,255,.6); letter-spacing: .22em; font-size: .78rem; text-transform: uppercase; }
