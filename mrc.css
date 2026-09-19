@@ -1023,10 +1023,10 @@ html.modal-open { overflow: hidden; }
 .pagehead.with-art .rule { background: var(--gold); }
 .south-art { position: absolute; top: 0; bottom: 0; right: 0; width: 60%; z-index: 1; transform-style: preserve-3d; will-change: transform; cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-drag: none; animation: artIn 1.4s var(--ease) .2s both;
   /* melts into the copy on the left and dissolves softly at the top and bottom, so the mass has no hard ends */
-  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 16%), linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
-  -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 16%), linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%); mask-composite: intersect; }
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 28%), linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%);
+  -webkit-mask-composite: source-in; mask-image: linear-gradient(to right, transparent 0, #000 28%), linear-gradient(to bottom, transparent 0, #000 12%, #000 88%, transparent 100%); mask-composite: intersect; }
 .south-art:active { cursor: grabbing; }
-.south-art img { position: absolute; top: -12%; right: -4%; height: 124%; width: auto; max-width: none; -webkit-user-drag: none; pointer-events: none; }   /* a little larger than the box so the tilt never shows an edge */
+.south-art img { position: absolute; top: -12%; left: 0; width: 100%; height: 124%; object-fit: cover; object-position: center; max-width: none; -webkit-user-drag: none; pointer-events: none; }   /* fills the panel edge to edge, so the fade on the left is the mask, never the picture's own edge */
 @keyframes artIn { from { opacity: 0; transform: translateX(40px) scale(1.04); } to { opacity: 1; transform: none; } }
 /* the Madurai card: the project poster as a framed print — white mount, MADURAI and the button set into the mount beneath it */
 .city-print { width: min(100%, 560px); margin: 2.6rem auto 0; padding: clamp(1.1rem, 2.2vw, 1.8rem); background: #fff; border: 1px solid var(--border); border-radius: var(--r); box-shadow: var(--shadow-md); }
