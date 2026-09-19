@@ -1071,13 +1071,13 @@ html.modal-open { overflow: hidden; }
 
 /* ---- master plan behind a blur until the visitor leaves a number (per session) ---- */
 .plan-gate { display: block; }   /* the <a> must be a block for the lock overlay and the clip to work */
-.plan-gate.locked img { filter: blur(30px) saturate(.7); transform: scale(1.08); transition: filter .8s var(--ease), transform .8s var(--ease); }
+.plan-gate.locked img { filter: blur(4px); transform: scale(1.02); transition: filter .8s var(--ease), transform .8s var(--ease); }   /* readable as a plan, not as numbers: the form opens it sharp */
 .plan-gate img { transition: filter .8s var(--ease), transform .8s var(--ease); }
 .plan-lock { display: none; }
-.plan-gate.locked .plan-lock { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .4rem; text-align: center; padding: 1.5rem; color: #fff; background: rgba(12,48,51,.35); cursor: pointer; }
+.plan-gate.locked .plan-lock { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .4rem; text-align: center; padding: 1.5rem; color: #fff; background: rgba(12,48,51,.18); cursor: pointer; }
 .plan-gate.locked .plan-lock b { display: inline-block; font-family: var(--font-d); font-size: clamp(1.1rem, 2vw, 1.4rem); background: var(--gold); color: var(--text); padding: .8rem 1.5rem; border-radius: var(--r-btn); box-shadow: 0 14px 36px rgba(0,0,0,.35); }
 .plan-gate.locked .plan-lock small { font-size: .82rem; color: rgba(255,255,255,.9); text-shadow: 0 1px 2px rgba(0,0,0,.4); }
-.plan-gate.locked .cap { filter: blur(4px); }
+.plan-gate.locked .cap { filter: none; }
 
 /* ---- side tab: an icon pinned to the right edge, mid-page; hover (or tap) slides out "Enquire Now"; the form has its own sheet ---- */
 .side-enquire { position: fixed; right: 0; top: 50%; translate: 0 -50%; z-index: 60; display: flex; align-items: center; height: 52px; padding: 0 0 0 0; border-radius: 14px 0 0 14px; background: var(--teal-deep); color: var(--gold); box-shadow: 0 10px 30px rgba(18,71,76,.3); overflow: hidden; transition: background .3s; }
