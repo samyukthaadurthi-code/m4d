@@ -20,7 +20,20 @@
   var QUICK = ['Where is ANANTAA?', 'What documents do you verify?', 'How do I become a channel partner?', 'How do I book a site visit?'];
 
   function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); }
-  function linkify(s) { return esc(s).replace(/https?:\/\/[^\s)]+/g, function (u) { var m = u.match(/^(.*?)([.,;:!?]*)$/), url = m[1], tail = m[2]; return '<a href="' + url + '" target="_blank" rel="noopener">' + url.replace(/^https?:\/\//, '') + '</a>' + tail; }).replace(/\n/g, '<br>'); }   /* a full stop after a link stays outside it */
+  var LABELS = [[/forms\.mrclandmarks\.com\/visit/, 'Book a site visit'], [/forms\.mrclandmarks\.com\/register/, 'Register for the launch event'], [/forms\.mrclandmarks\.com\/join/, 'Channel partner application'], [/forms\.mrclandmarks\.com\/partners/, 'Partner resource centre'], [/wa\.me\//, 'Chat on WhatsApp'], [/google\.com\/maps|maps\.app\.goo\.gl/, 'Open in Google Maps'], [/mrc-forum/, 'MRC Forum early access'], [/project-anantaa|projects\.html|locations\.html/, 'See ANANTAA'], [/approach\.html/, 'Our approach'], [/channel-partners/, 'Channel partners'], [/insight/, 'Knowledge Hub'], [/contact\.html/, 'Contact us'], [/mrclandmarks\.com/, 'mrclandmarks.com']];
+  function label(u) { for (var i = 0; i < LABELS.length; i++) if (LABELS[i][0].test(u)) return LABELS[i][1]; return u.replace(/^https?:\/\//, '').split('/')[0]; }
+  /* links become buttons under the message: markdown [text](url), full URLs, or bare forms.mrclandmarks.com/... paths */
+  function linkify(s) {
+    var links = [];
+    s = String(s).replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, function (_, t, u) { links.push(u); return t; });
+    s = s.replace(/\(?(?:https?:\/\/)?(?:forms\.mrclandmarks\.com|mrclandmarks\.com|www\.mrclandmarks\.com|wa\.me|maps\.app\.goo\.gl|www\.google\.com\/maps)[^\s)]*\)?/g, function (u) {
+      var tail = (u.match(/[.,;:!?]+$/) || [''])[0]; u = u.replace(/^\(|\)$/g, '').replace(/[.,;:!?]+$/, ''); links.push(/^https?:\/\//.test(u) ? u : 'https://' + u); return tail; });
+    s = s.replace(/\s+(?:at|via|on|here|here at|from|through)\s*:?\s*(?=[.,;!?]|$)/gm, '').replace(/:\s*(?=[.,;!?]|$)/gm, '').replace(/ +([.,;:!?])/g, '$1').replace(/\( *\)/g, '').replace(/[ \t]{2,}/g, ' ').replace(/^[ \t]+|[ \t]+$/gm, '').replace(/\n{3,}/g, '\n\n');
+    s = esc(s).replace(/\n/g, '<br>');
+    var seen = {}, btns = links.filter(function (u) { if (seen[u]) return false; seen[u] = true; return true; })
+      .map(function (u) { return '<a class="cta" href="' + esc(u) + '" target="_blank" rel="noopener">' + esc(label(u)) + '</a>'; }).join('');
+    return s + (btns ? '<div class="ctas">' + btns + '</div>' : '');
+  }
   function add(role, text, extra) { var d = document.createElement('div'); d.className = 'm ' + role + (extra ? ' ' + extra : ''); d.innerHTML = linkify(text); log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
   function typing(on) { var t = log.querySelector('.typing'); if (on && !t) { t = document.createElement('div'); t.className = 'm bot typing'; t.innerHTML = '<i></i><i></i><i></i>'; log.appendChild(t); log.scrollTop = log.scrollHeight; } if (!on && t) t.remove(); }
   function render() {
@@ -83,4 +96,14 @@
       .catch(function () { typing(false); add('bot', 'I could not reach the team just now. WhatsApp us at https://wa.me/918925972469'); });
   }
   form.addEventListener('submit', function (e) { e.preventDefault(); send(input.value); });
+  /* opens by itself once per session, 20 s after the visitor arrives, whatever page they came in on; closing it is final for the session */
+  var AUTO = 'mrc_chat_auto';
+  function seen() { try { return !!SS.getItem(AUTO); } catch (e) { return false; } }
+  function markSeen() { try { SS.setItem(AUTO, '1'); } catch (e) {} }
+  bubble.addEventListener('click', markSeen);
+  if (!seen()) setTimeout(function tryOpen() {
+    if (seen() || state.open) return;
+    if (document.documentElement.classList.contains('modal-open')) { setTimeout(tryOpen, 8000); return; }   /* a form is up: wait */
+    markSeen(); open();
+  }, 20000);
 })();
