@@ -1039,7 +1039,8 @@ html.modal-open { overflow: hidden; }
 }
 
 /* ---- project facts bar: five figures in one teal box, hung off the bottom of the head like a plaque ---- */
-.facts-wrap { position: relative; z-index: 3; margin-top: 2.2rem; }   /* sits inside the head, under the copy */
+.pagehead:has(.facts-wrap) { flex-direction: column; justify-content: flex-end; align-items: stretch; }   /* copy, then the plaque, stacked inside the head */
+.facts-wrap { position: relative; z-index: 3; margin-top: 2.2rem; }
 .pagehead .facts-note { color: rgba(255,255,255,.62); }
 .facts { display: grid; grid-template-columns: repeat(5, 1fr); background: var(--teal-deep); color: #fff; border-radius: var(--r); box-shadow: var(--shadow-lg); overflow: hidden; }
 .fact-cell { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .35rem; padding: 1.4rem 1rem 1.3rem; border-left: 1px solid rgba(255,255,255,.12); }
