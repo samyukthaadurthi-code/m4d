@@ -1039,7 +1039,8 @@ html.modal-open { overflow: hidden; }
 }
 
 /* ---- project facts bar: five figures in one teal box, hung off the bottom of the head like a plaque ---- */
-.facts-wrap { position: relative; z-index: 3; margin-top: -2.6rem; }
+.facts-wrap { position: relative; z-index: 3; margin-top: 2.2rem; }   /* sits inside the head, under the copy */
+.pagehead .facts-note { color: rgba(255,255,255,.62); }
 .facts { display: grid; grid-template-columns: repeat(5, 1fr); background: var(--teal-deep); color: #fff; border-radius: var(--r); box-shadow: var(--shadow-lg); overflow: hidden; }
 .fact-cell { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .35rem; padding: 1.4rem 1rem 1.3rem; border-left: 1px solid rgba(255,255,255,.12); }
 .fact-cell:first-child { border-left: 0; }
@@ -1059,3 +1060,17 @@ html.modal-open { overflow: hidden; }
 .plan-gate.locked .plan-lock b { display: inline-block; font-family: var(--font-d); font-size: clamp(1.1rem, 2vw, 1.4rem); background: var(--gold); color: var(--text); padding: .8rem 1.5rem; border-radius: var(--r-btn); box-shadow: 0 14px 36px rgba(0,0,0,.35); }
 .plan-gate.locked .plan-lock small { font-size: .82rem; color: rgba(255,255,255,.9); text-shadow: 0 1px 2px rgba(0,0,0,.4); }
 .plan-gate.locked .cap { filter: blur(4px); }
+
+/* ---- side tab: an icon pinned to the right edge, mid-page; hover (or tap) slides out "Enquire Now"; the form has its own sheet ---- */
+.side-enquire { position: fixed; right: 0; top: 50%; translate: 0 -50%; z-index: 60; display: flex; align-items: center; height: 52px; padding: 0 0 0 0; border-radius: 14px 0 0 14px; background: var(--teal); color: #fff; box-shadow: 0 10px 30px rgba(18,71,76,.3); overflow: hidden; transition: background .3s; }
+.side-enquire .ico { width: 52px; height: 52px; display: grid; place-items: center; flex-shrink: 0; }
+.side-enquire .lbl { max-width: 0; opacity: 0; white-space: nowrap; font-weight: 600; font-size: .9rem; letter-spacing: .02em; padding-right: 0; transition: max-width .4s var(--ease), opacity .3s, padding .4s var(--ease); }
+.side-enquire:hover, .side-enquire:focus-visible { background: var(--teal-deep); }
+.side-enquire:hover .lbl, .side-enquire:focus-visible .lbl { max-width: 160px; opacity: 1; padding-right: 1.1rem; }
+@media (hover: none) { .side-enquire .lbl { max-width: 160px; opacity: 1; padding-right: 1rem; } }   /* phones: always reads "Enquire Now" */
+.enq textarea { width: 100%; font: inherit; padding: .75rem .9rem; border: 1px solid var(--border); border-radius: var(--r-sm); background: #fff; resize: vertical; }
+/* ---- back to top: above the WhatsApp bubble, only once the page has been scrolled ---- */
+.to-top { position: fixed; right: clamp(1rem, 3vw, 1.8rem); bottom: calc(clamp(1rem, 3vw, 1.8rem) + 72px); z-index: 60; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--border); background: #fff; color: var(--text); display: grid; place-items: center; box-shadow: var(--shadow-md); cursor: pointer; opacity: 0; translate: 0 12px; pointer-events: none; transition: opacity .3s, translate .3s var(--ease), background .3s; }
+.to-top.show { opacity: 1; translate: 0 0; pointer-events: auto; }
+.to-top:hover { background: var(--teal); color: #fff; border-color: var(--teal); }
+@media (max-width: 760px) { .to-top { width: 44px; height: 44px; bottom: calc(1rem + 66px); } }

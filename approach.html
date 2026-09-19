@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1789798296">
+<link rel="stylesheet" href="mrc.css?v=1789798882">
 </head>
 <body>
 <button class="promo" type="button" data-enquire aria-label="Book a free site visit">
@@ -349,6 +349,55 @@
     });
     document.addEventListener('click', function (e) { if (nav.classList.contains('open') && !nav.contains(e.target) && !btn.contains(e.target)) { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); } });
   }
+})();
+</script>
+<a class="side-enquire" href="#enquire-now" aria-label="Enquire now"><span class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span><span class="lbl">Enquire Now</span></a>
+<button class="to-top" type="button" aria-label="Back to top"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 15 6-6 6 6"/></svg></button>
+<div class="modal" id="enquire-now" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="enqNowTitle">
+    <button class="modal-x" type="button" data-close aria-label="Close">&times;</button>
+    <p class="eyebrow" style="color:var(--gold)">Enquire now</p>
+    <h2 class="display" id="enqNowTitle">Tell us what you are looking for.</h2>
+    <p class="modal-lede">A plot, a partnership, a document you want to see &mdash; write it here and the MRC team will come back to you within one working day.</p>
+    <form class="enq" novalidate>
+      <label><span>Name</span><input name="name" autocomplete="name" required></label>
+      <label><span>Mobile number</span><input name="mobile" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit number" required></label>
+      <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+      <label><span>City <small>(optional)</small></span><input name="city" autocomplete="address-level2"></label>
+      <label><span>Your enquiry</span><textarea name="message" rows="3" placeholder="What would you like to know?"></textarea></label>
+      <label class="check"><input type="checkbox" name="consent" value="yes"><span>I agree that MRC Landmarks may call or message me about this enquiry.</span></label>
+      <p class="enq-error" hidden></p>
+      <button class="btn btn-gold" type="submit">Send enquiry</button>
+    </form>
+    <div class="enq-done" hidden><p class="display">Thank you.</p><p>We have your enquiry and have sent a confirmation to your email. Expect to hear from the MRC team within one working day.</p></div>
+  </div>
+</div>
+<script>
+(function () {
+  var m = document.getElementById('enquire-now'), f = m.querySelector('form.enq'), err = m.querySelector('.enq-error'), done = m.querySelector('.enq-done');
+  function open() { m.hidden = false; document.documentElement.classList.add('modal-open'); setTimeout(function () { m.querySelector('input').focus(); }, 50); }
+  function close() { m.hidden = true; document.documentElement.classList.remove('modal-open'); }
+  document.querySelector('.side-enquire').addEventListener('click', function (e) { e.preventDefault(); open(); });
+  m.querySelector('[data-close]').addEventListener('click', close);
+  m.addEventListener('click', function (e) { if (e.target === m) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !m.hidden) close(); });
+  f.addEventListener('submit', function (e) {
+    e.preventDefault(); err.hidden = true;
+    var d = new FormData(f), btn = f.querySelector('button[type=submit]');
+    var p = { name: d.get('name'), mobile: d.get('mobile'), email: d.get('email'), city: d.get('city'), message: d.get('message'), consent: d.get('consent') === 'yes', page: location.pathname };
+    if (!p.name || !/^[6-9]\d{9}$/.test(String(p.mobile).replace(/\D/g, '').slice(-10)) || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(p.email))) { err.textContent = 'Please give us your name, a valid 10-digit mobile number and your email.'; err.hidden = false; return; }
+    if (!p.consent) { err.textContent = 'Please tick the box so we can contact you.'; err.hidden = false; return; }
+    btn.disabled = true; btn.textContent = 'Sending\u2026';
+    fetch('https://forms.mrclandmarks.com/api/enquire-now', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p) })
+      .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+      .then(function (x) { if (!x.ok) { throw new Error((x.j.errors && Object.values(x.j.errors)[0]) || x.j.error || 'Please try again.'); } f.hidden = true; done.hidden = false; })
+      .catch(function (ex) { err.textContent = ex.message; err.hidden = false; btn.disabled = false; btn.textContent = 'Send enquiry'; });
+  });
+  /* back to top: appears once the visitor has scrolled a screen; the page scrolls smoothly (html has scroll-behavior) */
+  var top = document.querySelector('.to-top');
+  function onS() { top.classList.toggle('show', window.scrollY > 320); }
+  window.addEventListener('scroll', onS, { passive: true }); onS();
+  top.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
 })();
 </script>
 </body>
