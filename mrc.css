@@ -1095,11 +1095,12 @@ html.modal-open { overflow: hidden; }
 @media (max-width: 760px) { .to-top { width: 44px; height: 44px; bottom: calc(1rem + 66px); } }
 
 /* amenity cards: a photo of the thing, in the layout, with the icon as a badge on it */
-.amenity .shot { position: relative; margin: 0 -1.3rem 1.1rem; aspect-ratio: 4 / 3; overflow: hidden; }
+.amenity .shot { position: relative; margin: 0 -1.3rem 1.1rem; aspect-ratio: 4 / 3; }   /* no clipping here: the badge must hang past the photo as a full circle */
+.amenity .shot img { border-radius: var(--r) var(--r) 0 0; }
 .amenity .shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .7s var(--ease); }
 .amenity:hover .shot img { transform: scale(1.05); }
-.amenity .shot .ico { position: absolute; left: 50%; bottom: -22px; translate: -50% 0; margin: 0; background: var(--teal-deep); color: var(--gold); box-shadow: var(--shadow-md); border: 3px solid var(--white); }
-.amenity strong { display: block; margin-top: 1.6rem; }
+.amenity .shot .ico { position: absolute; left: 50%; bottom: -27px; translate: -50% 0; margin: 0; z-index: 2; background: var(--teal-deep); color: var(--gold); box-shadow: var(--shadow-md); border: 3px solid var(--white); }
+.amenity strong { display: block; margin-top: 2rem; }
 
 /* ---- chat assistant: lotus bubble bottom-right (WhatsApp moves beside it), panel above it ---- */
 .mrc-chat-bubble { position: fixed; right: clamp(1rem, 3vw, 1.8rem); bottom: clamp(1rem, 3vw, 1.8rem); z-index: 61; width: 62px; height: 62px; border-radius: 50%; border: 0; cursor: pointer; background: var(--teal-deep); color: var(--gold); display: grid; place-items: center; box-shadow: 0 14px 36px rgba(18,71,76,.4); transition: transform .3s var(--ease), background .3s; }
