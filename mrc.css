@@ -1072,12 +1072,11 @@ html.modal-open { overflow: hidden; }
 .plan-gate.locked .cap { filter: blur(4px); }
 
 /* ---- side tab: an icon pinned to the right edge, mid-page; hover (or tap) slides out "Enquire Now"; the form has its own sheet ---- */
-.side-enquire { position: fixed; right: 0; top: 50%; translate: 0 -50%; z-index: 60; display: flex; align-items: center; height: 52px; padding: 0 0 0 0; border-radius: 14px 0 0 14px; background: var(--teal); color: var(--gold); box-shadow: 0 10px 30px rgba(18,71,76,.3); overflow: hidden; transition: background .3s; }
+.side-enquire { position: fixed; right: 0; top: 50%; translate: 0 -50%; z-index: 60; display: flex; align-items: center; height: 52px; padding: 0 0 0 0; border-radius: 14px 0 0 14px; background: var(--teal-deep); color: var(--gold); box-shadow: 0 10px 30px rgba(18,71,76,.3); overflow: hidden; transition: background .3s; }
 .side-enquire .ico { width: 52px; height: 52px; display: grid; place-items: center; flex-shrink: 0; }
 .side-enquire .lbl { max-width: 0; opacity: 0; white-space: nowrap; font-weight: 600; color: #fff; font-size: .9rem; letter-spacing: .02em; padding-right: 0; transition: max-width .4s var(--ease), opacity .3s, padding .4s var(--ease); }
-.side-enquire:hover, .side-enquire:focus-visible { background: var(--teal-deep); }
-.side-wa { top: calc(50% + 62px); background: var(--teal-deep); }
-.side-wa:hover, .side-wa:focus-visible { background: var(--teal); }
+.side-enquire:hover, .side-enquire:focus-visible { background: var(--teal); }
+.side-wa { top: calc(50% + 62px); }
 .side-enquire:hover .lbl, .side-enquire:focus-visible .lbl { max-width: 160px; opacity: 1; padding-right: 1.1rem; }
 @media (max-width: 760px) { .side-enquire { height: 46px; border-radius: 12px 0 0 12px; } .side-enquire .ico { width: 46px; height: 46px; } .side-wa { top: calc(50% + 56px); } }   /* phones: the icon alone; a tap opens the form */
 .enq textarea { width: 100%; font: inherit; padding: .75rem .9rem; border: 1px solid var(--border); border-radius: var(--r-sm); background: #fff; resize: vertical; }
