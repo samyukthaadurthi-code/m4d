@@ -18,6 +18,8 @@ export const salesDesk = () => list(process.env.SALES_LEAD_EMAIL);
 export const supportDesk = () => (list(process.env.SUPPORT_EMAIL).length ? list(process.env.SUPPORT_EMAIL) : salesDesk());
 /** Partner desk: registrations, CP applications, approvals. Falls back to sales until PARTNER_LEAD_EMAIL is set. */
 export const partnerDesk = () => (list(process.env.PARTNER_LEAD_EMAIL).length ? list(process.env.PARTNER_LEAD_EMAIL) : salesDesk());
+/** Forum desk: early-access sign-ups. Falls back to the partner desk (forum@ is an alias of partners@). */
+export const forumDesk = () => (list(process.env.FORUM_EMAIL).length ? list(process.env.FORUM_EMAIL) : partnerDesk());
 
 async function safeSend(
   label: string,
@@ -246,5 +248,6 @@ export function sendForumWaitlistEmail(to: string, name: string, id: string) {
       <p style="margin:0;font-size:13px;line-height:1.6;color:#8A8D82">
         Questions in the meantime? Just reply to this email.
       </p>`),
+    forumDesk()[0],
   );
 }

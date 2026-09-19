@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { appendRow, ensureSheet, setCell, sheetsConfigured } from "@/lib/sheets";
 import { FORUM_COLUMNS, SHEETS } from "@/lib/schema";
 import { notifySales } from "@/lib/email-lead";
+import { forumDesk } from "@/lib/email";
 import { sendForumWaitlistEmail } from "@/lib/email";
 import { cors, preflight, tenDigits, validEmail } from "@/lib/cors";
 
@@ -51,7 +52,7 @@ export async function POST(req: Request) {
   await Promise.all([
     notifySales(`MRC Forum early access ${id}: ${name} · ${profession}`, {
       ID: id, Name: name, Mobile: mobile, Email: email, Profession: profession, Organisation: organisation, City: city,
-    }),
+    }, forumDesk()),
     sendForumWaitlistEmail(email, name, id),
   ]).catch((err) => console.error("[forum] notify failed:", err));
 
