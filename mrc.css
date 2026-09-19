@@ -1033,3 +1033,15 @@ html.modal-open { overflow: hidden; }
   .city-print figcaption { flex-direction: column; align-items: stretch; text-align: center; }
   .city-print figcaption .btn { justify-content: center; }
 }
+
+/* ---- project facts bar: five figures in one teal box, hung off the bottom of the head like a plaque ---- */
+.facts-wrap { position: relative; z-index: 3; margin-top: -2.6rem; }
+.facts { display: grid; grid-template-columns: repeat(5, 1fr); background: var(--teal-deep); color: #fff; border-radius: var(--r); box-shadow: var(--shadow-lg); overflow: hidden; }
+.fact-cell { display: flex; flex-direction: column; align-items: center; text-align: center; gap: .35rem; padding: 1.4rem 1rem 1.3rem; border-left: 1px solid rgba(255,255,255,.12); }
+.fact-cell:first-child { border-left: 0; }
+.fact-cell .ico { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: rgba(196,169,125,.16); color: var(--gold); margin-bottom: .3rem; }
+.fact-cell .k { font-size: .68rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); font-weight: 600; }
+.fact-cell .v { font-family: var(--font-d); font-weight: 600; font-size: 1.05rem; color: #fff; line-height: 1.3; }
+.facts-note { margin: .9rem .4rem 0; font-size: .78rem; color: var(--text-muted, #6b7370); }
+@media (max-width: 960px) { .facts { grid-template-columns: repeat(3, 1fr); } .fact-cell { border-left: 0; border-top: 1px solid rgba(255,255,255,.12); } .fact-cell:nth-child(-n+3) { border-top: 0; } }
+@media (max-width: 560px) { .facts { grid-template-columns: repeat(2, 1fr); } .fact-cell:nth-child(3) { border-top: 1px solid rgba(255,255,255,.12); } .fact-cell { padding: 1.1rem .6rem 1rem; } .fact-cell .v { font-size: .95rem; } .facts-wrap { margin-top: -1.6rem; } }
