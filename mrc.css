@@ -626,12 +626,16 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 .leaflet-popup-content-wrapper { border-radius: 12px; font-family: var(--font-b); color: var(--text); box-shadow: var(--shadow-lg); }
 .leaflet-popup-content { margin: .9rem 1.1rem; font-size: .9rem; line-height: 1.5; }
 .leaflet-popup-content .map-open { display: inline-block; margin-top: .5rem; color: var(--teal); font-weight: 600; }
-.near { display: grid; grid-template-columns: 1.25fr 1fr; gap: clamp(1.2rem, 2.5vw, 2rem); margin-top: 2.4rem; align-items: start; }
+.near { display: grid; grid-template-columns: 1.25fr 1fr; gap: clamp(1.2rem, 2.5vw, 2rem); margin-top: 2.4rem; align-items: stretch; }
 .near-map { height: clamp(360px, 42vw, 560px); border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow-md); background: var(--teal-pale); }
 .near-mapwrap { position: relative; }
 .map-dir { position: absolute; left: 1rem; bottom: 1rem; z-index: 500; background: var(--white); color: var(--teal-deep); font: 600 .8rem/1 var(--font-d); letter-spacing: .04em; padding: .7rem 1rem; border-radius: 10px; box-shadow: var(--shadow-md); }
 .map-dir:hover { background: var(--teal-deep); color: #fff; }
-.near-cats { display: grid; gap: .8rem; }
+/* the category column is exactly the map's height; the open category takes the room the closed ones leave */
+.near-cats { display: flex; flex-direction: column; gap: .8rem; height: clamp(360px, 42vw, 560px); }
+.near-cat[open] { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.near-cat[open] .near-list { overflow: auto; }
+@media (max-width: 860px) { .near-cats { height: auto; } }
 .near-cat { background: var(--teal-deep); color: #fff; border-radius: var(--r-sm); overflow: hidden; box-shadow: var(--shadow-sm); }
 /* each category is closed until its + is tapped (native <details>: works without script) */
 .near-cat summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1rem 1.2rem; cursor: pointer; list-style: none; transition: background .3s; }
