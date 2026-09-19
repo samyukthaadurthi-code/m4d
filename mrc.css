@@ -225,6 +225,8 @@ header.site .wrap, .brand .mark { transition: padding .35s var(--ease), width .3
 /* Knowledge Hub: the plan held up against the land */
 .closing.v-hub { background: linear-gradient(to bottom, rgba(18,71,76,0) calc(100% - 3rem), var(--teal-deep)), linear-gradient(180deg, rgba(12,48,51,.74), rgba(12,48,51,.66)), url('closing-hub.jpg') center 40% / cover no-repeat; }
 .closing.v-hub::before { display: none; }
+.closing.v-project { background: linear-gradient(to bottom, rgba(18,71,76,0) calc(100% - 3rem), var(--teal-deep)), linear-gradient(180deg, rgba(12,48,51,.72), rgba(12,48,51,.64)), url('closing-project.jpg') center 62% / cover no-repeat; }
+.closing.v-project::before { display: none; }
 .closing > .wrap { position: relative; }
 .closing .display { color: #fff; } .closing .eyebrow { color: var(--gold); }
 .closing p { color: rgba(255,255,255,.8); margin: 1.5rem auto 0; max-width: 54ch; }
