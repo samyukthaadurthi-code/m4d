@@ -25,7 +25,8 @@
   /* links become buttons under the message: markdown [text](url), full URLs, or bare forms.mrclandmarks.com/... paths */
   function linkify(s) {
     var links = [];
-    s = String(s).replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, function (_, t, u) { links.push(u); return t; });
+    s = String(s).replace(/wa\.me\/(\d[\d ]*\d)/g, function (_, n) { return 'wa.me/' + n.replace(/ /g, ''); });   /* the model sometimes spaces the number like a phone number */
+    s = s.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g, function (_, t, u) { links.push(u); return t; });
     s = s.replace(/\(?(?:https?:\/\/)?(?:forms\.mrclandmarks\.com|mrclandmarks\.com|www\.mrclandmarks\.com|wa\.me|maps\.app\.goo\.gl|www\.google\.com\/maps)[^\s)]*\)?/g, function (u) {
       var tail = (u.match(/[.,;:!?]+$/) || [''])[0]; u = u.replace(/^\(|\)$/g, '').replace(/[.,;:!?]+$/, ''); links.push(/^https?:\/\//.test(u) ? u : 'https://' + u); return tail; });
     s = s.replace(/\s+(?:at|via|on|here|here at|from|through)\s*:?\s*(?=[.,;!?]|$)/gm, '').replace(/:\s*(?=[.,;!?]|$)/gm, '').replace(/ +([.,;:!?])/g, '$1').replace(/\( *\)/g, '').replace(/[ \t]{2,}/g, ' ').replace(/^[ \t]+|[ \t]+$/gm, '').replace(/\n{3,}/g, '\n\n');
