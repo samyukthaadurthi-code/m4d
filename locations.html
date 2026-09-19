@@ -84,10 +84,11 @@
       <script>
       (function () {
         var b = document.querySelector('[data-open-project]'), p = document.getElementById('projectAnantaa');
-        b.addEventListener('click', function () {
-          if (!p.hidden) { p.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
-          p.hidden = false; p.classList.add('in'); b.textContent = 'Project shown \u2193';
-          setTimeout(function () { p.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' }); }, 60);
+        b.addEventListener('click', function () {   /* toggles: opens the project card beside, closes it again on the next click */
+          var show = p.hidden;
+          p.hidden = !show; p.classList.toggle('in', show);
+          b.innerHTML = show ? 'Hide project &uarr;' : 'View project &rarr;';
+          if (show) setTimeout(function () { p.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' }); }, 60);
         });
       })();
       </script>
