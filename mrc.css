@@ -602,7 +602,7 @@ html:not(.js) .roots-collage { clip-path: none; }
 html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform: none; }
 @media (max-width: 860px) {
   .roots-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-  .roots-window { aspect-ratio: 1 / 1; }   /* same square window, same start and pan as desktop */
+  .roots-window { aspect-ratio: 1 / 1; --start: 28%; --pan: 18%; }   /* phones: open on the bull, gopuram and elephant, and drift only as far as the bridge */
   .roots-mrc { font-size: 3.2rem; }
 }
 
@@ -1003,8 +1003,10 @@ html.modal-open { overflow: hidden; }
 
   .launch-pro { display: flex; flex-direction: column; aspect-ratio: auto; min-height: 0; max-height: none; }
   .launch-pro .intro { order: 1; padding-block: 1.6rem .6rem; }
-  .launch-pro .scene { order: 2; position: relative; inset: auto; width: 100%; aspect-ratio: 4 / 3; overflow: hidden; }
-  .launch-pro .stage { bottom: 0; left: -32%; translate: 0 0; min-width: 0; min-height: 0; height: 118%; width: 159%; }   /* window 20%→83% wide, top 18% of sky trimmed: both pillars, less empty sky */
+  .launch-pro .scene { order: 2; position: relative; inset: auto; width: 100%; aspect-ratio: 16 / 10; overflow: hidden; }
+  .launch-pro .stage { bottom: 0; left: -19.7%; translate: 0 0; min-width: 0; min-height: 0; width: 134.5%; height: auto; }   /* window 15%→89% of the render: the whole gate with a margin either side; the sky above is trimmed by the shorter window */
+  .launch-pro .intro .hero-cta { margin-top: .8rem; }
+  .launch-pro .intro .display { font-size: 1.9rem; }
   .launch-pro .scene::before { height: 22%; }
 }
 
