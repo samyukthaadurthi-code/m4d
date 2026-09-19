@@ -27,7 +27,7 @@
     if (!state.msgs.length) add('bot', 'Vanakkam. I am the MRC Landmarks assistant. Ask me about ANANTAA at Othakadai, the documents we verify, site visits or the channel-partner programme.');
     state.msgs.forEach(function (m) { add(m.role === 'user' ? 'me' : 'bot', m.content); });
     quick.innerHTML = state.msgs.length ? '' : QUICK.map(function (q) { return '<button type="button">' + esc(q) + '</button>'; }).join('');
-    quick.hidden = !!state.msgs.length;
+    quick.style.display = state.msgs.length ? 'none' : '';
     if (state.gate && !state.lead) showGate();
   }
   function open() { state.open = true; panel.hidden = false; bubble.classList.add('on'); render(); setTimeout(function () { (log.querySelector('.gate input') || input).focus(); }, 60); }
@@ -69,7 +69,7 @@
   function send(q) {
     q = (q || '').trim(); if (!q) return;
     if (state.gate && !state.lead) { showGate(); return; }
-    input.value = ''; quick.hidden = true;
+    input.value = ''; quick.style.display = 'none';
     state.msgs.push({ role: 'user', content: q }); state.asked += 1; add('me', q); save(); typing(true);
     fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: state.msgs.slice(-12), leadName: state.lead ? state.lead.name : '' }) })
       .then(function (r) { return r.json(); })
