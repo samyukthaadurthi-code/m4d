@@ -14,6 +14,8 @@ export function emailConfigured() {
 const list = (v: string | undefined) => (v || "").split(",").map((s) => s.trim()).filter(Boolean);
 /** Sales desk: enquiries and site visits. */
 export const salesDesk = () => list(process.env.SALES_LEAD_EMAIL);
+/** Customer-support desk: replies to visit confirmations go here once set; falls back to sales. */
+export const supportDesk = () => (list(process.env.SUPPORT_EMAIL).length ? list(process.env.SUPPORT_EMAIL) : salesDesk());
 /** Partner desk: registrations, CP applications, approvals. Falls back to sales until PARTNER_LEAD_EMAIL is set. */
 export const partnerDesk = () => (list(process.env.PARTNER_LEAD_EMAIL).length ? list(process.env.PARTNER_LEAD_EMAIL) : salesDesk());
 
@@ -156,6 +158,7 @@ export function sendVisitConfirmationEmail(
       <p style="margin:0;font-size:13px;line-height:1.6;color:#8A8D82">
         If any of this is wrong, just reply to this email.
       </p>`),
+    supportDesk()[0],
   );
 }
 

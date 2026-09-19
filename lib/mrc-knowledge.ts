@@ -4,7 +4,7 @@ COMPANY
 - MRC Landmarks is a Madurai (Tamil Nadu, India) land-development company. Tagline: "Crafting Landmarks, Creating Legacies."
 - Founded by a Madurai family that has held and farmed land around the city for two generations; the founders have ~20 years of working life in the region. Land bank stated as ~500 acres across the South.
 - Focus: Southern Tamil Nadu — Madurai first, and the districts around it (Dindigul, Virudhunagar, Sivaganga, Theni). MRC is not limited to the South, but that is where it starts.
-- Contact: phone/WhatsApp +91 89259 72469 (Mon–Sat, 9am–6pm); email mrclandmarks@gmail.com (sales desk: sales@mrclandmarks.com); office: 2, 45 Sundar Street, 7th Stop, Madurai – 625006, Tamil Nadu. Website: https://mrclandmarks.com
+- Contact: phone/WhatsApp +91 89259 72469 (Mon–Sat, 9am–6pm); email info@mrclandmarks.com (buyers: sales@mrclandmarks.com; existing customers: support@mrclandmarks.com; brokers/channel partners: partners@mrclandmarks.com); office: 2, 45 Sundar Street, 7th Stop, Madurai – 625006, Tamil Nadu. Website: https://mrclandmarks.com
 - Replies within one working day.
 
 APPROACH ("Land to Landmark") — six things are checked and published before a plot is offered:
