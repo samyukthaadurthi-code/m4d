@@ -1098,7 +1098,7 @@ html.modal-open { overflow: hidden; }
 .amenity .shot { position: relative; margin: 0 -1.3rem 1.1rem; aspect-ratio: 4 / 3; overflow: hidden; }
 .amenity .shot img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .7s var(--ease); }
 .amenity:hover .shot img { transform: scale(1.05); }
-.amenity .shot .ico { position: absolute; left: 50%; bottom: -22px; translate: -50% 0; margin: 0; background: var(--white); box-shadow: var(--shadow-md); }
+.amenity .shot .ico { position: absolute; left: 50%; bottom: -22px; translate: -50% 0; margin: 0; background: var(--teal-deep); color: var(--gold); box-shadow: var(--shadow-md); border: 3px solid var(--white); }
 .amenity strong { display: block; margin-top: 1.6rem; }
 
 /* ---- chat assistant: lotus bubble bottom-right (WhatsApp moves beside it), panel above it ---- */
@@ -1149,3 +1149,15 @@ html.modal-open { overflow: hidden; }
   .to-top { bottom: calc(1rem + 72px); }
   .mrc-chat-panel { right: .5rem; left: .5rem; width: auto; bottom: calc(1rem + 70px); height: min(600px, calc(100vh - 110px)); }
 }
+
+/* ---- "Why ANANTAA": one teal box of reasons, like a spec sheet ---- */
+.why-band { background: var(--bg); }
+.why-box { background: linear-gradient(160deg, var(--teal-deep), #0c3033); color: rgba(255,255,255,.86); border-radius: var(--r); padding: clamp(2rem, 4vw, 3.4rem); box-shadow: var(--shadow-lg); }
+.why-box .eyebrow { color: var(--gold); }
+.why-box .display { color: #fff; margin-top: .6rem; font-size: clamp(1.9rem, 3.2vw, 2.7rem); text-shadow: 0 1px 2px rgba(0,0,0,.2); }
+.why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1.4rem, 3vw, 2.4rem) clamp(1.8rem, 4vw, 3.5rem); margin-top: 2rem; }
+.why-grid h3 { color: var(--gold); font-size: 1.05rem; margin-bottom: .45rem; }
+.why-grid p { font-size: .96rem; line-height: 1.65; }
+.why-box .hero-cta { margin-top: 2.2rem; }
+.why-box .btn-ghost { border: 1px solid rgba(255,255,255,.4); color: #fff; }
+@media (max-width: 760px) { .why-grid { grid-template-columns: 1fr; } }
