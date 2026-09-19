@@ -20,7 +20,7 @@
   var QUICK = ['Where is ANANTAA?', 'What documents do you verify?', 'How do I become a channel partner?', 'How do I book a site visit?'];
 
   function esc(s) { return String(s).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); }
-  function linkify(s) { return esc(s).replace(/https?:\/\/[^\s)]+/g, function (u) { return '<a href="' + u + '" target="_blank" rel="noopener">' + u.replace(/^https?:\/\//, '') + '</a>'; }).replace(/\n/g, '<br>'); }
+  function linkify(s) { return esc(s).replace(/https?:\/\/[^\s)]+/g, function (u) { var m = u.match(/^(.*?)([.,;:!?]*)$/), url = m[1], tail = m[2]; return '<a href="' + url + '" target="_blank" rel="noopener">' + url.replace(/^https?:\/\//, '') + '</a>' + tail; }).replace(/\n/g, '<br>'); }   /* a full stop after a link stays outside it */
   function add(role, text, extra) { var d = document.createElement('div'); d.className = 'm ' + role + (extra ? ' ' + extra : ''); d.innerHTML = linkify(text); log.appendChild(d); log.scrollTop = log.scrollHeight; return d; }
   function typing(on) { var t = log.querySelector('.typing'); if (on && !t) { t = document.createElement('div'); t.className = 'm bot typing'; t.innerHTML = '<i></i><i></i><i></i>'; log.appendChild(t); log.scrollTop = log.scrollHeight; } if (!on && t) t.remove(); }
   function render() {
