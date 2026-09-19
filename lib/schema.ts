@@ -372,6 +372,7 @@ export const SHEETS = {
   visits: "Site_Visits",
   enquiries: "Enquiries",
   forum: "Forum_Waitlist",
+  enquireNow: "Enquire_Now",
 } as const;
 
 /** Quick enquiry from the website's promo strip: the minimum a salesperson needs to call back. */
@@ -384,6 +385,18 @@ export const FORUM_COLUMNS = [
   "profession",
   "organisation",
   "city",
+  "consent",
+] as const;
+
+export const ENQUIRE_NOW_COLUMNS = [
+  "enquire_id",
+  "submitted_at",
+  "name",
+  "mobile",
+  "email",
+  "city",
+  "message",
+  "page",
   "consent",
 ] as const;
 
