@@ -1,0 +1,51 @@
+{
+  "v": 4,
+  "createdOnFiles": {
+    "v": 1,
+    "at": "2026-09-19T10:25:36Z"
+  },
+  "title": "MRC Landmarks \u2014 Project Presentation",
+  "order": [
+    "cover",
+    "company",
+    "approach",
+    "kit",
+    "anantaa",
+    "location",
+    "plan",
+    "infra",
+    "why",
+    "partners",
+    "digital",
+    "next"
+  ],
+  "sections": {
+    "intro": {
+      "description": "Who MRC Landmarks is and how it works",
+      "start": "cover"
+    },
+    "project": {
+      "description": "ANANTAA: the project, its location, plan and infrastructure",
+      "start": "anantaa"
+    },
+    "market": {
+      "description": "Partners, the launch, the digital platform and next steps",
+      "start": "partners"
+    }
+  },
+  "faces": {
+    "instrument-sans": {
+      "family": "Instrument Sans",
+      "href": "https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap"
+    },
+    "inter": {
+      "family": "Inter",
+      "href": "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+    },
+    "cinzel": {
+      "family": "Cinzel",
+      "href": "https://fonts.googleapis.com/css2?family=Cinzel:wght@600&display=swap"
+    }
+  },
+  "designSystems": []
+}
