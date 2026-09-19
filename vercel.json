@@ -1,0 +1,15 @@
+{
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?<h>.*)\\.vercel\\.app"
+        }
+      ],
+      "destination": "https://mrclandmarks.com/$1",
+      "permanent": true
+    }
+  ]
+}
