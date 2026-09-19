@@ -1,3 +1,6 @@
 .vercel
 .env*
 .DS_Store
+forms/.next/
+forms/*.tsbuildinfo
+forms/next-env.d.ts
