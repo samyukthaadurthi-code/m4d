@@ -373,6 +373,7 @@ export const SHEETS = {
   enquiries: "Enquiries",
   forum: "Forum_Waitlist",
   enquireNow: "Enquire_Now",
+  chatLeads: "Chat_Leads",
 } as const;
 
 /** Quick enquiry from the website's promo strip: the minimum a salesperson needs to call back. */
@@ -386,6 +387,17 @@ export const FORUM_COLUMNS = [
   "organisation",
   "city",
   "consent",
+] as const;
+
+export const CHAT_LEAD_COLUMNS = [
+  "chat_id",
+  "submitted_at",
+  "name",
+  "mobile",
+  "email",
+  "looking_for",
+  "questions",
+  "page",
 ] as const;
 
 export const ENQUIRE_NOW_COLUMNS = [
