@@ -1072,7 +1072,7 @@ html.modal-open { overflow: hidden; }
 
 /* ---- master plan behind a blur until the visitor leaves a number (per session) ---- */
 .plan-gate { display: block; }   /* the <a> must be a block for the lock overlay and the clip to work */
-.plan-gate.locked img { filter: blur(4px); transform: scale(1.02); transition: filter .8s var(--ease), transform .8s var(--ease); }   /* readable as a plan, not as numbers: the form opens it sharp */
+.plan-gate.locked img { filter: blur(2.5px); transform: scale(1.02); transition: filter .8s var(--ease), transform .8s var(--ease); }   /* readable as a plan, not as numbers: the form opens it sharp */
 .plan-gate img { transition: filter .8s var(--ease), transform .8s var(--ease); }
 .plan-lock { display: none; }
 .plan-gate.locked .plan-lock { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .4rem; text-align: center; padding: 1.5rem; color: #fff; background: rgba(12,48,51,.18); cursor: pointer; }
@@ -1162,4 +1162,10 @@ html.modal-open { overflow: hidden; }
 .why-grid p { font-size: .96rem; line-height: 1.65; }
 .why-box .hero-cta { margin-top: 2.2rem; }
 .why-box .btn-ghost { border: 1px solid rgba(255,255,255,.4); color: #fff; }
-@media (max-width: 760px) { .why-grid { grid-template-columns: 1fr; } }
+.why-sub { margin-top: 2.2rem; padding-top: 1.6rem; border-top: 1px solid rgba(255,255,255,.14); color: var(--gold); font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; }
+.why-amen { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem 1.4rem; }
+.why-amen li { display: flex; gap: .6rem; align-items: flex-start; font-size: .93rem; line-height: 1.4; color: rgba(255,255,255,.92); }
+.why-amen li::before { content: ""; flex: none; width: 20px; height: 20px; margin-top: 1px; border-radius: 50%; background: var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l3.6 3.6L18 8.5' fill='none' stroke='%231A2A2D' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/70% no-repeat; }
+@media (max-width: 960px) { .why-amen { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px) { .why-grid { grid-template-columns: 1fr; } .why-amen { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 520px) { .why-amen { grid-template-columns: 1fr; gap: .55rem; } }
