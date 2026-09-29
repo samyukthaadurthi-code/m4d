@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { appendRow, findBy, setCell, sheetsConfigured } from "@/lib/sheets";
+import { appendRow, ensureSheet, findBy, setCell, sheetsConfigured } from "@/lib/sheets";
 import { REGISTRATION_COLUMNS, REGISTRATION_FIELDS, SHEETS } from "@/lib/schema";
 import { sendBadge, sendCpFormLink } from "@/lib/whatsapp";
 import { sendBadgeEmail, sendCpFormLinkEmail } from "@/lib/email";
@@ -124,6 +124,7 @@ export async function POST(req: Request) {
     source: body.source === "onsite" ? "onsite" : "online",
   };
 
+  await ensureSheet(SHEETS.registrations, REGISTRATION_COLUMNS); // adds the consent header on sheets created before it existed
   const row = await appendRow(
     SHEETS.registrations,
     REGISTRATION_COLUMNS.map((c) => meta[c] ?? values[c] ?? ""),

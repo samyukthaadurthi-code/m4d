@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { appendRow, findById, setCell, sheetsConfigured } from "@/lib/sheets";
+import { appendRow, ensureSheet, findById, setCell, sheetsConfigured } from "@/lib/sheets";
 import { SHEETS, VISIT_COLUMNS, VISIT_FIELDS } from "@/lib/schema";
 import { sendVisitConfirmation, sendLeadAlert } from "@/lib/whatsapp";
 import { sendVisitConfirmationEmail } from "@/lib/email";
@@ -82,6 +82,7 @@ export async function POST(req: Request) {
     cp_name: cpName,
   };
 
+  await ensureSheet(SHEETS.visits, VISIT_COLUMNS); // adds the consent header on sheets created before it existed
   const row = await appendRow(
     SHEETS.visits,
     VISIT_COLUMNS.map((c) => meta[c] ?? values[c] ?? ""),

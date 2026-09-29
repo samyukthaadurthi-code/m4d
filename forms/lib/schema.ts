@@ -169,6 +169,7 @@ export const REGISTRATION_COLUMNS = [
   "registered_at",
   "source",
   ...REGISTRATION_FIELDS.map((f) => f.key),
+  "consent",
 ];
 
 // Channel Partner programme form. PAN, GST and RERA are collected here rather
@@ -228,6 +229,12 @@ export const CP_FIELDS: Field[] = [
     label: "Anything else we should know?",
     type: "textarea",
   },
+  {
+    key: "consent",
+    label: "Consent",
+    type: "consent",
+    required: true,
+  },
 ];
 
 export const CP_COLUMNS = [
@@ -237,6 +244,7 @@ export const CP_COLUMNS = [
   "mobile",
   ...CP_FIELDS.map((f) => f.key),
   "status", // Pending → Approved (via the approve link in the sales alert, or typed in the sheet)
+  "consent",
 ];
 export const CP_APPROVED = "Approved";
 
@@ -364,6 +372,7 @@ export const VISIT_COLUMNS = [
   "source",
   "cp_name", // resolved from cp_id at submission, so the sheet is readable
   ...VISIT_FIELDS.map((f) => f.key),
+  "consent",
 ];
 
 export const SHEETS = {
