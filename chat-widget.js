@@ -10,7 +10,7 @@
     '<button class="mrc-chat-bubble" type="button" aria-label="Chat with MRC Landmarks"><span class="mark">' + LOTUS + '</span></button>' +
     '<div class="mrc-chat-panel" hidden role="dialog" aria-label="MRC Landmarks assistant">' +
     '  <div class="head"><span class="mark">' + LOTUS + '</span><div><strong>MRC Landmarks</strong><small>Ask us about ANANTAA, plots and paperwork</small></div><button class="x" type="button" aria-label="Close">&times;</button></div>' +
-    '  <a class="wa" href="https://wa.me/918925972469" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 2.1 17.7L1 23l5.4-1.4A11.8 11.8 0 0 0 20.5 3.5zm-8.4 18a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.2.8.9-3.1-.2-.3A9.8 9.8 0 1 1 12.1 21.5zm5.4-7.3c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-1 1.2-.4.2-.7.1a8 8 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 6 6 0 0 0 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.6.9 3.6.7.6-.1 1.8-.7 2-1.4s.3-1.3.2-1.4l-.7-.6z"/></svg><span>Prefer WhatsApp? Chat with the team directly</span><b>&rarr;</b></a>' +
+    '  <a class="wa" href="https://wa.me/919514889555" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 2.1 17.7L1 23l5.4-1.4A11.8 11.8 0 0 0 20.5 3.5zm-8.4 18a9.8 9.8 0 0 1-5-1.4l-.4-.2-3.2.8.9-3.1-.2-.3A9.8 9.8 0 1 1 12.1 21.5zm5.4-7.3c-.3-.1-1.8-.9-2-1s-.5-.1-.7.1-.8 1-1 1.2-.4.2-.7.1a8 8 0 0 1-4-3.5c-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6a1.1 1.1 0 0 0-.8.4 3.4 3.4 0 0 0-1 2.5 6 6 0 0 0 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 1.9.8 2.6.9 3.6.7.6-.1 1.8-.7 2-1.4s.3-1.3.2-1.4l-.7-.6z"/></svg><span>Prefer WhatsApp? Chat with the team directly</span><b>&rarr;</b></a>' +
     '  <div class="log" aria-live="polite"></div>' +
     '  <div class="quick"></div>' +
     '  <form class="ask" autocomplete="off"><input name="q" placeholder="Type your question…" maxlength="600" aria-label="Your question"><button type="submit" aria-label="Send"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></button></form>' +
@@ -94,7 +94,7 @@
         if (state.asked >= 2 && !state.lead) { state.gate = true; showGate(); }
         save();
       })
-      .catch(function () { typing(false); add('bot', 'I could not reach the team just now. WhatsApp us at https://wa.me/918925972469'); });
+      .catch(function () { typing(false); add('bot', 'I could not reach the team just now. WhatsApp us at https://wa.me/919514889555'); });
   }
   form.addEventListener('submit', function (e) { e.preventDefault(); send(input.value); });
   /* opens by itself once per session, 20 s after the visitor arrives, whatever page they came in on; closing it is final for the session */
