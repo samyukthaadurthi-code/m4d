@@ -19,6 +19,17 @@ What it will send automatically:
 
 1. **Facebook Business Manager account** for MRC Landmarks
    — https://business.facebook.com. Needs a business admin login.
+   - A **personal Facebook profile** is required to create and administer it —
+     Meta has no way to make a Business Manager without one. Use a real,
+     existing profile belonging to a director or the marketing person; a
+     brand-new profile made the same day often gets flagged in review.
+   - That personal profile is only the key to the door. It is never shown to
+     customers and is not the WhatsApp sender.
+   - A **Facebook Page** for MRC Landmarks is not strictly required by the API,
+     but create one anyway: it helps business verification pass and is needed
+     the day MRC wants Meta/Instagram ads.
+   - If a director already has a personal Facebook account, that is enough —
+     nothing new has to be bought.
 2. **Business verification** (Meta reviews MRC as a real company). Needs:
    - Legal business name exactly as registered
    - GST certificate / incorporation certificate / shop & establishment licence
@@ -26,10 +37,23 @@ What it will send automatically:
    - Business phone number and website (mrclandmarks.com — already live)
    - **Takes days to a few weeks. Start this first — everything else waits on it.**
 3. **A dedicated phone number** for WhatsApp Business API.
-   - It must NOT be in use on the normal WhatsApp or WhatsApp Business app.
-   - If MRC wants to keep using +91 89259 72469 on the phone, buy a second SIM
-     for the API.
-   - Must be able to receive an OTP once, at setup.
+   - A number lives on exactly one WhatsApp surface at a time: the normal app,
+     the Business app, or the API. Never two.
+   - +91 89259 72469 **can** be moved to the API — delete the WhatsApp account
+     on that number (Settings → Account → Delete my account), then register it
+     on the API with an OTP. Deleting erases that number's chat history and
+     groups; nothing is carried over.
+   - **But do not do it.** The API has no phone app. The moment 89259 72469
+     becomes an API number, every WhatsApp message customers send to it stops
+     appearing on anyone's phone — it only arrives at the API, which needs a
+     separate shared-inbox tool for a human to read and reply. Every page of
+     mrclandmarks.com and the chat assistant send visitors to that number to
+     talk to a person.
+   - **Recommendation: buy a second SIM (~₹200 prepaid) for the API.**
+     89259 72469 stays on the phone for humans; the new number only sends the
+     automated messages. Cheapest and changes nothing that works today.
+   - Whichever number is used, it must receive one OTP at setup (SMS or voice
+     call — a landline works). Keep the SIM active for re-verification later.
 4. **Display name** for the sender (e.g. "MRC Landmarks") — Meta approves it.
 5. **Payment method on the Meta account** (card). WhatsApp charges per
    conversation; there is a free tier of service conversations each month.
