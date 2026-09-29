@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MRC hero — options</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--text:#1A2A2D;--bg:#F7F5EF;--teal:#176A70;--teal-mid:#1A8085;--teal-deep:#12474C;--gold:#C4A97D;--font-d:'Instrument Sans',sans-serif;--font-b:'Inter',sans-serif;--r-btn:14px;--ease:cubic-bezier(.22,1,.36,1);--gut:clamp(1.25rem,4vw,3rem);--max:1240px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-b);background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+.wrap{width:min(100% - var(--gut)*2,var(--max));margin-inline:auto}
+h1,h2,h3{font-family:var(--font-d);font-weight:600;letter-spacing:-.02em;line-height:1.08}
+.tagbar{background:var(--text);color:#fff;padding:.9rem var(--gut);font-family:var(--font-d);font-size:.95rem;letter-spacing:.02em;position:sticky;top:0;z-index:20;display:flex;gap:1rem;align-items:baseline}
+.tagbar b{color:var(--gold);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase}
+.tagbar span{opacity:.62;font-family:var(--font-b);font-size:.82rem}
+.btn{display:inline-flex;align-items:center;gap:.5rem;padding:.95rem 1.7rem;border-radius:var(--r-btn);font-family:var(--font-d);font-weight:600;font-size:.95rem;text-decoration:none;transition:transform .3s var(--ease),box-shadow .3s}
+.btn-gold{background:var(--gold);color:var(--text);box-shadow:0 10px 30px rgba(0,0,0,.22)}
+.btn-out{border:1px solid rgba(255,255,255,.45);color:#fff}
+.btn:hover{transform:translateY(-2px)}
+.eyebrow{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;font-weight:600}
+.hero-cta{display:flex;flex-wrap:wrap;gap:.85rem;margin-top:2.4rem}
+/* ---------- shared marquee ---------- */
+.strip{position:absolute;left:0;right:0;bottom:0;border-top:1px solid rgba(255,255,255,.18);overflow:hidden;background:rgba(12,40,43,.34);backdrop-filter:blur(8px)}
+.strip-track{display:flex;gap:2.6rem;padding:.85rem 0;white-space:nowrap;animation:slide 38s linear infinite;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.78)}
+.strip-track span{display:flex;gap:.7rem;align-items:center}
+.strip-track i{width:5px;height:5px;border-radius:50%;background:var(--gold);flex:none}
+@keyframes slide{to{transform:translateX(-50%)}}
+</style></head><body>
+<div class="tagbar"><b>Option A</b><span style="font-family:var(--font-d);color:#fff;font-size:1rem">The land, and the town beside it</span><span>Your own aerial — the layout draws itself on the empty field, the existing houses sit right next to it</span></div><style>
+.a{position:relative;min-height:94vh;display:flex;align-items:flex-start;padding-block:7.5rem 5.5rem;color:#fff;overflow:hidden;background:var(--teal-deep)}
+.a .shot{position:absolute;inset:0}
+.a .shot svg{width:100%;height:100%;display:block}
+.a .scrim{position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(14,52,56,.88) 0%,rgba(14,52,56,.62) 30%,rgba(14,52,56,.12) 52%,rgba(16,40,43,.30) 82%,rgba(16,40,43,.72) 100%),
+  linear-gradient(100deg,rgba(12,48,51,.52) 0%,rgba(12,48,51,.18) 42%,rgba(12,48,51,0) 68%)}
+.a .wrap{position:relative;z-index:5;padding-bottom:0}
+.a h1{font-size:clamp(2.4rem,5.2vw,4.4rem);max-width:15ch}
+.a h1 em{font-style:normal;color:var(--gold)}
+.a .eyebrow{color:rgba(255,255,255,.75);margin-bottom:1.1rem}
+.a .sub{margin-top:1.4rem;max-width:42ch;font-size:1.08rem;line-height:1.6;color:rgba(255,255,255,.88)}
+/* --- the layout drawing itself on the field --- */
+.layout{position:absolute;inset:0;width:100%;height:100%;z-index:2}
+.layout .bound{fill:rgba(196,169,125,.12);stroke:#E6D0AA;stroke-width:6;stroke-dasharray:3600;stroke-dashoffset:3600;animation:trace 2.2s var(--ease) .35s forwards}
+@keyframes trace{to{stroke-dashoffset:0}}
+.layout .roads line{stroke:rgba(255,255,255,.72);stroke-width:9;stroke-linecap:round;opacity:0;animation:fade .7s ease calc(1.9s + var(--i)*.08s) forwards}
+.layout .plots polygon{fill:rgba(255,255,255,.3);stroke:rgba(230,208,170,.95);stroke-width:2.4;opacity:0;animation:pop .5s var(--ease) calc(2.3s + var(--i)*.022s) forwards}
+.layout .park{fill:rgba(196,169,125,.42);stroke:var(--gold);stroke-width:2;opacity:0;animation:fade .7s ease 3.1s forwards}
+@keyframes fade{to{opacity:1}}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* --- callouts to the town that is already there --- */
+.call{position:absolute;z-index:4;font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.82);opacity:0;animation:fade .8s ease 3.4s forwards;background:rgba(12,40,43,.6);border:1px solid rgba(196,169,125,.38);padding:.6rem .9rem;border-radius:12px;backdrop-filter:blur(6px)}
+.call b{display:block;font-family:var(--font-d);font-size:.95rem;letter-spacing:0;text-transform:none;color:var(--gold)}
+.call::before{content:"";position:absolute;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 6px rgba(196,169,125,.22)}
+.call.c1{right:var(--gut);top:44%;text-align:right;padding-right:2.1rem}.call.c1::before{right:.9rem;top:1.1rem}
+.call.c2{right:var(--gut);bottom:23%;text-align:right;padding-right:2.1rem}.call.c2::before{right:.9rem;top:1.1rem}
+.a .mark{position:absolute;left:var(--gut);top:2.2rem;z-index:5;z-index:4;font-family:var(--font-d);font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.plotcap{position:absolute;left:var(--gut);bottom:5.2rem;z-index:4;font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;
+  color:#EFE2C9;background:rgba(12,40,43,.55);border:1px solid rgba(196,169,125,.5);padding:.5rem 1rem;border-radius:999px;
+  opacity:0;animation:fade .8s ease 3.3s forwards}
+@media(max-width:820px){.call,.plotcap{display:none}.a h1{font-size:clamp(2.2rem,9vw,3rem)}}
+</style>
+<section class="a">
+  <div class="shot"><svg class="layout" style="position:static" viewBox="0 0 2400 1340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<image href="../hero-plate.jpg" x="0" y="0" width="2400" height="1340" preserveAspectRatio="xMidYMid slice"/>
+<g class="plots">
+<polygon points="1015.5,816.9 1047.5,816.4 1007.7,880.7 972.4,881.3" style="--i:0"/>
+<polygon points="1054.7,816.3 1086.7,815.8 1050.9,879.9 1015.6,880.5" style="--i:1"/>
+<polygon points="1093.9,815.7 1125.9,815.2 1094.2,879.0 1058.8,879.7" style="--i:2"/>
+<polygon points="1164.3,814.5 1196.3,814.0 1171.9,877.6 1136.5,878.2" style="--i:3"/>
+<polygon points="1203.4,813.9 1235.5,813.4 1215.1,876.8 1179.7,877.4" style="--i:4"/>
+<polygon points="1242.6,813.3 1274.6,812.8 1258.3,875.9 1223.0,876.6" style="--i:5"/>
+<polygon points="1461.8,809.8 1493.8,809.3 1500.2,871.4 1464.8,872.0" style="--i:6"/>
+<polygon points="1500.9,809.1 1533.0,808.6 1543.4,870.5 1508.1,871.2" style="--i:7"/>
+<polygon points="1540.1,808.5 1572.2,808.0 1586.6,869.7 1551.3,870.4" style="--i:8"/>
+<polygon points="1610.5,807.4 1642.6,806.9 1664.4,868.2 1629.0,868.9" style="--i:9"/>
+<polygon points="1649.7,806.7 1681.7,806.2 1707.6,867.4 1672.2,868.1" style="--i:10"/>
+<polygon points="1688.9,806.1 1720.9,805.6 1750.8,866.6 1715.5,867.3" style="--i:11"/>
+<polygon points="1759.3,805.0 1791.3,804.5 1828.5,865.1 1793.2,865.8" style="--i:12"/>
+<polygon points="1798.5,804.4 1830.5,803.8 1871.7,864.3 1836.4,865.0" style="--i:13"/>
+<polygon points="1837.6,803.7 1869.7,803.2 1915.0,863.5 1879.6,864.2" style="--i:14"/>
+<polygon points="965.3,891.8 1001.2,891.1 961.4,955.4 922.2,956.2" style="--i:15"/>
+<polygon points="1009.2,891.0 1045.1,890.3 1009.3,954.4 970.1,955.2" style="--i:16"/>
+<polygon points="1053.1,890.1 1089.0,889.4 1057.3,953.3 1018.1,954.2" style="--i:17"/>
+<polygon points="1132.0,888.6 1167.9,887.9 1143.5,951.5 1104.2,952.3" style="--i:18"/>
+<polygon points="1175.9,887.8 1211.8,887.1 1191.4,950.4 1152.2,951.3" style="--i:19"/>
+<polygon points="1219.8,886.9 1255.7,886.2 1239.3,949.4 1200.1,950.2" style="--i:20"/>
+<polygon points="1298.7,885.4 1334.6,884.7 1325.5,947.5 1286.3,948.4" style="--i:21"/>
+<polygon points="1342.6,884.5 1378.4,883.8 1373.5,946.5 1334.3,947.3" style="--i:22"/>
+<polygon points="1386.4,883.7 1422.3,883.0 1421.4,945.4 1382.2,946.3" style="--i:23"/>
+<polygon points="1465.3,882.2 1501.2,881.5 1507.6,943.6 1468.4,944.4" style="--i:24"/>
+<polygon points="1509.2,881.3 1545.1,880.6 1555.6,942.5 1516.3,943.4" style="--i:25"/>
+<polygon points="1553.1,880.5 1589.0,879.8 1603.5,941.5 1564.3,942.3" style="--i:26"/>
+<polygon points="1632.0,878.9 1667.9,878.2 1689.7,939.6 1650.5,940.5" style="--i:27"/>
+<polygon points="1675.9,878.1 1711.8,877.4 1737.6,938.6 1698.4,939.4" style="--i:28"/>
+<polygon points="1719.8,877.2 1755.7,876.5 1785.6,937.6 1746.4,938.4" style="--i:29"/>
+<polygon points="1798.7,875.7 1834.6,875.0 1871.8,935.7 1832.6,936.5" style="--i:30"/>
+<polygon points="1842.6,874.9 1878.5,874.2 1919.7,934.6 1880.5,935.5" style="--i:31"/>
+<polygon points="1886.5,874.0 1922.3,873.3 1967.7,933.6 1928.5,934.5" style="--i:32"/>
+</g>
+<polygon class="park" points="1309.5,812.2 1427.0,810.3 1426.4,872.8 1296.7,875.2"/>
+<g class="roads">
+<line x1="1147.5" y1="809.7" x2="1078.3" y2="958.0" style="--i:1"/>
+<line x1="1295.0" y1="807.3" x2="1261.7" y2="954.0" style="--i:2"/>
+<line x1="1442.5" y1="805.0" x2="1445.0" y2="950.0" style="--i:3"/>
+<line x1="1590.0" y1="802.7" x2="1628.3" y2="946.0" style="--i:4"/>
+<line x1="1737.5" y1="800.3" x2="1811.7" y2="942.0" style="--i:5"/>
+<line x1="947.5" y1="887.0" x2="1940.0" y2="868.0" style="--i:1"/>
+</g>
+<polygon class="bound" points="1000,812 1885,798 1995,938 895,962"/>
+</svg>
+</div>
+  <div class="scrim"></div>
+  <p class="mark">MRC Landmarks</p>
+  <span class="call c1">Already there<b>A town, right beside it</b></span>
+  <span class="call c2">Within reach<b>School, bus stand, hospital</b></span>
+  <div class="wrap">
+    <p class="eyebrow">Residential plots &middot; Southern Tamil Nadu</p>
+    <h1>We sell land with a <em>neighbourhood</em> already around it.</h1>
+    <p class="sub">DTCP approved, TNRERA registered plots across Southern Tamil Nadu &mdash; planned on the edge of towns where families already live, not in an empty field an hour away.</p>
+    <div class="hero-cta"><a class="btn btn-gold" href="#">See our projects &rarr;</a><a class="btn btn-out" href="#">Schedule a visit</a></div>
+  </div>
+  <span class="plotcap">Fifty plots, drawn to the approval</span>
+  <div class="strip"><div class="strip-track">
+    <span><i></i>Madurai</span><span><i></i>Trichy</span><span><i></i>Dindigul</span><span><i></i>Theni</span><span><i></i>Tirunelveli</span><span><i></i>Ramanathapuram</span><span><i></i>Sivagangai</span><span><i></i>Virudhunagar</span>
+    <span><i></i>Madurai</span><span><i></i>Trichy</span><span><i></i>Dindigul</span><span><i></i>Theni</span><span><i></i>Tirunelveli</span><span><i></i>Ramanathapuram</span><span><i></i>Sivagangai</span><span><i></i>Virudhunagar</span>
+  </div></div>
+</section>
+<div class="tagbar"><b>Option B</b><span style="font-family:var(--font-d);color:#fff;font-size:1rem">A horizon of the South</span><span>No photo. One continuous gold line-drawing of South Tamil Nadu — gopuram, houses, water tank, windmill, Pamban — drawing itself</span></div><style>
+.b{position:relative;min-height:92vh;display:flex;align-items:center;padding-block:7rem 9rem;color:#fff;overflow:hidden;
+   background:radial-gradient(120% 90% at 18% 20%,#1A8085 0%,#12474C 46%,#0C3033 100%)}
+.b .wrap{position:relative;z-index:3}
+.b h1{font-size:clamp(2.6rem,6.4vw,5.4rem);max-width:14ch}
+.b h1 em{font-style:normal;color:var(--gold)}
+.b .eyebrow{color:var(--gold);margin-bottom:1.1rem}
+.b .sub{margin-top:1.5rem;max-width:46ch;font-size:1.08rem;line-height:1.6;color:rgba(255,255,255,.84)}
+.b .horizon{position:absolute;left:0;right:0;bottom:4.6rem;width:100%;height:auto;z-index:1}
+.b .horizon path{fill:none;stroke:#D8BE93;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:900;stroke-dashoffset:900;animation:draw 2.6s var(--ease) forwards;animation-delay:calc(var(--d,0s))}
+.b .horizon .hill{fill:rgba(255,255,255,.035);stroke:rgba(255,255,255,.16);stroke-width:2;stroke-dasharray:none;stroke-dashoffset:0;animation:fade 1.4s ease forwards}
+.b .horizon .ground{stroke:rgba(196,169,125,.55);stroke-width:2}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.b .veil{position:absolute;inset:0;z-index:2;background:linear-gradient(95deg,rgba(12,48,51,.92) 0%,rgba(12,48,51,.6) 38%,rgba(12,48,51,0) 66%)}
+.b .towns{position:absolute;left:0;right:0;bottom:0;z-index:4;border-top:1px solid rgba(255,255,255,.16);background:rgba(12,40,43,.4);backdrop-filter:blur(8px)}
+.b .towns .wrap{display:flex;flex-wrap:wrap;gap:.5rem 2.2rem;padding:1rem 0;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.8)}
+.b .towns b{color:var(--gold);letter-spacing:.16em;font-weight:600}
+@media(max-width:820px){.b h1{font-size:clamp(2.2rem,9vw,3rem)}.b .horizon{bottom:5.6rem;width:200%;left:-40%}}
+</style>
+<section class="b">
+  <svg viewBox="0 0 2400 440" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="horizon">
+<path class="hill" d="M0,284 q180,-70 330,-16 q120,44 250,-34 q140,-84 300,4 q130,72 300,-22 q170,-96 330,10 q140,92 320,-30 q180,-118 390,26 L2400,380 H0 Z"/>
+<path style="--d:0.20s" class="" d="M120,380 q28,-115.50000000000001 42.0,-210"/>
+<path style="--d:0.24s" class="" d="M162.0,170 q-33.53338812035605,-35.297601758295386 -67.0667762407121,-18.59520351659077"/>
+<path style="--d:0.29s" class="" d="M162.0,170 q-18.499999999999993,-45.05255888325766 -36.999999999999986,-38.10511776651532"/>
+<path style="--d:0.33s" class="" d="M162.0,170 q18.5,-45.052558883257646 37.0,-38.10511776651529"/>
+<path style="--d:0.38s" class="" d="M162.0,170 q33.53338812035605,-35.297601758295386 67.0667762407121,-18.59520351659077"/>
+<path style="--d:0.42s" class="" d="M162.0,170 q0.0,-48.0 0.0,-44.0"/>
+<path style="--d:0.46s" class="" d="M230,380 q28,-93.50000000000001 42.0,-170"/>
+<path style="--d:0.51s" class="" d="M272.0,210 q-33.53338812035605,-35.297601758295386 -67.0667762407121,-18.59520351659077"/>
+<path style="--d:0.55s" class="" d="M272.0,210 q-18.5,-45.05255888325766 -37.0,-38.10511776651532"/>
+<path style="--d:0.60s" class="" d="M272.0,210 q18.5,-45.052558883257646 37.0,-38.10511776651529"/>
+<path style="--d:0.65s" class="" d="M272.0,210 q33.53338812035605,-35.297601758295386 67.0667762407121,-18.59520351659077"/>
+<path style="--d:0.69s" class="" d="M272.0,210 q0.0,-48.0 0.0,-44.0"/>
+<path style="--d:0.73s" class="" d="M360,380 v-84 l75.0,-26 l75.0,26 v84"/>
+<path style="--d:0.78s" class="" d="M414.0,380 v-46.2 h42.00000000000001 v46.2"/>
+<path style="--d:0.82s" class="" d="M530,380 v-70 l60.0,-26 l60.0,26 v70"/>
+<path style="--d:0.87s" class="" d="M573.2,380 v-38.5 h33.6 v38.5"/>
+<path style="--d:0.92s" class="" d="M680,380 v-150 h110 v150"/>
+<path style="--d:0.96s" class="" d="M680,330.0 h110"/>
+<path style="--d:1.00s" class="" d="M680,280.0 h110"/>
+<path style="--d:1.05s" class="" d="M840.0,380.0 L854.5,325.0 H1125.5 L1140.0,380.0 Z"/>
+<path style="--d:1.09s" class="" d="M854.5,325.0 L869.0,270.0 H1111.0 L1125.5,325.0 Z"/>
+<path style="--d:1.14s" class="" d="M869.0,270.0 L883.5,215.0 H1096.5 L1111.0,270.0 Z"/>
+<path style="--d:1.18s" class="" d="M883.5,215.0 L898.0,160.0 H1082.0 L1096.5,215.0 Z"/>
+<path style="--d:1.23s" class="" d="M898.0,160.0 L912.5,105.0 H1067.5 L1082.0,160.0 Z"/>
+<path style="--d:1.27s" class="" d="M912.5,105.0 L927.0,50.0 H1053.0 L1067.5,105.0 Z"/>
+<path style="--d:1.32s" class="" d="M900.0,50 q90.0,-62 180.0,0"/>
+<path style="--d:1.36s" class="" d="M924.0,6 v-30"/>
+<path style="--d:1.41s" class="" d="M957.0,6 v-30"/>
+<path style="--d:1.45s" class="" d="M990.0,6 v-30"/>
+<path style="--d:1.50s" class="" d="M1023.0,6 v-30"/>
+<path style="--d:1.54s" class="" d="M1056.0,6 v-30"/>
+<path style="--d:1.59s" class="" d="M963.0,380 v-96 h54.0 v96"/>
+<path style="--d:1.63s" class="" d="M1190,380 v-78 l70.0,-26 l70.0,26 v78"/>
+<path style="--d:1.68s" class="" d="M1240.4,380 v-42.900000000000006 h39.2 v42.900000000000006"/>
+<path style="--d:1.72s" class="" d="M1350,380 v-66 l55.0,-26 l55.0,26 v66"/>
+<path style="--d:1.77s" class="" d="M1389.6,380 v-36.300000000000004 h30.800000000000004 v36.300000000000004"/>
+<path style="--d:1.81s" class="" d="M1500,380 l20.24,-150  M1592,380 l-20.24,-150  M1546.0,380 v-150"/>
+<path style="--d:1.86s" class="" d="M1509.2,230 h73.60000000000001 v-52 h-73.60000000000001 z"/>
+<path style="--d:1.90s" class="" d="M1546.0,178 v-22"/>
+<path style="--d:1.95s" class="" d="M1650,380 v-74 l65.0,-26 l65.0,26 v74"/>
+<path style="--d:1.99s" class="" d="M1696.8,380 v-40.7 h36.400000000000006 v40.7"/>
+<path style="--d:2.04s" class="" d="M1810,380 v-128 h96 v128"/>
+<path style="--d:2.08s" class="" d="M1810,337.3333333333333 h96"/>
+<path style="--d:2.13s" class="" d="M1810,294.6666666666667 h96"/>
+<path style="--d:2.17s" class="" d="M1930,380 v-70 l60.0,-26 l60.0,26 v70"/>
+<path style="--d:2.22s" class="" d="M1973.2,380 v-38.5 h33.6 v38.5"/>
+<path style="--d:2.26s" class="" d="M2090,380 l8,-230 M2106,380 l-8,-230"/>
+<path style="--d:2.31s" class="" d="M2098,150 l5.878304635907295e-15,-96.0"/>
+<path style="--d:2.35s" class="" d="M2098,150 l83.13843876330611,47.99999999999999"/>
+<path style="--d:2.40s" class="" d="M2098,150 l-83.13843876330611,47.99999999999999"/>
+<path style="--d:2.44s" class="" d="M2180,380 h210"/>
+<path style="--d:2.49s" class="" d="M2180,334 h210"/>
+<path style="--d:2.53s" class="" d="M2180.0,380 q21.0,-70 42.0,0"/>
+<path style="--d:2.58s" class="" d="M2222.0,380 q21.0,-70 42.0,0"/>
+<path style="--d:2.62s" class="" d="M2264.0,380 q21.0,-70 42.0,0"/>
+<path style="--d:2.67s" class="" d="M2306.0,380 q21.0,-70 42.0,0"/>
+<path style="--d:2.71s" class="" d="M2348.0,380 q21.0,-70 42.0,0"/>
+<path style="--d:2.76s" class="" d="M2268.2,334 v-52 h33.6 v52"/>
+<path style="--d:2.80s" class="" d="M2330,380 q28,-99.00000000000001 42.0,-180"/>
+<path style="--d:2.85s" class="" d="M2372.0,200 q-33.533388120355994,-35.297601758295386 -67.06677624071199,-18.59520351659077"/>
+<path style="--d:2.90s" class="" d="M2372.0,200 q-18.5,-45.05255888325766 -37.0,-38.10511776651532"/>
+<path style="--d:2.94s" class="" d="M2372.0,200 q18.5,-45.052558883257646 37.0,-38.10511776651529"/>
+<path style="--d:2.98s" class="" d="M2372.0,200 q33.533388120355994,-35.297601758295386 67.06677624071199,-18.59520351659077"/>
+<path style="--d:3.03s" class="" d="M2372.0,200 q0.0,-48.0 0.0,-44.0"/>
+<path style="--d:3.07s" class="ground" d="M0,380 H2400"/>
+</svg>
+
+  <div class="veil"></div>
+  <div class="wrap">
+    <p class="eyebrow">Residential plots &middot; Southern Tamil Nadu</p>
+    <h1>Plots in the towns the <em>South</em> already calls home.</h1>
+    <p class="sub">MRC plans, documents and delivers DTCP-approved residential plots across Southern Tamil Nadu &mdash; on the edge of towns where the schools, the bus stand and the neighbours are already there.</p>
+    <div class="hero-cta"><a class="btn btn-gold" href="#">See our projects &rarr;</a><a class="btn btn-out" href="#">Schedule a visit</a></div>
+  </div>
+  <div class="towns"><div class="wrap">
+    <b>Where we build</b><span>Madurai</span><span>Trichy</span><span>Dindigul</span><span>Theni</span><span>Tirunelveli</span><span>Sivagangai</span><span>Virudhunagar</span>
+  </div></div>
+</section>
+<div class="tagbar"><b>Option C</b><span style="font-family:var(--font-d);color:#fff;font-size:1rem">Approved plots, framed</span><span>Editorial split: big type and the facts on the left, the aerial in a tall poster frame on the right</span></div><style>
+.c{position:relative;min-height:92vh;display:flex;align-items:center;padding-block:7rem 8rem;color:#fff;overflow:hidden;background:#0F3D41}
+.c::before{content:"";position:absolute;inset:0;background:radial-gradient(90% 70% at 78% 40%,rgba(26,128,133,.5),transparent 62%)}
+.c .grid{position:relative;z-index:3;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(2rem,5vw,4.5rem);align-items:center}
+.c h1{font-size:clamp(2.5rem,5.4vw,4.6rem);max-width:12ch}
+.c h1 em{font-style:normal;color:var(--gold)}
+.c .eyebrow{color:var(--gold);margin-bottom:1.1rem}
+.c .sub{margin-top:1.4rem;max-width:40ch;font-size:1.05rem;line-height:1.62;color:rgba(255,255,255,.84)}
+.c .facts{display:flex;gap:2.6rem;margin-top:2.6rem;padding-top:1.7rem;border-top:1px solid rgba(255,255,255,.2)}
+.c .facts .n{font-family:var(--font-d);font-weight:700;font-size:1.9rem;color:var(--gold);line-height:1}
+.c .facts .l{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:.45rem}
+.c .frame{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/5;box-shadow:0 40px 90px rgba(0,0,0,.42);border:1px solid rgba(196,169,125,.4)}
+.c .frame svg{width:100%;height:100%;display:block}
+.c .frame .tint{position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,48,51,.18),rgba(12,48,51,.04) 38%,rgba(12,40,43,.9))}
+.c .frame .cap{position:absolute;left:1.4rem;right:1.4rem;bottom:1.3rem;z-index:3}
+.c .frame .cap b{display:block;font-family:var(--font-d);font-size:1.12rem;margin-top:.3rem;line-height:1.25}
+.c .frame .cap span{display:block;font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);line-height:1}
+.c .frame .pill{position:absolute;top:1.1rem;left:1.1rem;z-index:3;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;background:var(--gold);color:var(--text);padding:.42rem .9rem;border-radius:999px;font-weight:600}
+@media(max-width:900px){.c .grid{grid-template-columns:1fr}.c .frame{aspect-ratio:3/2}.c h1{font-size:clamp(2.2rem,9vw,3rem)}}
+</style>
+<section class="c">
+  <div class="wrap grid">
+    <div>
+      <p class="eyebrow">Residential plots &middot; Southern Tamil Nadu</p>
+      <h1>Approved plots, in towns that are <em>already alive.</em></h1>
+      <p class="sub">We buy on the edge of Southern Tamil Nadu&rsquo;s growing towns, get the approvals before we sell, and hand over a plot with the paperwork complete and the neighbourhood already built.</p>
+      <div class="facts">
+        <div><div class="n">~500</div><div class="l">acres held<br>across the South</div></div>
+        <div><div class="n">100%</div><div class="l">DTCP approved<br>&amp; TNRERA registered</div></div>
+        <div><div class="n">6</div><div class="l">documents<br>before you pay</div></div>
+      </div>
+      <div class="hero-cta"><a class="btn btn-gold" href="#">See our projects &rarr;</a><a class="btn btn-out" href="#">Schedule a visit</a></div>
+    </div>
+    <div class="frame">
+      <svg class="layout" viewBox="0 0 2400 1340" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<image href="../hero-plate.jpg" x="0" y="0" width="2400" height="1340" preserveAspectRatio="xMidYMid slice"/>
+<g class="plots">
+<polygon points="1015.5,816.9 1047.5,816.4 1007.7,880.7 972.4,881.3" style="--i:0"/>
+<polygon points="1054.7,816.3 1086.7,815.8 1050.9,879.9 1015.6,880.5" style="--i:1"/>
+<polygon points="1093.9,815.7 1125.9,815.2 1094.2,879.0 1058.8,879.7" style="--i:2"/>
+<polygon points="1164.3,814.5 1196.3,814.0 1171.9,877.6 1136.5,878.2" style="--i:3"/>
+<polygon points="1203.4,813.9 1235.5,813.4 1215.1,876.8 1179.7,877.4" style="--i:4"/>
+<polygon points="1242.6,813.3 1274.6,812.8 1258.3,875.9 1223.0,876.6" style="--i:5"/>
+<polygon points="1461.8,809.8 1493.8,809.3 1500.2,871.4 1464.8,872.0" style="--i:6"/>
+<polygon points="1500.9,809.1 1533.0,808.6 1543.4,870.5 1508.1,871.2" style="--i:7"/>
+<polygon points="1540.1,808.5 1572.2,808.0 1586.6,869.7 1551.3,870.4" style="--i:8"/>
+<polygon points="1610.5,807.4 1642.6,806.9 1664.4,868.2 1629.0,868.9" style="--i:9"/>
+<polygon points="1649.7,806.7 1681.7,806.2 1707.6,867.4 1672.2,868.1" style="--i:10"/>
+<polygon points="1688.9,806.1 1720.9,805.6 1750.8,866.6 1715.5,867.3" style="--i:11"/>
+<polygon points="1759.3,805.0 1791.3,804.5 1828.5,865.1 1793.2,865.8" style="--i:12"/>
+<polygon points="1798.5,804.4 1830.5,803.8 1871.7,864.3 1836.4,865.0" style="--i:13"/>
+<polygon points="1837.6,803.7 1869.7,803.2 1915.0,863.5 1879.6,864.2" style="--i:14"/>
+<polygon points="965.3,891.8 1001.2,891.1 961.4,955.4 922.2,956.2" style="--i:15"/>
+<polygon points="1009.2,891.0 1045.1,890.3 1009.3,954.4 970.1,955.2" style="--i:16"/>
+<polygon points="1053.1,890.1 1089.0,889.4 1057.3,953.3 1018.1,954.2" style="--i:17"/>
+<polygon points="1132.0,888.6 1167.9,887.9 1143.5,951.5 1104.2,952.3" style="--i:18"/>
+<polygon points="1175.9,887.8 1211.8,887.1 1191.4,950.4 1152.2,951.3" style="--i:19"/>
+<polygon points="1219.8,886.9 1255.7,886.2 1239.3,949.4 1200.1,950.2" style="--i:20"/>
+<polygon points="1298.7,885.4 1334.6,884.7 1325.5,947.5 1286.3,948.4" style="--i:21"/>
+<polygon points="1342.6,884.5 1378.4,883.8 1373.5,946.5 1334.3,947.3" style="--i:22"/>
+<polygon points="1386.4,883.7 1422.3,883.0 1421.4,945.4 1382.2,946.3" style="--i:23"/>
+<polygon points="1465.3,882.2 1501.2,881.5 1507.6,943.6 1468.4,944.4" style="--i:24"/>
+<polygon points="1509.2,881.3 1545.1,880.6 1555.6,942.5 1516.3,943.4" style="--i:25"/>
+<polygon points="1553.1,880.5 1589.0,879.8 1603.5,941.5 1564.3,942.3" style="--i:26"/>
+<polygon points="1632.0,878.9 1667.9,878.2 1689.7,939.6 1650.5,940.5" style="--i:27"/>
+<polygon points="1675.9,878.1 1711.8,877.4 1737.6,938.6 1698.4,939.4" style="--i:28"/>
+<polygon points="1719.8,877.2 1755.7,876.5 1785.6,937.6 1746.4,938.4" style="--i:29"/>
+<polygon points="1798.7,875.7 1834.6,875.0 1871.8,935.7 1832.6,936.5" style="--i:30"/>
+<polygon points="1842.6,874.9 1878.5,874.2 1919.7,934.6 1880.5,935.5" style="--i:31"/>
+<polygon points="1886.5,874.0 1922.3,873.3 1967.7,933.6 1928.5,934.5" style="--i:32"/>
+</g>
+<polygon class="park" points="1309.5,812.2 1427.0,810.3 1426.4,872.8 1296.7,875.2"/>
+<g class="roads">
+<line x1="1147.5" y1="809.7" x2="1078.3" y2="958.0" style="--i:1"/>
+<line x1="1295.0" y1="807.3" x2="1261.7" y2="954.0" style="--i:2"/>
+<line x1="1442.5" y1="805.0" x2="1445.0" y2="950.0" style="--i:3"/>
+<line x1="1590.0" y1="802.7" x2="1628.3" y2="946.0" style="--i:4"/>
+<line x1="1737.5" y1="800.3" x2="1811.7" y2="942.0" style="--i:5"/>
+<line x1="947.5" y1="887.0" x2="1940.0" y2="868.0" style="--i:1"/>
+</g>
+<polygon class="bound" points="1000,812 1885,798 1995,938 895,962"/>
+</svg>
+
+      <div class="tint"></div>
+      <span class="pill">Now selling</span>
+      <div class="cap"><span>Othakadai, Madurai</span><b>ANANTAA &middot; 50 plots beside a living town</b></div>
+    </div>
+  </div>
+</section>
+</body></html>
