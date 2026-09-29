@@ -1177,9 +1177,9 @@ html.modal-open { overflow: hidden; }
   min-height: clamp(580px, calc(100svh - 92px), 900px); background: var(--teal-deep); color: #fff; overflow: hidden; }
 .lead-shot { position: absolute; inset: 0; }
 .lead-shot img { width: 100%; height: 100%; object-fit: cover; object-position: center;
-  transform-origin: 72% 96%;   /* zoom toward the fields meeting the town, not the sky */
+  transform-origin: 48% 96%;   /* sit low on the plot markers; the hill stays a backdrop, not the subject */
   animation: leadIn 24s var(--ease) both; }
-@keyframes leadIn { from { scale: 1.42; } to { scale: 1.26; } }
+@keyframes leadIn { from { scale: 1.5; } to { scale: 1.36; } }
 .lead-veil { position: absolute; inset: 0; background:
   linear-gradient(104deg, rgba(10,38,41,.93) 0%, rgba(10,38,41,.72) 34%, rgba(10,38,41,.22) 64%, rgba(10,38,41,.06) 84%),
   linear-gradient(180deg, rgba(10,38,41,.42) 0%, rgba(10,38,41,0) 24%, rgba(10,38,41,.45) 62%, rgba(9,34,37,.82) 100%); }
@@ -1189,38 +1189,26 @@ html.modal-open { overflow: hidden; }
 .lead h1 span { display: block; }
 .lead h1 em { font-style: normal; color: var(--gold); }
 .lead .sub { margin-top: 1.3rem; max-width: 46ch; font-size: 1.08rem; line-height: 1.62; color: rgba(255,255,255,.87); }
-.lead-facts { list-style: none; display: flex; flex-wrap: wrap; gap: 1rem 2.8rem; margin-top: 2rem;
-  padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.22); }
+.lead-facts { list-style: none; display: flex; flex-wrap: wrap; gap: 1rem 2.8rem; margin-top: 2.2rem; }
 .lead-facts b { display: block; font-family: var(--font-d); font-weight: 600; font-size: 1rem; color: #fff; text-shadow: 0 1px 3px rgba(9,34,37,.5); }
 .lead-facts span { display: block; margin-top: .25rem; font-size: .82rem; color: rgba(255,255,255,.78); text-shadow: 0 1px 3px rgba(9,34,37,.6); }
 .lead .hero-cta { margin-top: 2rem; }
-.lead-now { position: relative; z-index: 2; display: flex; flex-wrap: wrap; align-items: center; gap: .55rem 1.5rem;
   padding: 1.05rem clamp(5rem, 9vw, 7.5rem) 1.05rem var(--gut); background: rgba(9,34,37,.9); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
   border-top: 1px solid rgba(196,169,125,.45); text-decoration: none; color: #fff; transition: background .3s; }
-.lead-now:hover { background: rgba(9,34,37,.98); }
-.lead-now .tag { font-size: .64rem; letter-spacing: .2em; text-transform: uppercase; font-weight: 600;
   color: var(--text); background: var(--gold); padding: .34rem .72rem; border-radius: 3px; }
-.lead-now .name { font-family: var(--font-d); font-weight: 700; font-size: 1.05rem; letter-spacing: .07em; }
-.lead-now .meta { font-size: .85rem; color: rgba(255,255,255,.72); }
-.lead-now .meta::before { content: "\00b7\00a0"; color: var(--gold); }
-.lead-now .go { margin-left: auto; font-family: var(--font-d); font-weight: 600; font-size: .92rem; color: var(--gold); }
 @media (max-width: 760px) {
   /* on a phone the photograph is the argument — a side-to-side veil would bury it,
      and the four facts are read as labels, so their explanations come off */
   .lead { min-height: 0; }
   .lead-veil { background: linear-gradient(180deg, rgba(10,38,41,.9) 0%, rgba(10,38,41,.6) 34%,
     rgba(10,38,41,.3) 56%, rgba(10,38,41,.5) 80%, rgba(9,34,37,.84) 100%); }
-  .lead-shot img { transform-origin: 66% 94%; }
+  .lead-shot img { transform-origin: 48% 96%; }
   .lead > .wrap { padding-block: 2.2rem 1.6rem; }
   .lead h1.display { font-size: clamp(2.1rem, 8.8vw, 3rem); max-width: none; }
   .lead .sub { font-size: 1rem; max-width: 34ch; }
-  .lead-facts { gap: .7rem 1.2rem; margin-top: 1.5rem; padding-top: 1.2rem; padding-right: 3.2rem; }  /* clear the WhatsApp/Enquire side tabs */
+  .lead-facts { gap: .7rem 1.2rem; margin-top: 1.6rem; padding-right: 3.2rem; }  /* clear the WhatsApp/Enquire side tabs */
   .lead-facts li { flex: 1 1 calc(50% - .6rem); min-width: 0; overflow-wrap: anywhere; }
   .lead-facts b { font-size: .92rem; }
   .lead-facts span { display: none; }
   .lead .hero-cta { margin-top: 1.6rem; }
-  .lead-now { gap: .4rem .85rem; padding: .9rem var(--gut); }
-  .lead-now .name { width: auto; }
-  .lead-now .meta:nth-of-type(5) { display: none; }
-  .lead-now .go { margin-left: 0; width: 100%; margin-top: .15rem; }
 }
