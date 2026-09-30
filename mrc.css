@@ -1173,23 +1173,25 @@ html.modal-open { overflow: hidden; }
 /* ---- lead: two real columns. The copy sits in the left one, aligned to the site's
         content edge; the collage fills the right one at close to its native size.
         Nothing is absolutely positioned over anything else, so they cannot collide. ---- */
-.lead { position: relative; background: var(--teal-deep); color: #fff; overflow: hidden; }
-.lead-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+.lead { position: relative; padding: 0; background: var(--teal-deep); color: #fff; overflow: hidden; }   /* the global section padding left a teal band above and below the image */
+.lead-grid { position: relative; display: grid; grid-template-columns: minmax(0, .97fr) minmax(0, 1.03fr);
   align-items: center; min-height: clamp(560px, calc(100svh - 92px), 880px); }
 .lead-copy { position: relative; z-index: 3; grid-column: 1;
   padding-block: clamp(2.6rem, 7vh, 4.5rem);
   padding-left: max(var(--gut), calc((100vw - var(--max)) / 2 + var(--gut)));
   padding-right: clamp(1.25rem, 3vw, 2.5rem); }
 .lead-shot { position: relative; z-index: 1; grid-column: 2; align-self: stretch; overflow: hidden;
-  -webkit-mask-image: linear-gradient(100deg, transparent 0, #000 22%);
-  mask-image: linear-gradient(100deg, transparent 0, #000 22%); }
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 34%), linear-gradient(to bottom, transparent 0, #000 9%, #000 93%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent 0, #000 34%), linear-gradient(to bottom, transparent 0, #000 9%, #000 93%, transparent 100%);
+  mask-composite: intersect; }
 .lead-shot img { width: 100%; height: 100%; object-fit: cover; object-position: right center;
   animation: leadIn 26s var(--ease) both; }
 @keyframes leadIn { from { scale: 1.04; } to { scale: 1; } }
 .lead-veil { position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background: linear-gradient(180deg, rgba(10,38,41,.3) 0%, rgba(10,38,41,0) 20%, rgba(10,38,41,0) 76%, rgba(10,38,41,.42) 100%); }
 .lead .eyebrow { color: rgba(255,255,255,.72); }
-.lead h1.display { margin-top: .9rem; color: #fff; font-size: clamp(2.3rem, 3.4vw, 3.5rem); }
+.lead h1.display { margin-top: .9rem; color: #fff; font-size: clamp(2.2rem, 2.9vw, 3.15rem); }
 .lead h1 span { display: block; }
 .lead h1 em { font-style: normal; color: var(--gold); }
 .lead .sub { margin-top: 1.3rem; max-width: 38ch; font-size: 1.06rem; line-height: 1.62; color: rgba(255,255,255,.87); }
