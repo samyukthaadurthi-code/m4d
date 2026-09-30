@@ -1170,41 +1170,47 @@ html.modal-open { overflow: hidden; }
 @media (max-width: 760px) { .why-grid { grid-template-columns: 1fr; } .why-amen { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 520px) { .why-amen { grid-template-columns: 1fr; gap: .55rem; } }
 
-/* ---- lead: the aerial does the arguing — plots on the field, the town already beside them.
-        The strip underneath names what is actually for sale, the way a search bar does on a
-        property site. Replaces the old .hero (hill + dust + rocks). ---- */
-.lead { position: relative; display: flex; flex-direction: column; justify-content: flex-end;
-  min-height: clamp(580px, calc(100svh - 92px), 900px); background: var(--teal-deep); color: #fff; overflow: hidden; }
-.lead-shot { position: absolute; inset: 0; }
-.lead-shot img { width: 100%; height: 100%; object-fit: cover; object-position: center;
-  object-position: right center;   /* anchor the imagery right; the flat teal runs out under the copy */
+/* ---- lead: two real columns. The copy sits in the left one, aligned to the site's
+        content edge; the collage fills the right one at close to its native size.
+        Nothing is absolutely positioned over anything else, so they cannot collide. ---- */
+.lead { position: relative; background: var(--teal-deep); color: #fff; overflow: hidden; }
+.lead-grid { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center; min-height: clamp(560px, calc(100svh - 92px), 880px); }
+.lead-copy { position: relative; z-index: 3; grid-column: 1;
+  padding-block: clamp(2.6rem, 7vh, 4.5rem);
+  padding-left: max(var(--gut), calc((100vw - var(--max)) / 2 + var(--gut)));
+  padding-right: clamp(1.25rem, 3vw, 2.5rem); }
+.lead-shot { position: relative; z-index: 1; grid-column: 2; align-self: stretch; overflow: hidden;
+  -webkit-mask-image: linear-gradient(100deg, transparent 0, #000 22%);
+  mask-image: linear-gradient(100deg, transparent 0, #000 22%); }
+.lead-shot img { width: 100%; height: 100%; object-fit: cover; object-position: right center;
   animation: leadIn 26s var(--ease) both; }
-@keyframes leadIn { from { scale: 1.05; } to { scale: 1; } }
-.lead-veil { position: absolute; inset: 0; background:
-  linear-gradient(100deg, #12474C 0%, rgba(18,71,76,.97) 30%, rgba(18,71,76,.86) 46%, rgba(18,71,76,.45) 60%, rgba(18,71,76,0) 80%); }
-.lead > .wrap { position: relative; z-index: 2; padding-block: clamp(2.6rem, 7vh, 5rem) clamp(1.8rem, 4vh, 2.8rem); }
+@keyframes leadIn { from { scale: 1.04; } to { scale: 1; } }
+.lead-veil { position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: linear-gradient(180deg, rgba(10,38,41,.3) 0%, rgba(10,38,41,0) 20%, rgba(10,38,41,0) 76%, rgba(10,38,41,.42) 100%); }
 .lead .eyebrow { color: rgba(255,255,255,.72); }
-.lead h1.display { margin-top: .9rem; color: #fff; font-size: clamp(2.5rem, 5.4vw, 4.6rem); max-width: 14ch; }
+.lead h1.display { margin-top: .9rem; color: #fff; font-size: clamp(2.3rem, 3.4vw, 3.5rem); }
 .lead h1 span { display: block; }
 .lead h1 em { font-style: normal; color: var(--gold); }
-.lead .sub { margin-top: 1.3rem; max-width: 46ch; font-size: 1.08rem; line-height: 1.62; color: rgba(255,255,255,.87); }
+.lead .sub { margin-top: 1.3rem; max-width: 38ch; font-size: 1.06rem; line-height: 1.62; color: rgba(255,255,255,.87); }
 .lead-facts { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.1rem 2.2rem; margin-top: 2.2rem; max-width: 34rem; }
-.lead-facts b { display: block; font-family: var(--font-d); font-weight: 600; font-size: 1rem; color: #fff; text-shadow: 0 1px 3px rgba(9,34,37,.5); }
-.lead-facts span { display: block; margin-top: .25rem; font-size: .82rem; color: rgba(255,255,255,.78); text-shadow: 0 1px 3px rgba(9,34,37,.6); }
+  gap: 1.1rem 2rem; margin-top: 2.2rem; }
+.lead-facts b { display: block; font-family: var(--font-d); font-weight: 600; font-size: 1rem; color: #fff; }
+.lead-facts span { display: block; margin-top: .25rem; font-size: .82rem; color: rgba(255,255,255,.72); }
 .lead .hero-cta { margin-top: 2rem; }
-@media (max-width: 760px) {
-  /* on a phone the photograph is the argument — a side-to-side veil would bury it,
-     and the four facts are read as labels, so their explanations come off */
-  .lead { min-height: 0; }
-  .lead-veil { background: linear-gradient(180deg, #12474C 0%, rgba(18,71,76,.94) 28%, rgba(18,71,76,.5) 46%, rgba(18,71,76,0) 64%); }
+
+@media (max-width: 900px) {
+  /* one column: the collage goes behind the copy again and a vertical wash carries the text */
+  .lead-grid { display: block; min-height: 0; }
+  .lead-copy { grid-column: auto; padding-inline: var(--gut); padding-block: 2.2rem 1.8rem; }
+  .lead-shot { position: absolute; inset: 0; z-index: 1;
+    -webkit-mask-image: none; mask-image: none; }
   .lead-shot img { object-position: 74% bottom; }
-  .lead > .wrap { padding-block: 2.2rem 1.6rem; }
-  .lead h1.display { font-size: clamp(2.1rem, 8.8vw, 3rem); max-width: none; }
+  .lead-veil { background: linear-gradient(180deg, #12474C 0%, rgba(18,71,76,.94) 28%,
+    rgba(18,71,76,.5) 46%, rgba(18,71,76,0) 64%); }
+  .lead h1.display { font-size: clamp(2.1rem, 8.8vw, 3rem); }
   .lead .sub { font-size: 1rem; max-width: 34ch; }
-  .lead-facts { gap: .7rem 1.2rem; margin-top: 1.6rem; padding-right: 3.2rem; max-width: none; }  /* clear the WhatsApp/Enquire side tabs */
-  .lead-facts li { flex: 1 1 calc(50% - .6rem); min-width: 0; overflow-wrap: anywhere; }
-  .lead-facts b { font-size: .92rem; }
+  .lead-facts { gap: .7rem 1.2rem; margin-top: 1.6rem; padding-right: 3.2rem; }
   .lead-facts span { display: none; }
   .lead .hero-cta { margin-top: 1.6rem; }
 }
