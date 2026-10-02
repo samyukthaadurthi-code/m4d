@@ -109,3 +109,16 @@ export function sendVisitConfirmation(
 export function sendLeadAlert(to: string, summary: string) {
   return safeSend("lead alert", template(to, "lead_alert", [body(summary)]));
 }
+
+/**
+ * Free-form reply. Only legal inside the 24-hour window that opens when the
+ * customer messages us first — which is exactly when the webhook fires, so the
+ * assistant can answer in plain text with no template.
+ */
+export function sendText(to: string, body: string) {
+  return safeSend("assistant reply", {
+    to: toWa(to),
+    type: "text",
+    text: { preview_url: true, body: body.slice(0, 4000) },
+  });
+}

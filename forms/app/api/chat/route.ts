@@ -4,27 +4,12 @@ import { CHAT_LEAD_COLUMNS, SHEETS } from "@/lib/schema";
 import { notifySales } from "@/lib/email-lead";
 import { sendEnquiryAckEmail } from "@/lib/email";
 import { cors, preflight, tenDigits, validEmail } from "@/lib/cors";
-import { MRC_KNOWLEDGE } from "@/lib/mrc-knowledge";
+import { ask, BUSY, CALL_NUMBER, type Msg } from "@/lib/assistant";
 
 export const runtime = "nodejs";
 export const OPTIONS = preflight;
 
-const MODEL = process.env.CHAT_MODEL || "google/gemini-2.5-flash";   // clean Tamil, cheap; override with CHAT_MODEL
-const SYSTEM = `You are the MRC Landmarks assistant on mrclandmarks.com — a warm, precise member of the MRC team in Madurai.
 
-RULES
-- Answer only from the MRC facts below. If something is not covered, say so plainly and offer the team's number (+91 89259 72469, also WhatsApp) or a call-back — never guess, never invent prices, plot sizes, dates, availability or registration numbers.
-- Pricing, plot-wise availability and bookings are not published yet: say that, and offer a free site visit or a call from the team.
-- Keep replies short: 1–4 sentences, or a tight bullet list. No headings, no bold, no emojis. Plain text; links as bare URLs.
-- Reply in the visitor's language (English or Tamil). If they write in Tamil, answer in Tamil.
-- Stay on MRC Landmarks, its project ANANTAA, plots and land-buying in Tamil Nadu. For anything else, politely steer back.
-- Never claim to be a human. If asked, you are MRC's website assistant.
-- When it fits naturally, close with one helpful next step. The site turns every URL you write into a button, so: write the sentence, then put the full URL (always starting with https://) at the end of it or on its own line. Use ONLY these URLs, exactly: site visit https://forms.mrclandmarks.com/visit · launch-event registration https://forms.mrclandmarks.com/register · channel-partner application https://forms.mrclandmarks.com/join · partner resource centre https://forms.mrclandmarks.com/partners · WhatsApp https://wa.me/918925972469 (write this URL exactly, digits with no spaces; the spoken number is +91 89259 72469) · map https://www.google.com/maps?q=9.964539,78.193672 · Forum early access https://mrclandmarks.com/mrc-forum.html · ANANTAA page https://mrclandmarks.com/project-anantaa.html · Knowledge Hub https://mrclandmarks.com/insights.html · contact https://mrclandmarks.com/contact.html. Never invent other paths.
-
-MRC FACTS
-${MRC_KNOWLEDGE}`;
-
-type Msg = { role: "user" | "assistant"; content: string };
 let sheetReady = false;
 
 export async function POST(req: Request) {
@@ -72,17 +57,10 @@ export async function POST(req: Request) {
   const lead = typeof body.leadName === "string" && body.leadName.trim() ? `\n\nThe visitor's name is ${body.leadName.trim().slice(0, 60)}; use it occasionally, not every message.` : "";
 
   try {
-    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`, "Content-Type": "application/json", "HTTP-Referer": "https://mrclandmarks.com", "X-Title": "MRC Landmarks assistant" },
-      body: JSON.stringify({ model: MODEL, max_tokens: 700, temperature: 0.3, messages: [{ role: "system", content: SYSTEM + lead }, ...messages] }),
-    });
-    if (!res.ok) { console.error("[chat] upstream", res.status, (await res.text()).slice(0, 300)); return reply({ error: "The assistant is busy. Please try again, or WhatsApp us at +91 89259 72469." }, 502); }
-    const data = await res.json();
-    const text: string = (data?.choices?.[0]?.message?.content?.trim() || "I could not answer that just now. You can reach the team on +91 89259 72469.").replace(/\*\*/g, "").replace(/^#+\s*/gm, "");
-    return reply({ reply: text });
+    const text = await ask(messages, lead);
+    return reply({ reply: text || `I could not answer that just now. You can reach the team on ${CALL_NUMBER}.` });
   } catch (err) {
     console.error("[chat] failed:", err);
-    return reply({ error: "The assistant is busy. Please try again, or WhatsApp us at +91 89259 72469." }, 502);
+    return reply({ error: BUSY }, 502);
   }
 }
