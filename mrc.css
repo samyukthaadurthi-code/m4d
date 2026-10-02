@@ -1185,15 +1185,16 @@ html.modal-open { overflow: hidden; }
   background: linear-gradient(100deg, rgba(18,71,76,.55) 0%, rgba(18,71,76,.25) 26%, rgba(18,71,76,0) 46%); }
 .lead-copy { position: relative; z-index: 3; width: 100%;
   padding-block: clamp(2.4rem, 6vh, 4rem);
-  padding-left: max(var(--gut), calc((100vw - var(--max)) / 2 + var(--gut)));
+  padding-left: var(--gut);   /* hugs the page edge rather than the centred grid: the
+     gold arc in the picture sweeps through where the centred column would sit */
   padding-right: var(--gut); }
 .lead .eyebrow { color: rgba(255,255,255,.72); }
 .lead h1.display { margin-top: .9rem; color: #fff; font-size: clamp(2.2rem, 3vw, 3.2rem); max-width: 13ch; }
 .lead h1 span { display: block; }
 .lead h1 em { font-style: normal; color: var(--gold); }
-.lead .sub { margin-top: 1.3rem; max-width: 33ch; font-size: 1.05rem; line-height: 1.62; color: rgba(255,255,255,.87); }
+.lead .sub { margin-top: 1.3rem; max-width: 30ch; font-size: 1.05rem; line-height: 1.62; color: rgba(255,255,255,.87); }
 .lead-facts { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.1rem 2rem; margin-top: 2.2rem; max-width: 33rem; }
+  gap: 1.1rem 1.8rem; margin-top: 2.2rem; max-width: 30rem; }
 .lead-facts b { display: block; font-family: var(--font-d); font-weight: 600; font-size: 1rem; color: #fff; }
 .lead-facts span { display: block; margin-top: .25rem; font-size: .82rem; color: rgba(255,255,255,.72); }
 .lead .hero-cta { margin-top: 2rem; }
