@@ -13,12 +13,13 @@ shows.
 import os
 import sys
 
-from PIL import Image, ImageChops
+from PIL import Image, ImageChops, ImageStat
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import gen_image  # noqa: E402
 
 TILE = 0.55             # each tile covers 55% of each axis, so neighbours share 10%
+FLAT = 12               # stddev below this means the tile is effectively flat colour
 PROMPT = (
     "Reproduce this image exactly as it is. Same composition, same framing, same "
     "content, same colours, same teal-and-sage duotone with warm cream and gold "
@@ -62,6 +63,15 @@ def main(src_path, out_path):
     for j, y in enumerate(ys):
         for i, x in enumerate(xs):
             crop = src.crop((x, y, x + tw, y + th))
+
+            # A near-flat tile has nothing to resolve, and asking the model for
+            # "more detail" there makes it invent content. Resample those instead.
+            spread = max(ImageStat.Stat(crop).stddev)
+            if spread < FLAT:
+                print(f"tile {i}{j} {crop.size} flat (stddev {spread:.1f}) -> resample", flush=True)
+                tiles[(i, j)] = crop
+                continue
+
             tmp = f"/tmp/_tile_{i}{j}.jpg"
             crop.save(tmp, quality=96)
             print(f"tile {i}{j} {crop.size} -> model", flush=True)
@@ -72,7 +82,7 @@ def main(src_path, out_path):
             tiles[(i, j)] = Image.open(hi).convert("RGB")
             print(f"   got {tiles[(i, j)].size}", flush=True)
 
-    TW, TH = tiles[(0, 0)].size
+    TW, TH = max((t.size for t in tiles.values()), key=lambda s: s[0] * s[1])
     tiles = {k: (v if v.size == (TW, TH) else v.resize((TW, TH), Image.LANCZOS))
              for k, v in tiles.items()}
 
