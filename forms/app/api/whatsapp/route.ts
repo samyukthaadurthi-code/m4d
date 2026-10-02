@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { ask, BUSY, type Msg } from "@/lib/assistant";
-import { sendText, whatsappConfigured } from "@/lib/whatsapp";
+import { ask, AGENT, BUSY, type Msg } from "@/lib/assistant";
+import { sendText, sendList, sendCtaUrl, whatsappConfigured } from "@/lib/whatsapp";
 import { appendRow, ensureSheet, setCell, sheetsConfigured } from "@/lib/sheets";
 import { CHAT_LEAD_COLUMNS, SHEETS } from "@/lib/schema";
 import { notifySales } from "@/lib/email-lead";
@@ -21,12 +21,22 @@ const IDLE_MS = 30 * 60e3; // forget a thread after half an hour of silence
  * simply starts fresh, which is acceptable for a sales assistant. Move it to the
  * sheet or a KV store if continuity across restarts ever matters.
  */
-const threads = new Map<string, { at: number; msgs: Msg[]; greeted: boolean }>();
+const threads = new Map<string, { at: number; msgs: Msg[]; greeted: boolean; asks: number; formSent: boolean }>();
+
+/** Tapping one of these sends its title back as an ordinary message. */
+const FAQ = [
+  { id: "faq_what", title: "What is ANANTAA?", description: "The project, where it is, what is included" },
+  { id: "faq_where", title: "Where is the site?", description: "Location and what is nearby" },
+  { id: "faq_docs", title: "What papers do I get?", description: "Approvals and the document kit" },
+  { id: "faq_visit", title: "Book a site visit", description: "Free, any day of the week" },
+];
+
+const FORM_URL = "https://forms.mrclandmarks.com/visit";
 
 function thread(id: string) {
   const now = Date.now();
   for (const [k, v] of threads) if (now - v.at > IDLE_MS) threads.delete(k);
-  const t = threads.get(id) ?? { at: now, msgs: [], greeted: false };
+  const t = threads.get(id) ?? { at: now, msgs: [], greeted: false, asks: 0, formSent: false };
   t.at = now;
   threads.set(id, t);
   return t;
@@ -94,10 +104,12 @@ export async function POST(req: Request) {
   }
 
   const t = thread(from);
-  if (!t.greeted) {
+  const firstContact = !t.greeted;
+  if (firstContact) {
     t.greeted = true;
     logLead(from, text).catch((err) => console.error("[whatsapp] lead failed:", err));
   }
+  t.asks += 1;
   t.msgs.push({ role: "user", content: text.slice(0, 1500) });
   t.msgs = t.msgs.slice(-TURNS);
 
@@ -109,6 +121,22 @@ export async function POST(req: Request) {
   } catch (err) {
     console.error("[whatsapp] assistant failed:", err);
     await sendText(from, BUSY);
+  }
+
+  // First time anyone writes in, offer the questions most people actually ask.
+  if (firstContact) {
+    await sendList(from, `Or pick one of these and I'll answer it right away.`, "Common questions", FAQ);
+  }
+
+  // Two questions in, they are a real lead: put the form in front of them once.
+  if (!t.formSent && t.asks >= 2) {
+    t.formSent = true;
+    await sendCtaUrl(
+      from,
+      `If you'd like the team to call you with the details, leave your name and what you're looking for — it takes a minute and someone from MRC will come back to you.`,
+      "Share your details",
+      FORM_URL,
+    );
   }
   return ok();
 }

@@ -122,3 +122,44 @@ export function sendText(to: string, body: string) {
     text: { preview_url: true, body: body.slice(0, 4000) },
   });
 }
+
+/** A tappable list of canned questions. Tapping one sends its title back as a message. */
+export function sendList(
+  to: string,
+  bodyText: string,
+  buttonText: string,
+  rows: { id: string; title: string; description?: string }[],
+) {
+  return safeSend("faq list", {
+    to: toWa(to),
+    type: "interactive",
+    interactive: {
+      type: "list",
+      body: { text: bodyText.slice(0, 1024) },
+      action: {
+        button: buttonText.slice(0, 20),
+        sections: [{ title: "Common questions", rows: rows.slice(0, 10).map((r) => ({
+          id: r.id,
+          title: r.title.slice(0, 24),
+          ...(r.description ? { description: r.description.slice(0, 72) } : {}),
+        })) }],
+      },
+    },
+  });
+}
+
+/** A single button that opens a URL — our "form" inside the chat. */
+export async function sendCtaUrl(to: string, bodyText: string, buttonText: string, url: string) {
+  const res = await safeSend("cta url", {
+    to: toWa(to),
+    type: "interactive",
+    interactive: {
+      type: "cta_url",
+      body: { text: bodyText.slice(0, 1024) },
+      action: { name: "cta_url", parameters: { display_text: buttonText.slice(0, 20), url } },
+    },
+  });
+  // Older API versions reject cta_url; a plain link still gets the job done.
+  if (!res.sent) return sendText(to, `${bodyText}\n\n${url}`);
+  return res;
+}
