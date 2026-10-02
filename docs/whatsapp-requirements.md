@@ -95,3 +95,22 @@ and `whatsapp_business_management` permissions, never expiring.
 
 **Summary of the blocker:** Meta business verification + a spare phone number.
 Everything else is ready.
+
+---
+
+## Account identifiers (recorded 2026-10-02)
+
+Not secrets — safe to keep here. The token is NOT recorded, by design.
+
+| What | Value |
+|---|---|
+| Business portfolio ID | `1197159983491851` |
+| Meta app | MRC Landmarks Automation |
+| WhatsApp Business Account ID | `1619372023218910` |
+| Phone Number ID (`WHATSAPP_PHONE_NUMBER_ID`) | `1270495576156486` |
+| WhatsApp number | +91 95148 89555 |
+| Public call number | +91 95144 39555 |
+
+Setup runs through the app's guided flow: Use cases -> Connect on WhatsApp ->
+Step 2 Production setup. Business verification is Step 3 of that flow, not the
+Security Centre.
