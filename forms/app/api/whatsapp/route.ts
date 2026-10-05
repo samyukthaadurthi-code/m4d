@@ -27,8 +27,8 @@ const threads = new Map<string, { at: number; msgs: Msg[]; greeted: boolean; ask
 const FAQ = [
   { id: "faq_what", title: "What is ANANTAA?", description: "The project, where it is, what is included" },
   { id: "faq_where", title: "Where is the site?", description: "Location and what is nearby" },
-  { id: "faq_docs", title: "What papers do I get?", description: "Approvals and the document kit" },
-  { id: "faq_visit", title: "Book a site visit", description: "Free, any day of the week" },
+  { id: "faq_docs", title: "What documents do I get?", description: "Approvals and the document kit" },
+  { id: "faq_visit", title: "Book a free site visit", description: "Free, any day of the week" },
 ];
 
 const FORM_URL = "https://forms.mrclandmarks.com/visit";
@@ -133,8 +133,12 @@ export async function POST(req: Request) {
     await sendText(from, BUSY);
   }
 
-  // First time anyone writes in, offer the questions most people actually ask.
-  if (firstContact) {
+  // First time anyone writes in, offer the questions most people actually ask —
+  // unless they got here by tapping one, in which case they have already seen them.
+  const cameFromIcebreaker = FAQ.some(
+    (f) => f.title.toLowerCase().replace(/[^a-z]/g, "") === text.toLowerCase().replace(/[^a-z]/g, ""),
+  );
+  if (firstContact && !cameFromIcebreaker) {
     await sendList(from, `Or pick one of these and I'll answer it right away.`, "Common questions", FAQ);
   }
 
