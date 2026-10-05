@@ -92,6 +92,16 @@ export async function POST(req: Request) {
   const from: string = message.from;
   if (!from || !whatsappConfigured()) return ok();
 
+  // Meta fires this when someone opens an empty chat with us, before they type.
+  // It is the only moment we are allowed to speak first.
+  if (message.type === "request_welcome") {
+    const t = thread(from);
+    t.greeted = true;
+    await sendText(from, `Hello, I'm ${AGENT} from MRC Landmarks. Ask me anything about our plots in Southern Tamil Nadu, or pick one of the questions below.`);
+    await sendList(from, "Common questions", "Choose a question", FAQ);
+    return ok();
+  }
+
   const text: string =
     message.type === "text" ? (message.text?.body ?? "").trim()
     : message.type === "interactive" ? (message.interactive?.button_reply?.title
