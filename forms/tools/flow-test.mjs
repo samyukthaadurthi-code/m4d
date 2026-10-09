@@ -72,18 +72,27 @@ async function purge() {
     if (!hits.length) continue;
 
     for (const h of hits) console.log(`  ${title} row ${h.index + 1}: ${h.row.slice(0, 5).join(" | ")}`);
-    // Clear the cells, do NOT delete the rows.
+    // Blank the data but leave a marker in column A. Do NOT delete the row,
+    // and do NOT clear column A either.
     //
     // IDs are minted from the row number Sheets allocates on append — that is
     // what makes them race-free without a counter cell (see lib/sheets.ts).
-    // Deleting a row hands its number back, so the next lead is issued an ID
-    // that already belongs to an older one. Clearing keeps the row numbering
-    // intact and costs nothing but a few blank rows.
+    // Append targets the row after the last one holding data in column A, so
+    // both deleting a row and emptying its column A hand that number back, and
+    // the next lead is issued an ID an older record already owns. Leaving
+    // "VOID" in column A keeps the number spent.
     await post("/values:batchClear", {
-      ranges: hits.map((h) => `${title}!A${h.index + 1}:Z${h.index + 1}`),
+      ranges: hits.map((h) => `${title}!B${h.index + 1}:Z${h.index + 1}`),
+    });
+    await post("/values:batchUpdate", {
+      valueInputOption: "RAW",
+      data: hits.map((h) => ({
+        range: `${title}!A${h.index + 1}`,
+        values: [[`VOID-${h.row[0] || "row" + (h.index + 1)}`]],
+      })),
     });
     total += hits.length;
-    console.log(`  ${title}: cleared ${hits.length}\n`);
+    console.log(`  ${title}: voided ${hits.length}\n`);
   }
   console.log(total ? `purged ${total} row(s)` : "nothing to purge");
 }
