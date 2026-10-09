@@ -4,6 +4,7 @@ import { FORUM_COLUMNS, SHEETS } from "@/lib/schema";
 import { notifySales } from "@/lib/email-lead";
 import { forumDesk } from "@/lib/email";
 import { sendForumWaitlistEmail } from "@/lib/email";
+import { sendForumWaitlist } from "@/lib/whatsapp";
 import { cors, preflight, tenDigits, validEmail } from "@/lib/cors";
 
 export const runtime = "nodejs";
@@ -54,6 +55,7 @@ export async function POST(req: Request) {
       ID: id, Name: name, Mobile: mobile, Email: email, Profession: profession, Organisation: organisation, City: city,
     }, forumDesk()),
     sendForumWaitlistEmail(email, name, id),
+    sendForumWaitlist(mobile, name),
   ]).catch((err) => console.error("[forum] notify failed:", err));
 
   return reply({ ok: true, id });

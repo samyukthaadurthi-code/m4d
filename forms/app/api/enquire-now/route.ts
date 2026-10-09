@@ -3,6 +3,7 @@ import { appendRow, ensureSheet, setCell, sheetsConfigured } from "@/lib/sheets"
 import { ENQUIRE_NOW_COLUMNS, SHEETS } from "@/lib/schema";
 import { notifySales } from "@/lib/email-lead";
 import { sendEnquiryAckEmail } from "@/lib/email";
+import { sendEnquiryAck } from "@/lib/whatsapp";
 import { cors, preflight, tenDigits, validEmail } from "@/lib/cors";
 
 export const runtime = "nodejs";
@@ -48,6 +49,7 @@ export async function POST(req: Request) {
   await Promise.all([
     notifySales(`Enquire now ${id}: ${name} · ${mobile}`, { ID: id, Name: name, Mobile: mobile, Email: email, City: city, Message: message, Page: page }),
     sendEnquiryAckEmail(email, name, mobile, message ? "Your enquiry" : "General enquiry"),
+    sendEnquiryAck(mobile, name, "our plots at ANANTAA"),
   ]).catch((err) => console.error("[enquire-now] notify failed:", err));
 
   return reply({ ok: true, id });

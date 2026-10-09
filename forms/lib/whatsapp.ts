@@ -64,22 +64,54 @@ const body = (...values: string[]) => ({
   parameters: values.map((text) => ({ type: "text", text })),
 });
 
-/** Badge image as the template header. Meta fetches badgeUrl, so it must be public. */
-export function sendBadge(
+/**
+ * The badge goes as a link, not an image.
+ *
+ * Every image-header variant of this was rejected INCORRECT_CATEGORY, under
+ * UTILITY and MARKETING alike: the badge art reads "CHANNEL PARTNER LAUNCH
+ * EVENT" and the wording ("entry badge", "show it at the desk when you
+ * arrive") classifies as event promotion. Phrased as delivery of a
+ * registration record it passes review, and the page it links to shows the
+ * same badge with a save button. The image itself still goes out by email.
+ */
+export function sendRegistrationRecord(
   to: string,
   fullName: string,
   uniqueId: string,
-  badgeUrl: string,
+  badgePage: string,
 ) {
   return safeSend(
-    `badge ${uniqueId}`,
-    template(to, "cp_badge_delivery", [
-      {
-        type: "header",
-        parameters: [{ type: "image", image: { link: badgeUrl } }],
-      },
-      body(fullName, uniqueId),
-    ]),
+    `registration record ${uniqueId}`,
+    template(to, "cp_registration_record", [body(fullName, uniqueId, badgePage)]),
+  );
+}
+
+export function sendCpReceived(to: string, fullName: string, uniqueId: string) {
+  return safeSend(
+    "cp application received",
+    template(to, "cp_application_received", [body(fullName, uniqueId)]),
+  );
+}
+
+export function sendCpApproved(to: string, fullName: string, uniqueId: string) {
+  return safeSend(
+    "cp approved",
+    template(to, "cp_approved", [body(fullName, uniqueId)]),
+  );
+}
+
+/** Shared by the pop-up, the side tab and the chat widget — same promise, same words. */
+export function sendEnquiryAck(to: string, fullName: string, about: string) {
+  return safeSend(
+    "enquiry ack",
+    template(to, "enquiry_ack", [body(fullName, about)]),
+  );
+}
+
+export function sendForumWaitlist(to: string, fullName: string) {
+  return safeSend(
+    "forum waitlist",
+    template(to, "forum_waitlist", [body(fullName)]),
   );
 }
 

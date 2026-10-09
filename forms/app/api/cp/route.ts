@@ -3,6 +3,7 @@ import { appendRow, ensureSheet, findById, sheetsConfigured } from "@/lib/sheets
 import { CP_COLUMNS, CP_FIELDS, SHEETS } from "@/lib/schema";
 import { notifyPartners } from "@/lib/email-lead";
 import { sendCpReceivedEmail } from "@/lib/email";
+import { sendCpReceived } from "@/lib/whatsapp";
 import { origin } from "@/lib/origin";
 import { approveToken } from "@/lib/approve";
 
@@ -78,6 +79,7 @@ export async function POST(req: Request) {
       "Approve": `${base}/api/cp/approve?id=${encodeURIComponent(uniqueId)}&t=${approveToken(uniqueId)}`,
     }),
     sendCpReceivedEmail(registration.email ?? "", meta.full_name, uniqueId),
+    sendCpReceived(registration.whatsapp || meta.mobile, meta.full_name, uniqueId),
   ]).catch((err) => console.error("[cp] notify failed:", err));
 
   return NextResponse.json({ ok: true, unique_id: uniqueId });

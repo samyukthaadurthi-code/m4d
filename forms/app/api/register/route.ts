@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { appendRow, ensureSheet, findBy, setCell, sheetsConfigured } from "@/lib/sheets";
 import { REGISTRATION_COLUMNS, REGISTRATION_FIELDS, SHEETS } from "@/lib/schema";
-import { sendBadge, sendCpFormLink } from "@/lib/whatsapp";
+import { sendCpFormLink, sendRegistrationRecord } from "@/lib/whatsapp";
 import { sendBadgeEmail, sendCpFormLinkEmail } from "@/lib/email";
 import { notifyPartners } from "@/lib/email-lead";
 import { t, type Lang } from "@/lib/i18n";
@@ -35,7 +35,7 @@ async function notify(
   const cpLink = `${base}/cp/${uniqueId}`;
 
   await Promise.allSettled([
-    sendBadge(values.whatsapp, values.full_name, uniqueId, badgeUrl),
+    sendRegistrationRecord(values.whatsapp, values.full_name, uniqueId, badgePage),
     sendBadgeEmail(values.email, values.full_name, uniqueId, badgeUrl, badgePage),
     notifyPartners(`Event registration ${uniqueId}: ${values.full_name}`, {
       ID: uniqueId, Name: values.full_name, Mobile: values.mobile, WhatsApp: values.whatsapp, Email: values.email,

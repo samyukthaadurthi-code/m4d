@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { appendRow, ensureSheet, setCell, sheetsConfigured } from "@/lib/sheets";
 import { ENQUIRY_COLUMNS, SHEETS } from "@/lib/schema";
-import { sendLeadAlert } from "@/lib/whatsapp";
+import { sendEnquiryAck, sendLeadAlert } from "@/lib/whatsapp";
 import { sendEnquiryAlertEmail } from "@/lib/email-lead";
 import { sendEnquiryAckEmail } from "@/lib/email";
 import { cors, preflight, tenDigits, validEmail } from "@/lib/cors";
@@ -51,6 +51,7 @@ export async function POST(req: Request) {
     process.env.SALES_LEAD_WHATSAPP ? sendLeadAlert(process.env.SALES_LEAD_WHATSAPP, summary) : Promise.resolve(),
     sendEnquiryAlertEmail(summary, { Name: name, Mobile: mobile, Email: email, Interest: interest, Page: page }),
     sendEnquiryAckEmail(email, name, mobile, interest),
+    sendEnquiryAck(mobile, name, interest || "our plots"),
   ]).catch((err) => console.error("[enquiry] notify failed:", err));
 
   return reply({ ok: true, id });
