@@ -32,9 +32,16 @@ export default async function BadgePage({
   const pageUrl = `${base}/badge/${id}`;
   const wantsCp = row.cp_interested === "Yes";
 
-  // Opens the visitor's own WhatsApp with their badge link — no API, no approval.
-  const share = `https://wa.me/?text=${encodeURIComponent(
-    `My MRC Landmarks Channel Partner badge\nID: ${id}\n${pageUrl}`,
+  // Opens a chat with MRC, pre-typed. The broker sends it, /api/whatsapp
+  // recognises "badge" and replies with their badge link.
+  //
+  // Worth the extra hop over wa.me/?text= (which only opens a contact picker and
+  // makes them forward it to themselves): the badge arrives FROM MRC, and their
+  // message opens a 24-hour service window, inside which we can send plain text
+  // with no template and without spending one of the number's 250 daily
+  // business-initiated conversations.
+  const share = `https://wa.me/919514889555?text=${encodeURIComponent(
+    `Send my badge — ${id}`,
   )}`;
 
   return (
@@ -84,7 +91,7 @@ export default async function BadgePage({
             rel="noopener noreferrer"
             className="rounded-xl border border-[#176A70] px-5 py-4 text-center font-semibold text-[#176A70]"
           >
-            Send to my WhatsApp
+            Get it on WhatsApp
           </a>
         </div>
 

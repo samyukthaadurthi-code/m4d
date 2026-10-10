@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { ask, AGENT, BUSY, type Msg } from "@/lib/assistant";
 import { sendText, sendList, sendCtaUrl, whatsappConfigured } from "@/lib/whatsapp";
-import { appendRow, ensureSheet, setCell, sheetsConfigured } from "@/lib/sheets";
+import { appendRow, ensureSheet, findBy, setCell, sheetsConfigured } from "@/lib/sheets";
 import { CHAT_LEAD_COLUMNS, SHEETS } from "@/lib/schema";
 import { notifySales } from "@/lib/email-lead";
 
@@ -32,6 +32,41 @@ const FAQ = [
 ];
 
 const FORM_URL = "https://forms.mrclandmarks.com/visit";
+const SITE = "https://forms.mrclandmarks.com";
+
+/**
+ * Badge on demand, for the registration desk.
+ *
+ * A broker who messages us first opens a 24-hour service window, and inside it
+ * we may send plain text — no template, and it does not count against the
+ * number's 250-unique-recipients cap. So the desk QR code
+ * (wa.me/919514889555?text=Send%20my%20badge) delivers badges on event day
+ * whatever Meta has or hasn't approved by then.
+ */
+const WANTS_BADGE = /\b(badge|pass|entry|my\s*id)\b/i;
+
+async function badgeReply(from: string): Promise<boolean> {
+  if (!sheetsConfigured()) return false;
+  const mobile = from.replace(/\D/g, "").slice(-10);
+  const reg =
+    (await findBy(SHEETS.registrations, "whatsapp", mobile)) ??
+    (await findBy(SHEETS.registrations, "mobile", mobile));
+
+  if (!reg?.unique_id) {
+    await sendText(
+      from,
+      `I can't find a registration for this number yet. Register here and your badge comes straight back: ${SITE}/register`,
+    );
+    return true;
+  }
+  await sendText(
+    from,
+    `${reg.full_name || "Hello"} — your MRC Landmarks badge is ready.\n\n` +
+      `Entry ID: ${reg.unique_id}\n${SITE}/badge/${reg.unique_id}\n\n` +
+      `Show this at the desk when you arrive.`,
+  );
+  return true;
+}
 
 function thread(id: string) {
   const now = Date.now();
@@ -111,6 +146,17 @@ export async function POST(req: Request) {
   if (!text) {
     await sendText(from, "Thanks for writing in. Could you send that as a text message? You can also call us on +91 95144 39555.");
     return ok();
+  }
+
+  // Desk QR lands here. Answer it and stop — a broker collecting a badge does
+  // not want the assistant's sales patter on top.
+  if (WANTS_BADGE.test(text)) {
+    thread(from).greeted = true;
+    try {
+      if (await badgeReply(from)) return ok();
+    } catch (err) {
+      console.error("[whatsapp] badge lookup failed:", err);
+    }
   }
 
   const t = thread(from);
