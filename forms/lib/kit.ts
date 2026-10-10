@@ -27,11 +27,27 @@ export type KitSection = {
 export const KIT: KitSection[] = [
   {
     key: "brochure",
-    title: "Project brochure",
+    title: "Brochure & master plan",
     ta: "திட்ட விவரக் கையேடு",
-    blurb: "The full brochure, cleared for you to send to buyers.",
-    ready: false,
-    items: [],
+    blurb: "Cleared for you to send to buyers as they are.",
+    ready: true,
+    items: [
+      {
+        label: "MRC ANANTAA brochure",
+        href: "/kit/MRC-ANANTAA-Brochure.pdf",
+        meta: "PDF · 12 pages · 3.4 MB",
+      },
+      {
+        label: "Master plan with plot schedule",
+        href: "/kit/MRC-ANANTAA-Master-Plan.pdf",
+        meta: "PDF · all 50 plots, sq.ft and cent · 0.5 MB",
+      },
+      {
+        label: "Master plan — layout only",
+        href: "/kit/MRC-ANANTAA-Layout-Plan.pdf",
+        meta: "PDF · no plot table, for printing · 0.4 MB",
+      },
+    ],
     pending: "Published once the brochure is approved for release.",
   },
   {
@@ -66,8 +82,19 @@ export const KIT: KitSection[] = [
     title: "Location & connectivity",
     ta: "இருப்பிடம்",
     blurb: "Where the site is, and verified distances to nearby landmarks.",
-    ready: false,
-    items: [],
+    ready: true,
+    items: [
+      {
+        label: "ANANTAA on Google Maps",
+        href: "https://www.google.com/maps?q=9.964539,78.193672",
+        meta: "Othakadai, beside Yanaimalai, Madurai East",
+      },
+      {
+        label: "Distances & connectivity",
+        href: "/kit/MRC-ANANTAA-Brochure.pdf",
+        meta: "Brochure page 10 — bus stand 4.2 km, airport ring road 3.5 km, hospitals 4.6 km, TNAU 1.0 km",
+      },
+    ],
     pending: "Published once every distance has been verified on the ground.",
   },
   {
@@ -77,7 +104,11 @@ export const KIT: KitSection[] = [
     blurb: "Available sizes, dimensions, facing and price range.",
     ready: false,
     items: [],
-    pending: "Published once the approvals it depends on are in hand.",
+    // Sizes are published; prices are not. Say so plainly rather than leaving a
+    // partner to assume the whole thing is missing.
+    pending:
+      "Plot sizes are in the master plan above — every plot with its sq.ft and cent. " +
+      "The price list is published here once MRC releases it.",
   },
   {
     key: "approvals",
