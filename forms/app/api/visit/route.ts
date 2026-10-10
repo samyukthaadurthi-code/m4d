@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { appendRow, ensureSheet, findById, setCell, sheetsConfigured } from "@/lib/sheets";
+import { appendRow, ensureSheet, findById, mintId, setCell, sheetsConfigured } from "@/lib/sheets";
 import { SHEETS, VISIT_COLUMNS, VISIT_FIELDS } from "@/lib/schema";
 import { sendVisitConfirmation, sendLeadAlert } from "@/lib/whatsapp";
 import { sendVisitConfirmationEmail } from "@/lib/email";
@@ -8,7 +8,6 @@ import { t, type Lang } from "@/lib/i18n";
 
 export const runtime = "nodejs";
 
-const leadIdFor = (row: number) => `MRC-SV-${String(row - 1).padStart(3, "0")}`;
 
 function normalisePhone(raw: string): string | null {
   const digits = raw.replace(/\D/g, "");
@@ -87,7 +86,7 @@ export async function POST(req: Request) {
     SHEETS.visits,
     VISIT_COLUMNS.map((c) => meta[c] ?? values[c] ?? ""),
   );
-  const leadId = leadIdFor(row);
+  const leadId = await mintId(SHEETS.visits, "MRC-SV-", row);
   await setCell(SHEETS.visits, `A${row}`, leadId);
 
   const requirement = [values.plot_preference, values.amenities_preference]

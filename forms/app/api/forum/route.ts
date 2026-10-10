@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { appendRow, ensureSheet, setCell, sheetsConfigured } from "@/lib/sheets";
+import { appendRow, ensureSheet, mintId, setCell, sheetsConfigured } from "@/lib/sheets";
 import { FORUM_COLUMNS, SHEETS } from "@/lib/schema";
 import { notifySales } from "@/lib/email-lead";
 import { forumDesk } from "@/lib/email";
@@ -47,7 +47,7 @@ export async function POST(req: Request) {
     name, mobile, email, profession, organisation, city, consent: "yes",
   };
   const row = await appendRow(SHEETS.forum, FORUM_COLUMNS.map((c) => values[c] ?? ""));
-  const id = `MRC-FW-${String(row - 1).padStart(3, "0")}`;
+  const id = await mintId(SHEETS.forum, "MRC-FW-", row);
   await setCell(SHEETS.forum, `A${row}`, id);
 
   await Promise.all([

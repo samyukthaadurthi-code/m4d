@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { appendRow, ensureSheet, setCell, sheetsConfigured } from "@/lib/sheets";
+import { appendRow, ensureSheet, mintId, setCell, sheetsConfigured } from "@/lib/sheets";
 import { CHAT_LEAD_COLUMNS, SHEETS } from "@/lib/schema";
 import { notifySales } from "@/lib/email-lead";
 import { sendEnquiryAckEmail } from "@/lib/email";
@@ -38,7 +38,7 @@ export async function POST(req: Request) {
     if (!sheetReady) { await ensureSheet(SHEETS.chatLeads, [...CHAT_LEAD_COLUMNS]); sheetReady = true; }
     const values: Record<string, string> = { chat_id: "", submitted_at: new Date().toISOString(), name, mobile, email, looking_for: looking, questions, page };
     const row = await appendRow(SHEETS.chatLeads, CHAT_LEAD_COLUMNS.map((c) => values[c] ?? ""));
-    const id = `MRC-CH-${String(row - 1).padStart(3, "0")}`;
+    const id = await mintId(SHEETS.chatLeads, "MRC-CH-", row);
     await setCell(SHEETS.chatLeads, `A${row}`, id);
     await Promise.all([
       notifySales(`Chat lead ${id}: ${name} · ${mobile}`, { ID: id, Name: name, Mobile: mobile, Email: email, "Looking for": looking, "Asked": questions, Page: page }),

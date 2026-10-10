@@ -114,6 +114,32 @@ export function findById(sheet: string, id: string) {
   return findRow(sheet, (row) => (row[0] ?? "").trim() === wanted);
 }
 
+/**
+ * The ID for a freshly appended row, guaranteed not to be in use already.
+ *
+ * The row number alone used to be the ID, on the reasoning that Sheets hands it
+ * out server-side so two simultaneous registrations can never collide. True —
+ * but only while rows are append-only. Delete or blank a row and every row
+ * below it shifts up, so a record keeps an ID its new row number no longer
+ * implies, and the next append is issued a number somebody already holds. That
+ * happened: two people ended up as MRC-CP-009 and the badge page served the
+ * wrong one.
+ *
+ * So the row number is now only a starting point. We read the IDs actually in
+ * the sheet and step past any that are taken. Concurrent appends still get
+ * different row numbers, so they still start from different candidates.
+ */
+export async function mintId(sheet: string, prefix: string, row: number) {
+  const rows = await allRows(sheet);
+  const taken = new Set(
+    rows.slice(1).map((r) => (r[0] ?? "").trim().replace(/^VOID-/, "")).filter(Boolean),
+  );
+  let n = Math.max(row - 1, 1);
+  const at = (i: number) => `${prefix}${String(i).padStart(3, "0")}`;
+  while (taken.has(at(n))) n += 1;
+  return at(n);
+}
+
 /** Creates the tab if missing and writes the header row. Idempotent, never deletes. */
 export async function ensureSheet(sheet: string, columns: string[]) {
   const meta = await call("");

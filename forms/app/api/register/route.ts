@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { appendRow, ensureSheet, findBy, setCell, sheetsConfigured } from "@/lib/sheets";
+import { appendRow, ensureSheet, findBy, mintId, setCell, sheetsConfigured } from "@/lib/sheets";
 import { REGISTRATION_COLUMNS, REGISTRATION_FIELDS, SHEETS } from "@/lib/schema";
 import { sendCpFormLink, sendRegistrationRecord } from "@/lib/whatsapp";
 import { sendBadgeEmail, sendCpFormLinkEmail } from "@/lib/email";
@@ -9,7 +9,6 @@ import { origin } from "@/lib/origin";
 
 export const runtime = "nodejs";
 
-const idFor = (row: number) => `MRC-CP-${String(row - 1).padStart(3, "0")}`;
 
 /** Accepts 10-digit Indian mobiles with or without +91 / 0 prefixes. */
 function normalisePhone(raw: string): string | null {
@@ -134,7 +133,7 @@ export async function POST(req: Request) {
     SHEETS.registrations,
     REGISTRATION_COLUMNS.map((c) => meta[c] ?? values[c] ?? ""),
   );
-  const uniqueId = idFor(row);
+  const uniqueId = await mintId(SHEETS.registrations, "MRC-CP-", row);
   await setCell(SHEETS.registrations, `A${row}`, uniqueId);
 
   // Awaited: Vercel freezes the function once the response is sent, so a

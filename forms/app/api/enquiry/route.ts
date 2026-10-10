@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { appendRow, ensureSheet, setCell, sheetsConfigured } from "@/lib/sheets";
+import { appendRow, ensureSheet, mintId, setCell, sheetsConfigured } from "@/lib/sheets";
 import { ENQUIRY_COLUMNS, SHEETS } from "@/lib/schema";
 import { sendEnquiryAck, sendLeadAlert } from "@/lib/whatsapp";
 import { sendEnquiryAlertEmail } from "@/lib/email-lead";
@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     name, mobile, email, interest, page, consent: "yes",
   };
   const row = await appendRow(SHEETS.enquiries, ENQUIRY_COLUMNS.map((c) => values[c] ?? ""));
-  const id = `MRC-EQ-${String(row - 1).padStart(3, "0")}`;
+  const id = await mintId(SHEETS.enquiries, "MRC-EQ-", row);
   await setCell(SHEETS.enquiries, `A${row}`, id);
 
   const summary = `${id} · ${name} · ${mobile}${interest ? ` · ${interest}` : ""}`;

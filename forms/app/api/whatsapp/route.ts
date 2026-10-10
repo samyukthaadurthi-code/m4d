@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { ask, AGENT, BUSY, type Msg } from "@/lib/assistant";
 import { sendText, sendList, sendCtaUrl, whatsappConfigured } from "@/lib/whatsapp";
-import { appendRow, ensureSheet, findBy, setCell, sheetsConfigured } from "@/lib/sheets";
+import { appendRow, ensureSheet, findBy, mintId, setCell, sheetsConfigured } from "@/lib/sheets";
 import { CHAT_LEAD_COLUMNS, SHEETS } from "@/lib/schema";
 import { notifySales } from "@/lib/email-lead";
 
@@ -102,7 +102,7 @@ async function logLead(from: string, text: string) {
     page: "WhatsApp",
   };
   const row = await appendRow(SHEETS.chatLeads, CHAT_LEAD_COLUMNS.map((c) => values[c] ?? ""));
-  const id = `MRC-WA-${String(row - 1).padStart(3, "0")}`;
+  const id = await mintId(SHEETS.chatLeads, "MRC-WA-", row);
   await setCell(SHEETS.chatLeads, `A${row}`, id);
   await notifySales(`WhatsApp enquiry ${id}: ${mobile}`, {
     ID: id, Mobile: mobile, Asked: text.slice(0, 300), Channel: "WhatsApp",
