@@ -1193,10 +1193,6 @@ html.modal-open { overflow: hidden; }
 .lead h1 span { display: block; }
 .lead h1 em { font-style: normal; color: var(--gold); }
 .lead .sub { margin-top: 1.3rem; max-width: 30ch; font-size: 1.05rem; line-height: 1.62; color: rgba(255,255,255,.87); }
-.lead-facts { list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.1rem 1.8rem; margin-top: 2.2rem; max-width: 30rem; }
-.lead-facts b { display: block; font-family: var(--font-d); font-weight: 600; font-size: 1rem; color: #fff; }
-.lead-facts span { display: block; margin-top: .25rem; font-size: .82rem; color: rgba(255,255,255,.72); }
 .lead .hero-cta { margin-top: 2rem; }
 
 @media (max-width: 900px) {
@@ -1204,12 +1200,13 @@ html.modal-open { overflow: hidden; }
      dimmed so the copy keeps the flat teal above it */
   .lead-grid { min-height: 0; display: block; }
   .lead-shot img { object-fit: cover; object-position: 72% bottom; }
+  /* reaches further down than it used to: with the facts list gone the hero is
+     shorter, so the outline CTA now lands where the picture is brightest */
   .lead-veil { background: linear-gradient(180deg, #12474C 0%, rgba(18,71,76,.96) 26%,
-    rgba(18,71,76,.72) 44%, rgba(18,71,76,.18) 66%, rgba(18,71,76,0) 82%); }
-  .lead-copy { padding-inline: var(--gut); padding-block: 2.2rem 1.8rem; }
+    rgba(18,71,76,.78) 46%, rgba(18,71,76,.52) 66%, rgba(18,71,76,.26) 84%,
+    rgba(18,71,76,0) 97%); }
+  .lead-copy { padding-inline: var(--gut); padding-block: 2.2rem 2.8rem; }
   .lead h1.display { font-size: clamp(2.1rem, 8.8vw, 3rem); max-width: none; }
   .lead .sub { font-size: 1rem; max-width: 34ch; }
-  .lead-facts { gap: .7rem 1.2rem; margin-top: 1.6rem; padding-right: 3.2rem; max-width: none; }
-  .lead-facts span { display: none; }
   .lead .hero-cta { margin-top: 1.6rem; }
 }
