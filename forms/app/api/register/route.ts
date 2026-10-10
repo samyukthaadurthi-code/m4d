@@ -46,7 +46,12 @@ async function notify(
 
   if (values.cp_interested === "Yes") {
     await Promise.allSettled([
-      sendCpFormLink(values.whatsapp, values.full_name, cpLink),
+      // The badge number rides in the name slot. Ugly, but {{1}} is free text in
+      // an already-approved template, and the template that properly carries the
+      // ID (cp_registration_record) is still in Meta's review queue with the
+      // launch event two days out. Drop this back to values.full_name once that
+      // one is live.
+      sendCpFormLink(values.whatsapp, `${values.full_name} — Badge ID ${uniqueId}`, cpLink),
       sendCpFormLinkEmail(values.email, values.full_name, cpLink),
     ]);
   }
