@@ -811,7 +811,16 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
    and sitting behind the small description text instead. It stays visible,
    which is the point; it just stops competing with the heading. */
 .pagehead.img { background-position: center top; }
-@media (max-width: 760px) { .pagehead.img { background-position: 11% 60%; } }
+/* Phone: the hero is taller than the image's aspect, so cover scales by height
+   and the whole picture shows — the gate's own ANANTAA always lands at 39-48%
+   of the hero. Rather than hide it, give it a lane: the copy moves to the top
+   instead of being bottom-anchored, and the plaque drops far enough that the
+   lettering sits in clear air between them. Same framing as the desktop view,
+   nothing cropped, nothing covered. */
+@media (max-width: 760px) {
+  .pagehead.img { background-position: center 60%; }
+  .pagehead:has(.facts-wrap) { justify-content: flex-start; }
+}
 .pagehead.img .rule { background: var(--gold); }
 
 /* ================================================================
@@ -1092,7 +1101,7 @@ html.modal-open { overflow: hidden; }
 .fact-cell .v { font-family: var(--font-d); font-weight: 600; font-size: 1.05rem; color: #fff; line-height: 1.3; }
 .facts-note { margin: .9rem .4rem 0; font-size: .78rem; color: var(--text-muted, #6b7370); }
 @media (max-width: 960px) { .facts { grid-template-columns: repeat(3, 1fr); } .fact-cell { border-left: 0; border-top: 1px solid rgba(255,255,255,.12); } .fact-cell:nth-child(-n+3) { border-top: 0; } }
-@media (max-width: 560px) { .facts { grid-template-columns: repeat(2, 1fr); } .fact-cell:nth-child(3) { border-top: 1px solid rgba(255,255,255,.12); } .fact-cell { padding: 1.1rem .6rem 1rem; } .fact-cell .v { font-size: .95rem; } .fact-cell:last-child { grid-column: 1 / -1; } .facts-wrap { margin-top: -1.6rem; } }  /* The gate render carries its own ANANTAA, and on a phone cover scales by
+@media (max-width: 560px) { .facts { grid-template-columns: repeat(2, 1fr); } .fact-cell:nth-child(3) { border-top: 1px solid rgba(255,255,255,.12); } .fact-cell { padding: 1.1rem .6rem 1rem; } .fact-cell .v { font-size: .95rem; } .fact-cell:last-child { grid-column: 1 / -1; } .facts-wrap { margin-top: 7.5rem; } }   /* the gap the gate lettering sits in */  /* The gate render carries its own ANANTAA, and on a phone cover scales by
      height so background-position cannot move it. Measured, it lands at
      307-378px while the plaque started at 331 — a 24px sliver of a sliced
      word showing through the gap. Lifting the plaque puts the whole wordmark
