@@ -57,7 +57,7 @@ export const KIT: KitSection[] = [
     blurb: "Site photos, drone shots and the master plan image.",
     ready: false,
     items: [],
-    pending: "Photography is scheduled after the launch event.",
+    pending: "Site photographs and drone shots are being taken at the launch event. They are uploaded here once the event is complete.",
   },
   {
     key: "videos",
@@ -66,7 +66,7 @@ export const KIT: KitSection[] = [
     blurb: "Project film, location film and the site walkthrough.",
     ready: false,
     items: [],
-    pending: "Filming is scheduled after the launch event.",
+    pending: "The project film and the site walkthrough are being shot at the launch event. They are uploaded here once the event is complete.",
   },
   {
     key: "creatives",
@@ -75,7 +75,7 @@ export const KIT: KitSection[] = [
     blurb: "Ready-made posts you can send on WhatsApp and social media.",
     ready: false,
     items: [],
-    pending: "Released alongside the photography.",
+    pending: "Ready-made posts follow as soon as the event photography and video are uploaded.",
   },
   {
     key: "location",

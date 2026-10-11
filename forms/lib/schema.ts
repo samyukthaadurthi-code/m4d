@@ -21,6 +21,8 @@ export type Field = {
   required?: boolean;
   placeholder?: string;
   placeholderTa?: string;
+  /** Printed inside the field and never typed, e.g. the MRC-CP- on a badge ID. */
+  prefix?: string;
   // Conditional display, evaluated against current form values.
   showIf?: (v: Record<string, string>) => boolean;
 };
@@ -181,16 +183,8 @@ export const CP_FIELDS: Field[] = [
     label: "PAN number",
     ta: "பான் எண்",
     type: "text",
-    required: true,
-    placeholder: "ABCDE1234F",
-  },
-  {
-    key: "gst",
-    label: "GST number (if registered)",
-    ta: "ஜிஎஸ்டி எண்",
-    type: "text",
-    placeholder: "Leave blank if not registered",
-    placeholderTa: "பதிவு இல்லையெனில் காலியாக விடவும்",
+    placeholder: "Leave blank if you do not have it to hand",
+    placeholderTa: "இப்போது இல்லையெனில் காலியாக விடவும்",
   },
   {
     key: "rera_id",
@@ -199,6 +193,15 @@ export const CP_FIELDS: Field[] = [
     type: "text",
     placeholder: "Leave blank if not registered",
     placeholderTa: "பதிவு இல்லையெனில் காலியாக விடவும்",
+  },
+  {
+    key: "pincode",
+    label: "PIN code",
+    ta: "அஞ்சல் குறியீடு",
+    type: "text",
+    required: true,
+    placeholder: "6-digit PIN code of the area you work in",
+    placeholderTa: "நீங்கள் பணியாற்றும் பகுதியின் 6 இலக்க அஞ்சல் குறியீடு",
   },
   {
     key: "team_size",
@@ -228,6 +231,16 @@ export const CP_FIELDS: Field[] = [
     key: "notes",
     label: "Anything else we should know?",
     type: "textarea",
+  },
+  // Last on purpose: most brokers are individuals with no GST, and leading with
+  // a tax number they do not have reads as a barrier at a busy desk.
+  {
+    key: "gst",
+    label: "GST number (if registered)",
+    ta: "ஜிஎஸ்டி எண்",
+    type: "text",
+    placeholder: "Leave blank if not registered",
+    placeholderTa: "பதிவு இல்லையெனில் காலியாக விடவும்",
   },
   {
     key: "consent",
@@ -301,7 +314,8 @@ export const VISIT_FIELDS: Field[] = [
     ta: "பார்ட்னர் ஐடி",
     type: "text",
     required: true,
-    placeholder: "MRC-CP-001",
+    prefix: "MRC-CP-",
+    placeholder: "001",
     showIf: (v) => v.referred_by_cp === "Yes",
   },
   {
@@ -431,3 +445,16 @@ export const ENQUIRY_COLUMNS = [
   "page",
   "consent",
 ] as const;
+
+/**
+ * Accepts anything a human might type for a badge: "13", "013", "mrc-cp-13",
+ * "MRC CP 013". Returns the canonical MRC-CP-013, or "" if there are no digits.
+ *
+ * The prefix is printed beside the field rather than typed, but IDs also arrive
+ * pasted out of emails and WhatsApp, and a desk is no place to argue about a
+ * hyphen.
+ */
+export function normaliseBadgeId(raw: string): string {
+  const digits = (raw ?? "").replace(/\D/g, "");
+  return digits ? `MRC-CP-${digits.slice(-3).padStart(3, "0")}` : "";
+}

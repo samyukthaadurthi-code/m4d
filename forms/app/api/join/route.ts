@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { findBy, findById, sheetsConfigured } from "@/lib/sheets";
-import { SHEETS } from "@/lib/schema";
+import { SHEETS, normaliseBadgeId } from "@/lib/schema";
 import { t, type Lang } from "@/lib/i18n";
 
 export const runtime = "nodejs";
@@ -30,7 +30,7 @@ export async function POST(req: Request) {
 
   const lang: Lang = body.lang === "ta" ? "ta" : "en";
   const s = t(lang);
-  const badgeId = typeof body.badge_id === "string" ? body.badge_id.toUpperCase().trim() : "";
+  const badgeId = normaliseBadgeId(typeof body.badge_id === "string" ? body.badge_id : "");
   const mobile = typeof body.mobile === "string" ? tenDigits(body.mobile) : "";
 
   if (mobile.length !== 10) {

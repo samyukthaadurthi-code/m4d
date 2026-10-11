@@ -30,7 +30,7 @@ export default function JoinPage() {
       const res = await fetch("/api/join", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ mobile, badge_id: badgeId, lang }),
+        body: JSON.stringify({ mobile, badge_id: badgeId ? `MRC-CP-${badgeId.padStart(3, "0")}` : "", lang }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -73,14 +73,28 @@ export default function JoinPage() {
             <span className="block text-sm font-semibold text-[#1A2A2D]">{s.joinBadgeId}</span>
             <span className="mt-1 block text-xs text-[#5c6b6d]">{s.joinBadgeIdHint}</span>
           </label>
-          <input
-            id="badge_id"
-            className={`${field} ${error ? "border-red-400" : "border-[#E4E2DA]"}`}
-            placeholder="MRC-CP-001"
-            autoCapitalize="characters"
-            value={badgeId}
-            onChange={(e) => { setBadgeId(e.target.value); setError(""); setOutcome(""); }}
-          />
+          {/* Every badge starts MRC-CP-, so the prefix is printed, not typed. A
+              broker at the desk enters the three digits off their badge and
+              nothing else — no hyphens to get wrong on a phone keyboard.
+              Pasting a whole ID still works: the digits are taken from it. */}
+          <div className={`flex items-stretch overflow-hidden rounded-xl border bg-white ${error ? "border-red-400" : "border-[#E4E2DA]"} focus-within:border-[#176A70] focus-within:ring-2 focus-within:ring-[#176A70]/20`}>
+            <span className="flex select-none items-center bg-[#F2F0E9] px-4 text-base font-semibold tracking-wide text-[#5c6b6d]">
+              MRC-CP-
+            </span>
+            <input
+              id="badge_id"
+              className="w-full bg-transparent px-3 py-3.5 text-base tracking-[0.2em] text-[#1A2A2D] outline-none"
+              placeholder="001"
+              inputMode="numeric"
+              autoComplete="off"
+              maxLength={12}
+              value={badgeId}
+              onChange={(e) => {
+                const digits = e.target.value.replace(/\D/g, "").slice(-3);
+                setBadgeId(digits); setError(""); setOutcome("");
+              }}
+            />
+          </div>
         </div>
 
         {error && <p className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>}

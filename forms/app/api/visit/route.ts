@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { appendRow, ensureSheet, findById, mintId, setCell, sheetsConfigured } from "@/lib/sheets";
-import { SHEETS, VISIT_COLUMNS, VISIT_FIELDS } from "@/lib/schema";
+import { SHEETS, VISIT_COLUMNS, VISIT_FIELDS, normaliseBadgeId } from "@/lib/schema";
 import { sendVisitConfirmation, sendLeadAlert } from "@/lib/whatsapp";
 import { sendVisitConfirmationEmail } from "@/lib/email";
 import { notifySales } from "@/lib/email-lead";
@@ -62,7 +62,7 @@ export async function POST(req: Request) {
   // a note in a cell nobody reads.
   let cpName = "";
   if (values.referred_by_cp === "Yes" && values.cp_id) {
-    values.cp_id = values.cp_id.toUpperCase().trim();
+    values.cp_id = normaliseBadgeId(values.cp_id);
     const cp = await findById(SHEETS.registrations, values.cp_id);
     if (!cp) errors.cp_id = s.cpNotFound;
     else {

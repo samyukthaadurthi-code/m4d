@@ -14,7 +14,17 @@ export const runtime = "nodejs";
  */
 
 const TURNS = 10;          // how much of a conversation we carry back to the model
-const IDLE_MS = 30 * 60e3; // forget a thread after half an hour of silence
+const IDLE_MS = 15 * 60e3; // a quarter hour of silence ends the session
+
+/**
+ * Someone opening the conversation again, in whatever words.
+ *
+ * Thread state lives in this process, so a warm function remembers a visitor
+ * and a cold one does not — which made "show the questions again" a coin toss.
+ * A greeting is something we can read off the message itself, so it works the
+ * same however the function happens to be running.
+ */
+const GREETING = /^(hi+|hey+|hello+|hlo|start|menu|help|vanakkam|வணக்கம்|ஹாய்|hai)\b[\s!.]*$/i;
 
 /**
  * ponytail: in-process thread memory. A cold start loses it and the next reply
@@ -160,6 +170,10 @@ export async function POST(req: Request) {
   }
 
   const t = thread(from);
+  // A fresh thread means a new session; a greeting means they have come back and
+  // are starting over. Either way they get the questions again.
+  const newSession = !t.greeted || GREETING.test(text);
+  if (newSession) t.asks = 0;
   const firstContact = !t.greeted;
   if (firstContact) {
     t.greeted = true;
@@ -184,7 +198,7 @@ export async function POST(req: Request) {
   const cameFromIcebreaker = FAQ.some(
     (f) => f.title.toLowerCase().replace(/[^a-z]/g, "") === text.toLowerCase().replace(/[^a-z]/g, ""),
   );
-  if (firstContact && !cameFromIcebreaker) {
+  if (newSession && !cameFromIcebreaker) {
     await sendList(from, `Or pick one of these and I'll answer it right away.`, "Common questions", FAQ);
   }
 

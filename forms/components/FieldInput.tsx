@@ -133,15 +133,34 @@ export function FieldInput({
           })}
         </div>
       ) : (
-        <input
-          type={field.type}
-          inputMode={field.type === "tel" ? "numeric" : undefined}
-          min={field.type === "date" ? new Date().toISOString().slice(0, 10) : undefined}
-          className={`${base} ${border}`}
-          placeholder={hint}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-        />
+        field.prefix ? (
+          // The constant part of an ID is printed, not typed — no hyphens to get
+          // wrong on a phone. Pasting a whole ID still works; the digits win.
+          <div className={`flex items-stretch overflow-hidden rounded-xl border bg-white ${border} focus-within:border-[#176A70] focus-within:ring-2 focus-within:ring-[#176A70]/20`}>
+            <span className="flex select-none items-center bg-[#F2F0E9] px-4 text-base font-semibold tracking-wide text-[#5c6b6d]">
+              {field.prefix}
+            </span>
+            <input
+              type="text"
+              inputMode="numeric"
+              autoComplete="off"
+              className="w-full bg-transparent px-3 py-3.5 text-base tracking-[0.2em] text-[#1A2A2D] outline-none"
+              placeholder={hint}
+              value={value.replace(field.prefix, "")}
+              onChange={(e) => onChange(e.target.value.replace(/\D/g, "").slice(-3))}
+            />
+          </div>
+        ) : (
+          <input
+            type={field.type}
+            inputMode={field.type === "tel" ? "numeric" : undefined}
+            min={field.type === "date" ? new Date().toISOString().slice(0, 10) : undefined}
+            className={`${base} ${border}`}
+            placeholder={hint}
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+          />
+        )
       )}
 
       {extra}

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { appendRow, ensureSheet, findById, sheetsConfigured } from "@/lib/sheets";
 import { CP_COLUMNS, CP_FIELDS, SHEETS } from "@/lib/schema";
-import { notifyPartners } from "@/lib/email-lead";
+import { notifyPartners, notifySales } from "@/lib/email-lead";
 import { sendCpReceivedEmail } from "@/lib/email";
 import { sendCpReceived } from "@/lib/whatsapp";
 import { origin } from "@/lib/origin";
@@ -51,6 +51,13 @@ export async function POST(req: Request) {
       errors[field.key] = "This is required";
     }
   }
+  // A PIN code is only useful if it is a real one — a required field someone
+  // fills with "000000" tells the partnerships team nothing.
+  if (values.pincode && !/^[1-9]\d{5}$/.test(values.pincode.replace(/\s/g, ""))) {
+    errors.pincode = "Enter a valid 6-digit PIN code";
+  } else if (values.pincode) {
+    values.pincode = values.pincode.replace(/\s/g, "");
+  }
   if (Object.keys(errors).length) {
     return NextResponse.json({ errors }, { status: 400 });
   }
@@ -80,6 +87,15 @@ export async function POST(req: Request) {
     }),
     sendCpReceivedEmail(registration.email ?? "", meta.full_name, uniqueId),
     sendCpReceived(registration.whatsapp || meta.mobile, meta.full_name, uniqueId),
+    // A completed partner application is a lead, not just a partnerships task —
+    // this broker has seen the plan and wants in. Sales get told too.
+    notifySales(`Channel partner application ${uniqueId}: ${meta.full_name}`, {
+      ID: uniqueId, Name: meta.full_name, Mobile: meta.mobile,
+      Email: registration.email ?? "", "PIN code": values.pincode ?? "",
+      PAN: values.pan || "—", GST: values.gst || "—", TNRERA: values.rera_id || "—",
+      Team: values.team_size, "Closes / month": values.monthly_closures,
+      Notes: values.notes || "—",
+    }),
   ]).catch((err) => console.error("[cp] notify failed:", err));
 
   return NextResponse.json({ ok: true, unique_id: uniqueId });
