@@ -818,7 +818,17 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
    lettering sits in clear air between them. Same framing as the desktop view,
    nothing cropped, nothing covered. */
 @media (max-width: 760px) {
-  .pagehead.img { background-position: center 60%; }
+  /* The gate lettering is not centred in the render — measured, it spans
+     42.7-62.7% of the image width, so its middle is at 52.7%. Centring the
+     frame at 50% clipped the final A. Positioning at 53.5% puts the word in
+     the middle of a phone screen with about 20px clear either side, and the
+     figure holds across phone widths because cover scales by height here. */
+  /* Measured off the render: the lettering spans 40.9-62.9% of the image width
+     (centre 51.9%) and 39.8-46.7% of its height. At 22% of the width it is
+     nearly as wide as a phone screen, so the hero has to stay small enough
+     that the word fits — see the plaque gap below — and the frame centres on
+     the word's middle, not the image's. */
+  .pagehead.img { background-position: 52.5% 60%; }
   .pagehead:has(.facts-wrap) { justify-content: flex-start; }
 }
 .pagehead.img .rule { background: var(--gold); }
@@ -1101,7 +1111,7 @@ html.modal-open { overflow: hidden; }
 .fact-cell .v { font-family: var(--font-d); font-weight: 600; font-size: 1.05rem; color: #fff; line-height: 1.3; }
 .facts-note { margin: .9rem .4rem 0; font-size: .78rem; color: var(--text-muted, #6b7370); }
 @media (max-width: 960px) { .facts { grid-template-columns: repeat(3, 1fr); } .fact-cell { border-left: 0; border-top: 1px solid rgba(255,255,255,.12); } .fact-cell:nth-child(-n+3) { border-top: 0; } }
-@media (max-width: 560px) { .facts { grid-template-columns: repeat(2, 1fr); } .fact-cell:nth-child(3) { border-top: 1px solid rgba(255,255,255,.12); } .fact-cell { padding: 1.1rem .6rem 1rem; } .fact-cell .v { font-size: .95rem; } .fact-cell:last-child { grid-column: 1 / -1; } .facts-wrap { margin-top: 7.5rem; } }   /* the gap the gate lettering sits in */  /* The gate render carries its own ANANTAA, and on a phone cover scales by
+@media (max-width: 560px) { .facts { grid-template-columns: repeat(2, 1fr); } .fact-cell:nth-child(3) { border-top: 1px solid rgba(255,255,255,.12); } .fact-cell { padding: 1.1rem .6rem 1rem; } .fact-cell .v { font-size: .95rem; } .fact-cell:last-child { grid-column: 1 / -1; } .facts-wrap { margin-top: 6.5rem; } }   /* the lane the gate lettering sits in; also caps the hero height, which caps how wide the lettering is drawn */  /* The gate render carries its own ANANTAA, and on a phone cover scales by
      height so background-position cannot move it. Measured, it lands at
      307-378px while the plaque started at 331 — a 24px sliver of a sliced
      word showing through the gap. Lifting the plaque puts the whole wordmark
