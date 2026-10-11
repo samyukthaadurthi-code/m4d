@@ -632,7 +632,7 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 .leaflet-popup-content .map-open { display: inline-block; margin-top: .5rem; color: var(--teal); font-weight: 600; }
 .near { display: grid; grid-template-columns: 1.7fr 1fr; gap: clamp(1.2rem, 2.5vw, 2rem); margin-top: 2.4rem; align-items: stretch; }
 .near-map { height: clamp(320px, 27vw, 380px); border-radius: var(--r); overflow: hidden; box-shadow: var(--shadow-md); background: var(--teal-pale); }
-.near-mapwrap { position: relative; }
+.near-mapwrap { position: relative; z-index: 0; isolation: isolate; }  /* same Leaflet trap as .map-wrapper */
 .map-dir { position: absolute; left: 1rem; bottom: 1rem; z-index: 500; background: var(--white); color: var(--teal-deep); font: 600 .8rem/1 var(--font-d); letter-spacing: .04em; padding: .7rem 1rem; border-radius: 10px; box-shadow: var(--shadow-md); }
 .map-dir:hover { background: var(--teal-deep); color: #fff; }
 /* the category column is exactly the map's height; the open category takes the room the closed ones leave */
@@ -712,7 +712,10 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 @keyframes fabPulse { from { transform: scale(1); opacity: .8; } to { transform: scale(1.7); opacity: 0; } }
 
 /* ---- satellite map ---- */
-.map-wrapper { position: relative; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #2D5535; box-shadow: var(--shadow-lg); margin-top: 2.4rem; }
+/* Leaflet paints its panes at z-index 400 and its controls at 1000, far above
+   the side rail (60) and the chat panel (62) — the map was drawing straight
+   over both. Isolating here traps those values inside the map. */
+.map-wrapper { position: relative; z-index: 0; isolation: isolate; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #2D5535; box-shadow: var(--shadow-lg); margin-top: 2.4rem; }
 #mrcMap { height: 560px; width: 100%; }
 @media (max-width: 760px) { #mrcMap { height: 420px; } }
 .map-city-badge {

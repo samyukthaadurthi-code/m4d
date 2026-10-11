@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Cinzel:wght@600;700&display=swap">
-<link rel="stylesheet" href="mrc.css?v=1791635019">
+<link rel="stylesheet" href="mrc.css?v=1791714261">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 </head>
 <body>
@@ -463,13 +463,13 @@
   var el = document.getElementById('mrcMap'); if (!el) return;
   var projects = [{"name": "ANANTAA", "city": "Madurai", "slug": "anantaa", "lat": 9.964539, "lng": 78.193672, "locality": "Othakadai, Madurai"}];
   var TN = [[8.05, 76.2], [13.6, 80.4]];
-  var map = L.map('mrcMap', { zoomControl: false, maxZoom: 18, attributionControl: false, scrollWheelZoom: false, zoomSnap: .25, zoomDelta: .5, wheelPxPerZoomLevel: 220, wheelDebounceTime: 60 });
+  var map = L.map('mrcMap', { zoomControl: false, maxZoom: 19, attributionControl: false, scrollWheelZoom: false, zoomSnap: .25, zoomDelta: .5, wheelPxPerZoomLevel: 220, wheelDebounceTime: 60 });
   map.fitBounds(TN, { padding: [10, 10] });
   window.mrcCoopZoom && window.mrcCoopZoom(map, el);
-  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 }).addTo(map);
+  L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, detectRetina: true }).addTo(map);
   // roads + place names only once we are close, so the state view stays clean
-  var roads = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, opacity: .95 });
-  var places = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19 });
+  var roads = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, opacity: .95, detectRetina: true });
+  var places = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}', { maxZoom: 19, detectRetina: true });
   function labels(on) { [roads, places].forEach(function (l) { on ? (map.hasLayer(l) || l.addTo(map)) : map.removeLayer(l); }); }
   map.on('zoomend', function () { labels(map.getZoom() >= 11); });
   var back = L.control({ position: 'topright' });
@@ -485,7 +485,7 @@
     m.bindPopup('<strong>' + p.name + '</strong><br>' + p.locality + '<br><a class="map-open" href="project-' + p.slug + '.html">Open ' + p.name + ' &rarr;</a>', { offset: [0, -6] });
     m.on('click', function () {
       map.closePopup(); back.addTo(map);
-      map.flyTo([p.lat, p.lng], 15.5, { duration: 1.8, easeLinearity: .2 });
+      map.flyTo([p.lat, p.lng], 17.5, { duration: 1.8, easeLinearity: .2 });
       map.once('moveend', function () { m.openPopup(); });
     });
   });
