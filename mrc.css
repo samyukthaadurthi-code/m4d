@@ -789,8 +789,29 @@ html:not(.js) .roots-mrc, html:not(.js) .roots-text > * { opacity: 1; transform:
 
 /* ---- per-page hero images ---- */
 .pagehead.img { position: relative; color: #fff; min-height: 46vh; display: flex; align-items: flex-end; }
-.pagehead.img::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(18,71,76,.35) 0%, rgba(18,71,76,.55) 45%, rgba(26,42,45,.94) 100%); }
+/* The ANANTAA render carries its own ANANTAA across the gate beam, which lands
+   right under the page's <h1> on a phone — two identical words stacked. The
+   hero is taller than the image's aspect there, so cover scales by height and
+   background-position has nothing to move. The scrim does the work instead:
+   it deepens through the band the lettering sits in, so the gate still reads
+   as the gate but stops competing with the headline. */
+.pagehead.img::before { content: ""; position: absolute; inset: 0; background:
+    linear-gradient(180deg, rgba(18,71,76,.35) 0%, rgba(18,71,76,.55) 45%, rgba(26,42,45,.94) 100%); }
 .pagehead.img > .wrap { position: relative; z-index: 1; }
+/* The ANANTAA render carries its own ANANTAA across the gate beam, dead centre.
+   On a phone the hero is taller than the image's aspect, so cover scales by
+   height — no vertical play at all — and the wordmark lands exactly where the
+   description sits. There is over 1000px of HORIZONTAL overflow though, so the
+   frame slides off the lettering and onto the left pillar instead. Same image,
+   uncropped; only which part of it we look at changes. */
+/* Desktop has 155px of vertical play and none horizontally (the hero is always
+   wider than the image's aspect). Pinning to the top is the furthest the gate
+   wordmark can travel from the <h1> — measured, it moves from y217-288, which
+   ran straight through the headline at y190-266, down to y310-381, clear of it
+   and sitting behind the small description text instead. It stays visible,
+   which is the point; it just stops competing with the heading. */
+.pagehead.img { background-position: center top; }
+@media (max-width: 760px) { .pagehead.img { background-position: 11% 60%; } }
 .pagehead.img .rule { background: var(--gold); }
 
 /* ================================================================
@@ -1071,7 +1092,12 @@ html.modal-open { overflow: hidden; }
 .fact-cell .v { font-family: var(--font-d); font-weight: 600; font-size: 1.05rem; color: #fff; line-height: 1.3; }
 .facts-note { margin: .9rem .4rem 0; font-size: .78rem; color: var(--text-muted, #6b7370); }
 @media (max-width: 960px) { .facts { grid-template-columns: repeat(3, 1fr); } .fact-cell { border-left: 0; border-top: 1px solid rgba(255,255,255,.12); } .fact-cell:nth-child(-n+3) { border-top: 0; } }
-@media (max-width: 560px) { .facts { grid-template-columns: repeat(2, 1fr); } .fact-cell:nth-child(3) { border-top: 1px solid rgba(255,255,255,.12); } .fact-cell { padding: 1.1rem .6rem 1rem; } .fact-cell .v { font-size: .95rem; } .fact-cell:last-child { grid-column: 1 / -1; } .facts-wrap { margin-top: -1.6rem; } }
+@media (max-width: 560px) { .facts { grid-template-columns: repeat(2, 1fr); } .fact-cell:nth-child(3) { border-top: 1px solid rgba(255,255,255,.12); } .fact-cell { padding: 1.1rem .6rem 1rem; } .fact-cell .v { font-size: .95rem; } .fact-cell:last-child { grid-column: 1 / -1; } .facts-wrap { margin-top: -1.6rem; } }  /* The gate render carries its own ANANTAA, and on a phone cover scales by
+     height so background-position cannot move it. Measured, it lands at
+     307-378px while the plaque started at 331 — a 24px sliver of a sliced
+     word showing through the gap. Lifting the plaque puts the whole wordmark
+     behind it. The full gate, lettering and all, is still on the page as the
+     Entrance concept figure further down. */
 
 /* ---- master plan behind a blur until the visitor leaves a number (per session) ---- */
 .plan-gate { display: block; }   /* the <a> must be a block for the lock overlay and the clip to work */
