@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { appendRow, ensureSheet, findById, sheetsConfigured } from "@/lib/sheets";
 import { CP_COLUMNS, CP_FIELDS, SHEETS } from "@/lib/schema";
 import { notifyPartners, notifySales } from "@/lib/email-lead";
-import { sendCpReceivedEmail } from "@/lib/email";
+import { emailUnlessWhatsApp, sendCpReceivedEmail } from "@/lib/email";
 import { sendCpReceived } from "@/lib/whatsapp";
 import { origin } from "@/lib/origin";
 import { approveToken } from "@/lib/approve";
@@ -85,8 +85,9 @@ export async function POST(req: Request) {
       ID: uniqueId, Name: meta.full_name, Mobile: meta.mobile, Email: registration.email ?? "", ...values,
       "Approve": `${base}/api/cp/approve?id=${encodeURIComponent(uniqueId)}&t=${approveToken(uniqueId)}`,
     }),
-    sendCpReceivedEmail(registration.email ?? "", meta.full_name, uniqueId),
-    sendCpReceived(registration.whatsapp || meta.mobile, meta.full_name, uniqueId),
+    sendCpReceived(registration.whatsapp || meta.mobile, meta.full_name, uniqueId)
+      .then((wa) => emailUnlessWhatsApp(wa, () =>
+        sendCpReceivedEmail(registration.email ?? "", meta.full_name, uniqueId))),
     // A completed partner application is a lead, not just a partnerships task —
     // this broker has seen the plan and wants in. Sales get told too.
     notifySales(`Channel partner application ${uniqueId}: ${meta.full_name}`, {

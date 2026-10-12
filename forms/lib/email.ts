@@ -251,3 +251,29 @@ export function sendForumWaitlistEmail(to: string, name: string, id: string) {
     forumDesk()[0],
   );
 }
+
+/**
+ * Event-day rationing.
+ *
+ * Resend's free plan allows 100 emails a day. A broker going through
+ * registration, the partner application and approval costs seven, so a
+ * 200-person launch event needs about 1,400 — fourteen times the allowance.
+ * WhatsApp is paid for and every template is approved, so for the event it
+ * carries the messages and email becomes the fallback for the people whose
+ * WhatsApp did not go through.
+ *
+ * Set EMAIL_BUDGET_MODE=1 to turn this on. Unset it and both channels fire
+ * again, which is the right behaviour the moment the paid plan is in place.
+ */
+export const emailBudgetMode = () => process.env.EMAIL_BUDGET_MODE === "1";
+
+/** Sends the email unless its WhatsApp twin already reached the same person. */
+export async function emailUnlessWhatsApp<T>(
+  wa: { sent: boolean } | undefined,
+  send: () => Promise<T>,
+) {
+  if (emailBudgetMode() && wa?.sent) {
+    return { sent: false, reason: "whatsapp-delivered" as const };
+  }
+  return send();
+}

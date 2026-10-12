@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { appendRow, ensureSheet, findById, mintId, setCell, sheetsConfigured } from "@/lib/sheets";
 import { SHEETS, VISIT_COLUMNS, VISIT_FIELDS, normaliseBadgeId } from "@/lib/schema";
 import { sendVisitConfirmation, sendLeadAlert } from "@/lib/whatsapp";
-import { sendVisitConfirmationEmail } from "@/lib/email";
+import { emailUnlessWhatsApp, sendVisitConfirmationEmail } from "@/lib/email";
 import { notifySales } from "@/lib/email-lead";
 import { t, type Lang } from "@/lib/i18n";
 
@@ -101,15 +101,15 @@ export async function POST(req: Request) {
       requirement,
       values.budget,
       `${values.visit_date} (${values.visit_time})`,
-    ),
-    // Same message by email when they gave one — optional field, so often blank.
-    sendVisitConfirmationEmail(
-      values.visitor_email,
-      values.visitor_name,
-      requirement,
-      values.budget,
-      `${values.visit_date} (${values.visit_time})`,
-    ),
+    ).then((wa) => emailUnlessWhatsApp(wa, () =>
+      // Same message by email when they gave one — optional field, so often blank.
+      sendVisitConfirmationEmail(
+        values.visitor_email,
+        values.visitor_name,
+        requirement,
+        values.budget,
+        `${values.visit_date} (${values.visit_time})`,
+      ))),
     notifySales(`Site visit request ${leadId}: ${values.visitor_name}`, {
       Lead: leadId, Name: values.visitor_name, Mobile: values.visitor_mobile, Email: values.visitor_email,
       From: values.visitor_location, "Looking for": requirement, Budget: values.budget,

@@ -1,4 +1,5 @@
-import { emailConfigured, partnerDesk, salesDesk } from "@/lib/email";
+import { emailBudgetMode, emailConfigured, partnerDesk, salesDesk } from "@/lib/email";
+import { sendLeadAlert } from "@/lib/whatsapp";
 
 /**
  * Sales-team alert: one plain table of facts per event, to every address in
@@ -6,6 +7,14 @@ import { emailConfigured, partnerDesk, salesDesk } from "@/lib/email";
  * answer straight from the alert. Fire-and-forget — never blocks the save.
  */
 export async function notifySales(subject: string, fields: Record<string, string>, to = salesDesk()) {
+  // Event-day rationing: the desks watch the live sheet and get a WhatsApp
+  // alert on the sales number instead. That number is a single recipient, so
+  // any volume of alerts costs one against the 250-contact cap, and paise each.
+  if (emailBudgetMode()) {
+    const wa = process.env.SALES_LEAD_WHATSAPP;
+    if (wa) await sendLeadAlert(wa, `${subject} — ${Object.entries(fields).filter(([, v]) => v).slice(0, 5).map(([k, v]) => `${k}: ${v}`).join(", ")}`).catch(() => {});
+    return;
+  }
   if (!to.length || !emailConfigured()) return;
   const rows = Object.entries(fields)
     .filter(([, v]) => v)
