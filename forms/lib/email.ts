@@ -2,14 +2,12 @@
  * Email counterpart to lib/whatsapp.ts — every automated WhatsApp message has a
  * matching email, because a broker who mistypes their number still needs the badge.
  *
- * Uses Resend's REST API directly; no SDK, no dependency.
+ * The sender itself lives in lib/mailer.ts — Resend or MRC's own Hostinger
+ * mailboxes, chosen by configuration. This file only composes.
  */
+import { deliver, mailerConfigured } from "@/lib/mailer";
 
-const API = "https://api.resend.com/emails";
-
-export function emailConfigured() {
-  return Boolean(process.env.RESEND_API_KEY && process.env.EMAIL_FROM);
-}
+export const emailConfigured = mailerConfigured;
 
 const list = (v: string | undefined) => (v || "").split(",").map((s) => s.trim()).filter(Boolean);
 /** Sales desk: enquiries and site visits. */
@@ -36,26 +34,7 @@ async function safeSend(
     return { sent: false, reason: "no-address" as const };
   }
   try {
-    const res = await fetch(API, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: process.env.EMAIL_FROM,
-        to: [to],
-        // A real mailbox to reply to, and a plain-text part: HTML-only mail from
-        // a young domain is what tips Gmail into the spam folder.
-        reply_to: replyTo || undefined,
-        subject,
-        html,
-        text: html.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<a [^>]*href="([^"]+)"[^>]*>([^<]*)<\/a>/g, "$2: $1").replace(/<[^>]+>/g, " ").replace(/&mdash;/g, "—").replace(/&nbsp;/g, " ").replace(/[ \t]+/g, " ").replace(/\s*\n\s*/g, "\n").trim(),
-      }),
-    });
-    if (!res.ok) {
-      throw new Error(`${res.status}: ${(await res.text()).slice(0, 300)}`);
-    }
+    await deliver({ to, subject, html, replyTo: replyTo || undefined });
     return { sent: true as const };
   } catch (err) {
     console.error(`[email] ${label} failed:`, err);
@@ -250,30 +229,4 @@ export function sendForumWaitlistEmail(to: string, name: string, id: string) {
       </p>`),
     forumDesk()[0],
   );
-}
-
-/**
- * Event-day rationing.
- *
- * Resend's free plan allows 100 emails a day. A broker going through
- * registration, the partner application and approval costs seven, so a
- * 200-person launch event needs about 1,400 — fourteen times the allowance.
- * WhatsApp is paid for and every template is approved, so for the event it
- * carries the messages and email becomes the fallback for the people whose
- * WhatsApp did not go through.
- *
- * Set EMAIL_BUDGET_MODE=1 to turn this on. Unset it and both channels fire
- * again, which is the right behaviour the moment the paid plan is in place.
- */
-export const emailBudgetMode = () => process.env.EMAIL_BUDGET_MODE === "1";
-
-/** Sends the email unless its WhatsApp twin already reached the same person. */
-export async function emailUnlessWhatsApp<T>(
-  wa: { sent: boolean } | undefined,
-  send: () => Promise<T>,
-) {
-  if (emailBudgetMode() && wa?.sent) {
-    return { sent: false, reason: "whatsapp-delivered" as const };
-  }
-  return send();
 }

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { appendRow, ensureSheet, findBy, mintId, setCell, sheetsConfigured } from "@/lib/sheets";
 import { REGISTRATION_COLUMNS, REGISTRATION_FIELDS, SHEETS } from "@/lib/schema";
 import { sendCpFormLink, sendRegistrationRecord } from "@/lib/whatsapp";
-import { emailUnlessWhatsApp, sendBadgeEmail, sendCpFormLinkEmail } from "@/lib/email";
+import { sendBadgeEmail, sendCpFormLinkEmail } from "@/lib/email";
 import { notifyPartners } from "@/lib/email-lead";
 import { t, type Lang } from "@/lib/i18n";
 import { origin } from "@/lib/origin";
@@ -50,9 +50,8 @@ async function notify(
       // ID (cp_registration_record) is still in Meta's review queue with the
       // launch event two days out. Drop this back to values.full_name once that
       // one is live.
-      sendCpFormLink(values.whatsapp, `${values.full_name} — Badge ID ${uniqueId}`, cpLink)
-        .then((wa) => emailUnlessWhatsApp(wa, () =>
-          sendCpFormLinkEmail(values.email, values.full_name, cpLink))),
+      sendCpFormLink(values.whatsapp, `${values.full_name} — Badge ID ${uniqueId}`, cpLink),
+      sendCpFormLinkEmail(values.email, values.full_name, cpLink),
     ]);
   }
 }

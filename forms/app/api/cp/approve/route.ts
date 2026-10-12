@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { findBy, findById, findRowNumber, setCell, sheetsConfigured } from "@/lib/sheets";
 import { CP_APPROVED, CP_COLUMNS, SHEETS } from "@/lib/schema";
 import { approveTokenValid } from "@/lib/approve";
-import { emailUnlessWhatsApp, sendCpApprovedEmail } from "@/lib/email";
+import { sendCpApprovedEmail } from "@/lib/email";
 import { sendCpApproved } from "@/lib/whatsapp";
 import { sessionConfigured } from "@/lib/session";
 import { origin } from "@/lib/origin";
@@ -50,14 +50,10 @@ export async function POST(req: Request) {
   const col = String.fromCharCode(65 + CP_COLUMNS.indexOf("status")); // ponytail: <26 columns
   if (row) await setCell(SHEETS.cp, `${col}${row}`, CP_APPROVED);
   const reg = await findById(SHEETS.registrations, r.id);
-  const wa = await sendCpApproved(reg?.whatsapp || r.app.mobile || "", r.app.full_name, r.id);
-  const sent = await emailUnlessWhatsApp(wa, () =>
-    sendCpApprovedEmail(reg?.email ?? "", r.app.full_name, r.id, `${origin(req)}/partners`));
+  const sent = await sendCpApprovedEmail(reg?.email ?? "", r.app.full_name, r.id, `${origin(req)}/partners`);
+  await sendCpApproved(reg?.whatsapp || r.app.mobile || "", r.app.full_name, r.id);
   return page(
     `${r.id} approved`,
-    `<p>${r.app.full_name} is now an approved Channel Partner.</p><p>${
-      sent.sent ? `Sign-in email sent to ${reg?.email}.`
-      : wa.sent ? "Told them on WhatsApp — the sign-in link is in that message."
-      : "Neither WhatsApp nor email went through — tell them to sign in at /partners."}</p>`,
+    `<p>${r.app.full_name} is now an approved Channel Partner.</p><p>${sent.sent ? `Sign-in email sent to ${reg?.email}.` : "Could not email the partner — tell them to sign in at /partners."}</p>`,
   );
 }

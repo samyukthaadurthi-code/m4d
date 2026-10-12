@@ -3,7 +3,7 @@ import { appendRow, ensureSheet, mintId, setCell, sheetsConfigured } from "@/lib
 import { ENQUIRY_COLUMNS, SHEETS } from "@/lib/schema";
 import { sendEnquiryAck, sendLeadAlert } from "@/lib/whatsapp";
 import { sendEnquiryAlertEmail } from "@/lib/email-lead";
-import { emailUnlessWhatsApp, sendEnquiryAckEmail } from "@/lib/email";
+import { sendEnquiryAckEmail } from "@/lib/email";
 import { cors, preflight, tenDigits, validEmail } from "@/lib/cors";
 
 export const OPTIONS = preflight;
@@ -50,8 +50,8 @@ export async function POST(req: Request) {
   await Promise.all([
     process.env.SALES_LEAD_WHATSAPP ? sendLeadAlert(process.env.SALES_LEAD_WHATSAPP, summary) : Promise.resolve(),
     sendEnquiryAlertEmail(summary, { Name: name, Mobile: mobile, Email: email, Interest: interest, Page: page }),
-    sendEnquiryAck(mobile, name, interest || "our plots")
-      .then((wa) => emailUnlessWhatsApp(wa, () => sendEnquiryAckEmail(email, name, mobile, interest))),
+    sendEnquiryAckEmail(email, name, mobile, interest),
+    sendEnquiryAck(mobile, name, interest || "our plots"),
   ]).catch((err) => console.error("[enquiry] notify failed:", err));
 
   return reply({ ok: true, id });

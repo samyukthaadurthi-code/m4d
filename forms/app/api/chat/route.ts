@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { appendRow, ensureSheet, mintId, setCell, sheetsConfigured } from "@/lib/sheets";
 import { CHAT_LEAD_COLUMNS, SHEETS } from "@/lib/schema";
 import { notifySales } from "@/lib/email-lead";
-import { emailUnlessWhatsApp, sendEnquiryAckEmail } from "@/lib/email";
+import { sendEnquiryAckEmail } from "@/lib/email";
 import { sendEnquiryAck } from "@/lib/whatsapp";
 import { cors, preflight, tenDigits, validEmail } from "@/lib/cors";
 import { ask, BUSY, CALL_NUMBER, type Msg } from "@/lib/assistant";
@@ -42,9 +42,8 @@ export async function POST(req: Request) {
     await setCell(SHEETS.chatLeads, `A${row}`, id);
     await Promise.all([
       notifySales(`Chat lead ${id}: ${name} · ${mobile}`, { ID: id, Name: name, Mobile: mobile, Email: email, "Looking for": looking, "Asked": questions, Page: page }),
-      sendEnquiryAck(mobile, name, looking || "our plots at ANANTAA")
-        .then((wa) => emailUnlessWhatsApp(wa, () =>
-          sendEnquiryAckEmail(email, name, mobile, looking || "Chat enquiry"))),
+      sendEnquiryAckEmail(email, name, mobile, looking || "Chat enquiry"),
+      sendEnquiryAck(mobile, name, looking || "our plots at ANANTAA"),
     ]).catch((err) => console.error("[chat lead] notify failed:", err));
     return reply({ ok: true, id });
   }

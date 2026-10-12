@@ -9,8 +9,10 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@types/nodemailer": "^8.0.2",
     "google-auth-library": "^11.0.2",
     "next": "16.3.4",
+    "nodemailer": "^10.1.0",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
