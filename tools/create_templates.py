@@ -131,6 +131,28 @@ def templates(handle):
             ["Rajesh Kumar"],
         ),
 
+        # --- post-event follow-up -------------------------------------------
+        # MARKETING, deliberately. A thank-you carrying project details and a
+        # link is promotional however it is worded, and submitting that as
+        # UTILITY is what got the badge templates rejected three times.
+        {
+            "name": "event_thank_you",
+            "category": "MARKETING",
+            "language": LANG,
+            "components": [
+                {"type": "BODY",
+                 "text": "Thank you for visiting us at the MRC ANANTAA launch, {{1}}. It was good to meet you.\n\n"
+                         "ANANTAA is 50 residential plots across 2.145 acres at Othakadai, Madurai, beside "
+                         "Yanaimalai hill — DTCP approved and TNRERA registered, with 7.2 m and 9.0 m internal "
+                         "roads and a tenth of the land kept as open space.\n\n"
+                         "You can see the full project details, the master plan and the plot schedule here: {{2}}\n\n"
+                         "If you would like to visit the site again, or have any question about a plot, reply to "
+                         "this message or call us on 95144 39555.",
+                 "example": {"body_text": [["Rajesh Kumar", "https://mrclandmarks.com/project-anantaa.html"]]}},
+                {"type": "FOOTER", "text": FOOTER},
+            ],
+        },
+
         # --- internal alert to the sales desk -------------------------------
         {
             "name": "lead_alert",
