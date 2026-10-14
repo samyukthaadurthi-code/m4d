@@ -12,12 +12,11 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/*
+ * No dark variant. Every surface in this app is a hard-coded cream, white or
+ * teal, so flipping --foreground on a device in dark mode only ever produced
+ * near-white text inside white boxes — invisible typing in the inbox reply box.
+ */
 
 body {
   background: var(--background);

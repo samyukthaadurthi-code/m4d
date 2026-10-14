@@ -79,11 +79,30 @@ async function seed() {
   console.log(`seeded ${threads.length} conversations, ${messages.length} messages`);
 }
 
+/**
+ * Removes the demo rows and nothing else.
+ *
+ * This used to blank both tabs outright, which was safe for about an hour —
+ * until real customers were in them. Now it only touches rows whose number
+ * starts 99999000, which is what seed() writes and no real Indian mobile can
+ * be. Blanked rows are left in place; both tabs skip rows with no number, and
+ * nothing here takes its identity from a row number.
+ */
 async function clear() {
-  const { post } = await api();
-  for (const title of [THREADS, MESSAGES]) {
-    const res = await post(`/values/${title}!A2:Z5000:clear`, {});
-    console.log(`${title}: ${res.clearedRange ?? JSON.stringify(res).slice(0, 120)}`);
+  const { get, post } = await api();
+  const isDemo = (m) => /^(91)?99999000\d\d$/.test((m ?? "").replace(/\D/g, ""));
+
+  for (const [title, col] of [[THREADS, 0], [MESSAGES, 1]]) {
+    const rows = (await get(`/values/${encodeURIComponent(title)}!A1:Z5000`)).values || [];
+    const hits = rows
+      .map((r, i) => ({ n: i + 1, mobile: r[col] }))
+      .filter((r) => r.n > 1 && isDemo(r.mobile));
+    if (!hits.length) {
+      console.log(`${title}: no demo rows`);
+      continue;
+    }
+    await post("/values:batchClear", { ranges: hits.map((h) => `${title}!A${h.n}:Z${h.n}`) });
+    console.log(`${title}: cleared ${hits.length} demo row(s), left ${rows.length - 1 - hits.length} real one(s) alone`);
   }
 }
 

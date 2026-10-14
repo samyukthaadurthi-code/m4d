@@ -238,7 +238,7 @@ export default function InboxPage() {
             type="password"
             autoFocus
             autoComplete="current-password"
-            className="mt-2 w-full rounded-xl border border-[#E4E2DA] px-4 py-3.5 text-base outline-none focus:border-[#176A70] focus:ring-2 focus:ring-[#176A70]/20"
+            className="mt-2 w-full rounded-xl border border-[#E4E2DA] bg-white px-4 py-3.5 text-base text-[#1A2A2D] outline-none focus:border-[#176A70] focus:ring-2 focus:ring-[#176A70]/20"
             value={passcode}
             onChange={(e) => { setPasscode(e.target.value); setAuthError(""); }}
           />
@@ -427,7 +427,7 @@ export default function InboxPage() {
                     <textarea
                       rows={2}
                       placeholder="Type your reply…"
-                      className="flex-1 resize-none rounded-xl border border-[#E4E2DA] px-4 py-3 text-base outline-none focus:border-[#176A70] focus:ring-2 focus:ring-[#176A70]/20"
+                      className="flex-1 resize-none rounded-xl border border-[#E4E2DA] bg-white px-4 py-3 text-base text-[#1A2A2D] outline-none focus:border-[#176A70] focus:ring-2 focus:ring-[#176A70]/20"
                       value={draft}
                       onChange={(e) => { setDraft(e.target.value); setSendError(""); }}
                       onKeyDown={(e) => {
