@@ -11,16 +11,27 @@ export function sheetsConfigured() {
   );
 }
 
+/**
+ * One client per process, not one per call.
+ *
+ * Every call used to mint a fresh JWT and round-trip Google's OAuth endpoint
+ * before touching the API — two network hops for one read. getAccessToken()
+ * caches the token on the client and only refreshes it near expiry, so a warm
+ * function pays that once. It matters now the inbox reads and writes several
+ * ranges while Meta is waiting on the webhook.
+ */
+let client: JWT | undefined;
+
 async function token() {
-  const jwt = new JWT({
+  client ??= new JWT({
     email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
     // Vercel stores the key with literal \n — restore real newlines.
     key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
-  const { access_token } = await jwt.authorize();
-  if (!access_token) throw new Error("Google auth returned no access token");
-  return access_token;
+  const { token: access } = await client.getAccessToken();
+  if (!access) throw new Error("Google auth returned no access token");
+  return access;
 }
 
 async function call(path: string, init?: RequestInit) {
@@ -47,10 +58,15 @@ async function call(path: string, init?: RequestInit) {
  * cell, no lock, no read-modify-write race.
  */
 export async function appendRow(sheet: string, values: string[]): Promise<number> {
+  return appendRows(sheet, [values]);
+}
+
+/** Several rows in one call, returning the row number of the first. */
+export async function appendRows(sheet: string, rows: string[][]): Promise<number> {
   const data = await call(
     `/values/${encodeURIComponent(sheet)}!A:A:append` +
       `?valueInputOption=RAW&insertDataOption=INSERT_ROWS`,
-    { method: "POST", body: JSON.stringify({ values: [values] }) },
+    { method: "POST", body: JSON.stringify({ values: rows }) },
   );
   // updatedRange looks like "Registrations!A47:N47"
   const match = /![A-Z]+(\d+)(?::|$)/.exec(data?.updates?.updatedRange ?? "");
@@ -60,13 +76,18 @@ export async function appendRow(sheet: string, values: string[]): Promise<number
 
 /** Overwrites a single cell, e.g. writing the unique ID back into column A. */
 export async function setCell(sheet: string, cell: string, value: string) {
+  await setRange(sheet, cell, [[value]]);
+}
+
+/** Overwrites a rectangle, e.g. a whole thread row in one call. */
+export async function setRange(sheet: string, range: string, values: string[][]) {
   await call(
-    `/values/${encodeURIComponent(`${sheet}!${cell}`)}?valueInputOption=RAW`,
-    { method: "PUT", body: JSON.stringify({ values: [[value]] }) },
+    `/values/${encodeURIComponent(`${sheet}!${range}`)}?valueInputOption=RAW`,
+    { method: "PUT", body: JSON.stringify({ values }) },
   );
 }
 
-async function allRows(sheet: string): Promise<string[][]> {
+export async function allRows(sheet: string): Promise<string[][]> {
   const data = await call(`/values/${encodeURIComponent(sheet)}`);
   return (data.values ?? []) as string[][];
 }

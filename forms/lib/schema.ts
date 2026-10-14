@@ -397,7 +397,35 @@ export const SHEETS = {
   forum: "Forum_Waitlist",
   enquireNow: "Enquire_Now",
   chatLeads: "Chat_Leads",
+  waThreads: "WA_Threads",
+  waMessages: "WA_Messages",
 } as const;
+
+/**
+ * One row per person who has ever written to the business number — the inbox's
+ * conversation list, and the only thing read on the hot path when a message
+ * arrives. Kept separate from the messages so deciding "is a human handling
+ * this?" costs one small read rather than a scan of every message ever sent.
+ */
+export const WA_THREAD_COLUMNS = [
+  "mobile",
+  "name",
+  "last_at",
+  "last_inbound_at", // when the 24-hour window last reopened
+  "last_text",
+  "unread",
+  "mode", // bot | human
+  "human_at", // last time a person replied by hand
+] as const;
+
+/** Every message in both directions, oldest first. Append-only. */
+export const WA_MESSAGE_COLUMNS = [
+  "at",
+  "mobile",
+  "direction", // in | out
+  "by", // customer | Thamarai | sales
+  "text",
+] as const;
 
 /** Quick enquiry from the website's promo strip: the minimum a salesperson needs to call back. */
 export const FORUM_COLUMNS = [
