@@ -80,9 +80,9 @@ def templates(handle):
         # treats as promotion. A link keeps it UTILITY, and the page it opens
         # shows the same badge with a save button.
         text_template(
-            "cp_badge_ready",
+            "cp_registration_record",
             "Hello {{1}}, your registration with MRC Landmarks is confirmed and your unique ID is {{2}}. "
-            "You can open and save your entry badge here: {{3}} — please show it at the desk when you arrive.",
+            "Your registration record is here: {{3}} — please have it with you when you visit us.",
             ["Rajesh Kumar", "MRC-CP-008", "https://forms.mrclandmarks.com/badge/MRC-CP-008"],
         ),
         text_template(
@@ -153,6 +153,25 @@ def templates(handle):
             ],
         },
 
+        # --- automated health check ------------------------------------------
+        # The monitor runs once a day and always sends this, working or not:
+        # a message that stops arriving is itself the alarm. Phrased as a
+        # service notification to the business's own staff, which is UTILITY.
+        {
+            "name": "system_status",
+            "category": "UTILITY",
+            "language": LANG,
+            "components": [
+                {"type": "BODY",
+                 "text": "MRC Landmarks daily system check.\n\n{{1}}\n\nThis message is sent automatically. "
+                         "If something is marked as a problem, please inform the technical team.",
+                 "example": {"body_text": [[
+                     "Everything is working. Yesterday: 4 enquiries, 2 site visits, 1 partner application. "
+                     "2 people are waiting for a reply in the inbox."]]}},
+                {"type": "FOOTER", "text": FOOTER},
+            ],
+        },
+
         # --- internal alert to the sales desk -------------------------------
         {
             "name": "lead_alert",
@@ -167,10 +186,21 @@ def templates(handle):
     ]
 
 
+def delete(names, token):
+    """Removes templates by name. A deleted name stays reserved for a while."""
+    for name in names:
+        res = call(f"{WABA}/message_templates?name={name}", method="DELETE", token=token)
+        print(f"{name:26} {json.dumps(res)[:160]}")
+
+
 def main():
     token = os.environ.get("WHATSAPP_TOKEN")
     if not token:
         sys.exit("WHATSAPP_TOKEN is not set")
+
+    if "--delete" in sys.argv:
+        delete(sys.argv[sys.argv.index("--delete") + 1:], token)
+        return
 
     existing = {t["name"] for t in call(f"{WABA}/message_templates?limit=100", token=token).get("data", [])}
     print("already at Meta:", ", ".join(sorted(existing)) or "(none)", "\n")

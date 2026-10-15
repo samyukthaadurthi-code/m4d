@@ -137,6 +137,16 @@ export function sendVisitConfirmation(
   );
 }
 
+/**
+ * The daily health report to the sales number.
+ *
+ * Sent whether or not anything is wrong: a report that stops arriving is itself
+ * the alarm, which is the whole point of having one.
+ */
+export function sendSystemStatus(to: string, report: string) {
+  return safeSend("system status", template(to, "system_status", [body(report)]));
+}
+
 /** Internal alert to the MRC sales lead when a site-visit lead arrives. */
 export function sendLeadAlert(to: string, summary: string) {
   return safeSend("lead alert", template(to, "lead_alert", [body(summary)]));
