@@ -407,7 +407,7 @@ export default function InboxPage() {
                           className="mb-1 text-[11px] font-semibold uppercase tracking-wider"
                           style={{ color: fromSales ? "rgba(255,255,255,.75)" : "#8A938F" }}
                         >
-                          {fromSales ? "You" : mine ? "Thamarai" : open.name || "Customer"} · {when(m.at)}
+                          {fromSales ? "You" : mine ? m.by || "MRC" : open.name || "Customer"} · {when(m.at)}
                         </div>
                         {m.text}
                       </div>

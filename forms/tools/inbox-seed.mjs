@@ -88,9 +88,14 @@ async function seed() {
  * be. Blanked rows are left in place; both tabs skip rows with no number, and
  * nothing here takes its identity from a row number.
  */
-async function clear() {
+async function clear(only = []) {
   const { get, post } = await api();
-  const isDemo = (m) => /^(91)?99999000\d\d$/.test((m ?? "").replace(/\D/g, ""));
+  const wanted = only.map((m) => m.replace(/\D/g, "").slice(-10));
+  // With numbers given, clear exactly those. Otherwise only the demo rows.
+  const isDemo = (m) => {
+    const ten = (m ?? "").replace(/\D/g, "").slice(-10);
+    return wanted.length ? wanted.includes(ten) : /^99999000\d\d$/.test(ten);
+  };
 
   for (const [title, col] of [[THREADS, 0], [MESSAGES, 1]]) {
     const rows = (await get(`/values/${encodeURIComponent(title)}!A1:Z5000`)).values || [];
@@ -102,11 +107,11 @@ async function clear() {
       continue;
     }
     await post("/values:batchClear", { ranges: hits.map((h) => `${title}!A${h.n}:Z${h.n}`) });
-    console.log(`${title}: cleared ${hits.length} demo row(s), left ${rows.length - 1 - hits.length} real one(s) alone`);
+    console.log(`${title}: cleared ${hits.length} row(s), left ${rows.length - 1 - hits.length} alone`);
   }
 }
 
 const cmd = process.argv[2];
 if (cmd === "seed") await seed();
-else if (cmd === "clear") await clear();
-else console.log("usage: node tools/inbox-seed.mjs seed|clear");
+else if (cmd === "clear") await clear(process.argv.slice(3));
+else console.log("usage: node tools/inbox-seed.mjs seed | clear [mobile...]");

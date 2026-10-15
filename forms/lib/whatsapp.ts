@@ -1,3 +1,5 @@
+import { record, tenDigits } from "@/lib/inbox";
+
 const API = "https://graph.facebook.com/v21.0";
 
 export function whatsappConfigured() {
@@ -34,17 +36,44 @@ async function post(payload: Record<string, unknown>) {
  * screen and in the sheet. A broker whose registration was rolled back because
  * Meta timed out has nothing. Log and move on.
  */
-async function safeSend(label: string, payload: Record<string, unknown>) {
+async function safeSend(label: string, payload: Record<string, unknown>, note?: string) {
   if (!whatsappConfigured()) {
     console.warn(`[whatsapp] ${label} skipped — not configured`);
     return { sent: false, reason: "not-configured" as const };
   }
   try {
     await post(payload);
+    if (note) await remember(payload.to as string, note);
     return { sent: true as const };
   } catch (err) {
     console.error(`[whatsapp] ${label} failed:`, err);
     return { sent: false, reason: "error" as const };
+  }
+}
+
+/**
+ * Puts an automated message into the customer's conversation in the inbox.
+ *
+ * Without this, whoever is on sales opens a thread and finds a reply with
+ * nothing above it — "yes sir, what is the price?" from someone he has no
+ * record of us ever contacting. A note rather than the template's own words,
+ * because the wording lives at Meta and a copy kept here would drift from it;
+ * what he needs is to know what was sent and when.
+ *
+ * Never fails the send it is describing.
+ */
+async function remember(to: string, note: string) {
+  const mobile = tenDigits(String(to));
+  // An alert to our own desk is not a conversation with a customer.
+  const ours = [process.env.SALES_LEAD_WHATSAPP]
+    .filter(Boolean)
+    .map((n) => tenDigits(String(n)));
+  if (ours.includes(mobile)) return;
+
+  try {
+    await record(mobile, [{ dir: "out", by: "MRC", text: note }]);
+  } catch (err) {
+    console.error("[whatsapp] could not record the sent message:", err);
   }
 }
 
@@ -83,6 +112,7 @@ export function sendRegistrationRecord(
   return safeSend(
     `registration record ${uniqueId}`,
     template(to, "cp_registration_record", [body(fullName, uniqueId, badgePage)]),
+    `[sent their registration record ${uniqueId} and a link to open it]`,
   );
 }
 
@@ -90,6 +120,7 @@ export function sendCpReceived(to: string, fullName: string, uniqueId: string) {
   return safeSend(
     "cp application received",
     template(to, "cp_application_received", [body(fullName, uniqueId)]),
+    `[told them their partner application ${uniqueId} had been received]`,
   );
 }
 
@@ -97,6 +128,7 @@ export function sendCpApproved(to: string, fullName: string, uniqueId: string) {
   return safeSend(
     "cp approved",
     template(to, "cp_approved", [body(fullName, uniqueId)]),
+    `[told them partner application ${uniqueId} was approved, with the resource centre link]`,
   );
 }
 
@@ -105,6 +137,7 @@ export function sendEnquiryAck(to: string, fullName: string, about: string) {
   return safeSend(
     "enquiry ack",
     template(to, "enquiry_ack", [body(fullName, about)]),
+    `[acknowledged their enquiry about ${about} and promised a call]`,
   );
 }
 
@@ -112,6 +145,7 @@ export function sendForumWaitlist(to: string, fullName: string) {
   return safeSend(
     "forum waitlist",
     template(to, "forum_waitlist", [body(fullName)]),
+    "[confirmed their request for early access to the MRC Forum]",
   );
 }
 
@@ -119,6 +153,7 @@ export function sendCpFormLink(to: string, fullName: string, link: string) {
   return safeSend(
     "cp form link",
     template(to, "cp_form_link", [body(fullName, link)]),
+    "[sent the channel partner application form link]",
   );
 }
 
@@ -134,6 +169,7 @@ export function sendVisitConfirmation(
     template(to, "site_visit_confirmation", [
       body(visitorName, requirement, budget, preferredDate),
     ]),
+    `[confirmed their site visit — ${requirement}, ${budget}, ${preferredDate}]`,
   );
 }
 
