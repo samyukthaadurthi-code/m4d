@@ -1258,3 +1258,11 @@ html.modal-open { overflow: hidden; }
   .lead .sub { font-size: 1rem; max-width: 34ch; }
   .lead .hero-cta { margin-top: 1.6rem; }
 }
+
+/* "(optional)" beside a field label — quieter than the label, not hidden. */
+.enq label > span .opt,
+form label > span .opt {
+  font-weight: 400;
+  opacity: 0.6;
+  font-size: 0.92em;
+}

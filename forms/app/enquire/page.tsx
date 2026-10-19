@@ -25,6 +25,7 @@ export default function EnquirePage() {
   const [lang, setLang] = useState<Lang>("en");
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
   const [email, setEmail] = useState("");
   const [interest, setInterest] = useState(INTERESTS[0]);
   const [consent, setConsent] = useState(false);
@@ -43,7 +44,7 @@ export default function EnquirePage() {
       const res = await fetch("/api/enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, mobile, email, interest, page: "/enquire", consent: consent ? "yes" : "" }),
+        body: JSON.stringify({ name, mobile, whatsapp, email, interest, page: "/enquire", consent: consent ? "yes" : "" }),
       });
       const data = await res.json();
       if (!res.ok) {
@@ -55,7 +56,7 @@ export default function EnquirePage() {
       setDone(data.id);
       // Cleared ready for the next person at the desk, rather than leaving the
       // last visitor's details on screen.
-      setName(""); setMobile(""); setEmail(""); setConsent(false);
+      setName(""); setMobile(""); setWhatsapp(""); setEmail(""); setConsent(false);
     } catch {
       setError("Could not reach the server. Check the connection and try again.");
     }
@@ -106,7 +107,17 @@ export default function EnquirePage() {
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-semibold text-[#1A2A2D]" htmlFor="email">Email</label>
+          <label className="mb-2 block text-sm font-semibold text-[#1A2A2D]" htmlFor="whatsapp">WhatsApp number</label>
+          <input id="whatsapp" className={`${field} ${errors.whatsapp ? "border-red-400" : "border-[#E4E2DA]"}`}
+            type="tel" inputMode="numeric" autoComplete="tel" placeholder="10-digit number"
+            value={whatsapp} onChange={(e) => setWhatsapp(e.target.value)} />
+          {errors.whatsapp && <p className="mt-1.5 text-sm text-red-600">{errors.whatsapp}</p>}
+        </div>
+
+        <div>
+          <label className="mb-2 block text-sm font-semibold text-[#1A2A2D]" htmlFor="email">
+            Email <span className="font-normal text-[#8A938F]">(optional)</span>
+          </label>
           <input id="email" className={`${field} ${errors.email ? "border-red-400" : "border-[#E4E2DA]"}`}
             type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} />
           {errors.email && <p className="mt-1.5 text-sm text-red-600">{errors.email}</p>}

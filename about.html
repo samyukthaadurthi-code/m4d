@@ -144,13 +144,14 @@
     <form class="enq" novalidate>
       <label><span>Name</span><input name="name" autocomplete="name" required></label>
       <label><span>Mobile number</span><input name="mobile" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit number" required></label>
-      <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+      <label><span>WhatsApp number</span><input name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit number" required></label>
+      <label><span>Email <span class="opt">(optional)</span></span><input name="email" type="email" autocomplete="email"></label>
       <label><span>Interested in</span><select name="interest"><option value="ANANTAA, Othakadai">ANANTAA, Othakadai</option><option value="Upcoming projects">Upcoming projects</option><option value="Channel partnership">Channel partnership</option><option value="Something else">Something else</option></select></label>
       <label class="check"><input type="checkbox" name="consent" value="yes"><span>I agree that MRC Landmarks may call or message me about this enquiry.</span></label>
       <p class="enq-error" hidden></p>
       <button class="btn btn-gold" type="submit">Request a call back</button>
     </form>
-    <div class="enq-done" hidden><p class="display">Thank you.</p><p>We have your number and have sent a confirmation to your email. Expect a call from the MRC team within one working day.</p></div>
+    <div class="enq-done" hidden><p class="display">Thank you.</p><p>We have your number. Expect a call from the MRC team within one working day.</p></div>
   </div>
 </div>
 
@@ -213,9 +214,10 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault(); err.hidden = true;
       var f = new FormData(form), btn = form.querySelector('button[type=submit]');
-      var payload = { name: f.get('name'), mobile: f.get('mobile'), email: f.get('email'), interest: f.get('interest'),
+      var payload = { name: f.get('name'), mobile: f.get('mobile'), whatsapp: f.get('whatsapp'), email: f.get('email'), interest: f.get('interest'),
                       consent: f.get('consent') === 'yes', page: location.pathname + (window.mrcCity ? '#' + window.mrcCity : '') };
-      if (!payload.name || !/^[6-9]\d{9}$/.test(String(payload.mobile).replace(/\D/g, '').slice(-10)) || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(payload.email))) { err.textContent = 'Please give us your name, a valid 10-digit mobile number and your email.'; err.hidden = false; return; }
+      if (!payload.name || !/^[6-9]\d{9}$/.test(String(payload.mobile).replace(/\D/g, '').slice(-10)) || !/^[6-9]\d{9}$/.test(String(payload.whatsapp).replace(/\D/g, '').slice(-10))) { err.textContent = 'Please give us your name, your mobile number and your WhatsApp number.'; err.hidden = false; return; }
+      if (payload.email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(payload.email))) { err.textContent = 'That email address does not look right.'; err.hidden = false; return; }
       if (!payload.consent) { err.textContent = 'Please tick the box so we can call you back.'; err.hidden = false; return; }
       btn.disabled = true; btn.textContent = 'Sending\u2026';
       fetch('https://forms.mrclandmarks.com/api/enquiry', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
@@ -336,14 +338,15 @@
     <form class="enq" novalidate>
       <label><span>Name</span><input name="name" autocomplete="name" required></label>
       <label><span>Mobile number</span><input name="mobile" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit number" required></label>
-      <label><span>Email</span><input name="email" type="email" autocomplete="email" required></label>
+      <label><span>WhatsApp number</span><input name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="10-digit number" required></label>
+      <label><span>Email <span class="opt">(optional)</span></span><input name="email" type="email" autocomplete="email"></label>
       <label><span>City <small>(optional)</small></span><input name="city" autocomplete="address-level2"></label>
       <label><span>Your enquiry</span><textarea name="message" rows="3" placeholder="What would you like to know?"></textarea></label>
       <label class="check"><input type="checkbox" name="consent" value="yes"><span>I agree that MRC Landmarks may call or message me about this enquiry.</span></label>
       <p class="enq-error" hidden></p>
       <button class="btn btn-gold" type="submit">Send enquiry</button>
     </form>
-    <div class="enq-done" hidden><p class="display">Thank you.</p><p>We have your enquiry and have sent a confirmation to your email. Expect to hear from the MRC team within one working day.</p></div>
+    <div class="enq-done" hidden><p class="display">Thank you.</p><p>We have your enquiry. Expect to hear from the MRC team within one working day.</p></div>
   </div>
 </div>
 <script>
@@ -358,8 +361,9 @@
   f.addEventListener('submit', function (e) {
     e.preventDefault(); err.hidden = true;
     var d = new FormData(f), btn = f.querySelector('button[type=submit]');
-    var p = { name: d.get('name'), mobile: d.get('mobile'), email: d.get('email'), city: d.get('city'), message: d.get('message'), consent: d.get('consent') === 'yes', page: location.pathname };
-    if (!p.name || !/^[6-9]\d{9}$/.test(String(p.mobile).replace(/\D/g, '').slice(-10)) || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(p.email))) { err.textContent = 'Please give us your name, a valid 10-digit mobile number and your email.'; err.hidden = false; return; }
+    var p = { name: d.get('name'), mobile: d.get('mobile'), whatsapp: d.get('whatsapp'), email: d.get('email'), city: d.get('city'), message: d.get('message'), consent: d.get('consent') === 'yes', page: location.pathname };
+    if (!p.name || !/^[6-9]\d{9}$/.test(String(p.mobile).replace(/\D/g, '').slice(-10)) || !/^[6-9]\d{9}$/.test(String(p.whatsapp).replace(/\D/g, '').slice(-10))) { err.textContent = 'Please give us your name, your mobile number and your WhatsApp number.'; err.hidden = false; return; }
+      if (p.email && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(p.email))) { err.textContent = 'That email address does not look right.'; err.hidden = false; return; }
     if (!p.consent) { err.textContent = 'Please tick the box so we can contact you.'; err.hidden = false; return; }
     btn.disabled = true; btn.textContent = 'Sending\u2026';
     fetch('https://forms.mrclandmarks.com/api/enquire-now', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(p) })

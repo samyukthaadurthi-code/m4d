@@ -29,21 +29,26 @@ export async function POST(req: Request) {
     const str = (k: string, max = 200) => (typeof l[k] === "string" ? (l[k] as string).trim().slice(0, max) : "");
     const name = str("name"), email = str("email"), looking = str("looking_for", 500), page = str("page", 120);
     const mobile = tenDigits(str("mobile"));
+  // Required by every form now. Falls back to the mobile so a visitor on a cached
+  // copy of the old page still reaches us — losing the lead would be worse than
+  // messaging the one number they did give.
+  const whatsapp = tenDigits(str("whatsapp")) || mobile;
     const questions = Array.isArray(l.questions) ? (l.questions as unknown[]).filter((q) => typeof q === "string").map((q) => (q as string).slice(0, 300)).slice(0, 6).join(" | ") : "";
     const errors: Record<string, string> = {};
     if (!name) errors.name = "Please tell us your name.";
     if (!mobile) errors.mobile = "Enter a valid 10-digit mobile number.";
-    if (!validEmail(email)) errors.email = "Enter a valid email address.";
+  if (!whatsapp) errors.whatsapp = "Enter a valid 10-digit WhatsApp number.";
+    if (email && !validEmail(email)) errors.email = "Enter a valid email address.";
     if (Object.keys(errors).length) return reply({ errors }, 400);
     if (!sheetReady) { await ensureSheet(SHEETS.chatLeads, [...CHAT_LEAD_COLUMNS]); sheetReady = true; }
-    const values: Record<string, string> = { chat_id: "", submitted_at: new Date().toISOString(), name, mobile, email, looking_for: looking, questions, page };
+    const values: Record<string, string> = { chat_id: "", submitted_at: new Date().toISOString(), name, mobile, whatsapp, email, looking_for: looking, questions, page };
     const row = await appendRow(SHEETS.chatLeads, CHAT_LEAD_COLUMNS.map((c) => values[c] ?? ""));
     const id = await mintId(SHEETS.chatLeads, "MRC-CH-", row);
     await setCell(SHEETS.chatLeads, `A${row}`, id);
     await Promise.all([
-      notifySales(`Chat lead ${id}: ${name} · ${mobile}`, { ID: id, Name: name, Mobile: mobile, Email: email, "Looking for": looking, "Asked": questions, Page: page }),
+      notifySales(`Chat lead ${id}: ${name} · ${mobile}`, { ID: id, Name: name, Mobile: mobile, WhatsApp: whatsapp, Email: email, "Looking for": looking, "Asked": questions, Page: page }),
       sendEnquiryAckEmail(email, name, mobile, looking || "Chat enquiry"),
-      sendEnquiryAck(mobile, name, looking || "our plots at ANANTAA"),
+      sendEnquiryAck(whatsapp, name, looking || "our plots at ANANTAA"),
     ]).catch((err) => console.error("[chat lead] notify failed:", err));
     return reply({ ok: true, id });
   }

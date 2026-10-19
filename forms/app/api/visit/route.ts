@@ -52,10 +52,11 @@ export async function POST(req: Request) {
     if (field.required && !values[field.key]) errors[field.key] = s.required;
   }
 
-  if (values.visitor_mobile && !errors.visitor_mobile) {
-    const clean = normalisePhone(values.visitor_mobile);
-    if (!clean) errors.visitor_mobile = s.badMobile;
-    else values.visitor_mobile = clean;
+  for (const key of ["visitor_mobile", "visitor_whatsapp"] as const) {
+    if (!values[key] || errors[key]) continue;
+    const clean = normalisePhone(values[key]);
+    if (!clean) errors[key] = s.badMobile;
+    else values[key] = clean;
   }
 
   // Attribution is money, so an unknown partner ID is a hard error rather than
@@ -96,7 +97,7 @@ export async function POST(req: Request) {
   // Fire and forget — the lead is already saved, messaging must not risk it.
   await Promise.all([
     sendVisitConfirmation(
-      values.visitor_mobile,
+      values.visitor_whatsapp || values.visitor_mobile,
       values.visitor_name,
       requirement,
       values.budget,
@@ -111,7 +112,7 @@ export async function POST(req: Request) {
       `${values.visit_date} (${values.visit_time})`,
     ),
     notifySales(`Site visit request ${leadId}: ${values.visitor_name}`, {
-      Lead: leadId, Name: values.visitor_name, Mobile: values.visitor_mobile, Email: values.visitor_email,
+      Lead: leadId, Name: values.visitor_name, Mobile: values.visitor_mobile, WhatsApp: values.visitor_whatsapp, Email: values.visitor_email,
       From: values.visitor_location, "Looking for": requirement, Budget: values.budget,
       "Preferred visit": `${values.visit_date} (${values.visit_time})`, "Via partner": cpName || "direct",
     }),

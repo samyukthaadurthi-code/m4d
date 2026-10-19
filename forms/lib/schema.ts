@@ -60,7 +60,6 @@ export const REGISTRATION_FIELDS: Field[] = [
     label: "Email address",
     ta: "மின்னஞ்சல்",
     type: "email",
-    required: true,
     placeholder: "your@email.com",
   },
   {
@@ -166,13 +165,48 @@ export const REGISTRATION_FIELDS: Field[] = [
 ];
 
 // Columns written to the sheet, in order. Column A is always the unique ID.
-export const REGISTRATION_COLUMNS = [
+/**
+ * A sheet's columns: the order it already has, with any newly added field
+ * appended at the end.
+ *
+ * These lists used to be built straight from the field order, so inserting a
+ * field into the middle of a form moved every column after it. The header
+ * moved; the thousands of rows already written did not. Records then read back
+ * with one person's budget sitting under another person's heading — the same
+ * class of fault that once gave two brokers the same badge ID.
+ *
+ * So the arrays below are history. They are never reordered and never pruned:
+ * the repeated "consent" is part of that history too, and tidying it away
+ * would shift every column after it. A field added to a form lands at the end
+ * of the sheet, wherever it sits on screen.
+ */
+const sheetColumns = (history: readonly string[], fields: Field[]) => [
+  ...history,
+  ...fields.map((f) => f.key).filter((k) => !history.includes(k)),
+];
+
+/** Frozen: the order this sheet is already written in. Never reorder. */
+const REGISTRATION_HISTORY = [
   "unique_id",
   "registered_at",
   "source",
-  ...REGISTRATION_FIELDS.map((f) => f.key),
+  "full_name",
+  "mobile",
+  "whatsapp",
+  "email",
+  "partner_type",
+  "organisation_name",
+  "operating_areas",
+  "address",
+  "experience_years",
+  "primary_segment",
+  "primary_audience",
+  "cp_interested",
   "consent",
-];
+  "consent",
+] as const;
+
+export const REGISTRATION_COLUMNS = sheetColumns(REGISTRATION_HISTORY, REGISTRATION_FIELDS);
 
 // Channel Partner programme form. PAN, GST and RERA are collected here rather
 // than at registration — asking for tax numbers at a busy event desk visibly
@@ -250,15 +284,25 @@ export const CP_FIELDS: Field[] = [
   },
 ];
 
-export const CP_COLUMNS = [
+/** Frozen: the order this sheet is already written in. Never reorder. */
+const CP_HISTORY = [
   "unique_id",
   "submitted_at",
   "full_name",
   "mobile",
-  ...CP_FIELDS.map((f) => f.key),
-  "status", // Pending → Approved (via the approve link in the sales alert, or typed in the sheet)
+  "pan",
+  "rera_id",
+  "pincode",
+  "team_size",
+  "monthly_closures",
+  "notes",
+  "gst",
   "consent",
-];
+  "status",
+  "consent",
+] as const;
+
+export const CP_COLUMNS = sheetColumns(CP_HISTORY, CP_FIELDS);
 export const CP_APPROVED = "Approved";
 
 // Site visit form — filled by the CUSTOMER at a separate station, not the broker.
@@ -279,6 +323,15 @@ export const VISIT_FIELDS: Field[] = [
     required: true,
     placeholder: "10-digit mobile number",
     placeholderTa: "10 இலக்க மொபைல் எண்",
+  },
+  {
+    key: "visitor_whatsapp",
+    label: "WhatsApp number",
+    ta: "வாட்ஸ்அப் எண்",
+    type: "tel",
+    required: true,
+    placeholder: "10-digit WhatsApp number",
+    placeholderTa: "10 இலக்க வாட்ஸ்அப் எண்",
   },
   {
     key: "visitor_email",
@@ -380,14 +433,28 @@ export const VISIT_FIELDS: Field[] = [
   },
 ];
 
-export const VISIT_COLUMNS = [
+/** Frozen: the order this sheet is already written in. Never reorder. */
+const VISIT_HISTORY = [
   "lead_id",
   "submitted_at",
   "source",
-  "cp_name", // resolved from cp_id at submission, so the sheet is readable
-  ...VISIT_FIELDS.map((f) => f.key),
+  "cp_name",
+  "visitor_name",
+  "visitor_mobile",
+  "visitor_email",
+  "visitor_location",
+  "referred_by_cp",
+  "cp_id",
+  "plot_preference",
+  "amenities_preference",
+  "budget",
+  "visit_date",
+  "visit_time",
   "consent",
-];
+  "consent",
+] as const;
+
+export const VISIT_COLUMNS = sheetColumns(VISIT_HISTORY, VISIT_FIELDS);
 
 export const SHEETS = {
   registrations: "Registrations",
@@ -438,6 +505,7 @@ export const FORUM_COLUMNS = [
   "organisation",
   "city",
   "consent",
+  "whatsapp",
 ] as const;
 
 export const CHAT_LEAD_COLUMNS = [
@@ -449,6 +517,7 @@ export const CHAT_LEAD_COLUMNS = [
   "looking_for",
   "questions",
   "page",
+  "whatsapp",
 ] as const;
 
 export const ENQUIRE_NOW_COLUMNS = [
@@ -461,6 +530,7 @@ export const ENQUIRE_NOW_COLUMNS = [
   "message",
   "page",
   "consent",
+  "whatsapp",
 ] as const;
 
 export const ENQUIRY_COLUMNS = [
@@ -472,6 +542,7 @@ export const ENQUIRY_COLUMNS = [
   "interest",
   "page",
   "consent",
+  "whatsapp",
 ] as const;
 
 /**

@@ -28,12 +28,17 @@ export async function POST(req: Request) {
   const name = str("name"), email = str("email"), organisation = str("organisation"), city = str("city");
   const profession = PROFESSIONS.has(str("profession")) ? str("profession") : "";
   const mobile = tenDigits(str("mobile"));
+  // Required by every form now. Falls back to the mobile so a visitor on a cached
+  // copy of the old page still reaches us — losing the lead would be worse than
+  // messaging the one number they did give.
+  const whatsapp = tenDigits(str("whatsapp")) || mobile;
   const consent = body.consent === true || body.consent === "yes";
 
   const errors: Record<string, string> = {};
   if (!name) errors.name = "Please tell us your name.";
   if (!mobile) errors.mobile = "Enter a valid 10-digit mobile number.";
-  if (!validEmail(email)) errors.email = "Enter a valid email address.";
+  if (!whatsapp) errors.whatsapp = "Enter a valid 10-digit WhatsApp number.";
+  if (email && !validEmail(email)) errors.email = "Enter a valid email address.";
   if (!profession) errors.profession = "Pick what you do.";
   if (!consent) errors.consent = "Please tick the box so we can contact you.";
   if (Object.keys(errors).length) return reply({ errors }, 400);
@@ -44,7 +49,7 @@ export async function POST(req: Request) {
   }
   const values: Record<string, string> = {
     forum_id: "", submitted_at: new Date().toISOString(),
-    name, mobile, email, profession, organisation, city, consent: "yes",
+    name, mobile, whatsapp, email, profession, organisation, city, consent: "yes",
   };
   const row = await appendRow(SHEETS.forum, FORUM_COLUMNS.map((c) => values[c] ?? ""));
   const id = await mintId(SHEETS.forum, "MRC-FW-", row);
@@ -52,10 +57,10 @@ export async function POST(req: Request) {
 
   await Promise.all([
     notifySales(`MRC Forum early access ${id}: ${name} · ${profession}`, {
-      ID: id, Name: name, Mobile: mobile, Email: email, Profession: profession, Organisation: organisation, City: city,
+      ID: id, Name: name, Mobile: mobile, WhatsApp: whatsapp, Email: email, Profession: profession, Organisation: organisation, City: city,
     }, forumDesk()),
     sendForumWaitlistEmail(email, name, id),
-    sendForumWaitlist(mobile, name),
+    sendForumWaitlist(whatsapp, name),
   ]).catch((err) => console.error("[forum] notify failed:", err));
 
   return reply({ ok: true, id });

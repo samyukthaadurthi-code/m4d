@@ -25,12 +25,17 @@ export async function POST(req: Request) {
   const str = (k: string, max = 200) => (typeof body[k] === "string" ? (body[k] as string).trim().slice(0, max) : "");
   const name = str("name"), email = str("email"), city = str("city"), message = str("message", 1000), page = str("page", 120);
   const mobile = tenDigits(str("mobile"));
+  // Required by every form now. Falls back to the mobile so a visitor on a cached
+  // copy of the old page still reaches us — losing the lead would be worse than
+  // messaging the one number they did give.
+  const whatsapp = tenDigits(str("whatsapp")) || mobile;
   const consent = body.consent === true || body.consent === "yes";
 
   const errors: Record<string, string> = {};
   if (!name) errors.name = "Please tell us your name.";
   if (!mobile) errors.mobile = "Enter a valid 10-digit mobile number.";
-  if (!validEmail(email)) errors.email = "Enter a valid email address.";
+  if (!whatsapp) errors.whatsapp = "Enter a valid 10-digit WhatsApp number.";
+  if (email && !validEmail(email)) errors.email = "Enter a valid email address.";
   if (!consent) errors.consent = "Please tick the box so we can contact you.";
   if (Object.keys(errors).length) return reply({ errors }, 400);
 
@@ -40,16 +45,16 @@ export async function POST(req: Request) {
   }
   const values: Record<string, string> = {
     enquire_id: "", submitted_at: new Date().toISOString(),
-    name, mobile, email, city, message, page, consent: "yes",
+    name, mobile, whatsapp, email, city, message, page, consent: "yes",
   };
   const row = await appendRow(SHEETS.enquireNow, ENQUIRE_NOW_COLUMNS.map((c) => values[c] ?? ""));
   const id = await mintId(SHEETS.enquireNow, "MRC-EN-", row);
   await setCell(SHEETS.enquireNow, `A${row}`, id);
 
   await Promise.all([
-    notifySales(`Enquire now ${id}: ${name} · ${mobile}`, { ID: id, Name: name, Mobile: mobile, Email: email, City: city, Message: message, Page: page }),
+    notifySales(`Enquire now ${id}: ${name} · ${mobile}`, { ID: id, Name: name, Mobile: mobile, WhatsApp: whatsapp, Email: email, City: city, Message: message, Page: page }),
     sendEnquiryAckEmail(email, name, mobile, message ? "Your enquiry" : "General enquiry"),
-    sendEnquiryAck(mobile, name, "our plots at ANANTAA"),
+    sendEnquiryAck(whatsapp, name, "our plots at ANANTAA"),
   ]).catch((err) => console.error("[enquire-now] notify failed:", err));
 
   return reply({ ok: true, id });
